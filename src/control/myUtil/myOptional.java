@@ -2,6 +2,7 @@ package control.myUtil;
 
 import java.io.Serializable;
 import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
 /** 
  * Class created to provide a Optional class Serializable
@@ -101,6 +102,17 @@ public class myOptional <E> implements Serializable {
 				+ this.element.toString() 
 				+ " ] ";
 		return r_v;
+	}
+	
+	/**
+	 * If a value is present, and the value matches the given predicate, return an Optional describing the value, 
+	 * otherwise return an empty Optional.
+	 * @param predicate
+	 * @return
+	 */
+	
+	public boolean filter(Predicate<? super E> predicate){
+		return predicate.test(this.element);
 	}
 	/*
 	 * Private class to set the element
