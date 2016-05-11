@@ -1,7 +1,7 @@
 /**
  * 
  */
-package scout;
+package model;
 
 /**
  * @author riccardo soro
