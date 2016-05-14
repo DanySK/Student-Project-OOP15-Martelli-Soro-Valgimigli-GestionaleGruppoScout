@@ -1,9 +1,8 @@
 package control.exception;
 /**
- * Exception creata per segnalare un eventuale errore nell'immisione dei dati di un ragazzo
- * Questa eccezione viene lanciata quando viene inserito un mebro che copre una posizione gerarchica
- * gia occupata da altri. 
- * Infatti ogni Squadriglia può ospitare solo un membro per ogni posizione gerarchica.
+ *Exception create to signal error during creation of a memeber. 
+ *This exception is launched when the member submitted covers a not free position in the hierarchy
+ *Each member in a squadron must have a different position
  * @author lorenzo
  *
  */

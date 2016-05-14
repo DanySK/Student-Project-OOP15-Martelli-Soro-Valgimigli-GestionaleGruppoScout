@@ -1,8 +1,9 @@
 package control.exception;
 /**
- * Exception creata per segnalare un eventuale errore nell'immisione dei dati di un ragazzo
- * Questa eccezione viene lanciata quando viene inserita un eta sbagliata. 
- * Infatti  nel reparto ci sono solo ragazzi di età compresa tra gli 11 e i 17 anni
+ *Exception create to signal error during creation of a member. 
+ *This exception is launched when the member submitted has an age out of bound
+ *Each member in a Unit must have an age between 12 to 17 age.
+ * (the bounds can be different in different groups)
  * @author lorenzo
  *
  */

@@ -1,9 +1,8 @@
 package control.exception;
 /**
- * Exception creata per segnalare un eventuale errore nell'immisione dei dati di un ragazzo
- * Questa eccezione viene lanciata quando viene assegnato un ruolo ad un ragazzo gia svolto da 
- * qualcun'altro. 
- * Infatti ogni Squadriglia deve avere al massimo un membro per ogni ruolo (Non tutti i ruoli devono essere presenti).
+ *Exception create to signal error during creation of a member. 
+ *This exception is launched when the member submitted covers a not free rule
+ *Each member in a squadron must have a different rule
  * @author lorenzo
  *
  */
