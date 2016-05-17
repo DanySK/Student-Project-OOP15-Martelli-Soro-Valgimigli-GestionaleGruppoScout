@@ -4,15 +4,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import control.myUtil.myOptional;
+import model.*;
 
 public class projectFactoryimpl implements projectFactory {
-	private Member prj_member = null;
-	private Squadron prj_squadron = null;
-	private Excursion prj_excursion = null;
-	private Tax prj_tax = null;
-	//private Sentiero prj_sentiero = null;
-	private Target prj_target = null;
-	
 	/**
 	 * Returns a Instance of class Member. This method wants only basic parameters
 	 * @param nome
@@ -23,9 +17,9 @@ public class projectFactoryimpl implements projectFactory {
 	
 	static public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita){
 		try{
-			this.prj_member = new Memberimpl(nome, cognome, dataNascita);
-		}catch(ErrorMemberException e){
-			// deve fare qualcosa
+			Member prj_member = new Memberimpl(nome, cognome, dataNascita);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
 		}
 		
 		return this.prj_membro;
@@ -44,10 +38,10 @@ public class projectFactoryimpl implements projectFactory {
 	static public Member getMember(String nome, String cognome, LocalDate dataNascita,
 			myOptional<String> nomeTutor, myOptional<String> mailTutor, myOptional<String> telefonoTutor){
 		try{
-			this.prj_member = new Memberimpl(String nome, String cognome, LocalDate dataNascita,
+			Member prj_member = new Memberimpl(String nome, String cognome, LocalDate dataNascita,
 					myOptional<String> nomeTutor, myOptional<String> mailTutor, myOptional<String> telefonoTutor);
 		}catch(Exception e){
-			// deve fare qualcosa
+			new WarningNotice(e.getMessage());
 		}
 		return this.prj_membro
 	}

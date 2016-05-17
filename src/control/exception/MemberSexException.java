@@ -1,9 +1,9 @@
 package control.exception;
 
 /**
- * Exception creata per segnalare un eventuale errore nell'immisione dei dati di un ragazzo
- * Questa eccezione viene lanciata quando viene inserita una sessualità sbagliata. 
- * Infatti ogni Squadriglia può ospitare persone tutto dello stesso sesso.
+ *Exception create to signal error during creation of a memeber. 
+ *This exception is launched when the sex of the member submitted is different from the Squadron sex
+ *Each member in a squadron must have the same sex
  * @author lorenzo
  *
  */
