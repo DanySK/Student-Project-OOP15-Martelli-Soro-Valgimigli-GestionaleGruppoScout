@@ -55,14 +55,14 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * 
 	 * @return
 	 */
-	public boolean getSesso(){
+	public Boolean getSesso(){
 		return this.sessoSq;
 	}
 	/**
 	 * 
 	 * @param sex
 	 */
-	public void setSesso(final boolean sex){
+	public void setSesso(final Boolean sex){
 		this.sessoSq = sex;
 	}
 	/**
@@ -154,7 +154,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @return
 	 */
 	public Map<Member, Roles> getMembri(){
-		return new HashMap<Member, Roles>(this.roles);
+		return this.roles;
 	}
 	/**
 	 * 
@@ -182,6 +182,10 @@ public class SquadronImpl implements Serializable,Squadron{
 	public float getCash(){
 		return cash;
 	}
+	
+
+
+	
 	
 }
 

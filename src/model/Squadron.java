@@ -1,8 +1,11 @@
 package model;
+
+
+
+
 public interface Squadron {
-	import java.io.Serializable;
-	import java.util.HashMap;
-	import java.util.Map;
+	
+	
 	/**
 	 * Class that describes a squadriglia providing all functions.
 	 * @author riccardo
@@ -115,4 +118,4 @@ public interface Squadron {
 	}
 
 
-}
+
