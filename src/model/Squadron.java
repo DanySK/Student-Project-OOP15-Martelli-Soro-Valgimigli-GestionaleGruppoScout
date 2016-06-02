@@ -1,7 +1,6 @@
 package model;
 
-
-
+import java.util.Map;
 
 public interface Squadron {
 	
@@ -105,9 +104,19 @@ public interface Squadron {
 		 */
 		public void addMembro(final Member membro, final Roles ruolo);
 		/**
+		 * 
+		 * @param membro
+		 * @return true if the member is contained
+		 */
+		public boolean containMember (final Member membro);
+		
+		
+		/**
 		 * set the cash of the squadron
 		 * @param cash
 		 */
+		
+		
 		public void setCash(final float cash);
 		/**
 		 * 
