@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.List;
 /**
  * @author riccardo
@@ -10,15 +11,32 @@ import java.util.List;
  *
  */
 public interface Member {
-		
-
-
+	/**
+	 * 
+	 * @return true if today is the birthday
+	 */
+	public Boolean isBirthday();
+	/**
+	 * 
+	 * @return the birthday
+	 */
+	public LocalDate getBirthday ();
+	/**
+	 * 
+	 * @return the surname
+	 */
+	public String getSurname ();
+		/**
+		 * 
+		 * @return the name
+		 */
+		public String getName ();
 	 	/**
 	 	 * Add a competence. 
 	 	 * @return false if the competent is already contained
 	 	 * @param competence
 	 	 */
-	   boolean addCompetence (String competence);
+	   public boolean addCompetence (String competence);
 			
 	   	/**
 		 * @return a list of the competences of the member

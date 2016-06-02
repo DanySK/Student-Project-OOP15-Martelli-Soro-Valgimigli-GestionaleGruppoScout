@@ -1,18 +1,17 @@
 package model;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import control.myUtil.myOptional;
+
 public class MemberImpl extends Person implements Serializable,Member{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private String name;
 private String surname;
 //private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -21,7 +20,7 @@ private List <String> competence;
 private List <String> specialities;
 //private Sentiero sentiero;
 private Boolean promise;
-private String totem;
+private myOptional<String> totem;
 
 
 public MemberImpl(String name,String surname,LocalDate birthday){
@@ -30,7 +29,7 @@ public MemberImpl(String name,String surname,LocalDate birthday){
 	//this.sentiero=new Sentiero();
 	this.specialities=new ArrayList<>();
 	this.promise=false;
-	this.totem=null;
+	this.totem= myOptional.empty();
 }
 public MemberImpl (String name,String surname,LocalDate birthday,Boolean promise,
 		String totem,List<String> competence,List<String> specialities){
@@ -39,7 +38,7 @@ public MemberImpl (String name,String surname,LocalDate birthday,Boolean promise
 	this.specialities=new ArrayList <>(specialities);
 	//this.sentiero=new Sentiero(liv,livello,fede,scuola,famiglia,relazioni);
 	this.promise=promise;
-	this.totem=totem;
+	this.totem=myOptional.of(totem);
 }
 
 //public Sentiero getSentiero (){
@@ -111,11 +110,24 @@ public boolean hasTotem(){
  * @param totem
  */
 public void setTotem(String totem){
-    this.totem=totem;
+    this.totem=myOptional.of(totem);
 }
 public String getTotem (){
-	return this.totem;
+	return this.totem.get();
 }
+public String getName (){
+	return this.name;
+}
+public String getNSurname (){
+	return this.surname;
+}
+public LocalDate getBirthday () {
+	return this.birthday;
+}
+public Boolean isBirthday(){//da testare
+	return (LocalDate.now().getDayOfYear()==(this.birthday.getDayOfYear()));
+}
+
 /**
  * 
  * @return
