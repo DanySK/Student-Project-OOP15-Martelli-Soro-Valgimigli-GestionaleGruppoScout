@@ -80,11 +80,10 @@ public boolean containsSpecialities (String specialities){/*return true if the c
     return this.specialities.contains(specialities);
 }
 public boolean removeCompetence (String competence){/*return false if the competent is not already contained*/
-	if (this.competence.contains(competence)){
-		this.competence.remove(competence);
-		return true;
-	}
-	return false;
+	
+		return this.competence.remove(competence);
+		
+	
 }
 public boolean containsCompetence (String competence){/*return true if the competent is contained*/
 	return this.competence.contains(competence);

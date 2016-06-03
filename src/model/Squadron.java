@@ -103,6 +103,9 @@ public interface Squadron {
 		 * @param ruolo
 		 */
 		public void addMembro(final Member membro, final Roles ruolo);
+		public void removeMembro (final Member){
+			
+		}
 		/**
 		 * 
 		 * @param membro
