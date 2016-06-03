@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import control.exception.MemberSexException;
+import control.exception.MoreLeadersNotPermitException;
 import control.myUtil.myOptional;
 /**
  * Class that describes a squadriglia providing all functions.
@@ -20,9 +21,9 @@ public class SquadronImpl implements Serializable,Squadron{
 
 	private Map<Member,Roles> map;
 	
-	private myOptional<String> capoSq;
-	private myOptional<String> viceSq;
-	private myOptional<String> triceSq;
+	private myOptional<Member> capoSq;
+	private myOptional<Member> viceSq;
+	private myOptional<Member> triceSq;
 	
 	private String nomeSq;
 	private Boolean sessoSq;	//true maschi, false donne
@@ -42,6 +43,9 @@ public class SquadronImpl implements Serializable,Squadron{
 		this.sessoSq = sesso;
 		this.cash=(float)0;
 		map=new HashMap<>();
+		capoSq=myOptional.empty();
+		viceSq=myOptional.empty();
+		triceSq=myOptional.empty();
 	}
 	/**
 	 * 
@@ -70,52 +74,58 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param sex
 	 */
 	public void setSesso(final Boolean sex){
-		if (sex==null) throw new IllegalArgumentException();
+		if (sex.equals(null)) throw new IllegalArgumentException();
 		this.sessoSq = sex;
 	}
 	/**
 	 * 
 	 * @param capo
+	 * @throws MoreLeadersNotPermitException 
 	 */
-	public void setCapoSq(final String capo){
-		if (capo==null) throw new IllegalArgumentException();
+	public void setCapoSq(final Member capo) throws MoreLeadersNotPermitException{
+		if (capo.equals(null)) throw new IllegalArgumentException();
+		if (!this.getCapo().equals(null)) throw new MoreLeadersNotPermitException();
 		this.capoSq= myOptional.of(capo);
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public String getCapo(){
+	public Member getCapo(){
 		return this.capoSq.get();
 	}
 	/**
 	 * 
 	 * @param vicecapo
+	 * @throws MoreLeadersNotPermitException 
 	 */
-	public void setVicecapoSq(final String vicecapo){
-		if (vicecapo==null) throw new IllegalArgumentException();
+	public void setVicecapoSq(final Member vicecapo) throws MoreLeadersNotPermitException{
+		if (vicecapo.equals(null)) throw new IllegalArgumentException();
+		if (!this.getVice().equals(null)) throw new MoreLeadersNotPermitException();
 		this.viceSq= myOptional.of(vicecapo);
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public String getVice(){
+	public Member getVice(){
 		return this.viceSq.get();
 	}
 	/**
 	 * 
 	 * @param trice
+	 * @throws MoreLeadersNotPermitException 
 	 */
-	public void setTriceSq(final String trice){
-		if (trice==null) throw new IllegalArgumentException();
+	public void setTriceSq(final Member trice) throws MoreLeadersNotPermitException{
+		if (trice.equals(null)) throw new IllegalArgumentException();
+		if (!this.getTrice().equals(null)) throw new MoreLeadersNotPermitException();
 		this.triceSq= myOptional.of(trice);
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public String getTrice(){
+	public Member getTrice(){
 		return this.triceSq.get();
 	}
 	/**
@@ -130,7 +140,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param note
 	 */
 	public void setNoteCassa(final String note){
-		if (note==null) throw new IllegalArgumentException();
+		if (note.equals(null)) throw new IllegalArgumentException();
 		this.noteCassa = myOptional.of(note);
 	}
 	/**
@@ -145,7 +155,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param note
 	 */
 	public void setNoteBatteria(final String note){
-		if (note==null) throw new IllegalArgumentException();
+		if (note.equals(null)) throw new IllegalArgumentException();
 		this.noteBatteria= myOptional.of(note);
 	}
 	/**
@@ -160,7 +170,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param note
 	 */
 	public void setNoteCancelleria(final String note){
-		if (note==null) throw new IllegalArgumentException();
+		if (note.equals(null)) throw new IllegalArgumentException();
 		this.noteCancelleria= myOptional.of(note);
 	}
 	/**                                                                                                                
@@ -179,8 +189,8 @@ public class SquadronImpl implements Serializable,Squadron{
 		return this.map.containsKey(membro);
 	}
 	public Boolean addMembro(final Member membro, final Roles ruolo) throws MemberSexException{
-		if (membro==null || ruolo==null) throw new IllegalArgumentException();
-		if (membro.getSex()!=this.sessoSq) throw new MemberSexException();
+		if (membro.equals(null) || ruolo.equals(null)) throw new IllegalArgumentException();
+		if (!membro.getSex().equals(this.sessoSq)) throw new MemberSexException();
 		if (map.containsKey(membro)) return false;
 		map.put(membro, ruolo);
 		return true;
@@ -192,7 +202,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param cash
 	 */
 	public void setCash(final Float cash){
-		if (cash==null) throw new IllegalArgumentException();
+		if (cash.equals(null)) throw new IllegalArgumentException();
 		if (cash<0) throw new IllegalArgumentException();
 		this.cash = cash;
 	}
@@ -205,12 +215,30 @@ public class SquadronImpl implements Serializable,Squadron{
 	}
 	@Override
 	public Boolean removeMembro(Member membro) {
-		if (membro==null) throw new IllegalArgumentException();
+		if (membro.equals(null)) throw new IllegalArgumentException();
 		if (map.containsKey(membro)){
 			map.remove(membro);
 			return true;
 		}
 		return false;
+	}
+	@Override
+	public Boolean removeCapo() {
+		if (this.getCapo().equals(myOptional.empty())) return false;
+		this.capoSq=myOptional.empty();
+		return true;
+	}
+	@Override
+	public Boolean removeVice() {
+		if (this.getVice().equals(myOptional.empty())) return false;
+		this.viceSq=myOptional.empty();
+		return true;
+	}
+	@Override
+	public Boolean removeTrice() {
+		if (this.getTrice().equals(myOptional.empty())) return false;
+		this.triceSq=myOptional.empty();
+		return true;
 	}
 	
 

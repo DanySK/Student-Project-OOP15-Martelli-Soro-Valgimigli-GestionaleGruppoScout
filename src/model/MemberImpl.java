@@ -7,7 +7,7 @@ import java.util.List;
 
 import control.myUtil.myOptional;
 
-public class MemberImpl extends PersonImpl implements Serializable,Member{
+public class MemberImpl extends PersonImpl implements Serializable,Member,Person{
 /**
 	 * 
 	 */

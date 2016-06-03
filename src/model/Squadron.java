@@ -3,6 +3,7 @@ package model;
 import java.util.Map;
 
 import control.exception.MemberSexException;
+import control.exception.MoreLeadersNotPermitException;
 
 public interface Squadron {
 	
@@ -37,33 +38,53 @@ public interface Squadron {
 		/**
 		 * set the 1st boss of the squadron
 		 * @param capo
+		 * @throws MoreLeadersNotPermitException 
 		 */
-		public void setCapoSq(final String capo);
+		public void setCapoSq(final Member capo) throws MoreLeadersNotPermitException;
 		/**
 		 * 
 		 * @returna a String contained the name of 1st boss of the squadron
 		 */
-		public String getCapo();
+		public Member getCapo();
+		/**
+		 * remove the capo
+		 * @return false if capo does not exist
+		 */
+		public Boolean removeCapo();
+			
+		
 		/**
 		 * set the 2nd boss of the squadron
 		 * @param vicecapo
+		 * @throws MoreLeadersNotPermitException 
 		 */
-		public void setVicecapoSq(final String vicecapo);
+		public void setVicecapoSq(final Member vicecapo) throws MoreLeadersNotPermitException;
 		/**
 		 * 
 		 * @returna a String contained the name of 2nd boss of the squadron
 		 */
-		public String getVice();
+		public Member getVice();
+		/**
+		 * remove the vicecapo
+		 * @return false if vicecapo does not exist
+		 */
+		public Boolean removeVice();
 		/**
 		 * set the 3rd boss of the squadron
 		 * @param trice
+		 * @throws MoreLeadersNotPermitException 
 		 */
-		public void setTriceSq(final String trice);
+		public void setTriceSq(final Member trice) throws MoreLeadersNotPermitException;
 		/**
 		 * 
 		 * @return a String contained the name of the 3rd boss of the squadron
 		 */
-		public String getTrice();
+		public Member getTrice();
+		/**
+		 * remove the tricecapo
+		 * @return false if tricecapo does not exist
+		 */
+		public Boolean removeTrice();
 		/**
 		 * 
 		 * @return a String conatined notes about the cash of the squadron
