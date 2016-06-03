@@ -14,18 +14,22 @@ public class Person implements Serializable {
 	private LocalDate birthday;
 	
 	public Person(String name, String surname, LocalDate birthday){
+		if (name==null || surname==null || birthday==null) throw new IllegalArgumentException();
 		this.name = name;
 		this.surname = surname;
 		this.birthday = birthday;
 	}
 	
 	public void setName (String name){
+		if (name==null) throw new IllegalArgumentException();
 		this.name=name;
 	}
 	public void setSurname (String surname){
+		if (surname==null) throw new IllegalArgumentException();
 		this.surname=surname;
 	}
 	public void setBirthday (LocalDate birthday){
+		if (birthday==null) throw new IllegalArgumentException();
 		this.birthday=birthday;
 	}
 	public String getName (){
