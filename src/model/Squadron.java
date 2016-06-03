@@ -102,7 +102,7 @@ public interface Squadron {
 		 * @param membro
 		 * @param ruolo
 		 */
-		public void addMembro(final Member membro, final Roles ruolo);
+		public Boolean addMembro(final Member membro, final Roles ruolo);
 		/**
 		 * 
 		 * @param membro
@@ -125,7 +125,7 @@ public interface Squadron {
 		 */
 		
 		
-		public void setCash(final float cash);
+		public void setCash(final Float cash);
 		/**
 		 * 
 		 * @return a float contaied the cash of the squadron

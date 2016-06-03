@@ -35,7 +35,8 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param nome
 	 * @param sesso
 	 */
-	public SquadronImpl(final String nome, final boolean sesso){
+	public SquadronImpl(final String nome, final Boolean sesso){
+		if (nome==null || sesso==null) throw new IllegalArgumentException();
 		this.nomeSq = nome;
 		this.sessoSq = sesso;
 		this.cash=(float)0;
@@ -46,6 +47,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param nome
 	 */
 	public void setNome(final String nome){
+		if (nome==null) throw new IllegalArgumentException();
 		this.nomeSq = nome;
 	}
 	/**
@@ -67,6 +69,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param sex
 	 */
 	public void setSesso(final Boolean sex){
+		if (sex==null) throw new IllegalArgumentException();
 		this.sessoSq = sex;
 	}
 	/**
@@ -74,6 +77,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param capo
 	 */
 	public void setCapoSq(final String capo){
+		if (capo==null) throw new IllegalArgumentException();
 		this.capoSq= myOptional.of(capo);
 	}
 	/**
@@ -88,6 +92,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param vicecapo
 	 */
 	public void setVicecapoSq(final String vicecapo){
+		if (vicecapo==null) throw new IllegalArgumentException();
 		this.viceSq= myOptional.of(vicecapo);
 	}
 	/**
@@ -102,6 +107,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param trice
 	 */
 	public void setTriceSq(final String trice){
+		if (trice==null) throw new IllegalArgumentException();
 		this.triceSq= myOptional.of(trice);
 	}
 	/**
@@ -123,6 +129,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param note
 	 */
 	public void setNoteCassa(final String note){
+		if (note==null) throw new IllegalArgumentException();
 		this.noteCassa = myOptional.of(note);
 	}
 	/**
@@ -137,6 +144,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param note
 	 */
 	public void setNoteBatteria(final String note){
+		if (note==null) throw new IllegalArgumentException();
 		this.noteBatteria= myOptional.of(note);
 	}
 	/**
@@ -151,6 +159,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 * @param note
 	 */
 	public void setNoteCancelleria(final String note){
+		if (note==null) throw new IllegalArgumentException();
 		this.noteCancelleria= myOptional.of(note);
 	}
 	/**                                                                                                                
@@ -168,18 +177,20 @@ public class SquadronImpl implements Serializable,Squadron{
 	public boolean containMember (final Member membro){
 		return this.map.containsKey(membro);
 	}
-	public void addMembro(final Member membro, final Roles ruolo){
-		if(membro != null && ruolo != null){
-			if(! this.map.values().stream().anyMatch(e -> e.equals(ruolo))){
-				this.map.putIfAbsent(membro, ruolo);
-			}
-		}
+	public Boolean addMembro(final Member membro, final Roles ruolo){
+		if (membro==null || ruolo==null) throw new IllegalArgumentException();
+		if (map.containsKey(membro)) return false;
+		map.put(membro, ruolo);
+		return true;
+			
+		
 	}
 	/**
 	 * 
 	 * @param cash
 	 */
-	public void setCash(final float cash){
+	public void setCash(final Float cash){
+		if (cash==null) throw new IllegalArgumentException();
 		if (cash<0) throw new IllegalArgumentException();
 		this.cash = cash;
 	}
@@ -192,6 +203,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	}
 	@Override
 	public Boolean removeMembro(Member membro) {
+		if (membro==null) throw new IllegalArgumentException();
 		if (map.containsKey(membro)){
 			map.remove(membro);
 			return true;
