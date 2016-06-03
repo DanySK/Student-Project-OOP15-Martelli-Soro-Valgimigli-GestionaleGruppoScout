@@ -7,7 +7,7 @@ import java.util.List;
 
 import control.myUtil.myOptional;
 
-public class MemberImpl extends Person implements Serializable,Member{
+public class MemberImpl extends PersonImpl implements Serializable,Member{
 /**
 	 * 
 	 */
@@ -20,17 +20,17 @@ private Boolean promise;
 private myOptional<String> totem;
 
 
-public MemberImpl(String name,String surname,LocalDate birthday){
-	super (name, surname, birthday);
+public MemberImpl(String name,String surname,LocalDate birthday,Boolean sex){
+	super (name, surname, birthday,sex);
 	this.competence=new ArrayList<>();
 	//this.sentiero=new Sentiero();
 	this.specialities=new ArrayList<>();
 	this.promise=false;
 	this.totem= myOptional.empty();
 }
-public MemberImpl (String name,String surname,LocalDate birthday,Boolean promise,
+public MemberImpl (String name,String surname,LocalDate birthday,Boolean sex,Boolean promise,
 		String totem,List<String> competence,List<String> specialities){
-	super (name, surname, birthday);
+	super (name, surname, birthday,sex);
 	this.competence=new ArrayList<>(competence);
 	this.specialities=new ArrayList <>(specialities);
 	//this.sentiero=new Sentiero(liv,livello,fede,scuola,famiglia,relazioni);

@@ -10,7 +10,7 @@ import java.util.List;
  * An interface modelling a member of the unit
  *
  */
-public interface Member {
+public interface Member extends Person{
 	/**
 	 * 
 	 * @return true if today is the birthday
