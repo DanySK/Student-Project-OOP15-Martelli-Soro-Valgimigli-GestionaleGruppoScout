@@ -2,6 +2,8 @@ package model;
 
 import java.util.Map;
 
+import control.exception.MemberSexException;
+
 public interface Squadron {
 	
 	
@@ -101,8 +103,9 @@ public interface Squadron {
 		 * add a Member
 		 * @param membro
 		 * @param ruolo
+		 * @throws MemberSexException 
 		 */
-		public Boolean addMembro(final Member membro, final Roles ruolo);
+		public Boolean addMembro(final Member membro, final Roles ruolo) throws MemberSexException;
 		/**
 		 * 
 		 * @param membro

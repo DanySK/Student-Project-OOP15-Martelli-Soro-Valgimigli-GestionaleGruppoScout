@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import control.exception.MemberSexException;
 import control.myUtil.myOptional;
 /**
  * Class that describes a squadriglia providing all functions.
@@ -177,8 +178,9 @@ public class SquadronImpl implements Serializable,Squadron{
 	public boolean containMember (final Member membro){
 		return this.map.containsKey(membro);
 	}
-	public Boolean addMembro(final Member membro, final Roles ruolo){
+	public Boolean addMembro(final Member membro, final Roles ruolo) throws MemberSexException{
 		if (membro==null || ruolo==null) throw new IllegalArgumentException();
+		if (membro.getSex()!=this.sessoSq) throw new MemberSexException();
 		if (map.containsKey(membro)) return false;
 		map.put(membro, ruolo);
 		return true;
