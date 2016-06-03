@@ -190,6 +190,14 @@ public class SquadronImpl implements Serializable,Squadron{
 	public float getCash(){
 		return cash;
 	}
+	@Override
+	public Boolean removeMembro(Member membro) {
+		if (map.containsKey(membro)){
+			map.remove(membro);
+			return true;
+		}
+		return false;
+	}
 	
 
 

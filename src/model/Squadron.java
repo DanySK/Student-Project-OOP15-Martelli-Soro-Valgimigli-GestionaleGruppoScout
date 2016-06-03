@@ -103,9 +103,14 @@ public interface Squadron {
 		 * @param ruolo
 		 */
 		public void addMembro(final Member membro, final Roles ruolo);
-		public void removeMembro (final Member){
+		/**
+		 * 
+		 * @param membro
+		 * @return flase if the member is not contained
+		 */
+		public Boolean removeMembro (final Member membro);
 			
-		}
+		
 		/**
 		 * 
 		 * @param membro
