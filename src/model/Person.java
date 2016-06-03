@@ -37,4 +37,7 @@ public class Person implements Serializable {
 	public LocalDate getBirthday (){
 		return this.birthday;
 	}
+	public Boolean isBirthday(){//da testare
+		return (LocalDate.now().getDayOfYear()==(this.birthday.getDayOfYear()));
+	}
 }

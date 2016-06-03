@@ -12,10 +12,7 @@ public class MemberImpl extends Person implements Serializable,Member{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-private String name;
-private String surname;
-//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-private LocalDate birthday;
+
 private List <String> competence;
 private List <String> specialities;
 //private Sentiero sentiero;
@@ -115,18 +112,9 @@ public void setTotem(String totem){
 public String getTotem (){
 	return this.totem.get();
 }
-public String getName (){
-	return this.name;
-}
-public String getNSurname (){
-	return this.surname;
-}
-public LocalDate getBirthday () {
-	return this.birthday;
-}
-public Boolean isBirthday(){//da testare
-	return (LocalDate.now().getDayOfYear()==(this.birthday.getDayOfYear()));
-}
+
+
+
 
 /**
  * 
