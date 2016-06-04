@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.Map;
 
 import control.exception.MemberSexException;
@@ -155,6 +156,13 @@ public interface Squadron {
 		 * @return a float contaied the cash of the squadron
 		 */
 		public float getCash();
+		/**
+		 * 
+		 * @return a List<Member> contained the members celebreting their birthday
+		 * today.
+		 * a list without members will be returned if noone is celebreting birthday
+		 */
+		public List<Member> getMemberCelebretingBirthday();
 		
 	}
 

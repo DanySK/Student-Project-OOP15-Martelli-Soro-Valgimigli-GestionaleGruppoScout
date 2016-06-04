@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import control.exception.MemberSexException;
@@ -239,6 +241,14 @@ public class SquadronImpl implements Serializable,Squadron{
 		if (this.getTrice().equals(myOptional.empty())) return false;
 		this.triceSq=myOptional.empty();
 		return true;
+	}
+	@Override
+	public List<Member> getMemberCelebretingBirthday() {
+		List<Member> tmp=new ArrayList<>();
+		this.map.keySet().forEach(e->{
+			if (e.isBirthday()) tmp.add(e);
+		});
+		return tmp;
 	}
 	
 
