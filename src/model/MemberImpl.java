@@ -99,7 +99,7 @@ public void setPromise(boolean promessa){
     this.promise=promessa;
 }
 public boolean hasTotem(){
-    return ! this.totem.equals(myOptional.empy);
+    return ! this.totem.equals(myOptional.empty());
 }
 /**
  * 
