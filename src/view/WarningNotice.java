@@ -1,5 +1,4 @@
 package view;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /** @author Giovanni M. Martelli
