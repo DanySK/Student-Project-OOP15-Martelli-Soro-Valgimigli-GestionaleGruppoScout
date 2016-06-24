@@ -1,34 +1,35 @@
 package view.gui_utility;
 
+
 import java.awt.Toolkit;
 
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-public class MyFrameSingleton extends JFrame {
-	/**
-	 * A class model a JFrame using the Singleton pattern. Only one frame is(usualy) used in
-	 * this app, each window is painted changing the contentPane of the unique JFrame.
-	 * @author giovanni
-	 */
+/**
+ * A class that model a JFrame using the Singleton pattern. Only one frame is(usualy) used in
+ * this app, each window is painted changing the contentPane of the unique JFrame.
+ * @author giovanni
+ */
+public class MyJFrameSingletonImpl extends JFrame implements Runnable, MyJFrameSingleton{
+	
 	
 	private static final long serialVersionUID = -5285934581393069862L;
-	private static MyFrameSingleton myframe=null;
+	private static MyJFrameSingletonImpl myframe=null;
 	public final static int HEIGTH;
 	public final static int WIDTH;
 	private static JPanel myFramePanel=new JPanel();
 	
 	static {
-		HEIGTH=((int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/1.7));
+		HEIGTH=((int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/1.1));
 		WIDTH = ((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2);
 	}
 	/** private Constructor
 	 * 
 	 */
 	
-	private  MyFrameSingleton(){
+	private  MyJFrameSingletonImpl(){
 		this.setSize(WIDTH, HEIGTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		myFramePanel=new JPanel();
@@ -41,16 +42,16 @@ public class MyFrameSingleton extends JFrame {
 	 * 
 	 * @return MyFrameSingleton
 	 */
-	public static MyFrameSingleton getInstance(){
+	public static MyJFrameSingletonImpl getInstance(){
 		if(myframe==null){
-			myframe=new MyFrameSingleton();
+			myframe=new MyJFrameSingletonImpl();
 		}
 		return myframe;
 		
 	}
 	/**It set the ContentPane of MyFrameSingleton
 	 * 
-	 * @param panel
+	 * @param panel The main panel you want to set in this frame
 	 */
 	public void setPanel(JPanel panel){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -64,12 +65,18 @@ public class MyFrameSingleton extends JFrame {
 			}
 		});
 	}
-	/**It return the ContentPane of MyFrameSingleton
+	/**It returns the ContentPane of MyFrameSingleton
 	 * 
-	 * @return JPanel
+	 * @return JPanel	The main panel setted in this frame
 	 */
 	public JPanel getMyFramePanel(){
 		return myFramePanel;
 	}
-
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
