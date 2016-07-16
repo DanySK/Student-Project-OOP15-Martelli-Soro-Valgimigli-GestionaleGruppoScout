@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 /**@param stringa*/
 public class WarningNotice{
 	
-	String str;
-	WarningNotice(String stringa){
+	private final String str;
+	public WarningNotice(String stringa){
 		this.str = stringa;
 		JOptionPane.showMessageDialog(new JFrame(), str);
 	}
