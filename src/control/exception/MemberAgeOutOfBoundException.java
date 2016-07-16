@@ -17,7 +17,7 @@ public class MemberAgeOutOfBoundException extends Exception {
 	private static final String message = "Errore: gli anni inseriti sono fuori range";
 	
 	public String getMessage(){
-		return this.message;
+		return message;
 	}
 
 }

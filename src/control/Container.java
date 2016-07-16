@@ -3,6 +3,7 @@ package control;
 import java.util.List;
 import java.util.function.Predicate;
 
+import control.exception.EntityAlreadyExistsException;
 import model.Member;
 import model.Squadron;
 
@@ -22,7 +23,7 @@ public interface Container {
 	 * List of Members named Name
 	 * @throws IllegalArgumentException
 	 */
-	public List<Member> findMember(String Name)throws IllegalArgumentException;
+	public List<Member> findMember(String name)throws IllegalArgumentException;
 	/**
 	 * 
 	 * @return
@@ -35,7 +36,7 @@ public interface Container {
 	 * @return
 	 * A list of member which match with the Predicate
 	 */
-	public List<Member> members(Predicate p);
+	public List<Member> members(Predicate<? super Member> p);
 	/**
 	 * Research of a Squadron in the whole list
 	 * @param name
@@ -43,5 +44,15 @@ public interface Container {
 	 * Squadron researched
 	 */
 	public Squadron findSquadron(String name);
+	/**
+	 * 
+	 * @param m
+	 */
+	public void addMember(Member m) throws EntityAlreadyExistsException;
+	/**
+	 * 
+	 * @param sq
+	 */
+	public void addSquadron(Squadron sq)throws EntityAlreadyExistsException;
 
 }

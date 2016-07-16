@@ -15,6 +15,6 @@ public class ErrorSqRuleException extends Exception {
 	private static final String message = "Errore: inserito un membro che svolge un ruolo gia occupato";
 	
 	public String getMessage(){
-		return this.message;
+		return message;
 	}
 }

@@ -17,7 +17,7 @@ public class MoreLeadersNotPermitException extends Exception {
 			+ "non disponibile";
 	
 	public String getMessage(){
-		return this.message;
+		return message;
 	}
 
 }

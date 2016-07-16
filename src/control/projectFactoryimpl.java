@@ -1,5 +1,6 @@
 package control;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -7,8 +8,12 @@ import control.myUtil.myOptional;
 import model.*;
 import view.general_utility.WarningNotice;
 
-public class projectFactoryimpl implements projectFactory {
+public class projectFactoryimpl implements projectFactory, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6423409525615896639L;
 	@Override
 	public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
 		Member prj_member = null;

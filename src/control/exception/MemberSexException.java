@@ -18,6 +18,6 @@ public class MemberSexException extends Exception {
 			+ "con quello della squadirglia";
 	
 	public String getMessage(){
-		return this.message;
+		return message;
 	}
 }
