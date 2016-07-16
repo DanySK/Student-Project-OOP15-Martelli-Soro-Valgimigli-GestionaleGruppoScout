@@ -53,20 +53,4 @@ public class projectFactoryimpl implements projectFactory, Serializable {
 		}
 		return sq;
 	}
-	@Override
-	public Squadron getSquadronWithBoss(String name, Boolean sex, myOptional<String> nameLeader,
-			myOptional<String> nameSecond) {
-		Squadron sq = null;
-		try{
-			sq = new SquadronImpl(name, sex);
-			/*
-			 * Manca la parte della ricerca e dell'inserimento
-			 */
-			sq.setCapoSq(capo);
-			sq.setVicecapoSq(vicecapo);
-		}catch(Exception e){
-			new WarningNotice(e.getMessage());
-		}
-		return sq;
-	}
 }

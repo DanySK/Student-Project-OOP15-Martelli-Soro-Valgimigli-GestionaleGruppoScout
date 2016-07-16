@@ -45,14 +45,5 @@ public interface projectFactory {
 	 * @return
 	 */
 	public Squadron getSquadron(String name, Boolean sex);
-	/**
-	 * 
-	 * @param name
-	 * @param sex
-	 * @param nameLeader
-	 * @param nameSecond
-	 * @return Squadron with fields leader and Second Leader setted
-	 */
-	public Squadron getSquadronWithBoss(String name, Boolean sex, myOptional<String> nameLeader,
-			myOptional<String> nameSecond);
+	
 }
