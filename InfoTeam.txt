@@ -1,0 +1,34 @@
+Ogni volta che qualcuno ha bisogno di segnalare qualcosa a un altro la segna qui sotto il nome della persona a cui deve fare la segnalazione
+
+
+
+GIOVANNI
+WarningNotice metti il costruttore public se no non posso usarla
+
+Cosa serve: 
+2 interfacce per l'inserimento membro. Una simpleMemberInseriment che deve chiedere: nome cognome data di nascita e sesso
+Una memberInseriment che chiede: nome, cognome, data di nascita, nome tutor, mail tutor, telefono tutor (Ovviemente tutor puo essere un genitore)
+
+Un interfaccia TooItems. Questa interfaccia ha un costruttore pubblico che vuole una lista di Membri. Dovra visualizzare per ogni membro il nome il cognome
+l'età e altri info che ritieni opportune. poi l'utente potra selezionarne uno e cliccare ok. Questa interfaccia ritornerà un il membro selezionato
+PERCHE: quando l'utentead esempio vorrà inserire in una sq un capo e metterà il nome ' francesco ' il programma controllerà che ci sia un solo franceso.
+In caso contrario stamperà tutti i franceschi e ne fara selezionare uno.
+Io ti fornisco una classe che ricerca le persone per nome e restituisce una lista di Membri con quel nome. Tu dovrai solo controllare che la lista sia = 1
+se = 0, allora errore, altrimenti TooItems e selezioni quello corretto
+
+RICORDA:
+Ogni tua interfaccia chiamerà il mio oggetto projectFactory che per ogni entità ha uno o più metodi di creazione. Poi chiamerà il mio oggetto storeEntity 
+che salverà opportunamente l'entità nel programma
+
+
+
+SORO
+A membro serve un costruttore con i seguenti campi:
+ String nome, String cognome, LocalDate dataNascita, myOptional<String> nomeTutor, myOptional<String> mailTutor, myOptional<String> telefonoTutor
+
+In membro il costruttore con il totem e promessa non serve. Il totem e la promessa la impostiamo in un secondo momento
+
+Devi fare inoltre le escursioni.
+
+
+LORENZO

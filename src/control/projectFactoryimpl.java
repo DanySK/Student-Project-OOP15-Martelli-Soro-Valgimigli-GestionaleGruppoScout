@@ -8,43 +8,60 @@ import model.*;
 import view.general_utility.WarningNotice;
 
 public class projectFactoryimpl implements projectFactory {
-	/**
-	 * Returns a Instance of class Member. This method wants only basic parameters
-	 * @param nome
-	 * @param cognome
-	 * @param dataNascita
-	 * @return
-	 */
 	
-	static public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
+	@Override
+	public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
 		Member prj_member = null;
 		try{
-			prj_member = new MemberImpl(nome, cognome, dataNascita,sex);
+			prj_member = new MemberImpl(nome, cognome, dataNascita, sex);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
 		
 		return prj_member;
 	}
-	/**
-	 * Returns a instance of class Member. This method can accept each possible parameter 
-	 * 
-	 * @param nome
-	 * @param cognome
-	 * @param dataNascita
-	 * @param nomeTutor
-	 * @param mailTutor
-	 * @param telefonoTutor
-	 * @return
-	 */
-	static public Member getMember(String nome, String cognome, LocalDate dataNascita,
-			myOptional<String> nomeTutor, myOptional<String> mailTutor, myOptional<String> telefonoTutor){
+	@Override
+	public Member getMember(String name, String surname, LocalDate birthday,
+			myOptional<String> nameTutor, myOptional<String> mailTutor, myOptional<String> phoneTutor){
+		Member prj_member = null;
 		try{
-			Member prj_member = new Memberimpl(String nome, String cognome, LocalDate dataNascita,
-					myOptional<String> nomeTutor, myOptional<String> mailTutor, myOptional<String> telefonoTutor);
+			prj_member = new MemberImpl(name, surname, birthday,nameTutor, mailTutor,
+					phoneTutor);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
-		return this.prj_membro
+		return prj_membro;
+	}
+	@Override
+	public ExcursionImpl getGeneralExcursion(LocalDate dateStart, myOptional<LocalDate> dateEnd,
+			myOptional<String> place) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Squadron getSquadron(String name, Boolean sex) {
+		Squadron sq = null;
+		try{
+			sq = new SquadronImpl(name, sex);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+		return sq;
+	}
+	@Override
+	public Squadron getSquadronWithBoss(String name, Boolean sex, myOptional<String> nameLeader,
+			myOptional<String> nameSecond) {
+		Squadron sq = null;
+		try{
+			sq = new SquadronImpl(name, sex);
+			/*
+			 * Manca la parte della ricerca e dell'inserimento
+			 */
+			sq.setCapoSq(capo);
+			sq.setVicecapoSq(vicecapo);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+		return sq;
 	}
 }
