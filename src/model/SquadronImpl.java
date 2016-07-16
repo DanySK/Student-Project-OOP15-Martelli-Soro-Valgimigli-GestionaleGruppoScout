@@ -21,7 +21,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 */
 	private static final long serialVersionUID = -742316483975432020L;
 
-	private Map<Member,Roles> map;
+	//private Map<Member,Roles> map;
 	
 	private myOptional<Member> capoSq;
 	private myOptional<Member> viceSq;
@@ -44,7 +44,7 @@ public class SquadronImpl implements Serializable,Squadron{
 		this.nomeSq = nome;
 		this.sessoSq = sesso;
 		this.cash=(float)0;
-		map=new HashMap<>();
+		//map=new HashMap<>();
 		capoSq=myOptional.empty();
 		viceSq=myOptional.empty();
 		triceSq=myOptional.empty();

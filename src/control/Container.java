@@ -24,6 +24,12 @@ public interface Container {
 	 * @throws IllegalArgumentException
 	 */
 	public List<Member> findMember(String name)throws IllegalArgumentException;
+	 /**
+	  * 
+	  * @return
+	  * Entire list of members
+	  */
+	public List<Member> getMembers();
 	/**
 	 * 
 	 * @return
@@ -44,6 +50,12 @@ public interface Container {
 	 * Squadron researched
 	 */
 	public Squadron findSquadron(String name);
+	/**
+	 * 
+	 * @return
+	 * the entire list of squadrons
+	 */
+	public List<Squadron> getSquadrons();
 	/**
 	 * 
 	 * @param m

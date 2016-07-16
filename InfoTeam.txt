@@ -3,7 +3,7 @@ Ogni volta che qualcuno ha bisogno di segnalare qualcosa a un altro la segna qui
 
 
 GIOVANNI
-WarningNotice metti il costruttore public se no non posso usarla
+
 
 Cosa serve: 
 2 interfacce per l'inserimento membro. Una simpleMemberInseriment che deve chiedere: nome cognome data di nascita e sesso
@@ -29,6 +29,8 @@ A membro serve un costruttore con i seguenti campi:
 In membro il costruttore con il totem e promessa non serve. Il totem e la promessa la impostiamo in un secondo momento
 
 Devi fare inoltre le escursioni.
+
+Ogni classe fai il metodo toString che ritorna le info della classe
 
 
 LORENZO
