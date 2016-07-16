@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import control.myUtil.myOptional;
 import model.*;
+import view.general_utility.WarningNotice;
 
 public class projectFactoryimpl implements projectFactory {
 	/**
@@ -15,14 +16,15 @@ public class projectFactoryimpl implements projectFactory {
 	 * @return
 	 */
 	
-	static public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita){
+	static public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
+		Member prj_member = null;
 		try{
-			Member prj_member = new Memberimpl(nome, cognome, dataNascita);
+			prj_member = new MemberImpl(nome, cognome, dataNascita,sex);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
 		
-		return this.prj_membro;
+		return prj_member;
 	}
 	/**
 	 * Returns a instance of class Member. This method can accept each possible parameter 
