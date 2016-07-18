@@ -20,6 +20,8 @@ RICORDA:
 Ogni tua interfaccia chiamerà il mio oggetto projectFactory che per ogni entità ha uno o più metodi di creazione. Poi chiamerà il mio oggetto storeEntity 
 che salverà opportunamente l'entità nel programma
 
+ATTENZIONE: Non hai condiviso la cartella res con le immagini! E anche l'interfaccia MainGUI
+
 
 
 SORO
