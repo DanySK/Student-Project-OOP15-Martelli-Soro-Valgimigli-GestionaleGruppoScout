@@ -2,9 +2,12 @@
 package view.gui_utility;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,7 +18,7 @@ import javax.swing.JPanel;
  * @author giovanni
  */
 
-public class MyJPanelImpl extends JPanel implements MyJPanel {
+public class MyJPanelImpl extends JPanel/* implements MyJPanel*/ {
 	private static final long serialVersionUID = 127205530034950651L;
 	protected JPanel callerPanel;
 	
@@ -47,7 +50,7 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @param e JButton's ActionListener
 	 * @return The JButton created
 	 */
-	public JButton createButton(String title, ActionListener e){
+	protected JButton createButton(String title, ActionListener e){
 		JButton button = new JButton(title);
 		button.addActionListener(e);
 		return button;
@@ -59,7 +62,7 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @param c	JButton's background color
 	 * @return The JButton created
 	 */
-	public JButton createButton(String title, Color c, ActionListener e){
+	protected JButton createButton(String title, Color c, ActionListener e){
 		JButton button= this.createButton(title,e);
 		button.setBackground(c);
 		return button;
@@ -73,10 +76,20 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @return The JButton created
 	 */
 	
-	public JButton createButton(String title, Color c, Font f, ActionListener e){
+	protected JButton createButton(String title, Color c, Font f, ActionListener e){
 		JButton button = this.createButton(title, c,e);
 		button.setFont(f);
 		return button;
+	}
+	
+	protected JButton getBackButton(){
+		ImageIcon img = new ImageIcon("res/back-icon.png");//options icon
+		JButton t=new JButton();
+		t.addActionListener(e->{
+			MyJFrameSingletonImpl.getInstance().setPanel(this.callerPanel);
+		});
+		t.setIcon(img);
+		return t;
 	}
 	
 		

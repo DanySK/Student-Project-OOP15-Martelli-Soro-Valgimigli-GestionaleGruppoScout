@@ -1,8 +1,6 @@
 package view.gui_utility;
 
-
 import java.awt.Toolkit;
-
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,7 +10,7 @@ import javax.swing.SwingUtilities;
  * this app, each window is painted changing the contentPane of the unique JFrame.
  * @author giovanni
  */
-public class MyJFrameSingletonImpl extends JFrame implements Runnable, MyJFrameSingleton{
+public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	
 	
 	private static final long serialVersionUID = -5285934581393069862L;
@@ -28,15 +26,11 @@ public class MyJFrameSingletonImpl extends JFrame implements Runnable, MyJFrameS
 	/** private Constructor
 	 * 
 	 */
-	
 	private  MyJFrameSingletonImpl(){
 		this.setSize(WIDTH, HEIGTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		myFramePanel=new JPanel();
 		this.setVisible(true);
-		
-		
-		
 	}
 	/**It return the instance of JFrame
 	 * 
@@ -47,7 +41,6 @@ public class MyJFrameSingletonImpl extends JFrame implements Runnable, MyJFrameS
 			myframe=new MyJFrameSingletonImpl();
 		}
 		return myframe;
-		
 	}
 	/**It set the ContentPane of MyFrameSingleton
 	 * 
@@ -65,18 +58,14 @@ public class MyJFrameSingletonImpl extends JFrame implements Runnable, MyJFrameS
 			}
 		});
 	}
-	/**It returns the ContentPane of MyFrameSingleton
+	/**It returns the ContentPane already setted in MyFrameSingleton
 	 * 
 	 * @return JPanel	The main panel setted in this frame
 	 */
-	public JPanel getMyFramePanel(){
+	public JPanel getContenentPane(){
 		return myFramePanel;
 	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	
 }

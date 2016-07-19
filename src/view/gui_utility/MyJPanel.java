@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-
+/**Class used to easy create JPanel and add in it JButton
+ * 
+ * @author giovanni
+ */
 public interface MyJPanel {
 	
 	/**Create a JButton
