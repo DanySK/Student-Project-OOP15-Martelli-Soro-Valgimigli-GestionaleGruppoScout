@@ -10,15 +10,15 @@ Cosa serve:
 Una memberInseriment che chiede: nome, cognome, data di nascita, nome tutor, mail tutor, telefono tutor (Ovviemente tutor puo essere un genitore)
 
 Un interfaccia TooItems. Questa interfaccia ha un costruttore pubblico che vuole una lista di Membri. Dovra visualizzare per ogni membro il nome il cognome
-l'et‡ e altri info che ritieni opportune. poi l'utente potra selezionarne uno e cliccare ok. Questa interfaccia ritorner‡ un il membro selezionato
-PERCHE: quando l'utentead esempio vorr‡ inserire in una sq un capo e metter‡ il nome ' francesco ' il programma controller‡ che ci sia un solo franceso.
-In caso contrario stamper‡ tutti i franceschi e ne fara selezionare uno.
+l'et√† e altri info che ritieni opportune. poi l'utente potra selezionarne uno e cliccare ok. Questa interfaccia ritorner√† un il membro selezionato
+PERCHE: quando l'utentead esempio vorr√† inserire in una sq un capo e metter√† il nome ' francesco ' il programma controller√† che ci sia un solo franceso.
+In caso contrario stamper√† tutti i franceschi e ne fara selezionare uno.
 Io ti fornisco una classe che ricerca le persone per nome e restituisce una lista di Membri con quel nome. Tu dovrai solo controllare che la lista sia = 1
 se = 0, allora errore, altrimenti TooItems e selezioni quello corretto
 
 RICORDA:
-Ogni tua interfaccia chiamer‡ il mio oggetto projectFactory che per ogni entit‡ ha uno o pi˘ metodi di creazione. Poi chiamer‡ il mio oggetto storeEntity 
-che salver‡ opportunamente l'entit‡ nel programma
+Ogni tua interfaccia chiamer√† il mio oggetto projectFactory che per ogni entit√† ha uno o pi√π metodi di creazione. Poi chiamer√† il mio oggetto storeEntity 
+che salver√† opportunamente l'entit√† nel programma
 
 ATTENZIONE: Non hai condiviso la cartella res con le immagini! E anche l'interfaccia MainGUI
 
@@ -36,3 +36,15 @@ Ogni classe fai il metodo toString che ritorna le info della classe
 
 
 LORENZO
+Mi servirebbe una classe che contatta il model per recuperare il nome del reparto e una lista/mappa/quello_che_ti_pare contenente le informazioni di ogni squadriglia.
+con informazioni di ogni squadriglia intendo:
+-nome della squadriglia
+-vari capi
+-elenco completo dei componenti della squadriglia
+-altre info che secondo te potrebbe essere bello "vedere" subito
+Questo perch√® sto implementando la classe GestioneRepartoMain(aperta cliccando sul tasto Gestione Reparto nel main) che ha una 
+struttura ad albero a sx(simile a quella che soro aveva proposto di fare).L'intestazione dell'albero sarebbe il nome del reparto.
+Tutti i nodi principali sarebbero i nomi delle squadriglie e i nodi secondari sarebbero:
+-Overview(non modificabile) della squadriglia, contenente il nome squadriglia, elenco capitani e altre info utili.
+-Gestione/visualizzazione dei componenti della squadriglia
+-altre cose che mi verranno in mente.
