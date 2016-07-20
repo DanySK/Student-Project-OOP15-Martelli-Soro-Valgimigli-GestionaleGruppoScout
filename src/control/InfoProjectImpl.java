@@ -7,37 +7,27 @@ import model.Member;
 
 public class InfoProjectImpl implements InfoProject {
 
-	@Override
-	public String getUnitGeneralInfo(){
-		return null;
-	}
 
 	@Override
-	public List<Pair<String, String>> getUnitSpecificInfo() {
+	public String getSquadronGeneralInfo(String nameOfSquadron, Container cnt) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String getSquadronGeneralInfo() {
+	public List<Pair<String, String>> getSquadronSpecificInfo(String nameOfSquadron, Container cnt) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Pair<String, String>> getSquadronSpecificInfo() {
+	public List<Member> getMemberOfSquadron(String nameOfSquadron, Container cnt) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Member> getMemberOfSquadron(String nameOfSquadron) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Pair<String, String>> getMemberSpecificalInfo(Member member) {
+	public List<Pair<String, String>> getMemberSpecificalInfo(Member member, Container cnt) {
 		// TODO Auto-generated method stub
 		return null;
 	}

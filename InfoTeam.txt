@@ -32,7 +32,6 @@ In membro il costruttore con il totem e promessa non serve. Il totem e la promes
 
 Devi fare inoltre le escursioni.
 
-Ogni classe fai il metodo toString che ritorna le info della classe
 
 
 LORENZO
@@ -48,3 +47,5 @@ Tutti i nodi principali sarebbero i nomi delle squadriglie e i nodi secondari sa
 -Overview(non modificabile) della squadriglia, contenente il nome squadriglia, elenco capitani e altre info utili.
 -Gestione/visualizzazione dei componenti della squadriglia
 -altre cose che mi verranno in mente.
+
+DEBBO FARE: finire InfoProject, finire MasterProject, testare le classi
