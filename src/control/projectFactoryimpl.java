@@ -2,10 +2,13 @@ package control;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Optional;
 
 import control.myUtil.myOptional;
-import model.*;
+import model.ExcursionImpl;
+import model.Member;
+import model.MemberImpl;
+import model.Squadron;
+import model.SquadronImpl;
 import view.general_utility.WarningNotice;
 
 public class projectFactoryimpl implements projectFactory, Serializable {

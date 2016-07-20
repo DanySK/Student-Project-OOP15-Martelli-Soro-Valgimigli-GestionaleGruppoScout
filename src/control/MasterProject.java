@@ -2,6 +2,8 @@ package control;
 
 import java.util.List;
 
+import control.exception.NoUnitFoundException;
+
 /**
  * Class with tools to handle the project as saving, loading, check file 
  * Default directory to save /home/user/ScoutApp/Save 
