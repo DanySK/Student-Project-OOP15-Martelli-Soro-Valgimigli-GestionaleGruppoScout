@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.util.List;
 
 import control.exception.NoUnitFoundException;
@@ -15,17 +16,17 @@ public interface MasterProject {
 	 * To modify the default directory 
 	 * @param directory
 	 */
-	public void setDirectoryToSave(final String directory);
+	public void setDirectoryToSave(final String directory) throws IOException;
 	/**
 	 * 
 	 * @return
 	 */
-	public String getDirectoryToSave();
+	public String getDirectoryToSave()throws IOException;
 	/**
 	 * Return all possible units to load
 	 * @return
 	 */
-	public List<String> getListOfUnit();
+	public List<String> getListOfUnit()throws IOException;
 	/**
 	 * 
 	 * @param unitName
