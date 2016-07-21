@@ -2,6 +2,7 @@ package control;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -27,11 +28,12 @@ public class CheckerImpl implements Checker, Serializable {
 
 	@Override
 	public List<Member> birthday(int nDay, List<Member> people) {
-		final LocalDate now = LocalDate.now();
-		return people.stream()
-				.filter(e -> e.getBirthday().compareTo(now) >= 0 &&
-						e.getBirthday().compareTo(now.plus(nDay, ChronoUnit.DAYS))<= 0)
-				.collect(Collectors.toList());
+		LocalDate now = LocalDate.now();
+		LocalDate limit = LocalDate.now().plus(nDay, ChronoUnit.DAYS);
+		
+		return people.stream().filter(e -> this.checkDateIsBetween(now, limit, e.getBirthday()))
+					          .collect(Collectors.toList());
+		
 	}
 
 	@Override
@@ -49,6 +51,15 @@ public class CheckerImpl implements Checker, Serializable {
 		}
 		
 		List<Member> birthday = this.birthday(DAYTOCHECK, people);
+	}
+	
+	private boolean checkDateIsBetween(LocalDate start, LocalDate end, LocalDate birthday){
+		
+		LocalDate tmp = Year.now().atMonth(birthday.getMonthValue()).atDay(birthday.getDayOfMonth());
+		if(tmp.compareTo(start) >= 0 && tmp.compareTo(end) <= 0){
+			return true;
+		}
+		return false;
 	}
 
 	
