@@ -103,28 +103,5 @@ public class MasterProjectImpl implements MasterProject {
 		this.saver.close();
 		new WarningNotice("Salvataggio avvenuto con successo");
 	}
-
-	public static void main(String[] s){
-		try {
-			MasterProject mp = new MasterProjectImpl();
-			Unit u1, u2, u3;
-			u1 = new UnitImpl("Prati");
-			u2 = new UnitImpl("Monti");
-			u3 = new UnitImpl("Valli");
-			
-			mp.save(u1);
-			mp.save(u2);
-			mp.save(u3);
-			
-			System.out.println( mp.getDirectoryToSave());
-			System.out.println( mp.getListOfUnit());
-			
-			u1 = mp.loadUnit("Prati");
-			System.out.println("Caricata "+ u1.getName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+		
 }
