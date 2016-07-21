@@ -21,7 +21,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 */
 	private static final long serialVersionUID = -742316483975432020L;
 
-	//private Map<Member,Roles> map;
+	private Map<Member,Roles> map;
 	
 	private myOptional<Member> capoSq;
 	private myOptional<Member> viceSq;

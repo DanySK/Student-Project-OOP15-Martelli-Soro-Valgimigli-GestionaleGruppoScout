@@ -52,5 +52,5 @@ public interface InfoProject {
 	 * 5. totem
 	 * 6. Birthday
 	 */
-	public List<Pair<String, String>> getMemberSpecificalInfo(Member member, Container cnt);
+	public List<Pair<String, String>> getMemberSpecificalInfo(Member member);
 }
