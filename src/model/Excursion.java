@@ -49,6 +49,7 @@ public interface Excursion {
 	 * @param dateEnd
 	 */
 	public void setDateEnd(Date dateEnd);
+	public Integer get
 }
 
 
