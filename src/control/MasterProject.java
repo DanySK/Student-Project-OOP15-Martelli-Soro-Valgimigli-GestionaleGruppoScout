@@ -3,7 +3,8 @@ package control;
 import java.io.IOException;
 import java.util.List;
 
-import control.exception.NoUnitFoundException;
+import control.exception.ProjectFilesCreationException;
+
 
 /**
  * Class with tools to handle the project as saving, loading, check file 
@@ -33,10 +34,10 @@ public interface MasterProject {
 	 * @return
 	 * @throws NoUnitFoundException
 	 */
-	public Unit loadUnit(String unitName) throws NoUnitFoundException;
+	public Unit loadUnit(String unitName) throws IOException, ClassNotFoundException;
 	/**
 	 * 
 	 * @param unit
 	 */
-	public void save(Unit unit);
+	public void save(Unit unit) throws IOException,  ProjectFilesCreationException ;
 }
