@@ -153,7 +153,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	public boolean hasTotem() {
-		return !this.totem.equals(myOptional.empty());
+		return totem.isPresent();
 	}
 
 	public void setTotem(String totem) {
