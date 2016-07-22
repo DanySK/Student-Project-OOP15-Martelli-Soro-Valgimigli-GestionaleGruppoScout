@@ -2,38 +2,37 @@ package model;
 
 import control.myUtil.myOptional;
 
-public class Tutor {
-	private myOptional<String> email;
-	private myOptional<String> name;
-	private myOptional<Long> phone;
-
-	public Tutor(String email, String name, Long phone) {
-		this.email=myOptional.ofNullable(email);
-		this.name=myOptional.ofNullable (name);
-		this.phone=myOptional.ofNullable(phone);
-	}
-	public Tutor (){
-		this.email=myOptional.empty();
-		this.name=myOptional.empty();
-		this.phone=myOptional.empty();
-	}
-	public myOptional<String> getName(){
-		return this.name;
-	}
-	public myOptional<String> getEmail(){
-		return this.email;
-	}
-	public myOptional<Long> getPhone(){
-		return this.phone;
-	}
-	public void setName(String name){
-		this.name=myOptional.of(name);
-	}
-	public void setEmail(String email){
-		this.email=myOptional.of(email);
-	}
-	public void setPhone(Long phone){
-		this.phone=myOptional.of(phone);
-	}
+public interface Tutor {
+	
+	/**
+	 * 
+	 * @return myOptional<Sting> contained the name of the tutor
+	 */
+	public myOptional<String> getName();
+	/**
+	 * 
+	 * @return myOptional<String> contained the email of the tutor
+	 */
+	public myOptional<String> getEmail();
+	/**
+	 * 
+	 * @return  myOptional<Long> contained the phone of the tutor
+	 */
+	public myOptional<Long> getPhone();
+	/**
+	 * 
+	 * @param name of the tutor
+	 */
+	public void setName(String name);
+	/**
+	 * 
+	 * @param email of the tutor
+	 */
+	public void setEmail(String email);
+	/**
+	 * 
+	 * @param phone of the tutor
+	 */
+	public void setPhone(Long phone);
 	
 }

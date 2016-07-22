@@ -16,7 +16,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private List<String> competence;
 	private List<String> specialities;
 	private Boolean promise;
-	private myOptional<Tutor> tutor;
+	private myOptional<TutorImpl> tutor;
 	private myOptional<String> totem;
 
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex,int id) {
@@ -25,7 +25,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.identificatore=id;
 	}
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor,int id) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, TutorImpl tutor,int id) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.of(tutor);
 		this.identificatore=id;
@@ -52,7 +52,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	public void setTutorMail(String mail) {
 		if (!this.tutor.isPresent()) {
-			this.tutor = myOptional.of(new Tutor());
+			this.tutor = myOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setEmail(mail);
 		return;
@@ -69,7 +69,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	public void setTutorName(String name) {
 		if (!this.tutor.isPresent()) {
-			this.tutor = myOptional.of(new Tutor());
+			this.tutor = myOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setName(name);
 		return;
@@ -86,7 +86,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	public void setTutorPhone(Long phone) {
 		if (!this.tutor.isPresent()) {
-			this.tutor = myOptional.of(new Tutor());
+			this.tutor = myOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setPhone(phone);
 		return;
