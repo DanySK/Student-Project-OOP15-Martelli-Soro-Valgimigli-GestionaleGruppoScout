@@ -147,7 +147,9 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public boolean getPromise() {
 		return this.promise;
 	}
-
+	public int getHowOldIs(){
+		return (LocalDate.now().getYear()-this.getBirthday().getYear());
+	}
 	public void setPromise(boolean promessa) {
 		this.promise = promessa;
 	}
