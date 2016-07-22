@@ -7,118 +7,165 @@ import java.util.List;
 
 import control.myUtil.myOptional;
 
-public class MemberImpl extends PersonImpl implements Serializable,Member,Person{
-/**
-	 * 
-	 */
+public class MemberImpl extends PersonImpl implements Serializable, Member, Person {
+	/**
+		 * 
+		 */
 	private static final long serialVersionUID = 1L;
+	private final int identificatore;
+	private List<String> competence;
+	private List<String> specialities;
+	private Boolean promise;
+	private myOptional<Tutor> tutor;
+	private myOptional<String> totem;
 
-private List <String> competence;
-private List <String> specialities;
-//private Sentiero sentiero;
-private Boolean promise;
-private myOptional<String> totem;
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex,int id) {
+		super(name, surname, birthday, sex);
+		this.tutor = myOptional.empty();
+		this.identificatore=id;
+	}
 
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor,int id) {
+		super(name, surname, birthday, sex);
+		this.tutor = myOptional.of(tutor);
+		this.identificatore=id;
+	}
 
-public MemberImpl(String name,String surname,LocalDate birthday,Boolean sex){
-	super (name, surname, birthday,sex);
-	this.competence=new ArrayList<>();
-	//this.sentiero=new Sentiero();
-	this.specialities=new ArrayList<>();
-	this.promise=false;
-	this.totem= myOptional.empty();
-}
-public MemberImpl (String name,String surname,LocalDate birthday,Boolean sex,Boolean promise,
-		String totem,List<String> competence,List<String> specialities){
-	super (name, surname, birthday,sex);
-	this.competence=new ArrayList<>(competence);
-	this.specialities=new ArrayList <>(specialities);
-	//this.sentiero=new Sentiero(liv,livello,fede,scuola,famiglia,relazioni);
-	this.promise=promise;
-	this.totem=myOptional.of(totem);
-}
+	public boolean addCompetence(String competence) {
+		/*
+		 * return false if the competent is already contained
+		 */
+		if (this.competence.contains(competence)) {
+			return false;
+		}
+		this.competence.add(competence);
+		return true;
+	}
 
-//public Sentiero getSentiero (){
-//	return this.sentiero;
-//}
+	public List<String> getCompetence() {
+		return this.competence;
+	}
 
-public boolean addCompetence (String competence){/*return false if the competent is already contained*/
-	if (this.competence.contains(competence)){
+	public List<String> getSpecialities() {
+		return this.specialities;
+	}
+
+	public void setTutorMail(String mail) {
+		if (!this.tutor.isPresent()) {
+			this.tutor = myOptional.of(new Tutor());
+		}
+		this.tutor.get().setEmail(mail);
+		return;
+	}
+
+	public myOptional<String> getTutorMail() {
+		if (this.tutor.isPresent()) {
+			if (this.tutor.get().getEmail().isPresent()) {
+				return this.tutor.get().getEmail();
+			}
+		}
+		return myOptional.empty();
+	}
+
+	public void setTutorName(String name) {
+		if (!this.tutor.isPresent()) {
+			this.tutor = myOptional.of(new Tutor());
+		}
+		this.tutor.get().setName(name);
+		return;
+	}
+
+	public myOptional<String> getTutorName() {
+		if (this.tutor.isPresent()) {
+			if (this.tutor.get().getName().isPresent()) {
+				return this.tutor.get().getName();
+			}
+		}
+		return myOptional.empty();
+	}
+
+	public void setTutorPhone(Long phone) {
+		if (!this.tutor.isPresent()) {
+			this.tutor = myOptional.of(new Tutor());
+		}
+		this.tutor.get().setPhone(phone);
+		return;
+	}
+
+	public myOptional<Long> getTutorPhone() {
+		if (this.tutor.isPresent()) {
+			if (this.tutor.get().getPhone().isPresent()) {
+				return this.tutor.get().getPhone();
+			}
+		}
+		return myOptional.empty();
+	}
+
+	public boolean removeSpecialities(
+			String specialities) {/*
+									 * return false if the competent is not
+									 * already contained
+									 */
+		if (this.specialities.contains(specialities)) {
+			this.specialities.remove(specialities);
+			return true;
+		}
 		return false;
 	}
-	this.competence.add(competence);
-	return true;
-}
 
-public List<String> getCompetence(){
-	return this.competence;
-}
-public List<String> getSpecialities(){
-    return this.specialities;
-}
-/**
- * 
- * @param specialities
- * @return
- */
-public boolean removeSpecialities (String specialities){/*return false if the competent is not already contained*/
-    if (this.specialities.contains(specialities)){
-        this.specialities.remove(specialities);
-        return true;
-    }
-    return false;
-}
-public boolean addSpecialities(String specialities){
-    if(!this.containsSpecialities(specialities)){
-        this.specialities.add(specialities);
-        return true;
-    }else{
-        return false;
-    }
-}
-public boolean containsSpecialities (String specialities){/*return true if the competent is contained*/
-    return this.specialities.contains(specialities);
-}
-public boolean removeCompetence (String competence){/*return false if the competent is not already contained*/
-	
+	public boolean addSpecialities(String specialities) {
+		if (!this.containsSpecialities(specialities)) {
+			this.specialities.add(specialities);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean containsSpecialities(
+			String specialities) {/*
+									 * return true if the competent is contained
+									 */
+		return this.specialities.contains(specialities);
+	}
+
+	public boolean removeCompetence(
+			String competence) {/*
+								 * return false if the competent is not already
+								 * contained
+								 */
+
 		return this.competence.remove(competence);
-		
-	
-}
-public boolean containsCompetence (String competence){/*return true if the competent is contained*/
-	return this.competence.contains(competence);
-}
-public boolean getPromise(){
-    return this.promise;
-}
-/**
- * 
- * @param promessa
- */
-public void setPromise(boolean promessa){
-    this.promise=promessa;
-}
-public boolean hasTotem(){
-    return ! this.totem.equals(myOptional.empty());
-}
-/**
- * 
- * @param totem
- */
-public void setTotem(String totem){
-    this.totem=myOptional.of(totem);
-}
-public String getTotem (){
-	
-	return this.totem.get();
-}
 
+	}
 
+	public boolean containsCompetence(
+			String competence) {/* return true if the competent is contained */
+		return this.competence.contains(competence);
+	}
 
+	public boolean getPromise() {
+		return this.promise;
+	}
 
-/**
- * 
- * @return
- */
+	public void setPromise(boolean promessa) {
+		this.promise = promessa;
+	}
+
+	public boolean hasTotem() {
+		return !this.totem.equals(myOptional.empty());
+	}
+
+	public void setTotem(String totem) {
+		this.totem = myOptional.of(totem);
+	}
+
+	public String getTotem() {
+
+		return this.totem.get();
+	}
+	public int getId(){
+		return this.identificatore;
+	}
 
 }
