@@ -51,14 +51,16 @@ public class ExcursionImpl implements Serializable {
 		});
 		return tmp;
 	}
-	public List<Integer> getAllPartecipanti(){
+
+	public List<Integer> getAllPartecipanti() {
 		List<Integer> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
-				tmp.add(e.getX());
+			tmp.add(e.getX());
 		});
 		return tmp;
 	}
-	public List<Integer> getAllPaganti(){
+
+	public List<Integer> getAllPaganti() {
 		List<Integer> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (e.getY()) {
@@ -67,29 +69,33 @@ public class ExcursionImpl implements Serializable {
 		});
 		return tmp;
 	}
-	public void setPagante(Integer idPartecipante){
-		this.partecipanti.forEach(e->{
-			if(e.getX().equals(idPartecipante)){
+
+	public void setPagante(Integer idPartecipante) {
+		this.partecipanti.forEach(e -> {
+			if (e.getX().equals(idPartecipante)) {
 				e.setY(true);
 			}
 		});
 	}
-	public boolean containMember(Integer idPartecipante){
-		for(Pair<Integer,Boolean> e:this.partecipanti){
-			if (e.getX().equals(idPartecipante)){
+
+	public boolean containMember(Integer idPartecipante) {
+		for (Pair<Integer, Boolean> e : this.partecipanti) {
+			if (e.getX().equals(idPartecipante)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	public boolean isPagante (Integer idPartecipante){
-		for (Pair<Integer,Boolean>e:this.partecipanti){
-			if(e.getX().equals(idPartecipante)){
+
+	public boolean isPagante(Integer idPartecipante) {
+		for (Pair<Integer, Boolean> e : this.partecipanti) {
+			if (e.getX().equals(idPartecipante)) {
 				return e.getY();
 			}
 		}
 		return false;
 	}
+
 	public Integer getPrize() {
 		return this.prize.get();
 	}
@@ -134,5 +140,22 @@ public class ExcursionImpl implements Serializable {
 		if (!dateEnd.isAfter(this.dateStart))
 			throw new IllegalDateException();
 		this.dateEnd = myOptional.of(dateEnd);
+	}
+
+	public List<Integer> getAllBirthdays(List<MemberImpl> membri){
+		List<Integer> tmp=new ArrayList<>();
+		membri.forEach(e->{
+			if (this.dateEnd.isPresent()){
+				if (e.getBirthday().getDayOfYear()>=this.dateStart.getDayOfYear()&&
+						e.getBirthday().getDayOfYear()<=this.dateEnd.get().getDayOfYear()){
+					tmp.add(e.getId());
+				}
+			}else{
+				if (e.getBirthday().getDayOfYear()==this.dateStart.getDayOfYear()){
+					tmp.add(e.getId());
+				}
+			}
+		});
+		return tmp;
 	}
 }

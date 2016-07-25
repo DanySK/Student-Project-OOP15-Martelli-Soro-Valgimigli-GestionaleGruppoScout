@@ -119,4 +119,10 @@ public interface Excursion {
 	 * @return true if the member had paid
 	 */
 	public boolean isPagante (Integer idPartecipante);
+	/**
+	 * 
+	 * @param membri is a list of Member where search the ids of the members
+	 * @return a List<Integer> contained the members who has the birthday
+	 */
+	public List<Integer> getAllBirthdays(List<MemberImpl> membri);
 }
