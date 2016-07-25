@@ -12,23 +12,23 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		 * 
 		 */
 	private static final long serialVersionUID = 1L;
-	private final int identificatore;
+	private int identificatore;
 	private List<String> competence;
 	private List<String> specialities;
 	private Boolean promise;
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex,int id) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, int id) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.empty();
-		this.identificatore=id;
+		this.identificatore = id;
 	}
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor,int id) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor, int id) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.of(tutor);
-		this.identificatore=id;
+		this.identificatore = id;
 	}
 
 	public boolean addCompetence(String competence) {
@@ -147,9 +147,11 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public boolean getPromise() {
 		return this.promise;
 	}
-	public int getHowOldIs(){
-		return (LocalDate.now().getYear()-this.getBirthday().getYear());
+
+	public int getHowOldIs() {
+		return (LocalDate.now().getYear() - this.getBirthday().getYear());
 	}
+
 	public void setPromise(boolean promessa) {
 		this.promise = promessa;
 	}
@@ -163,11 +165,15 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	public String getTotem() {
-
 		return this.totem.get();
 	}
-	public int getId(){
+
+	public int getId() {
 		return this.identificatore;
+	}
+
+	public void setId(int id) {
+		this.identificatore = id;
 	}
 
 }
