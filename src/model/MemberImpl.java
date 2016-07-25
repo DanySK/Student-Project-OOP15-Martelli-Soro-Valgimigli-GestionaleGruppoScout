@@ -16,7 +16,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private List<String> competence;
 	private List<String> specialities;
 	private Boolean promise;
-	private myOptional<TutorImpl> tutor;
+	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
 
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex,int id) {
@@ -25,7 +25,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.identificatore=id;
 	}
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, TutorImpl tutor,int id) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor,int id) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.of(tutor);
 		this.identificatore=id;

@@ -9,6 +9,8 @@ import model.Member;
 import model.MemberImpl;
 import model.Squadron;
 import model.SquadronImpl;
+import model.Tutor;
+import model.TutorImpl;
 import view.general_utility.WarningNotice;
 
 public class projectFactoryimpl implements projectFactory, Serializable {
@@ -21,7 +23,7 @@ public class projectFactoryimpl implements projectFactory, Serializable {
 	public Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
 		Member prj_member = null;
 		try{
-			prj_member = new MemberImpl(nome, cognome, dataNascita, sex);
+			prj_member = new MemberImpl(nome, cognome, dataNascita, sex, 0);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
@@ -29,16 +31,26 @@ public class projectFactoryimpl implements projectFactory, Serializable {
 		return prj_member;
 	}
 	@Override
-	public Member getMember(String name, String surname, LocalDate birthday,
-			myOptional<String> nameTutor, myOptional<String> mailTutor, myOptional<String> phoneTutor){
+	public Member getMember(String name, String surname, LocalDate birthday, boolean sex,
+			myOptional<String> nameTutor, myOptional<String> mailTutor, myOptional<Long> phoneTutor){
 		Member prj_member = null;
+		Tutor prj_tutor = null;
 		try{
-			prj_member = new MemberImpl(name, surname, birthday,nameTutor, mailTutor,
-					phoneTutor);
+			prj_tutor = new TutorImpl();
+			if(mailTutor.isPresent()){
+				prj_tutor.setEmail(mailTutor.get());
+			}
+			if(nameTutor.isPresent()){
+				prj_tutor.setName(nameTutor.get());
+			}
+			if(phoneTutor.isPresent()){
+				prj_tutor.setPhone(phoneTutor.get());
+			}
+			prj_member = new MemberImpl(name, surname, birthday, sex, prj_tutor, 0);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
-		return prj_membro;
+		return prj_member;
 	}
 	@Override
 	public ExcursionImpl getGeneralExcursion(LocalDate dateStart, myOptional<LocalDate> dateEnd,

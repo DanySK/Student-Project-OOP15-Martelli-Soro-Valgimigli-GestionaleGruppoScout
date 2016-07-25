@@ -27,8 +27,8 @@ public interface projectFactory {
 	 * @param phoneTutor
 	 * @return
 	 */
-	public Member getMember(String name, String surname, LocalDate birthday,
-			myOptional<String> nameTutor, myOptional<String> mailTutor, myOptional<String> phoneTutor);
+	public Member getMember(String name, String surname, LocalDate birthday, boolean sex,
+			myOptional<String> nameTutor, myOptional<String> mailTutor, myOptional<Long> phoneTutor);
 	/**
 	 * 
 	 * @param dateStart
