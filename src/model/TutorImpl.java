@@ -2,7 +2,7 @@ package model;
 
 import control.myUtil.myOptional;
 
-public class TutorImpl {
+public class TutorImpl implements Tutor {
 	private myOptional<String> email;
 	private myOptional<String> name;
 	private myOptional<Long> phone;
