@@ -24,6 +24,7 @@ public class ContainerImpl implements Container, Serializable {
 	private List<Member> unit;
 	private List<Squadron> squadronActive;
 	private List<Excursion> excursions;
+	private List<Integer> code;
 	
 	public ContainerImpl(){
 		this.unit = new ArrayList<>();
@@ -75,6 +76,7 @@ public class ContainerImpl implements Container, Serializable {
 		if(this.unit.contains(m)){
 			throw new EntityAlreadyExistsException();
 		}
+		m.setId(this.getCode());
 		this.unit.add(m);
 	}
 
@@ -84,6 +86,15 @@ public class ContainerImpl implements Container, Serializable {
 			throw new EntityAlreadyExistsException();
 		}
 		this.squadronActive.add(sq);
+	}
+	
+	private int getCode(){
+		for(int i=0; i < Integer.MAX_VALUE; i++){
+			if(! this.code.contains(i)){
+				return i;
+			}
+		}
+		return 0;
 	}
 	public static void main(String[] s){
 		Container cnt = new ContainerImpl();
