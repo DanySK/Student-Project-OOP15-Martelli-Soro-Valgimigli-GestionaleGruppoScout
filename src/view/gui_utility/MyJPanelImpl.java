@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  * @author giovanni
  */
 
-public class MyJPanelImpl extends JPanel/* implements MyJPanel*/ {
+public class MyJPanelImpl extends JPanel implements MyJPanel {
 	private static final long serialVersionUID = 127205530034950651L;
 	protected JPanel callerPanel;
 	
@@ -50,7 +50,7 @@ public class MyJPanelImpl extends JPanel/* implements MyJPanel*/ {
 	 * @param e JButton's ActionListener
 	 * @return The JButton created
 	 */
-	protected JButton createButton(String title, ActionListener e){
+	public JButton createButton(String title, ActionListener e){
 		JButton button = new JButton(title);
 		button.addActionListener(e);
 		return button;
@@ -62,7 +62,7 @@ public class MyJPanelImpl extends JPanel/* implements MyJPanel*/ {
 	 * @param c	JButton's background color
 	 * @return The JButton created
 	 */
-	protected JButton createButton(String title, Color c, ActionListener e){
+	public JButton createButton(String title, Color c, ActionListener e){
 		JButton button= this.createButton(title,e);
 		button.setBackground(c);
 		return button;
@@ -76,14 +76,14 @@ public class MyJPanelImpl extends JPanel/* implements MyJPanel*/ {
 	 * @return The JButton created
 	 */
 	
-	protected JButton createButton(String title, Color c, Font f, ActionListener e){
+	public JButton createButton(String title, Color c, Font f, ActionListener e){
 		JButton button = this.createButton(title, c,e);
 		button.setFont(f);
 		return button;
 	}
 	
 	protected JButton getBackButton(){
-		ImageIcon img = new ImageIcon("res/back-icon.png");//options icon
+		ImageIcon img = new ImageIcon("res/back-icon-small.png");
 		JButton t=new JButton();
 		t.addActionListener(e->{
 			MyJFrameSingletonImpl.getInstance().setPanel(this.callerPanel);

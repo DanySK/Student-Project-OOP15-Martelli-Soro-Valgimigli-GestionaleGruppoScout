@@ -22,7 +22,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import view.altro.AltroMain;
 import view.gestioneEventi.GestioneEventiMain;
-import view.gestioneReparto.GestioneRepartoMain;
+import view.gestioneReparto.GestioneRepartoMainImpl;
 import view.gestioneTasse.GestioneTasseMain;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -32,7 +32,7 @@ import view.gui_utility.MyJPanelImpl;
  * @author giovanni
  *
  */
-public class MainGuiImpl extends MyJPanelImpl implements  MainGui{
+public class MainGuiImpl extends MyJPanelImpl{
 	private static final long serialVersionUID = 5093988269737955314L;
 	/*
 	 * Two Panel Are used:
@@ -48,9 +48,7 @@ public class MainGuiImpl extends MyJPanelImpl implements  MainGui{
 	private final JPopupMenu popupMenu;
 	private final JButton opzioni;
 	
-	/*
-	 * static part that sets look&fell of the entire application
-	 */
+	/* static part that sets look&fell of the entire application */
 	static{
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -66,6 +64,9 @@ public class MainGuiImpl extends MyJPanelImpl implements  MainGui{
 		            ui.put("MenuItem.background", new Color(42,218,65));
 		            ui.put("MenuItem.opaque", true);
 		            ui.put("PopupMenu.contentMargins",new Insets(1,1,1,1));
+		            ui.put("Tree.drawHorizontalLines", true);
+		            ui.put("Tree.drawVerticalLines", true);
+		            ui.put("Tree.font", new Font("Aria", Font.ITALIC, 18));
 		            break;
 		        }
 		    }
@@ -79,27 +80,24 @@ public class MainGuiImpl extends MyJPanelImpl implements  MainGui{
 		south = new MyJPanelImpl("south", this.callerPanel, new GridLayout(2,2));
 		north = new MyJPanelImpl("nortg", this.callerPanel, new BorderLayout());
 		
-		/*
-		 * Add JButton in south panel(GestioneReparto, GestioneEventi,GestioneTasse,Altro)
-		 */
+		/* Add JButton in south panel(GestioneReparto, GestioneEventi,GestioneTasse,Altro)*/
 		this.south.add(createButton("Gestione Reparto", e->{
-			new GestioneRepartoMain(MyJFrameSingletonImpl.getInstance().getContenentPane());
+			new GestioneRepartoMainImpl(MyJFrameSingletonImpl.getInstance().getContenentPane());
 		}));
 		
 		this.south.add(createButton("Gestione Tasse", e->{
-			new Thread(new GestioneTasseMain(MyJFrameSingletonImpl.getInstance().getContenentPane())).start();
+			
 		}));
 	
 		this.south.add(createButton("Gestione Eventi", e->{
-			new Thread(new GestioneEventiMain(MyJFrameSingletonImpl.getInstance().getContenentPane())).start();
+			
 		}));
 		
 		this.south.add(createButton("Altro", e->{
-			new Thread(new AltroMain(MyJFrameSingletonImpl.getInstance().getContenentPane())).start();
+			
 		}));
-		/*
-		 * Prepare JButton Opzioni, ActionListener-->open JPopupMenu
-		 */
+		
+		/* Prepare JButton Opzioni, ActionListener-->open JPopupMenu */
 		opzioni=new JButton();
 		popupMenu= new JPopupMenu();
 		opzioni.setBackground(new Color(42,218,77));
@@ -107,9 +105,8 @@ public class MainGuiImpl extends MyJPanelImpl implements  MainGui{
 		opzioni.addActionListener(e->{
 			popupMenu.show(this.opzioni, opzioni.getWidth()/2, opzioni.getHeight()/2);
 		});
-		/*
-		 * add JMenuItem to JPopUpMenu
-		 */
+		
+		/* add JMenuItem to JPopUpMenu */
 		popupMenu.add(new JMenuItem(new AbstractAction("Option 2") {
            private static final long serialVersionUID = -862401522282125430L;
            public void actionPerformed(ActionEvent e) {
@@ -117,15 +114,12 @@ public class MainGuiImpl extends MyJPanelImpl implements  MainGui{
            }
 		}));
 		this.north.add(opzioni, BorderLayout.LINE_START);
-		/*
-		 * Add South panel and North panel to main panel 
-		 */
+		
+		/*Add South panel and North panel to main panel*/
 		this.add(south, BorderLayout.SOUTH);
 		this.add(north, BorderLayout.NORTH);
 		
-		/*
-		 * Set this panel as componentPane of MyFrameSingleton istance
-		 */
+		/* Set this panel as componentPane of MyFrameSingleton istance */
 		MyJFrameSingletonImpl.getInstance().setPanel(this);
 	}
 
