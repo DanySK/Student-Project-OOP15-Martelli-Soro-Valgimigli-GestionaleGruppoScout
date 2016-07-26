@@ -1,10 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-import control.myUtil.Pair;
+import model.exception.IllegalDateException;
 
 /**
  * @author riccardo
@@ -31,13 +30,13 @@ public interface Excursion {
 	 * 
 	 * @return a Date contained the start date excursion
 	 */
-	public Date getDateStart();
+	public LocalDate getDateStart();
 
 	/**
 	 * 
 	 * @return a Date contained the end date excursion
 	 */
-	public Date getDateEnd();
+	public LocalDate getDateEnd();
 
 	/**
 	 * set the price of the excursion
@@ -57,72 +56,79 @@ public interface Excursion {
 	 * set the start date excursion
 	 * 
 	 * @param dateStart
+	 * @throws IllegalDateException
 	 */
-	public void setDateStart(Date dateStart);
+	public void setDateStart(LocalDate dateStart) throws IllegalDateException;
 
 	/**
 	 * set the end date excursion
 	 * 
 	 * @param dateEnd
+	 * @throws IllegalDateException
 	 */
-	public void setDateEnd(Date dateEnd);
+	public void setDateEnd(LocalDate dateEnd) throws IllegalDateException;
 
 	/**
 	 * add a member in the excursion
 	 * 
-	 * @param idPartecipante
-	 *            is the identifier of the member
+	 * @param member
 	 * @param pagato,
 	 *            must be true if the member has just paid
 	 */
-	public void addPartecipante(int idPartecipante, boolean pagato);
+	public void addPartecipante(MemberImpl partecipante, Boolean pagato);
 
 	/**
 	 * remove a member from the excursion
 	 * 
-	 * @param idPartecipante
-	 *            is the identifier of the member
+	 * @param member
 	 */
-	public void removePartecipante(int idPartecipante);
+	public void removePartecipante(MemberImpl partecipante);
 
 	/**
 	 * 
-	 * @return a List<Integer> contained the ids of the members who has to pay
+	 * @return a List<MemberImpl> contained the members who has to pay
 	 */
-	public List<Integer> getNonPaganti();
+	public List<MemberImpl> getNonPaganti();
 
 	/**
 	 * 
-	 *@return a List<Integer> contained the ids of the members who will take
-	 *         part in the excursion
+	 * @return a List<MemberImpl> contained the members who will take part in
+	 *         the excursion
 	 */
-	public List<Integer> getAllPartecipanti();
+	public List<MemberImpl> getAllPartecipanti();
+
 	/**
 	 * 
-	 * @return a List<Integer> contained the ids of the members who has NOT to pay
+	 * @return a List<Integer> contained the ids of the members who has NOT to
+	 *         pay
 	 */
-	public List<Integer> getAllPaganti();
+	public List<MemberImpl> getAllPaganti();
+
 	/**
 	 * set true the payment boolean
-	 * @param idPartecipante of the member that has paid
+	 * 
+	 * @param member
+	 *            that has paid
 	 */
-	public void setPagante(Integer idPartecipante);
+	public void setPagante(MemberImpl partecipante);
+
 	/**
 	 * 
-	 * @param idPartecipante of the member
+	 * @param member
 	 * @return true if the member will take part in the excursion
 	 */
-	public boolean containMember(Integer idPartecipante);
+	public boolean containMember(MemberImpl partecipante);
+
 	/**
 	 * 
-	 * @param idPartecipante of the member
+	 * @param member
 	 * @return true if the member had paid
 	 */
-	public boolean isPagante (Integer idPartecipante);
+	public boolean isPagante(MemberImpl partecipante);
+
 	/**
 	 * 
-	 * @param membri is a list of Member where search the ids of the members
-	 * @return a List<Integer> contained the members who has the birthday
+	 * @return a List<MemberImpl> contained the members who has the birthday
 	 */
-	public List<Integer> getAllBirthdays(List<MemberImpl> membri);
+	public List<MemberImpl> getAllBirthdays();
 }

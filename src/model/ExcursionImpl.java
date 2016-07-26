@@ -9,7 +9,7 @@ import control.myUtil.Pair;
 import control.myUtil.myOptional;
 import model.exception.IllegalDateException;
 
-public class ExcursionImpl implements Serializable {
+public class ExcursionImpl implements Excursion,Serializable {
 	/**
 	 * 
 	 */
@@ -18,7 +18,7 @@ public class ExcursionImpl implements Serializable {
 	private LocalDate dateStart;
 	private myOptional<LocalDate> dateEnd;
 	private myOptional<String> place;
-	private List<Pair<Integer, Boolean>> partecipanti = new ArrayList<>();
+	private List<Pair<MemberImpl, Boolean>> partecipanti = new ArrayList<>();
 
 	private ExcursionImpl(LocalDate dateStart) throws IllegalDateException {
 		setDateStart(dateStart);
@@ -27,23 +27,23 @@ public class ExcursionImpl implements Serializable {
 		this.place = myOptional.empty();
 	}
 
-	public ExcursionImpl(LocalDate dateStart, List<Integer> idPartecipanti) throws IllegalDateException {
+	public ExcursionImpl(LocalDate dateStart, List<MemberImpl> partecipanti) throws IllegalDateException {
 		this(dateStart);
-		idPartecipanti.forEach(e -> {
+		partecipanti.forEach(e -> {
 			this.partecipanti.add(new Pair<>(e, false));
 		});
 	}
 
-	public void addPartecipante(int idPartecipante, boolean pagato) {
-		this.partecipanti.add(new Pair<>(idPartecipante, pagato));
+	public void addPartecipante(MemberImpl partecipante, Boolean pagato) {
+		this.partecipanti.add(new Pair<>(partecipante, pagato));
 	}
 
-	public void removePartecipante(int idPartecipante) {
-		this.partecipanti.remove(idPartecipante);
+	public void removePartecipante(MemberImpl partecipante) {
+		this.partecipanti.remove(partecipante);
 	}
 
-	public List<Integer> getNonPaganti() {
-		List<Integer> tmp = new ArrayList<>();
+	public List<MemberImpl> getNonPaganti() {
+		List<MemberImpl> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (!e.getY()) {
 				tmp.add(e.getX());
@@ -52,16 +52,16 @@ public class ExcursionImpl implements Serializable {
 		return tmp;
 	}
 
-	public List<Integer> getAllPartecipanti() {
-		List<Integer> tmp = new ArrayList<>();
+	public List<MemberImpl> getAllPartecipanti() {
+		List<MemberImpl> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			tmp.add(e.getX());
 		});
 		return tmp;
 	}
 
-	public List<Integer> getAllPaganti() {
-		List<Integer> tmp = new ArrayList<>();
+	public List<MemberImpl> getAllPaganti() {
+		List<MemberImpl> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (e.getY()) {
 				tmp.add(e.getX());
@@ -70,26 +70,26 @@ public class ExcursionImpl implements Serializable {
 		return tmp;
 	}
 
-	public void setPagante(Integer idPartecipante) {
+	public void setPagante(MemberImpl partecipante) {
 		this.partecipanti.forEach(e -> {
-			if (e.getX().equals(idPartecipante)) {
+			if (e.getX().equals(partecipante)) {
 				e.setY(true);
 			}
 		});
 	}
 
-	public boolean containMember(Integer idPartecipante) {
-		for (Pair<Integer, Boolean> e : this.partecipanti) {
-			if (e.getX().equals(idPartecipante)) {
+	public boolean containMember(MemberImpl partecipante) {
+		for (Pair<MemberImpl, Boolean> e : this.partecipanti) {
+			if (e.getX().equals(partecipante)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean isPagante(Integer idPartecipante) {
-		for (Pair<Integer, Boolean> e : this.partecipanti) {
-			if (e.getX().equals(idPartecipante)) {
+	public boolean isPagante(MemberImpl partecipante) {
+		for (Pair<MemberImpl, Boolean> e : this.partecipanti) {
+			if (e.getX().equals(partecipante)) {
 				return e.getY();
 			}
 		}
@@ -142,17 +142,17 @@ public class ExcursionImpl implements Serializable {
 		this.dateEnd = myOptional.of(dateEnd);
 	}
 
-	public List<Integer> getAllBirthdays(List<MemberImpl> membri){
-		List<Integer> tmp=new ArrayList<>();
-		membri.forEach(e->{
+	public List<MemberImpl> getAllBirthdays(){
+		List<MemberImpl> tmp=new ArrayList<>();
+		partecipanti.forEach(e->{
 			if (this.dateEnd.isPresent()){
-				if (e.getBirthday().getDayOfYear()>=this.dateStart.getDayOfYear()&&
-						e.getBirthday().getDayOfYear()<=this.dateEnd.get().getDayOfYear()){
-					tmp.add(e.getId());
+				if (e.getX().getBirthday().getDayOfYear()>=this.dateStart.getDayOfYear()&&
+						e.getX().getBirthday().getDayOfYear()<=this.dateEnd.get().getDayOfYear()){
+					tmp.add(e.getX());
 				}
 			}else{
-				if (e.getBirthday().getDayOfYear()==this.dateStart.getDayOfYear()){
-					tmp.add(e.getId());
+				if (e.getX().getBirthday().getDayOfYear()==this.dateStart.getDayOfYear()){
+					tmp.add(e.getX());
 				}
 			}
 		});
