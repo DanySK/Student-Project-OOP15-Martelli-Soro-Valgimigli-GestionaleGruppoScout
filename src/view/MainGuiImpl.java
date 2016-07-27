@@ -2,11 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
@@ -16,14 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 
-import view.altro.AltroMain;
-import view.gestioneEventi.GestioneEventiMain;
 import view.gestioneReparto.GestioneRepartoMainImpl;
-import view.gestioneTasse.GestioneTasseMain;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 /**
@@ -48,32 +40,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 	private final JPopupMenu popupMenu;
 	private final JButton opzioni;
 	
-	/* static part that sets look&fell of the entire application */
-	static{
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		    	if ("Nimbus".equals(info.getName())) {
-		    		UIManager.setLookAndFeel(info.getClassName());
-		            UIDefaults ui = UIManager.getLookAndFeelDefaults();
-		            ui.put("Panel.background", new Color(42,218,77));
-		            ui.put("Button.background", new Color(174,226,84));
-		            ui.put("Button.font", new Font("Aria", Font.ITALIC, 30));
-		            ui.put("PopupMenu.background", new Color(42,218,77));
-		            ui.put("Menu.background",new Color(42,218,77));
-		            ui.put("Menu.opaque", false);
-		            ui.put("MenuItem.background", new Color(42,218,65));
-		            ui.put("MenuItem.opaque", true);
-		            ui.put("PopupMenu.contentMargins",new Insets(1,1,1,1));
-		            ui.put("Tree.drawHorizontalLines", true);
-		            ui.put("Tree.drawVerticalLines", true);
-		            ui.put("Tree.font", new Font("Aria", Font.ITALIC, 18));
-		            break;
-		        }
-		    }
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-	}
+	
 	
 	public MainGuiImpl(){
 		super("SCOUTAPP",MyJFrameSingletonImpl.getInstance().getContenentPane(), new BorderLayout());

@@ -2,6 +2,9 @@ package view.gui_utility;
 
 import java.awt.Toolkit;
 
+import control.Unit;
+import control.UnitImpl;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -18,6 +21,7 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	public final static int HEIGTH;
 	public final static int WIDTH;
 	private static JPanel myFramePanel=new JPanel();
+	private static UnitImpl unit;
 	
 	static {
 		HEIGTH=((int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/1.1));
@@ -26,7 +30,9 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	/** private Constructor
 	 * 
 	 */
-	private  MyJFrameSingletonImpl(){
+	@SuppressWarnings("static-access")
+	private  MyJFrameSingletonImpl(Unit u){
+		this.unit=(UnitImpl) u;
 		this.setSize(WIDTH, HEIGTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		myFramePanel=new JPanel();
@@ -37,11 +43,16 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	 * @return MyFrameSingleton
 	 */
 	public static MyJFrameSingletonImpl getInstance(){
-		if(myframe==null){
-			myframe=new MyJFrameSingletonImpl();
-		}
 		return myframe;
 	}
+	public static MyJFrameSingletonImpl getInstance(Unit u){
+		if(myframe==null){
+			myframe=new MyJFrameSingletonImpl(u);
+		}
+		
+		return myframe;
+	}
+	
 	/**It set the ContentPane of MyFrameSingleton
 	 * 
 	 * @param panel The main panel you want to set in this frame
@@ -65,7 +76,13 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	public JPanel getContenentPane(){
 		return myFramePanel;
 	}
-
+	
+	/**it return the UnitImpl working on
+	 * @return UnitImpl UnitImpl working on
+	 */
+	public UnitImpl getUnit(){
+		return MyJFrameSingletonImpl.unit;
+	}
 	
 	
 }

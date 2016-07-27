@@ -2,6 +2,8 @@ package view.gui_utility;
 
 import javax.swing.JPanel;
 
+import control.UnitImpl;
+
 /**
  * A class that model a JFrame using the Singleton pattern. Only one frame is(usualy) used in
  * this app, each window is painted changing the contentPane of the unique JFrame.
@@ -20,5 +22,10 @@ public interface MyJFrameSingleton {
 	 * @return JPanel	The main panel setted in this frame
 	 */
 	public JPanel getContenentPane();
+	
+	/**it return the UnitImpl working on
+	 * @return UnitImpl UnitImpl working on
+	 */
+	public UnitImpl getUnit();
 	
 }
