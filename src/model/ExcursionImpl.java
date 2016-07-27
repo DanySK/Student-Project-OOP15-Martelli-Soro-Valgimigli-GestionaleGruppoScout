@@ -39,7 +39,11 @@ public class ExcursionImpl implements Excursion,Serializable {
 	}
 
 	public void removePartecipante(MemberImpl partecipante) {
-		this.partecipanti.remove(partecipante);
+		if(this.isPagante(partecipante)){
+			this.partecipanti.remove(new Pair<>(partecipante,true));
+		}else{
+			this.partecipanti.remove(new Pair<>(partecipante,false));
+		}
 	}
 
 	public List<MemberImpl> getNonPaganti() {
