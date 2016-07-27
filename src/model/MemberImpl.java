@@ -48,7 +48,9 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public List<String> getSpecialities() {
 		return this.specialities;
 	}
-
+	public myOptional<Tutor> getTutor(){
+		return this.tutor;
+	}
 	public void setTutorMail(String mail) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
