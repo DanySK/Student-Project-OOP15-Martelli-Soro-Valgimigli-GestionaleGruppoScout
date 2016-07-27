@@ -2,11 +2,12 @@ package control;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import model.Excursion;
@@ -23,7 +24,7 @@ public class CheckerImpl implements Checker, Serializable {
 
 	@Override
 	public List<Member> noPaied(Excursion e, List<Member> people) {
-		return null;
+		return e.getNonPaganti();
 	}
 
 	@Override
@@ -43,14 +44,15 @@ public class CheckerImpl implements Checker, Serializable {
 	}
 
 	@Override
-	public void stdRouting(List<Excursion> excursions, List<Member> people, List<Squadron> sq) {
-		List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
-		List<Member> m = new ArrayList<>();
-		for(Excursion e: exc){
-			m.addAll(this.noPaied(e, people));
-		}
+	public Map<String, List<Member>> stdRouting(List<Excursion> excursions, List<Member> people, List<Squadron> sq) {
 		
+		Map<String, List<Member>> map = new HashMap<>();
+		List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
+		for(Excursion e: exc){
+			map.put("Evento del " + e.getDateStart(), e.getNonPaganti());
+		}
 		List<Member> birthday = this.birthday(DAYTOCHECK, people);
+		map.put("Compleanni a breve", birthday);
 	}
 	
 	private boolean checkDateIsBetween(LocalDate start, LocalDate end, LocalDate birthday){

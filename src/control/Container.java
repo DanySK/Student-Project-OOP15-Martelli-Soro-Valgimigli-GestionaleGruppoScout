@@ -83,5 +83,12 @@ public interface Container {
 	 * @return
 	 */
 	public List<Member> getFreeMember();
+	/**
+	 * To detached member from his squadron
+	 * @param member
+	 * @param sq
+	 */
+	public void removeMeberFromSquadron(Member member, Squadron sq) 
+			throws SquadronNotExistException, MemberNotExistException;
 
 }

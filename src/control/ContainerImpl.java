@@ -129,6 +129,23 @@ public class ContainerImpl implements Container, Serializable {
 			return false;
 		}).collect(Collectors.toList());
 	}
+
+
+
+	@Override
+	public void removeMeberFromSquadron(Member member, Squadron sq)
+			throws SquadronNotExistException, MemberNotExistException {
+		if(!this.squadronActive.contains(sq)){
+			throw new SquadronNotExistException();
+		}
+		if(!this.unit.contains(member) || ! sq.containMember(member)){
+			throw new MemberNotExistException();
+		}
+		
+		this.squadronActive.get(this.squadronActive.indexOf(sq)).removeMembro(member);
+		
+		
+	}
 	
 
 	

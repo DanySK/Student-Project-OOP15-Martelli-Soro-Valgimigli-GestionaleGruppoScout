@@ -1,6 +1,7 @@
 package control;
 
 import java.util.List;
+import java.util.Map;
 
 import model.Excursion;
 import model.Member;
@@ -29,7 +30,13 @@ public interface Checker {
 	 */
 	public List<Excursion> excursionInProgram(int nDay, List<Excursion> excursions);
 	/**
-	 * List of controls which this method to each time the program is launched 
+	 * List of controls which this method to each time the program is launched
+	 * @param excursions
+	 * @param people
+	 * @param sq
+	 * @return
+	 * A map that has for Keys "Excursion" and "Birthday" and for values all members which have the birthday
+	 * within Default Numb of days and all members which haven't payed the excursion
 	 */
-	public void stdRouting(List<Excursion> excursions, List<Member> people, List<Squadron> sq );
+	public Map<String, List<Member>> stdRouting(List<Excursion> excursions, List<Member> people, List<Squadron> sq );
 }
