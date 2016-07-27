@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import control.exception.DefaultDirectoryException;
 import control.exception.ProjectFilesCreationException;
@@ -74,7 +75,8 @@ public class MasterProjectImpl implements MasterProject {
 		this.directoryToSave = this.getDirectoryToSave();
 		this.worker = new File(this.directoryToSave);
 		String[] files = this.worker.list();
-		return Arrays.asList(files);
+		List<String> filesList = Arrays.asList(files);
+		return filesList.stream().map(e -> e.substring(0, e.length() - 4)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -102,6 +104,23 @@ public class MasterProjectImpl implements MasterProject {
 		this.saver.writeObject(unit);
 		this.saver.close();
 		new WarningNotice("Salvataggio avvenuto con successo");
+	}
+	
+	public static void main (String[] s){
+		try {
+			MasterProject mp = new MasterProjectImpl();
+			mp.save(new UnitImpl("Fenice"));
+			mp.save(new UnitImpl("Smeraldo"));
+			mp.save(new UnitImpl("Argento"));
+			
+			mp.getListOfUnit().forEach(e -> System.out.println(e));
+			
+			System.out.println(mp.loadUnit(mp.getListOfUnit().get(2)).getName());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		
 }
