@@ -35,6 +35,10 @@ Devi fare inoltre le escursioni.
 Membro: - hasTotem non funziona
 		- Serve che quando crei un membro calcoli l'età e la salvi in un campo
 		
+Squadriglia: RemoveMember io non controllo se è il capo o ilvice o il trice .. lo fai tu! Nel metodo io ti passo un membro e tu 
+controlli che ruolo ha e lo elimini anche da li! Poi lanci un eccezione se il membro è (capo, vice, trice) con scritto ad esempio
+Il ragazzo rimosso era il capo! Ora la squadriglia è momentaneamente senza un capo. IO Lo gestisco 
+		
 
 
 
