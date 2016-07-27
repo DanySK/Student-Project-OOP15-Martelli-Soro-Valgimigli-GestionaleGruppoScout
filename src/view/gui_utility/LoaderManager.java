@@ -45,7 +45,7 @@ public class LoadUnit extends JPanel{
 						JButton tmp=new JButton(i);
 						tmp.addActionListener(e->{
 							load.setEnabled(true);
-							selected=tmp.getName();
+							selected=tmp.getText();
 							for(JButton t : list){
 								t.setEnabled(false);
 							}
