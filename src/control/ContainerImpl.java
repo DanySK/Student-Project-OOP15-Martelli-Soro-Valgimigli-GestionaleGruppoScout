@@ -1,16 +1,14 @@
 package control;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import control.exception.EntityAlreadyExistsException;
-import control.myUtil.myOptional;
+import control.exception.MemberNotExistException;
+import control.exception.SquadronNotExistException;
 import model.Excursion;
 import model.Member;
 import model.Squadron;
@@ -76,7 +74,7 @@ public class ContainerImpl implements Container, Serializable {
 		if(this.unit.contains(m)){
 			throw new EntityAlreadyExistsException();
 		}
-		m.setId(this.getCode());
+		//m.setId(this.getCode());
 		this.unit.add(m);
 	}
 
@@ -96,28 +94,42 @@ public class ContainerImpl implements Container, Serializable {
 		}
 		return 0;
 	}
-	public static void main(String[] s){
-		Container cnt = new ContainerImpl();
-		projectFactory pf = new projectFactoryimpl();
-		LocalDate date;
-		
-		date = Year.of(1998).atMonth(Month.FEBRUARY).atDay(13);
-		
-		try {
-			cnt.addMember(pf.getSimpleMember("Lorenzo", "Valgimigli", date, true));
-			cnt.addMember(pf.getSimpleMember("Lorenzo", "Rossi", date, true));
-			cnt.addMember(pf.getSimpleMember("Marco", "Cavani", date, true));
-			cnt.addMember(pf.getSimpleMember("Giovanni", "Valgimigli", date, true));
-			cnt.addMember(pf.getSimpleMember("Alessia", "Valgimigli", date, false));
-			
 
-			
-			System.out.println(cnt.getMembers());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+
+
+	@Override
+	public void removeMember(Member mbr) throws MemberNotExistException {
+		if(!this.unit.contains(mbr)){
+			throw new MemberNotExistException();
 		}
+		//this.code.remove(mbr.getId());
+		this.squadronActive.stream().filter(e -> e.containMember(mbr))
+									.forEach(e -> e.getMembri().remove(mbr));
+		//eliminazione per le escursioni
+		this.unit.remove(mbr);
 	}
+
+
+
+	@Override
+	public void removeSquadron(Squadron sq) throws SquadronNotExistException {
+		if(!this.squadronActive.contains(sq)){
+			throw new SquadronNotExistException();
+		}
+		//manca la parte delle escursioni
+		this.squadronActive.remove(sq);
+	}
+	
+	@Override
+	public List<Member> getFreeMember() {
+		return this.unit.stream().filter(e -> {
+			if(this.squadronActive.stream().filter(s -> s.containMember(e)).count() > 0){
+				return true;
+			}
+			return false;
+		}).collect(Collectors.toList());
+	}
+	
 
 	
 

@@ -53,3 +53,6 @@ Tutti i nodi principali sarebbero i nomi delle squadriglie e i nodi secondari sa
 -altre cose che mi verranno in mente.
 
 DEBBO FARE: Aggiunger a container ricerca per nome e cognome e ricerca per codice univoco
+
+SortExcursion metter static il projectFactory Romovenelcontainer 
+Checker stdRouting ritorna la mappa

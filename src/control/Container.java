@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import control.exception.EntityAlreadyExistsException;
+import control.exception.MemberNotExistException;
+import control.exception.SquadronNotExistException;
 import model.Member;
 import model.Squadron;
 
@@ -66,5 +68,20 @@ public interface Container {
 	 * @param sq
 	 */
 	public void addSquadron(Squadron sq)throws EntityAlreadyExistsException;
+	/**
+	 * Method for removing member
+	 * @param mbr
+	 */
+	public void removeMember(Member mbr) throws MemberNotExistException;
+	/**
+	 * Method for removing squadron
+	 * @param sq
+	 */
+	public void removeSquadron(Squadron sq)throws SquadronNotExistException;
+	/**
+	 * Provides a list of member which they are in no Squadron
+	 * @return
+	 */
+	public List<Member> getFreeMember();
 
 }
