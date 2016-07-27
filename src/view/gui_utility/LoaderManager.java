@@ -6,6 +6,7 @@ import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,13 +14,13 @@ import javax.swing.JPanel;
 
 import control.MasterProjectImpl;
 import control.UnitImpl;
+import view.LoaderImpl;
 import view.MainGuiImpl;
 
 
 
 public class LoaderManager extends JPanel {
 	
-
 	private static final long serialVersionUID = 5231397320694535637L;
 	private final MasterProjectImpl project;
 	public LoaderManager(MasterProjectImpl pr){
@@ -63,6 +64,15 @@ public class LoadUnit extends JPanel{
 						this.frame.dispose();
 						
 					});
+
+					ImageIcon img = new ImageIcon("res/back-icon-small.png");
+					JButton t=new JButton();
+					t.addActionListener(e->{
+						new LoaderImpl();
+						this.frame.dispose();
+					});
+					t.setIcon(img);
+					panelBottom.add(t, BorderLayout.LINE_START);
 					panelBottom.add(load, BorderLayout.LINE_END);
 					this.add(panelCenter, BorderLayout.NORTH);
 					this.add(panelBottom, BorderLayout.SOUTH);
@@ -71,9 +81,9 @@ public class LoadUnit extends JPanel{
 				
 				e.printStackTrace();
 			}
-			this.frame.setLocationByPlatform(true);
 			this.frame.add(this);
 			this.frame.pack();
+			this.frame.setLocationRelativeTo(null);
 			this.frame.setVisible(true);
 			
 		}
@@ -92,7 +102,6 @@ public class LoadUnit extends JPanel{
 			TextField b = new TextField();
 			this.add(a);
 			this.add(b);
-			this.add(new JLabel());
 			JButton save=new JButton("Save");
 			save.addActionListener(e->{
 				try {
@@ -103,10 +112,19 @@ public class LoadUnit extends JPanel{
 					k.printStackTrace();
 				}
 			});
+			
+			ImageIcon img = new ImageIcon("res/back-icon-small.png");
+			JButton t=new JButton();
+			t.addActionListener(e->{
+				new LoaderImpl();
+				this.frame.dispose();
+			});
+			t.setIcon(img);
+			this.add(t);
 			this.add(save);
-			this.frame.setLocationByPlatform(true);
 			this.frame.add(this);
 			this.frame.pack();
+			this.frame.setLocationRelativeTo(null);
 			this.frame.setVisible(true);
 			
 		}

@@ -44,7 +44,6 @@ public class LoaderImpl extends MyJPanelImpl {
 		    e.printStackTrace();
 		}
 	}
-	
 	private static final long serialVersionUID = 2929901797522523355L;
 	private MasterProjectImpl project;
 	private final JFrame frame=new JFrame();
@@ -54,6 +53,7 @@ public class LoaderImpl extends MyJPanelImpl {
 	
 	public LoaderImpl(){
 		super("Loader", new JPanel());
+		
 		try{
 			this.project=new MasterProjectImpl();
 		}catch(Exception e){
@@ -70,10 +70,10 @@ public class LoaderImpl extends MyJPanelImpl {
 		create.addActionListener(e->{loader. new CreateUnit(); this.frame.dispose();});
 		this.add(load);
 		this.add(create);
-		frame.setLocationByPlatform(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(this);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 	}

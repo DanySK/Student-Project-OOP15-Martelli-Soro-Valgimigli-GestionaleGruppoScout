@@ -2,12 +2,12 @@ package view.gui_utility;
 
 import java.awt.Toolkit;
 
-import control.Unit;
-import control.UnitImpl;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import control.Unit;
+import control.UnitImpl;
 /**
  * A class that model a JFrame using the Singleton pattern. Only one frame is(usualy) used in
  * this app, each window is painted changing the contentPane of the unique JFrame.
@@ -36,6 +36,7 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 		this.setSize(WIDTH, HEIGTH);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		myFramePanel=new JPanel();
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	/**It return the instance of JFrame
