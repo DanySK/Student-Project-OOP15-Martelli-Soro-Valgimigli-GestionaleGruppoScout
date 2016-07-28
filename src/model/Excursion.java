@@ -92,8 +92,8 @@ public interface Excursion {
 
 	/**
 	 * 
-	 * @return a List<Member> contained the members who will take part in
-	 *         the excursion
+	 * @return a List<Member> contained the members who will take part in the
+	 *         excursion
 	 */
 	public List<Member> getAllPartecipanti();
 
@@ -131,4 +131,16 @@ public interface Excursion {
 	 * @return a List<Member> contained the members who has the birthday
 	 */
 	public List<Member> getAllBirthdays();
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getName();
+
+	/**
+	 * 
+	 * @param name
+	 */
+	public void setName(String name);
 }

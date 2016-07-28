@@ -10,8 +10,8 @@ public class UscitaImpl extends ExcursionImpl implements Uscita,Serializable {
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
 	
-	public UscitaImpl (LocalDate dateStart,Reparto reparto) throws IllegalDateException{
-		super (dateStart,reparto.getAllMember());
+	public UscitaImpl (LocalDate dateStart,Reparto reparto,String name) throws IllegalDateException{
+		super (name,dateStart,reparto.getAllMember());
 		this.setReparto(reparto);
 		this.setDateEnd(dateStart.plusDays(2));
 	}

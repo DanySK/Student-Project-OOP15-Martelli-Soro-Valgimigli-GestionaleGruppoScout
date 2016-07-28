@@ -176,5 +176,8 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public void setId(int id) {
 		this.identificatore = id;
 	}
+	public boolean isComplete(){
+		return this.tutor.isPresent();
+	}
 
 }

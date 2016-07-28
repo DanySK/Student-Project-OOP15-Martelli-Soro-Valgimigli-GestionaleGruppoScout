@@ -181,6 +181,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	public Map<Member, Roles> getMembri(){
 		return this.map;
 	}
+	
 	/**
 	 * 
 	 * @param membro
