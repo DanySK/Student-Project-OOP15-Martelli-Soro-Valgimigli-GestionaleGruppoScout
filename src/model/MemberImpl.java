@@ -17,7 +17,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private Boolean promise;
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
-
+	private myOptional<Integer> annoTasse=myOptional.empty();
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, int id) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.empty();
@@ -29,7 +29,19 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.tutor = myOptional.of(tutor);
 		this.identificatore = id;
 	}
-
+	public void setTasse (Integer anno){
+		if (this.annoTasse.isPresent()){
+			if (this.annoTasse.get()<anno){
+				this.annoTasse=myOptional.of(anno);
+			}
+		}
+	}
+	public boolean isTaxPaid (Integer anno){
+		if (this.annoTasse.isPresent()){
+			if(this.annoTasse.get().equals(anno))return true;
+		}
+		return false;
+	}
 	public boolean addCompetence(String competence) {
 		/*
 		 * return false if the competent is already contained
@@ -40,7 +52,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.competence.add(competence);
 		return true;
 	}
-
+	
 	public List<String> getCompetence() {
 		return this.competence;
 	}
@@ -147,10 +159,6 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	public boolean getPromise() {
 		return this.promise;
-	}
-
-	public int getHowOldIs() {
-		return (LocalDate.now().getYear() - this.getBirthday().getYear());
 	}
 
 	public void setPromise(boolean promessa) {

@@ -18,6 +18,17 @@ public interface Member extends Person{
 	public Boolean isBirthday();
 	/**
 	 * 
+	 * @param anno
+	 */
+	public void setTasse (Integer anno);
+	/**
+	 * 
+	 * @param anno
+	 * @return
+	 */
+	public boolean isTaxPaid (Integer anno);
+	/**
+	 * 
 	 * @return the birthday
 	 */
 	public LocalDate getBirthday ();
@@ -25,6 +36,7 @@ public interface Member extends Person{
 	 * 
 	 * @return the surname
 	 */
+	
 	public String getSurname ();
 		/**
 		 * 
