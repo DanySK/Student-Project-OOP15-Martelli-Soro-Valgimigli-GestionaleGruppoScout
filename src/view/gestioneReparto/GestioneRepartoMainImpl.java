@@ -19,6 +19,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
 
+import control.UnitImpl;
 import model.SquadronImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -36,23 +37,21 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 	private final JPanel panelBottom;
 	private GridBagConstraints c = new GridBagConstraints();
 	private final JTree tree;
-		
-	public GestioneRepartoMainImpl(JPanel parent){
+	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
+	public GestioneRepartoMainImpl(){
 		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dex(JPanel)
 		 */
-		super("ApocalipseNOW!!--Gestione Reparto", parent);
-		this.setLayout(new GridBagLayout());
+		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getContenentPane(), new GridBagLayout());
 		panelRight = new JPanel(new BorderLayout());
 		panelCenter=new JPanel();
 		panelBottom=new JPanel(new BorderLayout());
 		//--------------->attenzione necessario mutare nome in base al nome del reparto
 		
 		/*Creo l'albero e il nodo root(reparto)*/
-		DefaultMutableTreeNode reparto = new DefaultMutableTreeNode("CIAO");
-		reparto.setUserObject(null);
-		 tree = new JTree(reparto);
+		DefaultMutableTreeNode reparto = new DefaultMutableTreeNode(unit.getName());
+		tree = new JTree(reparto);
 		tree.setSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight(), MyJFrameSingletonImpl.getInstance().getWidth()/4));
 		tree.setBackground(panelRight.getBackground());
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -72,6 +71,10 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 							 
 							 panelCenter= (SquadrigliaOverviewImpl)node.getUserObject();
 						 }
+						 if(node.getUserObject() instanceof String){
+							 panelCenter=new JPanel();
+							 panelCenter.add(new JButton("Squadriglia: "+(String)node.getUserObject()));
+						 }
 						 panelRight.add(panelCenter,BorderLayout.CENTER);
 						 panelRight.repaint();
 						 panelRight.validate();
@@ -90,7 +93,7 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 		
 		for( int i=0;i < 5;i++){
 			reparto.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(new SquadronImpl(Integer.toString(i),false))));
-			((DefaultMutableTreeNode)reparto.getLastChild()).add((new DefaultMutableTreeNode(new String("CIAO MONDO COME STAI?"))));
+			((DefaultMutableTreeNode)reparto.getLastChild()).add((new DefaultMutableTreeNode(new String(i+" CIAO MONDO COME STAI?"))));
 		}
 		
 		/*Setto i JToolTip dell'albero*/
@@ -136,8 +139,8 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);		
 			if( ((DefaultMutableTreeNode)value).getUserObject() instanceof SquadrigliaOverviewImpl){
-				setToolTipText("In questa sezione viene mostrata un'anteprima della squadriglia,"+System.lineSeparator()+
-						"comprendente l'elenco degli incarichi assegnati e l'elenco dei componenti.");
+				setToolTipText("<html>In questa sezione viene mostrata un'anteprima della squadriglia,<br>"+
+						"comprendente l'elenco degli incarichi assegnati e l'elenco dei componenti.</html>");
 			}
 			return this;
 		}	 
