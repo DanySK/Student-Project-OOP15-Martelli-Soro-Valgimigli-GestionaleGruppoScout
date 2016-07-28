@@ -47,7 +47,17 @@ public class RepartoImpl implements Reparto {
 	public Member getCapoM() {
 		return capoM;
 	}
-
+	public List<Member> getMembersNotPaid(int anno){
+		List<Member> tmp=new ArrayList<>();
+		this.squadriglie.forEach(e->{
+			new ArrayList<>(e.getMembri().keySet()).forEach(g->{
+				if (!g.isTaxPaid(anno)){
+					tmp.add(g);
+				}
+			});
+		});
+		return tmp;
+	}
 	public void setCapoM(Member capoMaschio) {
 		this.capoM = capoMaschio;
 	}

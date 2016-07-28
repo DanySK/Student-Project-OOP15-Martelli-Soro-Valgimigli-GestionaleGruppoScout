@@ -98,6 +98,12 @@ public interface Reparto {
 	public void removeMembroSenzaSquadriglia(Member membro);
 	/**
 	 * 
+	 * @param anno
+	 * @return
+	 */
+	public List<Member> getMembersNotPaid(int anno);
+	/**
+	 * 
 	 * @return
 	 */
 	public List<Member> getMembriSenzaSquadriglia();
