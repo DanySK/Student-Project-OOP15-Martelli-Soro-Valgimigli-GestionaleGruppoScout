@@ -4,19 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.Container;
+import control.exception.MemberSexException;
 
-public class RepartoImpl implements Reparto{
+public class RepartoImpl implements Reparto {
 	private List<Squadron> squadriglie;
 	private List<Member> aiutanti;
+	private List<Member> membriSenzaSquadriglia=new ArrayList<>();
+	private String name;
 	private Member capoM;
 	private Member capoF;
 
-	public RepartoImpl(Container container, Member capoMaschio, Member capoFemmina, List<Member> aiutanti) {
+	public RepartoImpl(Container container, Member capoMaschio, Member capoFemmina, List<Member> aiutanti,String name) {
 		this.squadriglie = container.getSquadrons();
 		this.aiutanti = aiutanti;
 		this.capoF = capoFemmina;
 		this.capoM = capoMaschio;
+		this.setName(name);
+	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void addMembroSenzaSquadriglia(Member membro) {
+		this.membriSenzaSquadriglia.add(membro);
+	}
+
+	public void removeMembroSenzaSquadriglia(Member membro) {
+		this.membriSenzaSquadriglia.remove(membro);
+	}
+
+	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException {
+		squadriglia.addMembro(membro, ruolo);
 	}
 
 	public Member getCapoM() {
@@ -53,7 +76,7 @@ public class RepartoImpl implements Reparto{
 
 	public List<Member> getAllMember() {
 		List<Member> tmp = new ArrayList<>();
-		squadriglie.forEach(e->{
+		squadriglie.forEach(e -> {
 			tmp.addAll(e.getMembri().keySet());
 		});
 		return tmp;

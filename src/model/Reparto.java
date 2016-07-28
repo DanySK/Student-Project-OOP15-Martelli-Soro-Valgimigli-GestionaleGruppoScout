@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import control.exception.MemberSexException;
+
 public interface Reparto {
 	/**
 	 * 
@@ -82,4 +84,38 @@ public interface Reparto {
 	 * @return
 	 */
 	public List<Member> getStaff();
+
+	/**
+	 * 
+	 * @param membro
+	 */
+	public void addMembroSenzaSquadriglia(Member membro);
+
+	/**
+	 * 
+	 * @param membro
+	 */
+	public void removeMembroSenzaSquadriglia(Member membro);
+
+	/**
+	 * 
+	 * @param membro
+	 * @param ruolo
+	 * @param squadriglia
+	 * @throws MemberSexException
+	 */
+	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getName();
+
+	/**
+	 * 
+	 * @param name
+	 */
+	public void setName(String name);
+
 }
