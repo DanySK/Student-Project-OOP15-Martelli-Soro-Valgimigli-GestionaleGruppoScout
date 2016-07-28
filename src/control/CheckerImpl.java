@@ -53,6 +53,8 @@ public class CheckerImpl implements Checker, Serializable {
 		}
 		List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);
+		
+		return map;
 	}
 	
 	private boolean checkDateIsBetween(LocalDate start, LocalDate end, LocalDate birthday){
