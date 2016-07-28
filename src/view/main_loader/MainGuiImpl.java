@@ -1,6 +1,7 @@
 package view.main_loader;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -71,7 +72,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 		opzioni.setIcon(img);
 		opzioni.setEnabled(false);
 		
-		if(this.checkOnStartup()){//---->sostituire con this.checkOnsStartup()
+		if(this.checkOnStartup()){
 			opzioni.setEnabled(true);
 			opzioni.setBackground(new Color(252,168,23));
 		}
@@ -102,7 +103,8 @@ public class MainGuiImpl extends MyJPanelImpl{
 		List<Excursion> excursion=new ArrayList<>();
 		List<Squadron> squadron=new ArrayList<>();
 		List<Member> member=new ArrayList<>();
-		return (new CheckerImpl()).stdRouting(excursion, member,squadron).isEmpty();
+		//return (new CheckerImpl()).stdRouting(excursion, member,squadron).isEmpty();
+		return false;
 	}
 
 }
