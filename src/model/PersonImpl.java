@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class PersonImpl implements Serializable,Person {
 	/**
@@ -49,6 +50,16 @@ public class PersonImpl implements Serializable,Person {
 	public Boolean getSex(){
 		return this.sex;
 	}
+
+	public int getAnnata() {
+		return (LocalDate.now().getYear() - this.getBirthday().getYear());
+	}
+
+	public Period getHowIsHold() {
+		return LocalDate.now().until(this.birthday).normalized();
+	
+	}
+
 	public Boolean isBirthday(){//da testare
 		return (LocalDate.now().getDayOfYear()==(this.birthday.getDayOfYear()));
 	}
