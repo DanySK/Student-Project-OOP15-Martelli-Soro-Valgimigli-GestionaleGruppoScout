@@ -16,22 +16,32 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	private static final long serialVersionUID = 1L;
 	private myOptional<Integer> prize;
 	private LocalDate dateStart;
+	private String name;
 	private myOptional<LocalDate> dateEnd;
 	private myOptional<String> place;
 	private List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
 
-	public ExcursionImpl(LocalDate dateStart) throws IllegalDateException {
+	public ExcursionImpl(LocalDate dateStart,String name) throws IllegalDateException {
 		setDateStart(dateStart);
 		this.prize = myOptional.empty();
 		this.dateEnd = myOptional.empty();
 		this.place = myOptional.empty();
+		this.name=name;
 	}
 
-	public ExcursionImpl(LocalDate dateStart, List<Member> partecipanti) throws IllegalDateException {
-		this(dateStart);
+	public ExcursionImpl(String name,LocalDate dateStart, List<Member> partecipanti) throws IllegalDateException {
+		this(dateStart,name);
 		partecipanti.forEach(e -> {
 			this.partecipanti.add(new Pair<>(e, false));
 		});
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void addPartecipante(Member partecipante, Boolean pagato) {
