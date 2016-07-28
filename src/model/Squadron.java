@@ -160,7 +160,7 @@ public interface Squadron {
 		 * 
 		 * @return a List<Member> contained the members celebreting their birthday
 		 * today.
-		 * a list without members will be returned if noone is celebreting birthday
+		 * a list without members will be returned if no one is celebreting birthday
 		 */
 		public List<Member> getMemberCelebretingBirthday();
 		

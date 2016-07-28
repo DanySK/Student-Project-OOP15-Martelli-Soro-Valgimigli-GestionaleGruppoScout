@@ -9,7 +9,7 @@ import control.myUtil.Pair;
 import control.myUtil.myOptional;
 import model.exception.IllegalDateException;
 
-public class ExcursionImpl implements Excursion,Serializable {
+public abstract class ExcursionImpl implements Excursion,Serializable {
 	/**
 	 * 
 	 */
@@ -20,7 +20,7 @@ public class ExcursionImpl implements Excursion,Serializable {
 	private myOptional<String> place;
 	private List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
 
-	private ExcursionImpl(LocalDate dateStart) throws IllegalDateException {
+	public ExcursionImpl(LocalDate dateStart) throws IllegalDateException {
 		setDateStart(dateStart);
 		this.prize = myOptional.empty();
 		this.dateEnd = myOptional.empty();
