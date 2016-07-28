@@ -37,7 +37,9 @@ public class RepartoImpl implements Reparto {
 	public void removeMembroSenzaSquadriglia(Member membro) {
 		this.membriSenzaSquadriglia.remove(membro);
 	}
-
+	public List<Member> getMembriSenzaSquadriglia(){
+		return this.membriSenzaSquadriglia;
+	}
 	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException {
 		squadriglia.addMembro(membro, ruolo);
 	}

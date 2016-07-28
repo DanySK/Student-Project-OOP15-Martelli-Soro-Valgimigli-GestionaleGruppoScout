@@ -96,7 +96,11 @@ public interface Reparto {
 	 * @param membro
 	 */
 	public void removeMembroSenzaSquadriglia(Member membro);
-
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Member> getMembriSenzaSquadriglia();
 	/**
 	 * 
 	 * @param membro
@@ -104,6 +108,7 @@ public interface Reparto {
 	 * @param squadriglia
 	 * @throws MemberSexException
 	 */
+	
 	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException;
 
 	/**
