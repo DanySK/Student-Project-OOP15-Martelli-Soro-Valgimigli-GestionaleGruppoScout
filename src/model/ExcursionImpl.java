@@ -18,7 +18,7 @@ public class ExcursionImpl implements Excursion,Serializable {
 	private LocalDate dateStart;
 	private myOptional<LocalDate> dateEnd;
 	private myOptional<String> place;
-	private List<Pair<MemberImpl, Boolean>> partecipanti = new ArrayList<>();
+	private List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
 
 	private ExcursionImpl(LocalDate dateStart) throws IllegalDateException {
 		setDateStart(dateStart);
@@ -27,18 +27,18 @@ public class ExcursionImpl implements Excursion,Serializable {
 		this.place = myOptional.empty();
 	}
 
-	public ExcursionImpl(LocalDate dateStart, List<MemberImpl> partecipanti) throws IllegalDateException {
+	public ExcursionImpl(LocalDate dateStart, List<Member> partecipanti) throws IllegalDateException {
 		this(dateStart);
 		partecipanti.forEach(e -> {
 			this.partecipanti.add(new Pair<>(e, false));
 		});
 	}
 
-	public void addPartecipante(MemberImpl partecipante, Boolean pagato) {
+	public void addPartecipante(Member partecipante, Boolean pagato) {
 		this.partecipanti.add(new Pair<>(partecipante, pagato));
 	}
 
-	public void removePartecipante(MemberImpl partecipante) {
+	public void removePartecipante(Member partecipante) {
 		if(this.isPagante(partecipante)){
 			this.partecipanti.remove(new Pair<>(partecipante,true));
 		}else{
@@ -46,8 +46,8 @@ public class ExcursionImpl implements Excursion,Serializable {
 		}
 	}
 
-	public List<MemberImpl> getNonPaganti() {
-		List<MemberImpl> tmp = new ArrayList<>();
+	public List<Member> getNonPaganti() {
+		List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (!e.getY()) {
 				tmp.add(e.getX());
@@ -56,16 +56,16 @@ public class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
-	public List<MemberImpl> getAllPartecipanti() {
-		List<MemberImpl> tmp = new ArrayList<>();
+	public List<Member> getAllPartecipanti() {
+		List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			tmp.add(e.getX());
 		});
 		return tmp;
 	}
 
-	public List<MemberImpl> getAllPaganti() {
-		List<MemberImpl> tmp = new ArrayList<>();
+	public List<Member> getAllPaganti() {
+		List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (e.getY()) {
 				tmp.add(e.getX());
@@ -74,7 +74,7 @@ public class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
-	public void setPagante(MemberImpl partecipante) {
+	public void setPagante(Member partecipante) {
 		this.partecipanti.forEach(e -> {
 			if (e.getX().equals(partecipante)) {
 				e.setY(true);
@@ -82,8 +82,8 @@ public class ExcursionImpl implements Excursion,Serializable {
 		});
 	}
 
-	public boolean containMember(MemberImpl partecipante) {
-		for (Pair<MemberImpl, Boolean> e : this.partecipanti) {
+	public boolean containMember(Member partecipante) {
+		for (Pair<Member, Boolean> e : this.partecipanti) {
 			if (e.getX().equals(partecipante)) {
 				return true;
 			}
@@ -91,8 +91,8 @@ public class ExcursionImpl implements Excursion,Serializable {
 		return false;
 	}
 
-	public boolean isPagante(MemberImpl partecipante) {
-		for (Pair<MemberImpl, Boolean> e : this.partecipanti) {
+	public boolean isPagante(Member partecipante) {
+		for (Pair<Member, Boolean> e : this.partecipanti) {
 			if (e.getX().equals(partecipante)) {
 				return e.getY();
 			}
@@ -146,8 +146,8 @@ public class ExcursionImpl implements Excursion,Serializable {
 		this.dateEnd = myOptional.of(dateEnd);
 	}
 
-	public List<MemberImpl> getAllBirthdays(){
-		List<MemberImpl> tmp=new ArrayList<>();
+	public List<Member> getAllBirthdays(){
+		List<Member> tmp=new ArrayList<>();
 		partecipanti.forEach(e->{
 			if (this.dateEnd.isPresent()){
 				if (e.getX().getBirthday().getDayOfYear()>=this.dateStart.getDayOfYear()&&

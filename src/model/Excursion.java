@@ -75,34 +75,34 @@ public interface Excursion {
 	 * @param pagato,
 	 *            must be true if the member has just paid
 	 */
-	public void addPartecipante(MemberImpl partecipante, Boolean pagato);
+	public void addPartecipante(Member partecipante, Boolean pagato);
 
 	/**
 	 * remove a member from the excursion
 	 * 
 	 * @param member
 	 */
-	public void removePartecipante(MemberImpl partecipante);
+	public void removePartecipante(Member partecipante);
 
 	/**
 	 * 
-	 * @return a List<MemberImpl> contained the members who has to pay
+	 * @return a List<Member> contained the members who has to pay
 	 */
-	public List<MemberImpl> getNonPaganti();
+	public List<Member> getNonPaganti();
 
 	/**
 	 * 
-	 * @return a List<MemberImpl> contained the members who will take part in
+	 * @return a List<Member> contained the members who will take part in
 	 *         the excursion
 	 */
-	public List<MemberImpl> getAllPartecipanti();
+	public List<Member> getAllPartecipanti();
 
 	/**
 	 * 
 	 * @return a List<Integer> contained the ids of the members who has NOT to
 	 *         pay
 	 */
-	public List<MemberImpl> getAllPaganti();
+	public List<Member> getAllPaganti();
 
 	/**
 	 * set true the payment boolean
@@ -110,25 +110,25 @@ public interface Excursion {
 	 * @param member
 	 *            that has paid
 	 */
-	public void setPagante(MemberImpl partecipante);
+	public void setPagante(Member partecipante);
 
 	/**
 	 * 
 	 * @param member
 	 * @return true if the member will take part in the excursion
 	 */
-	public boolean containMember(MemberImpl partecipante);
+	public boolean containMember(Member partecipante);
 
 	/**
 	 * 
 	 * @param member
 	 * @return true if the member had paid
 	 */
-	public boolean isPagante(MemberImpl partecipante);
+	public boolean isPagante(Member partecipante);
 
 	/**
 	 * 
-	 * @return a List<MemberImpl> contained the members who has the birthday
+	 * @return a List<Member> contained the members who has the birthday
 	 */
-	public List<MemberImpl> getAllBirthdays();
+	public List<Member> getAllBirthdays();
 }
