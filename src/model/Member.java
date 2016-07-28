@@ -114,7 +114,11 @@ public interface Member extends Person{
 		 */
 		
 		public String getTotem ();
-		
+		/**
+		 * 
+		 * @return true if there is a Tutor for the member
+		 */
+		public boolean isComplete();
 		
 
 

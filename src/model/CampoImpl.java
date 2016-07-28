@@ -11,12 +11,12 @@ public class CampoImpl extends ExcursionImpl {
 	
 	public CampoImpl (LocalDate dateStart,LocalDate dateEnd,Reparto reparto) throws IllegalDateException{
 		super (dateStart,reparto.getAllMember());
-		this.setReparto(reparto);
+		this.reparto=reparto;
 		this.setDateEnd(dateEnd);
 	}
 	public CampoImpl (LocalDate dateStart,int durata,Reparto reparto) throws IllegalDateException{
 		super (dateStart,reparto.getAllMember());
-		this.setReparto(reparto);
+		this.reparto=reparto;
 		this.setDateEnd(dateStart.plusDays(durata));
 	}
 	public Reparto getReparto() {
