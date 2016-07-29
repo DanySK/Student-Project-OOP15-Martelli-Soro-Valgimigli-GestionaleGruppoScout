@@ -23,7 +23,7 @@ public class CheckerImpl implements Checker, Serializable {
 	private final Integer DAYTOCHECK = 7;
 
 	@Override
-	public List<Member> noPaied(Excursion e, List<Member> people) {
+	public List<Member> noPaied(Excursion e) {
 		return e.getNonPaganti();
 	}
 

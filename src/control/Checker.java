@@ -14,7 +14,7 @@ public interface Checker {
 	 * @return
 	 * a list of members no paied
 	 */
-	public List<Member> noPaied(Excursion e, List<Member> people);
+	public List<Member> noPaied(Excursion e);
 	/**
 	 * Check the birthday of all member and select each person who has birthday
 	 * in the range: today : today + nDay

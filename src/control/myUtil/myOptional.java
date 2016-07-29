@@ -20,6 +20,7 @@ public class myOptional <E> implements Serializable {
 	 */
 	private static final long serialVersionUID = -4092864802291780152L;
 	private E element = null;
+	private Boolean isPresent = false;
 	
 	/**
 	 * static Method that returns a empty optional Object
@@ -28,6 +29,7 @@ public class myOptional <E> implements Serializable {
 	public static <E> myOptional<E> empty(){
 		myOptional<E> opt = new myOptional<>();
 		opt.setElement(null);
+		opt.isPresent = false;
 		return opt;
 	}
 	/**
@@ -42,6 +44,7 @@ public class myOptional <E> implements Serializable {
 		}
 		myOptional<E> opt = new myOptional<>();
 		opt.setElement(value);
+		opt.isPresent = true;
 		return opt;
 	}
 	/**
@@ -54,10 +57,12 @@ public class myOptional <E> implements Serializable {
 		if(value == null){
 			myOptional<E> opt = new myOptional<>();
 			opt.setElement(null);
+			opt.isPresent = false;
 			return opt;
 		}else{
 			myOptional<E> opt = new myOptional<>();
 			opt.setElement(value);
+			opt.isPresent = true;
 			return opt;
 		}
 	}
@@ -68,7 +73,7 @@ public class myOptional <E> implements Serializable {
 	 */
 	
 	public E get() throws NoSuchElementException{
-		if(this.element == null){
+		if(!this.isPresent){
 			throw new NoSuchElementException();
 		}else{
 			return this.element;
@@ -79,7 +84,7 @@ public class myOptional <E> implements Serializable {
 	 * @return
 	 */
 	public boolean isPresent(){
-		return this.element.equals(null);
+		return this.isPresent;
 	}
 	/**
 	 * If the value is present returns the value otherwise returns other

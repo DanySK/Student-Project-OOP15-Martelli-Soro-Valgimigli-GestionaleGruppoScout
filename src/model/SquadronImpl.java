@@ -85,7 +85,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 */
 	public void setCapoSq(final Member capo) throws MoreLeadersNotPermitException{
 		if (capo.equals(null)) throw new IllegalArgumentException();
-		if (!this.getCapo().equals(null)) throw new MoreLeadersNotPermitException();
+		if (this.capoSq.isPresent()) throw new MoreLeadersNotPermitException();
 		this.capoSq= myOptional.of(capo);
 	}
 	/**
@@ -102,7 +102,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 */
 	public void setVicecapoSq(final Member vicecapo) throws MoreLeadersNotPermitException{
 		if (vicecapo.equals(null)) throw new IllegalArgumentException();
-		if (!this.getVice().equals(null)) throw new MoreLeadersNotPermitException();
+		if (this.viceSq.isPresent()) throw new MoreLeadersNotPermitException();
 		this.viceSq= myOptional.of(vicecapo);
 	}
 	/**
@@ -119,7 +119,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 */
 	public void setTriceSq(final Member trice) throws MoreLeadersNotPermitException{
 		if (trice.equals(null)) throw new IllegalArgumentException();
-		if (!this.getTrice().equals(null)) throw new MoreLeadersNotPermitException();
+		if (this.triceSq.isPresent()) throw new MoreLeadersNotPermitException();
 		this.triceSq= myOptional.of(trice);
 	}
 	/**
