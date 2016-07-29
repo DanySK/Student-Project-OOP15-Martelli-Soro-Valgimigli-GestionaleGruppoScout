@@ -3,6 +3,10 @@ package control;
 import java.util.List;
 
 import control.myUtil.Pair;
+import model.Excursion;
+import model.Member;
+import model.Roles;
+import model.Squadron;
 
 public interface Unit {
 	/**
@@ -14,17 +18,51 @@ public interface Unit {
 	 * 
 	 * @return
 	 */
+	
 	public Container getContainers();
+	/**
+	 * 
+	 * @param exc
+	 */
+	public void addExcursion(Excursion exc);
+	/**
+	 * 
+	 * @param m
+	 */
+	public void addMember(Member m);
+	/**
+	 * 
+	 * @param sq
+	 */
+	public void createSq(Squadron sq);
+	/**
+	 * 
+	 * @param m
+	 */
+	public void removeMember(Member m);
+	/**
+	 * 
+	 * @param sq
+	 */
+	public void removeSq(Squadron sq);
+	/**
+	 * 
+	 * @param m
+	 * @param sq
+	 */
+	public void putMemberInSq(Member m, Squadron sq, Roles rl);
+	/**
+	 * Method to change member from a squadron to other one
+	 * @param m
+	 * @param sqOld
+	 * @param sqNew
+	 */
+	public void changeMemberFromSq(Member m, Squadron sqNew, Roles rl);
 	/**
 	 * 
 	 * @param name
 	 */
 	public void setName(String name);
-	/**
-	 * 
-	 * @param cnt
-	 */
-	public void setContainer(Container cnt);
 	/**
 	 * Provides the info of unit
 	 * @return

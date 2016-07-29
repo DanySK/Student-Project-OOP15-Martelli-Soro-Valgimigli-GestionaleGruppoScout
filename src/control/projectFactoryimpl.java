@@ -2,11 +2,15 @@ package control;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import control.myUtil.myOptional;
 import model.ExcursionImpl;
 import model.Member;
 import model.MemberImpl;
+import model.Reparto;
+import model.RepartoImpl;
 import model.Squadron;
 import model.SquadronImpl;
 import model.Tutor;
@@ -29,7 +33,7 @@ public class projectFactoryimpl implements Serializable {
 	public static Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
 		Member prj_member = null;
 		try{
-			prj_member = new MemberImpl(nome, cognome, dataNascita, sex, 0);
+			prj_member = new MemberImpl(nome, cognome, dataNascita, sex);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
@@ -62,7 +66,7 @@ public class projectFactoryimpl implements Serializable {
 			if(phoneTutor.isPresent()){
 				prj_tutor.setPhone(phoneTutor.get());
 			}
-			prj_member = new MemberImpl(name, surname, birthday, sex, prj_tutor, 0);
+			prj_member = new MemberImpl(name, surname, birthday, sex, prj_tutor);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
@@ -94,5 +98,43 @@ public class projectFactoryimpl implements Serializable {
 			new WarningNotice(e.getMessage());
 		}
 		return sq;
+	}
+	/**
+	 * 
+	 * @param capoMaschio
+	 * @param capoFemmina
+	 * @param name
+	 * @return
+	 */
+	public static Reparto getReparto(Member leaderM, Member leaderF, String name){
+		return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
+	}
+	/**
+	 * 
+	 * @param capoMaschio
+	 * @param capoFemmina
+	 * @param aiutanti
+	 * @param name
+	 * @return
+	 */
+	public static Reparto getReparto(Member leaderM, Member leaderF, List<Member> helper,String name){
+		return new RepartoImpl(leaderM, leaderF, helper, name);
+	}
+	/**
+	 * For experiments and testing
+	 * @param name
+	 * @return
+	 */
+	public static Member getLeaderM(String name, String surname){
+		return new MemberImpl(name, surname, LocalDate.now(), true);
+	}
+	/**
+	 *  For experiments and testing
+	 * @param name
+	 * @param surname
+	 * @return
+	 */
+	public static Member getLeaderF(String name, String surname){
+		return new MemberImpl(name, surname, LocalDate.now(), false);
 	}
 }

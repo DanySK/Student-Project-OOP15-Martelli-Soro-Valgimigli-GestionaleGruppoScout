@@ -10,12 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import control.exception.DefaultDirectoryException;
 import control.exception.ProjectFilesCreationException;
+import model.RepartoImpl;
 import view.general_utility.WarningNotice;
 
 public class MasterProjectImpl implements MasterProject {
@@ -76,7 +78,8 @@ public class MasterProjectImpl implements MasterProject {
 		this.worker = new File(this.directoryToSave);
 		String[] files = this.worker.list();
 		List<String> filesList = Arrays.asList(files);
-		return filesList.stream().map(e -> e.substring(0, e.length() - 4)).collect(Collectors.toList());
+		return filesList.stream().filter(e -> e.endsWith(PROJECT_EXTENSION))
+								 .map(e -> e.substring(0, e.length() - 4)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -108,14 +111,52 @@ public class MasterProjectImpl implements MasterProject {
 	
 	public static void main (String[] s){
 		try {
+			Unit u1 = new UnitImpl(new RepartoImpl(projectFactoryimpl.getLeaderM("Mario", "Verdi") ,
+					projectFactoryimpl.getLeaderF("Anna", "Rossi"), new ArrayList<>(), "Il falco rosa"));
+			Unit u2 = new UnitImpl(new RepartoImpl(projectFactoryimpl.getLeaderM("gio", "Verdi") ,
+					projectFactoryimpl.getLeaderF("bea", "Rossi"), new ArrayList<>(), "la mela verde"));
+			Unit u3 = new UnitImpl(new RepartoImpl(projectFactoryimpl.getLeaderM("sandro", "Verdi") ,
+					projectFactoryimpl.getLeaderF("lia", "Rossi"), new ArrayList<>(), "Il falco viola"));
+			Unit u4 = new UnitImpl(new RepartoImpl(projectFactoryimpl.getLeaderM("gim", "Verdi") ,
+					projectFactoryimpl.getLeaderF("gio", "Rossi"), new ArrayList<>(), "Il culo rosa"));
+			
+			// test saving
+			
 			MasterProject mp = new MasterProjectImpl();
-			mp.save(new UnitImpl("Fenice"));
-			mp.save(new UnitImpl("Smeraldo"));
-			mp.save(new UnitImpl("Argento"));
+			mp.save(u1);
+			mp.save(u2);
+			mp.save(u3);
+			mp.save(u4);
+			File file = new File(mp.getDirectoryToSave() + "blabla");
 			
-			mp.getListOfUnit().forEach(e -> System.out.println(e));
+			// creo dei file a caso nella directory
 			
-			System.out.println(mp.loadUnit(mp.getListOfUnit().get(2)).getName());
+			file.createNewFile();
+			mp.getListOfUnit().forEach(System.out :: println);
+			
+			// carico una classe salvata
+			
+			Unit u2tmp = mp.loadUnit(u2.getName());
+			if(u2tmp.equals(u2)){
+				System.out.println("Caricamento Corretto");
+			}else{
+				System.out.println(u2tmp.info());
+			}
+			
+			// carico una classe trmite la lista
+			Unit u3tmp = mp.loadUnit(mp.getListOfUnit().get(mp.getListOfUnit().indexOf(u3.getName())));
+			if(u3tmp.equals(u3)){
+				System.out.println("Caricamento 2 Corretto");
+			}else{
+				System.out.println(u3tmp.info());
+			}
+			
+			u2tmp.setName("Blablabla");
+			
+			mp.save(u2tmp);
+			
+			Unit u2tmp2 = mp.loadUnit(u2tmp.getName());
+			System.out.println(u2tmp2.info());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
