@@ -196,8 +196,6 @@ public class SquadronImpl implements Serializable,Squadron{
 		if (map.containsKey(membro)) return false;
 		map.put(membro, ruolo);
 		return true;
-			
-		
 	}
 	/**
 	 * 
