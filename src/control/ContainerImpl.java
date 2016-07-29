@@ -25,7 +25,7 @@ public class ContainerImpl implements Container, Serializable {
 	private List<Excursion> excursions;
 	
 	public ContainerImpl(List<Squadron> sq, List<Member> freeMember, List<Excursion> exc){
-		this.unit = freeMember;
+		this.unit = new ArrayList<>(freeMember);
 		sq.forEach(e -> this.unit.addAll(e.getMembri().keySet()));
 		this.freeMember = freeMember;
 		this.squadronActive = sq;

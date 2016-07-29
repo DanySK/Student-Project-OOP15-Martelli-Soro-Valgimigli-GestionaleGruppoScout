@@ -18,13 +18,13 @@ public class InfoProjectImpl implements InfoProject {
 												  .findFirst()
 												  .get();
 		info += "Nome: "+ sq.getNome() + "\n";
-		info += "Sesso: " + (sq.getSesso() ? "Maschi" : "Femmini")+ "\n";
+		info += "Sesso: " + (sq.getSesso() ? "Maschi" : "Femmine")+ "\n";
 		if(sq.isCapoPresent())
-		info += "Capo: " + sq.getCapo().getName()+ "\n";
+		info += "Capo: " + sq.getCapo().getName()+ " " + sq.getCapo().getSurname()+ "\n";
 		if(sq.isVicecapoPresent())
-		info += "Vice: " + sq.getVice().getName() + "\n";
+		info += "Vice: " + sq.getVice().getName() +" " + sq.getVice().getSurname()+ "\n";
 		if(sq.isTricecapoPresent())
-		info += "Trice: "+ sq.getTrice().getName() + "\n";
+		info += "Trice: "+ sq.getTrice().getName()+ " " + sq.getTrice().getSurname()+ "\n";
 		info += "Numero di membri: " + sq.getMembri().keySet().size();
 		return info;
 	}
@@ -32,22 +32,24 @@ public class InfoProjectImpl implements InfoProject {
 	@Override
 	public List<Pair<String, String>> getSquadronSpecificInfo(String nameOfSquadron, Container cnt) {
 		List<Pair<String,String>> info = new ArrayList<>();
-		Squadron sq =(Squadron) cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron));
+		Squadron sq = cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron))
+										.findFirst()
+										.get();
 		info.add(new Pair<>("Nome: ", sq.getNome()));
 		info.add(new Pair<>("Sesso: ", (sq.getSesso() ? "Maschi" : "Femmini")));
 		if(sq.isCapoPresent())
-		info.add(new Pair<>("Capo: ", sq.getCapo().getName()));
+		info.add(new Pair<>("Capo: ", sq.getCapo().getName()+ " " + sq.getCapo().getSurname()));
 		if(sq.isVicecapoPresent())
-		info.add(new Pair<>("Vice: ", sq.getVice().getName()));
+		info.add(new Pair<>("Vice: ",sq.getVice().getName() +" " + sq.getVice().getSurname()));
 		if(sq.isTricecapoPresent())
-		info.add(new Pair<>("Trice: ", sq.getTrice().getName()));
+		info.add(new Pair<>("Trice: ",  sq.getTrice().getName()+ " " + sq.getTrice().getSurname()));
 		info.add(new Pair<>("Numero di membri: ", Integer.toString(sq.getMembri().keySet().size())));
 		return info;
 	}
 
 	@Override
 	public List<Member> getMemberOfSquadron(String nameOfSquadron, Container cnt) {
-		Squadron sq = (Squadron) cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron));
+		Squadron sq = cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron)).findFirst().get();
 		return sq.getMembri().keySet()
 							 .stream()
 							 .collect(Collectors.toList());

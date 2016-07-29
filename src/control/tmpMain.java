@@ -46,8 +46,7 @@ public class tmpMain {
 		System.out.println("Create le squadriglie");
 		
 		u.putMemberInSq(u.getContainers().getMember("Lorenzo", "Verdi"), aquile, Roles.MAGAZZINIERE);
-		System.out.println(u.getContainers().getFreeMember().size());
-		System.out.println(u.getContainers().getMembers().size());
+		
 		u.putMemberInSq(u.getContainers().getMember("Lorenzo", "Blu"), aquile, Roles.CICALA);
 		u.putMemberInSq(u.getContainers().getMember("Lorenzo", "Rossi"), aquile, Roles.CUCINIERE);
 		u.putMemberInSq(u.getContainers().getMember("Andrea", "Verdi"), falchi, Roles.MAGAZZINIERE);
