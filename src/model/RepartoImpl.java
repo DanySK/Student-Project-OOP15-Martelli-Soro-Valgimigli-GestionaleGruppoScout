@@ -1,10 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import control.exception.MemberSexException;
+import control.myUtil.myOptional;
 
 public class RepartoImpl implements Reparto,Serializable {
 	/**
@@ -15,6 +17,7 @@ public class RepartoImpl implements Reparto,Serializable {
 	private List<Member> aiutanti;
 	private List<Member> membriSenzaSquadriglia=new ArrayList<>();
 	private List<Integer> idUsati;
+	private myOptional<LocalDate> limitePerTasseAnnuali;
 	private String name;
 	private Member capoM;
 	private Member capoF;
@@ -27,6 +30,16 @@ public class RepartoImpl implements Reparto,Serializable {
 
 		this.setName(name);
 	}
+	public void setDateToPay(LocalDate limit){
+		this.limitePerTasseAnnuali = myOptional.of(limit);
+	}
+	public LocalDate getDateToPay(){
+		if(this.limitePerTasseAnnuali.isPresent())
+			return this.limitePerTasseAnnuali.get();
+		else 
+			return null;
+	}
+	
 
 	public String getName() {
 		return name;

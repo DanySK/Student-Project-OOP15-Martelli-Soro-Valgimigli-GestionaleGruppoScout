@@ -1,11 +1,12 @@
 package control;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.exception.EntityAlreadyExistsException;
+
 import control.myUtil.Pair;
 import model.Excursion;
 import model.Member;
@@ -137,6 +138,14 @@ public class UnitImpl implements Unit, Serializable {
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
+	}
+	@Override
+	public LocalDate getLimitDateToPay() {
+		return this.rep.getDateToPay();
+	}
+	@Override
+	public List<Member> getMemberDidntPay() {
+		return this.rep.getMembersNotPaid(Year.now().getValue());
 	}
 
 }

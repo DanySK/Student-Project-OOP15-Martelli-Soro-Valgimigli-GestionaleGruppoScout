@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import control.exception.MemberSexException;
@@ -10,11 +11,21 @@ public interface Reparto {
 	 * @return
 	 */
 	public Member getCapoM();
-
+	/**
+	 * 
+	 * @param limit
+	 */
+	public void setDateToPay(LocalDate limit);
+	/**
+	 * 
+	 * @return
+	 */
+	public LocalDate getDateToPay();
 	/**
 	 * 
 	 * @param capoMaschio
 	 */
+	
 	public void setCapoM(Member capoMaschio);
 
 	/**

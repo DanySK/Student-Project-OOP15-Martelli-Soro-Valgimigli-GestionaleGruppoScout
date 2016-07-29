@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 
 import model.Excursion;
 import model.Member;
-import model.Squadron;
+import model.Reparto;
+
 
 public class CheckerImpl implements Checker, Serializable {
 	
@@ -50,9 +51,16 @@ public class CheckerImpl implements Checker, Serializable {
 		}
 		return exc;
 	}
+	@Override
+	public List<Member> noPaiedMembers(Reparto rp){
+		return rp.getMembersNotPaid(Year.now().getValue());
+	}
 
 	@Override
-	public Map<String, List<Member>> stdRouting(List<Excursion> excursions, List<Member> people, List<Squadron> sq) {
+	public Map<String, List<Member>> stdRouting(Unit u) {
+		
+		List<Member> people = u.getContainers().getMembers();
+		List<Excursion> excursions = u.getContainers().getExcursion();
 		
 		Map<String, List<Member>> map = new HashMap<>();
 		List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
@@ -62,6 +70,10 @@ public class CheckerImpl implements Checker, Serializable {
 		List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);
 		
+		if(this.checkDateIsBetween(u.getLimitDateToPay(), u.getLimitDateToPay()
+									.plus(- DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())){
+			map.put("Ragazzi che non hanno ancora pagato l'anno", u.getMemberDidntPay());
+		}
 		return map;
 	}
 	
