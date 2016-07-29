@@ -23,17 +23,17 @@ public class SquadronImpl implements Serializable,Squadron{
 
 	private Map<Member,Roles> map=new HashMap<>();
 	
-	private myOptional<Member> capoSq;
-	private myOptional<Member> viceSq;
-	private myOptional<Member> triceSq;
+	private myOptional<Member> capoSq=myOptional.empty();
+	private myOptional<Member> viceSq=myOptional.empty();
+	private myOptional<Member> triceSq=myOptional.empty();
 	
 	private String nomeSq;
 	private Boolean sessoSq;	//true maschi, false donne
 	
 	private Float cash;
-	private myOptional<String> noteCassa;
-	private myOptional<String> noteCancelleria;
-	private myOptional<String> noteBatteria;
+	private myOptional<String> noteCassa=myOptional.empty();
+	private myOptional<String> noteCancelleria=myOptional.empty();
+	private myOptional<String> noteBatteria=myOptional.empty();
 	/**
 	 * 
 	 * @param nome
@@ -45,9 +45,7 @@ public class SquadronImpl implements Serializable,Squadron{
 		this.sessoSq = sesso;
 		this.cash=(float)0;
 		//map=new HashMap<>();
-		capoSq=myOptional.empty();
-		viceSq=myOptional.empty();
-		triceSq=myOptional.empty();
+	
 	}
 	/**
 	 * 
