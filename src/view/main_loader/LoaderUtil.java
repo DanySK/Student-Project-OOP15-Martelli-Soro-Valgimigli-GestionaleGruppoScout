@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
@@ -18,6 +19,8 @@ import javax.swing.SwingUtilities;
 
 import control.MasterProjectImpl;
 import control.UnitImpl;
+import control.projectFactoryimpl;
+import model.RepartoImpl;
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -138,7 +141,7 @@ public class LoaderUtil extends MyJPanelImpl {
 			this.add(textField);
 			this.add(createButton("Crea", e->{
 				try {
-					project.save(new UnitImpl(textField.getText()));
+					project.save(new UnitImpl(new RepartoImpl(projectFactoryimpl.getLeaderM("Mario", "Verdi") ,projectFactoryimpl.getLeaderF("Anna", "Rossi"), new ArrayList<>(), textField.getText())));
 					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText()));
 					new MainGuiImpl();
 				} catch (Exception k){

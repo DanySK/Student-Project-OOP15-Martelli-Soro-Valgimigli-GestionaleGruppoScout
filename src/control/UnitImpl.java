@@ -7,21 +7,29 @@ import java.util.List;
 
 import control.exception.EntityAlreadyExistsException;
 import control.myUtil.Pair;
+import model.Excursion;
 import model.Member;
 import model.Reparto;
+import model.Roles;
+import model.Squadron;
+import view.general_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4391311361473527351L;
 	private String nameToSave;
 	private Container container;
 	private Reparto rep;
+	private List<Excursion> excursions;
 	
-	public UnitImpl(Member leaderM, Member leaderF, String nameOfRep, List<Member> helper){
-		this.nameToSave = nameOfRep.replace(' ','_');
+	public UnitImpl(Reparto rep){
+		this.nameToSave = rep.getName().replace(' ','_');
+		this.excursions = new ArrayList<>();
+		this.rep = rep;
 	}
 	@Override
 	public String getName() {
@@ -30,22 +38,22 @@ public class UnitImpl implements Unit, Serializable {
 
 	@Override
 	public Container getContainers() {
-		this.container = new ContainerImpl(this.rep.getAllSquadron(), this.rep.getAllMember());
+		this.container = new ContainerImpl(this.rep.getAllSquadron(),
+				this.rep.getMembriSenzaSquadriglia(),this.excursions);
+		return this.container;
 	}
 
 	@Override
 	public void setName(String name) {
-		this.name = name;
+		this.rep.setName(name);
 	}
 
 	@Override
-	public void setContainer(Container cnt) {
-		this.container = cnt;
-	}
-	@Override
 	public String info(){
 		String info = "";
-		info += "Unit Name: "+ this.getName() + "\n";
+		info += "Nome reparto: "+ this.rep.getName() + "\n";
+		info += "Capo maschio: "+ this.rep.getCapoM().getName() + "\n";
+		info += "Capo femmina: "+ this.rep.getCapoF().getName() + "\n";
 		info += "Number of members: " + this.getContainers().getMembers().size() + "\n";
 		info += "Number of squadrons: " + this.getContainers().getSquadrons().size() + "\n";
 		return info;
@@ -65,65 +73,69 @@ public class UnitImpl implements Unit, Serializable {
 		return info;
 	}
 	
-	public static void main(String[] s){
-		Unit unit = new UnitImpl("Rosa");
+	
+	@Override
+	public void addExcursion(Excursion exc) {
+		// controllo date
+		// controllo membri inseriti
+		this.excursions.add(exc);
+	}
+	@Override
+	public void addMember(Member m) {
+		try{
+			this.rep.addMembroSenzaSquadriglia(m);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
 		
-		Container cnt = unit.getContainers();
-		try {
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lorenzo", "Valgimigli", Year.of(1995).atMonth(12).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Andrea", "Rossi", Year.of(1995).atMonth(2).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lia", "Rossi", Year.of(1995).atMonth(7).atDay(24), false));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Bea", "Verdi", Year.of(1995).atMonth(8).atDay(1), false));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Andrea", "Verdi", Year.of(1995).atMonth(7).atDay(21), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lorenzo", "Valomori", Year.of(1995).atMonth(2).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Andrea", "Nanni", Year.of(1995).atMonth(3).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Bea", "Nanni", Year.of(1995).atMonth(3).atDay(11), false));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Andrea", "Fabbri", Year.of(1995).atMonth(3).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lorenzo", "Fabbri", Year.of(1995).atMonth(4).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Andrea", "Valomori", Year.of(1995).atMonth(10).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lia", "Fabbri", Year.of(1995).atMonth(12).atDay(11), false));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lorenzo", "Fabbri", Year.of(1995).atMonth(12).atDay(11), true));
-			cnt.addMember(new projectFactoryimpl().getSimpleMember("Lia", "Valomori", Year.of(1995).atMonth(12).atDay(11), false));
+	}
+	@Override
+	public void createSq(Squadron sq) {
+		try{
+			this.rep.addSquadron(sq);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+	}
+	@Override
+	public void removeMember(Member m) {
+		try{
+			if(this.rep.getMembriSenzaSquadriglia().contains(m)){
+				this.rep.removeMembroSenzaSquadriglia(m);
+			}
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+	}
+	@Override
+	public void removeSq(Squadron sq) {
+		try{
+			this.rep.removeSquadron(sq);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+	}
+	@Override
+	public void putMemberInSq(Member m, Squadron sq, Roles rl) {
+		try{
+			this.rep.spostaMembroInSquadriglia(m, rl, sq);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+	}
+	@Override
+	public void changeMemberFromSq(Member m, Squadron sqNew, Roles rl) {
+		try{
+			if( this.rep.getMembriSenzaSquadriglia().contains(m) ){
+				new WarningNotice("Il ragazzo non appartiene a nessuna squadriglia \n verrà comunque assegnato");
+			}else{
+				this.rep.removeMemberFromSquadron(m);
+			}
 			
-			// test Container
+			this.putMemberInSq(m, sqNew, rl );
 			
-			System.out.println("Inseriti "+ cnt.getMembers().size()+" membri");
-			
-			System.out.println("Mostro tutti i Lorenzo");
-			cnt.members(e -> e.getName().equals("Lorenzo")).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
-			
-			System.out.println("Mostro tutti gli Andre");
-			cnt.members(e -> e.getName().equals("Andrea")).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
-			
-			System.out.println("Mostro tutte le femmine");
-			cnt.members(e -> ! e.getSex()).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
-			
-			System.out.println("Mostro tutte le Lia");
-			cnt.findMember("Lia").forEach(e -> System.out.println(e.getName() + " " + e.getSurname() + e.getBirthday().toString()));
-			
-			System.out.println("Mostro i membri che oggi compiono gli anni");
-		    cnt.members(e -> e.isBirthday()).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
-		    
-		    // test checker
-		    
-		    Checker check = new CheckerImpl();
-		    
-		    System.out.println("Mostro tutte le persone che avranno il compleanno tra oggi e 15 giorni");
-		    check.birthday(15, cnt.getMembers()).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
-		    
-		    //non posso testare altro per il momento per i checker
-		    
-		    // Info
-		    
-		    InfoProject info = new InfoProjectImpl();
-		    System.out.println("Mostro le informazioni riguardanti Lorenzo Valgimigli");
-		    info.getMemberSpecificalInfo(cnt.members(e -> e.getName().equals("Lorenzo")
-		    												&& e.getSurname().equals("Valgimigli")).get(0))
-		    							.forEach(e -> System.out.println(e.getX() + ": " + e.getY()));
-		    
-		    
-		} catch (EntityAlreadyExistsException e) {
-			e.printStackTrace();
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
 		}
 	}
 

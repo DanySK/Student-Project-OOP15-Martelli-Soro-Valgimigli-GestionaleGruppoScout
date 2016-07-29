@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import model.exception.IllegalDateException;
 
-public class CampoImpl extends ExcursionImpl {
+public class CampoImpl extends ExcursionImpl implements Campo {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
