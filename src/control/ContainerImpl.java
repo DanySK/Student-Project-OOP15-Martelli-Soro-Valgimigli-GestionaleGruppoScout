@@ -27,6 +27,7 @@ public class ContainerImpl implements Container, Serializable {
 	public ContainerImpl(List<Squadron> sq, List<Member> freeMember, List<Excursion> exc){
 		this.unit = freeMember;
 		sq.forEach(e -> this.unit.addAll(e.getMembri().keySet()));
+		this.freeMember = freeMember;
 		this.squadronActive = sq;
 		this.excursions = exc;
 	}
@@ -53,9 +54,9 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public Squadron findSquadron(String name) {
-		return (Squadron) this.squadronActive.stream()
-											 .filter(e -> e.getNome()
-											 .equals(name));
+		return this.squadronActive.stream()
+							.filter(e -> e.getNome()
+							.equals(name)).findFirst().get();
 	}
 
 	@Override
@@ -108,6 +109,15 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public Excursion getExcursionNamed(String name) {
 		return this.excursions.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+	}
+
+
+
+	@Override
+	public Member getMember(String name, String surname) {
+		return this.unit.stream().filter(e -> e.getName().equals(name) && e.getSurname().equals(surname))
+								 .findFirst()
+								 .get();
 	}
 	
 	

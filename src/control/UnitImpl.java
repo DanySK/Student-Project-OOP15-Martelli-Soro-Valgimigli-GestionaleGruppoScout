@@ -86,6 +86,7 @@ public class UnitImpl implements Unit, Serializable {
 		try{
 			this.rep.addMembroSenzaSquadriglia(m);
 		}catch(Exception e){
+			e.printStackTrace();
 			new WarningNotice(e.getMessage());
 		}
 		
@@ -95,6 +96,7 @@ public class UnitImpl implements Unit, Serializable {
 		try{
 			this.rep.addSquadron(sq);
 		}catch(Exception e){
+			e.printStackTrace();
 			new WarningNotice(e.getMessage());
 		}
 	}
@@ -105,6 +107,7 @@ public class UnitImpl implements Unit, Serializable {
 				this.rep.removeMembroSenzaSquadriglia(m);
 			}
 		}catch(Exception e){
+			e.printStackTrace();
 			new WarningNotice(e.getMessage());
 		}
 	}
@@ -113,6 +116,7 @@ public class UnitImpl implements Unit, Serializable {
 		try{
 			this.rep.removeSquadron(sq);
 		}catch(Exception e){
+			e.printStackTrace();
 			new WarningNotice(e.getMessage());
 		}
 	}
@@ -121,6 +125,7 @@ public class UnitImpl implements Unit, Serializable {
 		try{
 			this.rep.spostaMembroInSquadriglia(m, rl, sq);
 		}catch(Exception e){
+			e.printStackTrace();
 			new WarningNotice(e.getMessage());
 		}
 	}

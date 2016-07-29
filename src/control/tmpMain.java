@@ -37,34 +37,45 @@ public class tmpMain {
 		
 		Squadron aquile = projectFactoryimpl.getSquadron("Aquile", true);
 		Squadron falchi = projectFactoryimpl.getSquadron("Falchi", true);
-		Squadron lepri = projectFactoryimpl.getSquadron("lepri", false);
+		Squadron lepri = projectFactoryimpl.getSquadron("Lepri", false);
 		
-		try {
-			aquile.setCapoSq(u.getContainers().members(e -> e.getName().equals("Lorenzo") && e.getSurname().equals("Rossi")).get(0));
-			aquile.setVicecapoSq(u.getContainers().members(e -> e.getName().equals("Lorenzo") && e.getSurname().equals("Verdi")).get(0));
-			aquile.addMembro(u.getContainers().members(e -> e.getName().equals("Lorenzo") && e.getSurname().equals("Blu")).get(0), Roles.CICALA);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
-			falchi.setCapoSq(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("Rossi")).get(0));
-			falchi.setVicecapoSq(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("Verdi")).get(0));
-			falchi.addMembro(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("Blu")).get(0),Roles.MAGAZZINIERE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		u.createSq(aquile);
+		u.createSq(lepri);
+		u.createSq(falchi);
 		
-		try {
-			lepri.setCapoSq(u.getContainers().members(e -> e.getName().equals("Lia") && e.getSurname().equals("Rossi")).get(0));
-			lepri.setVicecapoSq(u.getContainers().members(e -> e.getName().equals("Lia") && e.getSurname().equals("Verdi")).get(0));
-			lepri.addMembro(u.getContainers().members(e -> e.getName().equals("Gio") && e.getSurname().equals("Blu")).get(0),Roles.CUCINIERE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		System.out.println("Create le squadriglie");
 		
+		u.putMemberInSq(u.getContainers().getMember("Lorenzo", "Verdi"), aquile, Roles.MAGAZZINIERE);
+		System.out.println(u.getContainers().getFreeMember().size());
+		System.out.println(u.getContainers().getMembers().size());
+		u.putMemberInSq(u.getContainers().getMember("Lorenzo", "Blu"), aquile, Roles.CICALA);
+		u.putMemberInSq(u.getContainers().getMember("Lorenzo", "Rossi"), aquile, Roles.CUCINIERE);
+		u.putMemberInSq(u.getContainers().getMember("Andrea", "Verdi"), falchi, Roles.MAGAZZINIERE);
+		u.putMemberInSq(u.getContainers().getMember("Andrea", "Blu"), falchi, Roles.CICALA);
+		u.putMemberInSq(u.getContainers().getMember("Andrea", "Rossi"), falchi, Roles.CUCINIERE);
+
+		System.out.println(aquile.getMembri().keySet());
+		System.out.println(u.getContainers().getFreeMember().size());
+		System.out.println(u.getContainers().getMembers().size());
+		System.out.println(u.getContainers().getSquadrons().stream().mapToInt(e -> e.getMembri().size()).sum());
+		
+		u.getContainers().getSquadrons().forEach(e -> System.out.println("Aggiunta: " + e.getNome()));
 		// test 
 		
+		InfoProject info = new InfoProjectImpl();
+		System.out.println("-----------------------------------");
+		System.out.println(info.getSquadronGeneralInfo("Aquile", u.getContainers()));
+		System.out.println("-----------------------------------");
+		System.out.println(info.getSquadronGeneralInfo("Falchi", u.getContainers()));
+
+		System.out.println(u.getContainers().getMembers().size());
+		// test container
+		System.out.println("RICERCA LORENZO");
+		u.getContainers().findMember("Lorenzo").forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
+		System.out.println("RICERCA ANDREA");
+		u.getContainers().members(e -> e.getName().equals("Andrea")).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
+		System.out.println("RICERCA TUTTI I 95");
+		u.getContainers().members(e -> e.getAnnata() == 21).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
 		
 	}
 

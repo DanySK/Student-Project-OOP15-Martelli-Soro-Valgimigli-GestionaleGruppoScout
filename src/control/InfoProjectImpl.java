@@ -14,11 +14,16 @@ public class InfoProjectImpl implements InfoProject {
 	@Override
 	public String getSquadronGeneralInfo(String nameOfSquadron, Container cnt) {
 		String info = "";
-		Squadron sq =(Squadron) cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron));
+		Squadron sq =cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron))
+												  .findFirst()
+												  .get();
 		info += "Nome: "+ sq.getNome() + "\n";
 		info += "Sesso: " + (sq.getSesso() ? "Maschi" : "Femmini")+ "\n";
+		if(sq.isCapoPresent())
 		info += "Capo: " + sq.getCapo().getName()+ "\n";
+		if(sq.isVicecapoPresent())
 		info += "Vice: " + sq.getVice().getName() + "\n";
+		if(sq.isTricecapoPresent())
 		info += "Trice: "+ sq.getTrice().getName() + "\n";
 		info += "Numero di membri: " + sq.getMembri().keySet().size();
 		return info;
@@ -30,8 +35,11 @@ public class InfoProjectImpl implements InfoProject {
 		Squadron sq =(Squadron) cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron));
 		info.add(new Pair<>("Nome: ", sq.getNome()));
 		info.add(new Pair<>("Sesso: ", (sq.getSesso() ? "Maschi" : "Femmini")));
+		if(sq.isCapoPresent())
 		info.add(new Pair<>("Capo: ", sq.getCapo().getName()));
+		if(sq.isVicecapoPresent())
 		info.add(new Pair<>("Vice: ", sq.getVice().getName()));
+		if(sq.isTricecapoPresent())
 		info.add(new Pair<>("Trice: ", sq.getTrice().getName()));
 		info.add(new Pair<>("Numero di membri: ", Integer.toString(sq.getMembri().keySet().size())));
 		return info;

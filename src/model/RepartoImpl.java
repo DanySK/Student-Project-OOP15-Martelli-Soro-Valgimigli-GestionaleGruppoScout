@@ -27,6 +27,7 @@ public class RepartoImpl implements Reparto,Serializable {
 		this.capoF = capoFemmina;
 		this.capoM = capoMaschio;
 		this.squadriglie = new ArrayList<>();
+		this.idUsati = new ArrayList<>();
 
 		this.setName(name);
 	}
@@ -59,7 +60,10 @@ public class RepartoImpl implements Reparto,Serializable {
 	public List<Member> getMembriSenzaSquadriglia(){
 		return this.membriSenzaSquadriglia;
 	}
-	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException {
+	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws Exception {
+		if(!this.membriSenzaSquadriglia.remove(membro)){
+			throw new Exception("Pippo");
+		}
 		membro.setId(this.getFreeId());
 		squadriglia.addMembro(membro, ruolo);
 
@@ -155,6 +159,7 @@ public class RepartoImpl implements Reparto,Serializable {
 				this.idUsati.add(tmp);
 				return tmp;
 			}
+			tmp ++;
 		}
 	}
 }

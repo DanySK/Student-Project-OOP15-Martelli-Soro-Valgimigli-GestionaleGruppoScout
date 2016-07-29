@@ -140,9 +140,10 @@ public interface Reparto {
 	 * @param ruolo
 	 * @param squadriglia
 	 * @throws MemberSexException
+	 * @throws Exception 
 	 */
 	
-	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException;
+	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException, Exception;
 
 	/**
 	 * 

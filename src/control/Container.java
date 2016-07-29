@@ -89,5 +89,12 @@ public interface Container {
 	 * @return
 	 */
 	public Excursion getExcursionNamed(String name);
+	/**
+	 * 
+	 * @param name
+	 * @param surname
+	 * @return
+	 */
+	public Member getMember(String name, String surname);
 
 }
