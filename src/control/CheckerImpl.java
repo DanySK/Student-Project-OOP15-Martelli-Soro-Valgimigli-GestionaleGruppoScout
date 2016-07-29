@@ -39,8 +39,16 @@ public class CheckerImpl implements Checker, Serializable {
 
 	@Override
 	public List<Excursion> excursionInProgram(int nDay, List<Excursion> excursions) {
-		// TODO Auto-generated method stub
-		return null;
+		final LocalDate now = LocalDate.now();
+		List<Excursion> exc = new ArrayList<>();
+		for( int i = 0; i < nDay; i++){
+			for(Excursion e : excursions){
+				if(e.getDateStart().equals(now.plus(i, ChronoUnit.DAYS))){
+					exc.add(e);
+				}
+			}
+		}
+		return exc;
 	}
 
 	@Override
@@ -49,7 +57,7 @@ public class CheckerImpl implements Checker, Serializable {
 		Map<String, List<Member>> map = new HashMap<>();
 		List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
 		for(Excursion e: exc){
-			map.put("Evento del " + e.getDateStart(), e.getNonPaganti());
+			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNonPaganti());
 		}
 		List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);
