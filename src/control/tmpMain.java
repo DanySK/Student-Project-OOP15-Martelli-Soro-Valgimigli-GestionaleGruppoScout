@@ -1,6 +1,8 @@
 package control;
 
+import java.time.LocalDate;
 import java.time.Year;
+import java.time.temporal.ChronoUnit;
 
 import control.exception.MoreLeadersNotPermitException;
 import model.*;
@@ -76,6 +78,10 @@ public class tmpMain {
 		System.out.println("RICERCA TUTTI I 95");
 		u.getContainers().members(e -> e.getAnnata() == 21).forEach(e -> System.out.println(e.getName() + " " + e.getSurname()));
 		
+		UscitaSquadriglia us = projectFactoryimpl.getSqExcursion(LocalDate.now().plus(1, ChronoUnit.DAYS), 1, aquile, "Escursione");
+		u.addExcursion((Excursion) us);
+		
+		u.getContainers().getExcursion().get(0).get
 	}
 
 }

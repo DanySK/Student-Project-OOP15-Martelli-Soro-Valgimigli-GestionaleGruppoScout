@@ -1,6 +1,6 @@
 package model;
 
-public interface UscitaSquadriglia {
+public interface UscitaSquadriglia extends Excursion {
 
 	/**
 	 * 

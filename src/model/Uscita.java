@@ -1,6 +1,6 @@
 package model;
 
-public interface Uscita {
+public interface Uscita extends Excursion{
 	/**
 	 * 
 	 * @return

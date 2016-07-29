@@ -9,10 +9,12 @@ import java.util.List;
 
 import control.myUtil.Pair;
 import model.Excursion;
+import model.ExcursionImpl;
 import model.Member;
 import model.Reparto;
 import model.Roles;
 import model.Squadron;
+import model.Uscita;
 import view.general_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {
@@ -25,7 +27,7 @@ public class UnitImpl implements Unit, Serializable {
 	private String nameToSave;
 	private Container container;
 	private Reparto rep;
-	private List<Excursion> excursions;
+	private List<? extends Excursion> excursions;
 	
 	public UnitImpl(Reparto rep){
 		this.nameToSave = rep.getName().replace(' ','_');
@@ -75,8 +77,7 @@ public class UnitImpl implements Unit, Serializable {
 	}
 	
 	
-	@Override
-	public void addExcursion(Excursion exc) {
+	public void addUscita(Uscita exc) {
 		// controllo date
 		// controllo membri inseriti
 		this.excursions.add(exc);
@@ -151,6 +152,11 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public List<Member> getMemberDidntPay() {
 		return this.rep.getMembersNotPaid(Year.now().getValue());
+	}
+	@Override
+	public void addExcursion(Excursion exc) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
