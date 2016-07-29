@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import control.exception.EntityAlreadyExistsException;
 import control.exception.MemberNotExistException;
 import control.exception.SquadronNotExistException;
+import model.Excursion;
 import model.Member;
 import model.Squadron;
 
@@ -71,5 +72,22 @@ public interface Container {
 	 */
 	public void removeMeberFromSquadron(Member member, Squadron sq) 
 			throws SquadronNotExistException, MemberNotExistException;
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Excursion> getExcursion();
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public List<Excursion> excursions(Predicate<? super Excursion> p);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Excursion getExcursionNamed(String name);
 
 }

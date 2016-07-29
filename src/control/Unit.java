@@ -1,5 +1,6 @@
 package control;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import control.myUtil.Pair;
@@ -79,6 +80,16 @@ public interface Unit {
 	 * 4. Number of girls
 	 */
 	public List<Pair<String, String>> getUnitSpecificInfo();
+	/**
+	 * 
+	 * @return
+	 */
+	public LocalDate getLimitDateToPay();
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Member> getMemberDidntPay();
 	
 	
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import model.Excursion;
 import model.Member;
+import model.Reparto;
 import model.Squadron;
 
 public interface Checker {
@@ -30,13 +31,17 @@ public interface Checker {
 	 */
 	public List<Excursion> excursionInProgram(int nDay, List<Excursion> excursions);
 	/**
+	 * Finds members didn't pay the annual tax
+	 * @param rp
+	 * @return
+	 */
+	public List<Member> noPaiedMembers(Reparto rp);
+	/**
 	 * List of controls which this method to each time the program is launched
-	 * @param excursions
-	 * @param people
-	 * @param sq
+	 * @param u
 	 * @return
 	 * A map that has for Keys "Excursion" and "Birthday" and for values all members which have the birthday
 	 * within Default Numb of days and all members which haven't payed the excursion
 	 */
-	public Map<String, List<Member>> stdRouting(List<Excursion> excursions, List<Member> people, List<Squadron> sq );
+	public Map<String, List<Member>> stdRouting(Unit u);
 }
