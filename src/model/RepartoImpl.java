@@ -1,11 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import control.exception.MemberSexException;
 
-public class RepartoImpl implements Reparto {
+public class RepartoImpl implements Reparto,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Squadron> squadriglie;
 	private List<Member> aiutanti;
 	private List<Member> membriSenzaSquadriglia=new ArrayList<>();
