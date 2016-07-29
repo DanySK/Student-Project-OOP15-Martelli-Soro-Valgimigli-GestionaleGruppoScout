@@ -6,7 +6,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.exception.EntityAlreadyExistsException;
+
 import control.myUtil.Pair;
 import model.Excursion;
 import model.Member;

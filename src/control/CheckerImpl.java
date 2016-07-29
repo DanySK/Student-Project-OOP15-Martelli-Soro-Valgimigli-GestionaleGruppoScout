@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
-import model.Squadron;
+
 
 public class CheckerImpl implements Checker, Serializable {
 	

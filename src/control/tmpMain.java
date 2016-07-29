@@ -49,21 +49,21 @@ public class tmpMain {
 		try {
 			falchi.setCapoSq(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("Rossi")).get(0));
 			falchi.setVicecapoSq(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("Verdi")).get(0));
-			falchi.addMembro(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("blu")).get(0),Roles.MAGAZZINIERE);
+			falchi.addMembro(u.getContainers().members(e -> e.getName().equals("Andrea") && e.getSurname().equals("Blu")).get(0),Roles.MAGAZZINIERE);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		try {
 			lepri.setCapoSq(u.getContainers().members(e -> e.getName().equals("Lia") && e.getSurname().equals("Rossi")).get(0));
 			lepri.setVicecapoSq(u.getContainers().members(e -> e.getName().equals("Lia") && e.getSurname().equals("Verdi")).get(0));
-			lepri.addMembro(u.getContainers().members(e -> e.getName().equals("Gio") && e.getSurname().equals("blu")).get(0),Roles.CUCINIERE);
+			lepri.addMembro(u.getContainers().members(e -> e.getName().equals("Gio") && e.getSurname().equals("Blu")).get(0),Roles.CUCINIERE);
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 		System.out.println("Create le squadriglie");
 		
-		u.getContainers().getSquadrons().forEach(e -> System.out.println("Creata sq: " + e.getNome() + e.getMembri()));
+		// test 
 		
 		
 	}
