@@ -7,6 +7,8 @@ import java.util.List;
 
 import control.exception.EntityAlreadyExistsException;
 import control.myUtil.Pair;
+import model.Member;
+import model.Reparto;
 
 public class UnitImpl implements Unit, Serializable {
 
@@ -14,21 +16,21 @@ public class UnitImpl implements Unit, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name;
+	private String nameToSave;
 	private Container container;
+	private Reparto rep;
 	
-	public UnitImpl(final String name){
-		this.name = name;
-		this.container = new ContainerImpl();
+	public UnitImpl(Member leaderM, Member leaderF, String nameOfRep, List<Member> helper){
+		this.nameToSave = nameOfRep.replace(' ','_');
 	}
 	@Override
 	public String getName() {
-		return this.name;
+		return this.nameToSave;
 	}
 
 	@Override
 	public Container getContainers() {
-		return this.container;
+		this.container = new ContainerImpl(this.rep.getAllSquadron(), this.rep.getAllMember());
 	}
 
 	@Override

@@ -14,11 +14,12 @@ public class RepartoImpl implements Reparto {
 	private Member capoM;
 	private Member capoF;
 
-	public RepartoImpl(Container container, Member capoMaschio, Member capoFemmina, List<Member> aiutanti,String name) {
-		this.squadriglie = container.getSquadrons();
+	public RepartoImpl(Member capoMaschio, Member capoFemmina, List<Member> aiutanti,String name) {
 		this.aiutanti = aiutanti;
 		this.capoF = capoFemmina;
 		this.capoM = capoMaschio;
+		this.squadriglie = new ArrayList<>();
+
 		this.setName(name);
 	}
 
@@ -42,8 +43,9 @@ public class RepartoImpl implements Reparto {
 	}
 	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException {
 		squadriglia.addMembro(membro, ruolo);
-	}
 
+	}
+	
 	public Member getCapoM() {
 		return capoM;
 	}

@@ -62,26 +62,7 @@ public interface Container {
 	 * 
 	 * @param m
 	 */
-	public void addMember(Member m) throws EntityAlreadyExistsException;
-	/**
-	 * 
-	 * @param sq
-	 */
-	public void addSquadron(Squadron sq)throws EntityAlreadyExistsException;
-	/**
-	 * Method for removing member
-	 * @param mbr
-	 */
-	public void removeMember(Member mbr) throws MemberNotExistException;
-	/**
-	 * Method for removing squadron
-	 * @param sq
-	 */
-	public void removeSquadron(Squadron sq)throws SquadronNotExistException;
-	/**
-	 * Provides a list of member which they are in no Squadron
-	 * @return
-	 */
+	
 	public List<Member> getFreeMember();
 	/**
 	 * To detached member from his squadron
