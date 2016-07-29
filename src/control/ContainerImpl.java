@@ -48,7 +48,7 @@ public class ContainerImpl implements Container, Serializable {
 	
 	@Override
 	public List<Member> getMembers() {
-		return new ArrayList<Member>(this.unit);
+		return this.unit;
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class ContainerImpl implements Container, Serializable {
 	
 	@Override
 	public List<Squadron> getSquadrons() {
-		return new ArrayList<Squadron>(this.squadronActive);
+		return this.squadronActive;
 	}
 	
 	
@@ -87,9 +87,30 @@ public class ContainerImpl implements Container, Serializable {
 		}
 		
 		this.squadronActive.get(this.squadronActive.indexOf(sq)).removeMembro(member);
-		
-		
 	}
+
+
+
+	@Override
+	public List<Excursion> getExcursion() {
+		return this.excursions;
+	}
+
+
+
+	@Override
+	public List<Excursion> excursions(Predicate<? super Excursion> p) {
+		return this.excursions.stream().filter(p).collect(Collectors.toList());
+	}
+
+
+
+	@Override
+	public Excursion getExcursionNamed(String name) {
+		return this.excursions.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+	}
+	
+	
 	
 
 	
