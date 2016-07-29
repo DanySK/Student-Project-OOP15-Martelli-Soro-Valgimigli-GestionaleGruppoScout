@@ -8,6 +8,7 @@ import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 
 
@@ -100,9 +102,13 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel {
 	/* (non-Javadoc)
 	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.lang.String, int)
 	 */
+	public JLabel createJLabel(String name,Optional<String> text, int fontSize ){
+		return createJLabel(name, text.orElse(""), fontSize);
+	}
+	
 	@Override
-	public JLabel createJLabel(String name, String text, int fontSize){
-		JLabel label=new JLabel(text);
+	public JLabel createJLabel(String name,String  text, int fontSize){
+		JLabel label=new JLabel(text, SwingConstants.CENTER);
 		label.setName(name);
 		label.setFont(new Font("Aria", Font.ITALIC, fontSize));
 		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -116,7 +122,12 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel {
 		ImageIcon img = new ImageIcon("res/back-icon-small.png");
 		JButton t=new JButton();
 		t.addActionListener(e->{
-			MyJFrameSingletonImpl.getInstance().setPanel(this.callerPanel);
+			
+			try {
+				MyJFrameSingletonImpl.getInstance().setPanel(callerPanel.getClass().newInstance());
+			} catch (InstantiationException | IllegalAccessException e1) {
+				
+			}
 		});
 		t.setIcon(img);
 		return t;

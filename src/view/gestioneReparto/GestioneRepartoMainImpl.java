@@ -20,6 +20,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
 
 import control.UnitImpl;
+import control.exception.EntityAlreadyExistsException;
 import model.Squadron;
 import model.SquadronImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -40,11 +41,15 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 	private final JTree tree;
 	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
 	public GestioneRepartoMainImpl(){
+		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getContenentPane(), new GridBagLayout());
+		
+		
+		
 		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dex(JPanel)
 		 */
-		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getContenentPane(), new GridBagLayout());
+		
 		panelRight = new MyJPanelImpl(new BorderLayout());
 		panelCenter=new MyJPanelImpl();
 		panelBottom=new MyJPanelImpl(new BorderLayout());
@@ -88,8 +93,11 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
 		 */
 		unit.getContainers().getSquadrons().forEach(e->{
+			
+			
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e)));
+			reparto.add(t);
 						
 		});
 				

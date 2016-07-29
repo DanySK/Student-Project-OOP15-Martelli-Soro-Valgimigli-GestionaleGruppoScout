@@ -93,6 +93,7 @@ public class LoaderUtil extends MyJPanelImpl {
 						try{
 							MyJFrameSingletonImpl.getInstance(project.loadUnit(selected));
 							new MainGuiImpl();
+							frame.dispose();
 						} catch (Exception k){
 							new WarningNotice(k.getMessage());
 						}

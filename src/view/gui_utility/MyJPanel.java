@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -56,8 +57,12 @@ public interface MyJPanel {
 	 * @param fontSize font dimension
 	 * @return
 	 */
-	JLabel createJLabel(String name, String text, int fontSize);
+	
 
 	Component getComponent(String name);
+
+	JLabel createJLabel(String name, Optional<String> text, int fontSize);
+
+	JLabel createJLabel(String name, String text, int fontSize);
 
 }
