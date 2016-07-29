@@ -34,23 +34,17 @@ public class SquadronImpl implements Serializable,Squadron{
 	private myOptional<String> noteCassa=myOptional.empty();
 	private myOptional<String> noteCancelleria=myOptional.empty();
 	private myOptional<String> noteBatteria=myOptional.empty();
-	/**
-	 * 
-	 * @param nome
-	 * @param sesso
-	 */
+	
+	
 	public SquadronImpl(final String nome, final Boolean sesso){
 		if (nome==null || sesso==null) throw new IllegalArgumentException();
 		this.nomeSq = nome;
 		this.sessoSq = sesso;
-		this.cash=(float)0;
+		this.cash=Float.valueOf(0);
 		//map=new HashMap<>();
 	
 	}
-	/**
-	 * 
-	 * @param nome
-	 */
+
 	public void setNome(final String nome){
 		if (nome==null) throw new IllegalArgumentException();
 		this.nomeSq = nome;
@@ -111,11 +105,15 @@ public class SquadronImpl implements Serializable,Squadron{
 	public Member getVice(){
 		return this.viceSq.get();
 	}
-	/**
-	 * 
-	 * @param trice
-	 * @throws MoreLeadersNotPermitException 
-	 */
+	public boolean isCapoPresent (){
+		return this.capoSq.isPresent();
+	}
+	public boolean isVicecapoPresent (){
+		return this.viceSq.isPresent();
+	}
+	public boolean isTricecapoPresent (){
+		return this.triceSq.isPresent();
+	}
 	public void setTriceSq(final Member trice) throws MoreLeadersNotPermitException{
 		if (trice.equals(null)) throw new IllegalArgumentException();
 		if (this.triceSq.isPresent()) throw new MoreLeadersNotPermitException();

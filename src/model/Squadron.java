@@ -163,6 +163,21 @@ public interface Squadron {
 		 * a list without members will be returned if no one is celebreting birthday
 		 */
 		public List<Member> getMemberCelebretingBirthday();
+		/**
+		 * 
+		 * @return
+		 */
+		public boolean isCapoPresent ();
+		/**
+		 * 
+		 * @return
+		 */
+		public boolean isVicecapoPresent ();
+		/**
+		 * 
+		 * @return
+		 */
+		public boolean isTricecapoPresent ();
 		
 	}
 
