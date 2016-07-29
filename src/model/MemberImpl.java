@@ -18,16 +18,16 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
 	private myOptional<Integer> annoTasse=myOptional.empty();
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, int id) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.empty();
-		this.identificatore = id;
+		
 	}
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor, int id) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.of(tutor);
-		this.identificatore = id;
+		
 	}
 	public void setTasse (Integer anno){
 		if (this.annoTasse.isPresent()){

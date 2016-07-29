@@ -104,6 +104,17 @@ public interface Reparto {
 	public List<Member> getMembersNotPaid(int anno);
 	/**
 	 * 
+	 * @param membro
+	 */
+	public void remveMembro(Member membro);
+	/**
+	 * 
+	 * @param membro
+	 * @return
+	 */
+	public Squadron getSquadronOfMember(Member membro);
+	/**
+	 * 
 	 * @return
 	 */
 	public List<Member> getMembriSenzaSquadriglia();

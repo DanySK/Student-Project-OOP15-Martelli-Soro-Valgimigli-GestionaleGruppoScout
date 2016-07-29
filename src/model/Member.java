@@ -113,7 +113,16 @@ public interface Member extends Person{
 		 * @return true if the member has a totem
 		 */
 		public boolean hasTotem();
-		
+		/**
+		 * 
+		 * @return
+		 */
+		public int getId() ;
+		/**
+		 * 
+		 * @param id
+		 */
+		public void setId(int id) ;
 		
 		/**set the totem of the member
 		 * 

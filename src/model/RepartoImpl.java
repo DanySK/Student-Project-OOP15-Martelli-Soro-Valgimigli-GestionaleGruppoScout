@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.Container;
 import control.exception.MemberSexException;
 
 public class RepartoImpl implements Reparto {
 	private List<Squadron> squadriglie;
 	private List<Member> aiutanti;
 	private List<Member> membriSenzaSquadriglia=new ArrayList<>();
+	private List<Integer> idUsati;
 	private String name;
 	private Member capoM;
 	private Member capoF;
@@ -34,7 +34,7 @@ public class RepartoImpl implements Reparto {
 	public void addMembroSenzaSquadriglia(Member membro) {
 		this.membriSenzaSquadriglia.add(membro);
 	}
-
+	
 	public void removeMembroSenzaSquadriglia(Member membro) {
 		this.membriSenzaSquadriglia.remove(membro);
 	}
@@ -42,10 +42,21 @@ public class RepartoImpl implements Reparto {
 		return this.membriSenzaSquadriglia;
 	}
 	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException {
+		membro.setId(this.getFreeId());
 		squadriglia.addMembro(membro, ruolo);
 
 	}
-	
+	public void remveMembro(Member membro){
+		this.getSquadronOfMember(membro).removeMembro(membro);
+	}
+	public Squadron getSquadronOfMember(Member membro){
+		for (Squadron e:this.squadriglie){
+			if (e.containMember(membro)){
+				return e;
+			}
+		}
+		return null;
+	}
 	public Member getCapoM() {
 		return capoM;
 	}
@@ -87,7 +98,7 @@ public class RepartoImpl implements Reparto {
 	public List<Squadron> getAllSquadron() {
 		return this.squadriglie;
 	}
-
+	
 	public List<Member> getAllMember() {
 		List<Member> tmp = new ArrayList<>();
 		squadriglie.forEach(e -> {
@@ -114,5 +125,14 @@ public class RepartoImpl implements Reparto {
 		tmp.add(capoM);
 		tmp.addAll(aiutanti);
 		return tmp;
+	}
+	private int getFreeId(){
+		int tmp=1;
+		while (true){
+			if (!this.idUsati.contains(tmp)){
+				this.idUsati.add(tmp);
+				return tmp;
+			}
+		}
 	}
 }
