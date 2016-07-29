@@ -57,6 +57,10 @@ public class RepartoImpl implements Reparto {
 		}
 		return null;
 	}
+	public void removeMemberFromSquadron (Member membro){
+		this.remveMembro(membro);
+		this.membriSenzaSquadriglia.add(membro);
+	}
 	public Member getCapoM() {
 		return capoM;
 	}

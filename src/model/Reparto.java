@@ -110,6 +110,11 @@ public interface Reparto {
 	/**
 	 * 
 	 * @param membro
+	 */
+	public void removeMemberFromSquadron (Member membro);
+	/**
+	 * 
+	 * @param membro
 	 * @return
 	 */
 	public Squadron getSquadronOfMember(Member membro);
