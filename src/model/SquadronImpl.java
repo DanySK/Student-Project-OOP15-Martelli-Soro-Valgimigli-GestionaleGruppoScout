@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class SquadronImpl implements Serializable,Squadron{
 	 */
 	private static final long serialVersionUID = -742316483975432020L;
 
-	private Map<Member,Roles> map;
+	private Map<Member,Roles> map=new HashMap<>();
 	
 	private myOptional<Member> capoSq;
 	private myOptional<Member> viceSq;
