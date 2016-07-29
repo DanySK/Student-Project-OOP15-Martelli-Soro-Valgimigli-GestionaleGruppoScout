@@ -73,6 +73,18 @@ public class LoaderUtil extends MyJPanelImpl {
 					 * Aggiungo i bottoni per ogni reparto, quando uno viene cliccato tutti gli altri vengono disattivati
 					 * e viene attivato il tasto carica/rimuovi
 					 */
+					if(project.getListOfUnit().isEmpty()){
+						this.removeAll();
+						this.add(createJLabel("label","<html>Al momento non ci sono reparti salvati!<br>"
+								+ "Torna indietro per crearne uno(utilizzando il tasto \"Crea\"</html>", 18),BorderLayout.NORTH);
+			
+						this.add(getBackButtonPrivate(),BorderLayout.SOUTH);
+						this.validate();
+					}
+					
+					else{
+					
+					
 					for(String i: project.getListOfUnit()){
 						panelCenter.add(createButton(i, e->{
 							((JButton)panelBottom.getComponent("Carica")).setEnabled(true);
@@ -105,17 +117,10 @@ public class LoaderUtil extends MyJPanelImpl {
 					this.add(panelCenter, BorderLayout.CENTER);
 					this.add(panelBottom,BorderLayout.SOUTH);
 					this.validate();
-								
+					}
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch(StringIndexOutOfBoundsException e){
-				this.removeAll();
-				this.add(createJLabel("label","<html>Al momento non ci sono reparti salvati!<br>"
-						+ "Torna indietro per crearne uno(utilizzando il tasto \"Crea\"</html>", 18),BorderLayout.NORTH);
-	
-				this.add(getBackButtonPrivate(),BorderLayout.SOUTH);
-				this.validate();
-			}
+			} 
 			
 			frame.add(this);
 			frame.pack();

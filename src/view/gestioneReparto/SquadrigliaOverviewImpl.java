@@ -1,33 +1,34 @@
 package view.gestioneReparto;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
+
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 
+import control.InfoProjectImpl;
+import control.UnitImpl;
+import control.projectFactoryimpl;
 import control.exception.MoreLeadersNotPermitException;
-import model.Member;
+import control.myUtil.Pair;
 import model.MemberImpl;
 import model.Squadron;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -35,28 +36,20 @@ import view.gui_utility.MyJPanelImpl;
 
 public class SquadrigliaOverviewImpl extends MyJPanelImpl {
 	
-	/**
-	 * 
-	 */
-	private enum Ruoli{
-		Capo,
-		Vice,
-		Trice;
-	}
-	
 	private static final long serialVersionUID = -6749522066747263034L;
 	
-	private final Squadron squad;
-	private final int fontSize=15;
+	private final String squadName;
+	private final Squadron squad; 
+	private final int fontSize=20;
 	private final Font font=new Font("Aria", Font.ITALIC, 10);
-	
-	public SquadrigliaOverviewImpl(Squadron param) {
+	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
+	public SquadrigliaOverviewImpl(String param) {
 		/*
 		 * Instanzio i vari oggetti e sopratutto instanzio tutti i pannelli che mi servono
 		 */
 		super(new BorderLayout());
-		
-		squad=param;
+		squad = MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(param);
+		squadName=param;
 		MyJPanelImpl panelCenter=new MyJPanelImpl(new GridLayout(2, 1));
 		MyJPanelImpl panelMember=new MyJPanelImpl(new GridLayout(0,4));
 		JScrollPane panelScroll=new JScrollPane(panelMember);
@@ -67,9 +60,14 @@ public class SquadrigliaOverviewImpl extends MyJPanelImpl {
 		/*
 		 * aggiungo l'intestazione e tutti i pannelli nell'ordine in cui mi servono
 		 */
-		this.add(createJLabel("north", "<html><U>Panoramica di "+squad.getNome()+"</U></html>", 22),BorderLayout.NORTH);
+		this.add(createJLabel("north", "<html><U>Panoramica di "+squadName+"</U></html>", 22),BorderLayout.NORTH);
 		
-		
+		try {
+			squad.setCapoSq(projectFactoryimpl.getSimpleMember("Lorenzo", "Valgimigli", LocalDate.now(), false));
+		} catch (MoreLeadersNotPermitException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		this.add(panelCenter, BorderLayout.CENTER);
 		panelCenter.add(panelSxDx);
 		panelCenter.add(panelScroll);
@@ -78,21 +76,46 @@ public class SquadrigliaOverviewImpl extends MyJPanelImpl {
 		panelScroll.setBorder(BorderFactory.createMatteBorder(2, 0,0 , 0, new Color(0,0,0)));
 		
 		
+		Iterator<Pair<String,String>> it=(new InfoProjectImpl()).getSquadronSpecificInfo(squadName, unit.getContainers()).iterator();
 		
-		panelSx.add(createJLabel("capo", "Capo: ", fontSize));
-		panelSx.add(createJLabel("capo", "Capo: ", fontSize));
-		//panelSx.add(createJLabel("capoName",Optional.of(squad.getCapo().getName()+" "+squad.getCapo().getSurname()), fontSize));
-		panelSx.add(createJLabel("vice", "Vice: ",fontSize));
-		panelSx.add(createJLabel("capo", "Capo: ", fontSize));
-		//panelSx.add(createJLabel("viceName", Optional.of(squad.getVice().getName()+" "+squad.getVice().getSurname()), fontSize));
-		panelSx.add(createJLabel("trice","Trice: ", fontSize));
-		panelSx.add(createJLabel("capo", "Capo: ", fontSize));
-		//panelSx.add(createJLabel("triceName",  Optional.of(squad.getTrice().getName()+" "+squad.getTrice().getSurname()), fontSize));
+		while(it.hasNext()){
+			Pair<String, String> tmp=it.next();
+			panelSx.add(createJLabel(tmp.getX(), tmp.getX(), fontSize));
+			panelSx.add(createJLabel(tmp.getX()+"Name", tmp.getY(), fontSize));
+			if(tmp.getX().equals("Capo: ") || tmp.getX().equals("Vice: ") ||tmp.getX().equals("Trice: ")){
+				
+				panelDx.add(createButton("info",this.getBackground(), font,e->{
+					Pair<String,String> tempArea=tmp;
+					JDialog dial = new JDialog();
+					dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+					JPanel panel=new JPanel();
+					List<Pair<String,String>> areaText=tempArea.getX().equals("Capo: ")? (new InfoProjectImpl()).getMemberSpecificalInfo(squad.getCapo()):
+						tempArea.getX().equals("Vice: ")?(new InfoProjectImpl()).getMemberSpecificalInfo(squad.getVice()):
+							(new InfoProjectImpl()).getMemberSpecificalInfo(squad.getVice());
+					String area="";
+					areaText.stream().forEach(f->{area.concat(f.getX()+":   "+f.getY()+"\n");});
+					panel.add(createJTextArea("AreaText", area, false, 18),BorderLayout.CENTER);
+					dial.add(panel);
+					dial.pack();
+					dial.setVisible(true);
+					
+				}));
+			}
+			else{
+				panelDx.add(createJLabel("null", "", fontSize));
+			}
+			System.out.println(tmp.getX()+"  "+tmp.getY());
+		}
 		for(Component i : Arrays.asList(panelSx.getComponents())){
 			if(i instanceof JLabel){((JLabel) i).setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));}
 		}
 		
-		MemberImpl mem=new MemberImpl("Ciao", "bubu", Year.of(1995).atMonth(12).atDay(11), false, 0);
+	
+		
+		
+		
+		
+	/*		
 		for(int i =0; i < 3;i++){
 			panelDx.add(createButton("info", null, font, e->{
 				JDialog dial=new JDialog();
@@ -104,8 +127,8 @@ public class SquadrigliaOverviewImpl extends MyJPanelImpl {
 			}));
 			panelDx.getComponent("info").setName(i+"info");
 			
-		}/*
-		for(Member i: squad.getMembri().keySet()){
+		}*/
+		/*for(MemberImpl i: squad.getMembri().keySet()){
 			panelMember.add(createButton(i.getName(), e->{
 				JDialog dial=new JDialog();
 				dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
@@ -120,42 +143,14 @@ public class SquadrigliaOverviewImpl extends MyJPanelImpl {
 		((JLabel)header.getView()).setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(0,0,0)));
 		panelScroll.setColumnHeader(header);
 		panelScroll.getColumnHeader().setBackground(this.getBackground());
-		panelMember.add(createButton("<html>Lorenzo<br>Valgimigli</html>",e->{}));
-		panelMember.getComponent(0).setFont(font);
+		
 		for(int i =0; i < 35;i++){
-			String k="<html>"+Integer.toString(i)+"<br>CACCA</html>";
+			String k="<html>"+Integer.toString(i)+"<br>Membro</html>";
 			panelMember.add(createButton(k, e->{}));
 			((JButton)panelMember.getComponent(k)).setFont(font);
 		}
-	}
-	
-	
-	
-	private JPanel chooseInfo(String num){
-		MyJPanelImpl ret=new MyJPanelImpl(new BorderLayout());
-		JButton e= ret.createButton("OK", f->{((JDialog)SwingUtilities.getWindowAncestor(((JPanel)((JButton)f.getSource()).getParent()))).dispose();});
-		String i=num;
-		if(i.equals("0")){
-			ret.add(createJTextArea("", "VediCapo", false, fontSize),BorderLayout.CENTER);
-		}
-		else if(i.equals("1")){
-			ret.add(createJTextArea("", "VediVice", false, fontSize),BorderLayout.CENTER);
-		}
-		else{
-			ret.add(createJTextArea("", "VediTrice", false, fontSize),BorderLayout.CENTER);
-		}
-		ret.getComponent(0).setBackground(ret.getBackground());
-		ret.add(e, BorderLayout.SOUTH);
-		return ret;
-	}
-	
-	
-	
+	}	
 	public String toString(){
-		return this.squad.getNome()+"__Overview";
-	}
-	
-	private void evitaExceptio(){
-		
+		return this.squadName+"__Overview";
 	}
 }

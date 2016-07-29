@@ -61,7 +61,7 @@ public interface MyJPanel {
 
 	Component getComponent(String name);
 
-	JLabel createJLabel(String name, Optional<String> text, int fontSize);
+	//JLabel createJLabel(String name, Optional<String> text, int fontSize);
 
 	JLabel createJLabel(String name, String text, int fontSize);
 

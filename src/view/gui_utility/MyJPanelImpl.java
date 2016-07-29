@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import model.Member;
+
 
 
 /**Class used to easy create JPanel and add in it JButton
@@ -102,8 +104,8 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel {
 	/* (non-Javadoc)
 	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.lang.String, int)
 	 */
-	public JLabel createJLabel(String name,Optional<String> text, int fontSize ){
-		return createJLabel(name, text.orElse(""), fontSize);
+	public JLabel createJLabel(String name,Optional<Member> text, int fontSize ){
+		return createJLabel(name, text.isPresent()?text.get().getName():"", fontSize);
 	}
 	
 	@Override

@@ -20,8 +20,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
 
 import control.UnitImpl;
-import control.exception.EntityAlreadyExistsException;
-import model.Squadron;
+import control.projectFactoryimpl;
 import model.SquadronImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -53,8 +52,7 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 		panelRight = new MyJPanelImpl(new BorderLayout());
 		panelCenter=new MyJPanelImpl();
 		panelBottom=new MyJPanelImpl(new BorderLayout());
-		//--------------->attenzione necessario mutare nome in base al nome del reparto
-		
+			
 		/*Creo l'albero e il nodo root(reparto)*/
 		DefaultMutableTreeNode reparto = new DefaultMutableTreeNode(new RepartoOverviewImpl());
 		tree = new JTree(reparto);
@@ -92,22 +90,17 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 		/*
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
 		 */
+		unit.createSq(projectFactoryimpl.getSquadron("Falchi", false));
+		
 		unit.getContainers().getSquadrons().forEach(e->{
 			
 			
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
-			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e)));
+			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e.getNome())));
 			reparto.add(t);
 						
 		});
-				
-		for( int i=0;i < 5;i++){
-			reparto.add(new DefaultMutableTreeNode(Integer.toString(i)));
-			((DefaultMutableTreeNode)reparto.getLastChild()).add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(new SquadronImpl(Integer.toString(i),false))));
-			/*
-			reparto.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(new SquadronImpl(Integer.toString(i),false))));
-			((DefaultMutableTreeNode)reparto.getLastChild()).add((new DefaultMutableTreeNode(new String(i+" CIAO MONDO COME STAI?"))));*/
-		}
+		
 		
 		/*Setto i JToolTip dell'albero*/
 		tree.setCellRenderer(new TooltipTreeRenderer());
