@@ -12,14 +12,16 @@ public class GemellaggiImpl extends ExcursionImpl {
 	private Reparto reparto;
 	private List<String> altriReparti=new ArrayList<>();
 	
-	public GemellaggiImpl (LocalDate dateStart,LocalDate dateEnd,Reparto reparto,String name,List<String>altriReparti) throws IllegalDateException{
+	public GemellaggiImpl (LocalDate dateStart,LocalDate dateEnd,Reparto reparto,String name,List<String>altriReparti) throws Exception{
 		super (name,dateStart,reparto.getAllMember());
+		this.check(dateStart, dateEnd);
 		this.reparto=reparto;
 		this.setDateEnd(dateEnd);
 		this.altriReparti=altriReparti;
 	}
-	public GemellaggiImpl (LocalDate dateStart,int durata,Reparto reparto,String name,List<String>altriReparti) throws IllegalDateException{
+	public GemellaggiImpl (LocalDate dateStart,int durata,Reparto reparto,String name,List<String>altriReparti) throws Exception{
 		super (name,dateStart,reparto.getAllMember());
+		this.check(dateStart, dateStart.plusDays(durata-1));
 		this.reparto=reparto;
 		this.setDateEnd(dateStart.plusDays(durata));
 		this.altriReparti=altriReparti;
@@ -42,5 +44,12 @@ public class GemellaggiImpl extends ExcursionImpl {
 	}
 	public boolean containOtherUnit(String name){
 		return this.altriReparti.contains(name);
+	}
+	@Override
+	protected void check(LocalDate dateStart, LocalDate dateEnd) throws Exception {
+		if (dateStart.plusDays(1).isAfter(dateEnd)){
+			throw new IllegalDateException();
+		}
+		
 	}
 }

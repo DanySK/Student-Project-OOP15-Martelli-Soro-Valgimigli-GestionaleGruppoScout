@@ -13,7 +13,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private static final long serialVersionUID = 1L;
 	private int identificatore;
 	private List<String> competence;
-	private List<String> specialities;
+	private List<Specialita> specialities;
 	private Boolean promise;
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
@@ -57,7 +57,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return this.competence;
 	}
 
-	public List<String> getSpecialities() {
+	public List<Specialita> getSpecialities() {
 		return this.specialities;
 	}
 	public myOptional<Tutor> getTutor(){
@@ -115,7 +115,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	public boolean removeSpecialities(
-			String specialities) {/*
+			Specialita specialities) {/*
 									 * return false if the competent is not
 									 * already contained
 									 */
@@ -126,7 +126,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return false;
 	}
 
-	public boolean addSpecialities(String specialities) {
+	public boolean addSpecialities(Specialita specialities) {
 		if (!this.containsSpecialities(specialities)) {
 			this.specialities.add(specialities);
 			return true;
@@ -136,9 +136,10 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	public boolean containsSpecialities(
-			String specialities) {/*
+			Specialita specialities) {/*
 									 * return true if the competent is contained
 									 */
+		
 		return this.specialities.contains(specialities);
 	}
 

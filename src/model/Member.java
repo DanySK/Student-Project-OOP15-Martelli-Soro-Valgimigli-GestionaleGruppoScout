@@ -58,13 +58,13 @@ public interface Member extends Person{
 		 /**
 		 * @return a list of the specialities of the member
 		 */
-		public List<String> getSpecialities();
+		public List<Specialita> getSpecialities();
 		/**
 		 * Remove a specialities from the member
 		 * @param specialities
 		 * @return false if the specialities is not contained
 		 */
-		public boolean removeSpecialities (String specialities);
+		public boolean removeSpecialities (Specialita specialities);
 		
 		/**
 	 	 * Add a speciality. 
@@ -72,14 +72,14 @@ public interface Member extends Person{
 	 	 * @param specialities
 	 	 */
 		
-		public boolean addSpecialities(String specialities);
+		public boolean addSpecialities(Specialita specialities);
 		/**
 		 * 
 		 * @param specialities
 		 * @return true if the member contain the aspecialities
 		 */
 		
-		public boolean containsSpecialities (String specialities);
+		public boolean containsSpecialities (Specialita specialities);
 		/**
 		  * Remove a competence from the member
 		 * @param competence
