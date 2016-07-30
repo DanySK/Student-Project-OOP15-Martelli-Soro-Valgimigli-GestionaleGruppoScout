@@ -8,9 +8,14 @@ import java.util.stream.Collectors;
 
 import control.exception.MemberNotExistException;
 import control.exception.SquadronNotExistException;
+import model.Campo;
+import model.EventiDiZona;
 import model.Excursion;
+import model.Gemellaggi;
 import model.Member;
 import model.Squadron;
+import model.Uscita;
+import model.UscitaSquadriglia;
 
 public class ContainerImpl implements Container, Serializable {
 	
@@ -120,7 +125,71 @@ public class ContainerImpl implements Container, Serializable {
 	}
 	
 	
-	
+	@Override
+	public Uscita getExit(String name) {
+		Uscita tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof Uscita){
+					tmp = (Uscita)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public UscitaSquadriglia getExcursionSq(String name) {
+		UscitaSquadriglia tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof UscitaSquadriglia){
+					tmp = (UscitaSquadriglia)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public Gemellaggi getTwoUnitEvent(String name) {
+		Gemellaggi tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof Gemellaggi){
+					tmp = (Gemellaggi)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public EventiDiZona getLocalEvent(String name) {
+		EventiDiZona tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof EventiDiZona){
+					tmp = (EventiDiZona)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public Campo getCamp(String name) {
+		Campo tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof Campo){
+					tmp = (Campo)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
 
 	
 

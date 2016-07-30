@@ -5,9 +5,14 @@ import java.util.function.Predicate;
 
 import control.exception.MemberNotExistException;
 import control.exception.SquadronNotExistException;
+import model.Campo;
+import model.EventiDiZona;
 import model.Excursion;
+import model.Gemellaggi;
 import model.Member;
 import model.Squadron;
+import model.Uscita;
+import model.UscitaSquadriglia;
 
 /**
  * Class that contains infos, entities and relations.
@@ -95,5 +100,37 @@ public interface Container {
 	 * @return
 	 */
 	public Member getMember(String name, String surname);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Uscita getExit(String name);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public UscitaSquadriglia getExcursionSq(String name);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Gemellaggi getTwoUnitEvent(String name);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public EventiDiZona getLocalEvent(String name);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Campo getCamp(String name);
+
+	
 
 }

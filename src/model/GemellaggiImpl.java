@@ -6,7 +6,7 @@ import java.util.List;
 
 import model.exception.IllegalDateException;
 
-public class GemellaggiImpl extends ExcursionImpl {
+public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;

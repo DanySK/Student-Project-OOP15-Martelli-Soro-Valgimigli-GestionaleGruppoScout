@@ -102,12 +102,5 @@ public interface Unit {
 	 */
 	public Reparto getReparto();
 	
-	public Uscita getExit(String name);
-	public UscitaSquadriglia getExcursionSq(String name);
-	public Gemellaggi getTwoUnitEvent(String name);
-	public EventiDiZona getLocalEvent(String name);
-	public Campo getCamp(String name);
-
-	
 	
 }

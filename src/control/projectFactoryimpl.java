@@ -8,7 +8,11 @@ import java.util.List;
 import control.myUtil.myOptional;
 import model.Campo;
 import model.CampoImpl;
+import model.EventiDiZona;
+import model.EventiDiZonaImpl;
 import model.ExcursionImpl;
+import model.Gemellaggi;
+import model.GemellaggiImpl;
 import model.Member;
 import model.MemberImpl;
 import model.Reparto;
@@ -24,7 +28,7 @@ import model.UscitaSquadrigliaImpl;
 import model.exception.IllegalDateException;
 import view.general_utility.WarningNotice;
 
-public class projectFactoryimpl implements Serializable {
+public class projectFactoryImpl implements Serializable {
 	
 	/**
 	 * 
@@ -235,5 +239,77 @@ public class projectFactoryimpl implements Serializable {
 	 */
 	public static Unit getUnit(Reparto rp){
 		return new UnitImpl(rp);
+	}
+	/**
+	 * 
+	 * @param dateStart
+	 * @param dateEnd
+	 * @param reparto
+	 * @param name
+	 * @param altriReparti
+	 * @return
+	 */
+	public EventiDiZona getLocalEvent(LocalDate dateStart, LocalDate dateEnd, Reparto reparto, String name,
+			List<String> others){
+		try {
+			return new EventiDiZonaImpl(dateStart, dateEnd, reparto, name, others);
+		} catch (Exception e) {
+			new WarningNotice(e.getMessage());
+			return null;
+		}
+	}
+	/**
+	 * 
+	 * @param dateStart
+	 * @param duration
+	 * @param reparto
+	 * @param name
+	 * @param others
+	 * @return
+	 */
+	public EventiDiZona getLocalEvent(LocalDate dateStart, int duration, Reparto reparto, String name,
+			List<String> others){
+		try {
+			return new EventiDiZonaImpl(dateStart, duration, reparto, name, others);
+		} catch (Exception e) {
+			new WarningNotice(e.getMessage());
+			return null;
+		}
+	}
+	/**
+	 * 
+	 * @param dateStart
+	 * @param dateEnd
+	 * @param reparto
+	 * @param name
+	 * @param others
+	 * @return
+	 */
+	public Gemellaggi getEventTwoUnit(LocalDate dateStart,LocalDate dateEnd,Reparto reparto,
+			String name,List<String> others){
+		try {
+			return new GemellaggiImpl(dateStart, dateEnd, reparto, name, others);
+		} catch (Exception e) {
+			new WarningNotice(e.getMessage());
+			return null;
+		}
+	}
+	/**
+	 * 
+	 * @param dateStart
+	 * @param duration
+	 * @param reparto
+	 * @param name
+	 * @param others
+	 * @return
+	 */
+	public Gemellaggi getEventMoreUnit(LocalDate dateStart,int duration,Reparto reparto,
+			String name,List<String> others){
+		try {
+			return new GemellaggiImpl(dateStart, duration, reparto, name, others);
+		} catch (Exception e) {
+			new WarningNotice(e.getMessage());
+			return null;
+		}
 	}
 }
