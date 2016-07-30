@@ -20,8 +20,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
 
 import control.UnitImpl;
-import control.projectFactoryimpl;
-import model.SquadronImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 /**
@@ -40,18 +38,15 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 	private final JTree tree;
 	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
 	public GestioneRepartoMainImpl(){
-		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getContenentPane(), new GridBagLayout());
-		
-		
-		
 		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dex(JPanel)
 		 */
-		
+		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getContenentPane(), new GridBagLayout());
 		panelRight = new MyJPanelImpl(new BorderLayout());
 		panelCenter=new MyJPanelImpl();
 		panelBottom=new MyJPanelImpl(new BorderLayout());
+		
 			
 		/*Creo l'albero e il nodo root(reparto)*/
 		DefaultMutableTreeNode reparto = new DefaultMutableTreeNode(new RepartoOverviewImpl());
@@ -73,12 +68,16 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 						 
 						 panelRight.remove(panelCenter);
 						 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
-							 
 							 panelCenter = (SquadrigliaOverviewImpl)node.getUserObject();
 						 }
 						 if (node.getUserObject() instanceof RepartoOverviewImpl){
 							 panelCenter = (RepartoOverviewImpl)node.getUserObject();
 						 }
+						 if(node.getUserObject() instanceof SquadrigliaManagerImpl){
+							 panelCenter=(SquadrigliaManagerImpl)node.getUserObject();
+						 }
+						 panelCenter.repaint();
+						 panelCenter.validate();
 						 panelRight.add(panelCenter,BorderLayout.CENTER);
 						 panelRight.repaint();
 						 panelRight.validate();
@@ -90,18 +89,14 @@ public class GestioneRepartoMainImpl extends MyJPanelImpl{
 		/*
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
 		 */
-		unit.createSq(projectFactoryimpl.getSquadron("Falchi", false));
-		
 		unit.getContainers().getSquadrons().forEach(e->{
-			
-			
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e.getNome())));
+			t.add(new DefaultMutableTreeNode(new SquadrigliaManagerImpl(e.getNome())));
 			reparto.add(t);
 						
 		});
-		
-		
+			
 		/*Setto i JToolTip dell'albero*/
 		tree.setCellRenderer(new TooltipTreeRenderer());
 		javax.swing.ToolTipManager.sharedInstance().registerComponent(tree);
