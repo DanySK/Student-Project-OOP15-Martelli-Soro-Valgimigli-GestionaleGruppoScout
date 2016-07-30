@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import control.myUtil.myOptional;
@@ -17,16 +18,25 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private Boolean promise;
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
-	private myOptional<Integer> annoTasse=myOptional.empty();
+	private myOptional<Integer> annoTasse;
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.empty();
-		
+		this.annoTasse=myOptional.empty();
+		this.totem=myOptional.empty();
+		promise=false;
+		competence=new ArrayList<>();
+		this.specialities=new ArrayList<>();
 	}
 
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.of(tutor);
+		this.annoTasse=myOptional.empty();
+		this.totem=myOptional.empty();
+		promise=false;
+		competence=new ArrayList<>();
+		this.specialities=new ArrayList<>();
 		
 	}
 	public void setTasse (Integer anno){
