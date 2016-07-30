@@ -5,8 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import control.myUtil.Pair;
+import model.Campo;
+import model.EventiDiZona;
+import model.Excursion;
+import model.Gemellaggi;
 import model.Member;
 import model.Squadron;
+import model.Uscita;
+import model.UscitaSquadriglia;
 
 public class InfoProjectImpl implements InfoProject {
 
@@ -63,7 +69,7 @@ public class InfoProjectImpl implements InfoProject {
 		info.add(new Pair<>("Nome", member.getName()));
 		info.add(new Pair<>("Cognome", member.getSurname()));
 		info.add(new Pair<>("Sesso", (member.getSex() ? "Maschio":"Femmina")));
-		info.add(new Pair<>("Eta", "Default"));
+		info.add(new Pair<>("Eta", member.getHowIsHold().toString()));
 		info.add(new Pair<>("Promessa", (member.getPromise()? "Fatta":"Da fare")));
 		if(! member.hasTotem()){
 			info.add(new Pair<>("Totem", member.getTotem()));
@@ -71,6 +77,39 @@ public class InfoProjectImpl implements InfoProject {
 			info.add(new Pair<>("Totem", ""));
 		}
 		info.add(new Pair<>("Data di nascita", member.getBirthday().toString()));
+		return info;
+	}
+
+	@Override
+	public String getExcursionInfo(Excursion e) {
+		String info = "";
+		info += "Nome uscita: \t" + e.getName();
+		info += "\nDove: \t" + e.getPlace();
+		info += "\nPrezzo: \t" + e.getPrize();
+		info += "\n Partecipanti: " + e.getAllPartecipanti().stream()
+															.map(s -> s.getName() + " " + s.getSurname())
+															.collect(Collectors.joining());
+		info += "\nNon hanno pagato: " + e.getNonPaganti().stream()
+										.map(s -> s.getName() + " " + s.getSurname())
+										.collect(Collectors.joining());
+		if(e instanceof Uscita){
+			info = "\nTipologia: \t Uscita di reparto"; 
+		}
+		if(e instanceof UscitaSquadriglia){
+			info = "\nTipologia: \t Uscita di suqdriglia ( " + 
+						((UscitaSquadriglia)e).getSquadriglia().getNome() + " )"; 
+		}
+		if(e instanceof Gemellaggi){
+			info = "\nTipologia: \t Gemellaggio (" + ((Gemellaggi) e).getOtherUnits()
+																   .stream()
+																   .collect(Collectors.joining()) + ")";
+		}
+		if(e instanceof EventiDiZona){
+			info = "\nTipologia: \t Evento di Zona"; 
+		}
+		if(e instanceof Campo){
+			info = "\nTipologia: \t Campo"; 
+		}
 		return info;
 	}
 

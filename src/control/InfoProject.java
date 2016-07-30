@@ -3,6 +3,7 @@ package control;
 import java.util.List;
 
 import control.myUtil.Pair;
+import model.Excursion;
 import model.Member;
 
 /**
@@ -53,4 +54,10 @@ public interface InfoProject {
 	 * 6. Birthday
 	 */
 	public List<Pair<String, String>> getMemberSpecificalInfo(Member member);
+	/**
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public String getExcursionInfo(Excursion e);
 }
