@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.exception.MemberSexException;
 import control.myUtil.myOptional;
 
 public class RepartoImpl implements Reparto,Serializable {
@@ -53,7 +52,6 @@ public class RepartoImpl implements Reparto,Serializable {
 	public void addMembroSenzaSquadriglia(Member membro) {
 		this.membriSenzaSquadriglia.add(membro);
 	}
-	
 	public void removeMembroSenzaSquadriglia(Member membro) {
 		this.membriSenzaSquadriglia.remove(membro);
 	}

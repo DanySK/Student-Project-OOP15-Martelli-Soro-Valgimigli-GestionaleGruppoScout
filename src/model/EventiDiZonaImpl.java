@@ -5,8 +5,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.exception.IllegalDateException;
-
 public class EventiDiZonaImpl extends ExcursionImpl {
 
 	private static final long serialVersionUID = 1L;
@@ -15,7 +13,7 @@ public class EventiDiZonaImpl extends ExcursionImpl {
 	private List<Attivita> attivita = new ArrayList<>();
 
 	public EventiDiZonaImpl(LocalDate dateStart, LocalDate dateEnd, Reparto reparto, String name,
-			List<String> altriReparti) throws IllegalDateException {
+			List<String> altriReparti) throws Exception {
 		super(name, dateStart, reparto.getAllMember());
 		this.reparto = reparto;
 		this.setDateEnd(dateEnd);
@@ -23,13 +21,13 @@ public class EventiDiZonaImpl extends ExcursionImpl {
 	}
 
 	public EventiDiZonaImpl(LocalDate dateStart, int durata, Reparto reparto, String name, List<String> altriReparti)
-			throws IllegalDateException {
+			throws Exception {
 		super(name, dateStart, reparto.getAllMember());
 		this.reparto = reparto;
 		this.setDateEnd(dateStart.plusDays(durata));
 		this.altriReparti = altriReparti;
 	}
-
+	
 	public Reparto getReparto() {
 		return reparto;
 	}
@@ -81,5 +79,9 @@ public class EventiDiZonaImpl extends ExcursionImpl {
 
 	public boolean containOtherUnit(String name) {
 		return this.altriReparti.contains(name);
+	}
+
+	@Override
+	protected void check(LocalDate dateStart, LocalDate dateEnd) throws Exception {
 	}
 }
