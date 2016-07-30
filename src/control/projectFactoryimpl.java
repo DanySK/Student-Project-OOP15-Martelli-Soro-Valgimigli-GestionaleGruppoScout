@@ -150,8 +150,9 @@ public class projectFactoryimpl implements Serializable {
 	 * @param reparto
 	 * @param name
 	 * @return
+	 * @throws Exception 
 	 */
-	public static Uscita getStdExcursion(LocalDate dateStart,Reparto reparto,String name) {
+	public static Uscita getStdExcursion(LocalDate dateStart,Reparto reparto,String name) throws Exception {
 		try {
 			return new UscitaImpl(dateStart, reparto, name);
 		} catch (IllegalDateException e) {
@@ -166,8 +167,9 @@ public class projectFactoryimpl implements Serializable {
 	 * @param sq
 	 * @param name
 	 * @return
+	 * @throws Exception 
 	 */
-	public static UscitaSquadriglia getSqExcursion(LocalDate dateStart,int duration,Squadron sq,String name){
+	public static UscitaSquadriglia getSqExcursion(LocalDate dateStart,int duration,Squadron sq,String name) throws Exception{
 		try {
 			return new UscitaSquadrigliaImpl(dateStart, duration, sq, name);
 		} catch (IllegalDateException e) {
@@ -182,8 +184,9 @@ public class projectFactoryimpl implements Serializable {
 	 * @param sq
 	 * @param name
 	 * @return
+	 * @throws Exception 
 	 */
-	public static UscitaSquadriglia getSqExcursion(LocalDate dateStart,LocalDate dateEnd,Squadron sq,String name){
+	public static UscitaSquadriglia getSqExcursion(LocalDate dateStart,LocalDate dateEnd,Squadron sq,String name) throws Exception{
 		try {
 			return new UscitaSquadrigliaImpl(dateStart, dateEnd, sq, name);
 		} catch (IllegalDateException e) {
@@ -198,8 +201,9 @@ public class projectFactoryimpl implements Serializable {
 	 * @param rp
 	 * @param name
 	 * @return
+	 * @throws Exception 
 	 */
-	public static Campo getCamp(LocalDate dateStart,LocalDate dateEnd,Reparto rp,String name){
+	public static Campo getCamp(LocalDate dateStart,LocalDate dateEnd,Reparto rp,String name) throws Exception{
 		try {
 			return new CampoImpl(dateStart, dateEnd, rp, name);
 		} catch (IllegalDateException e) {
@@ -214,8 +218,9 @@ public class projectFactoryimpl implements Serializable {
 	 * @param rp
 	 * @param name
 	 * @return
+	 * @throws Exception 
 	 */
-	public static Campo getCamp(LocalDate dateStart,int duration,Reparto rp,String name){
+	public static Campo getCamp(LocalDate dateStart,int duration,Reparto rp,String name) throws Exception{
 		try {
 			return new CampoImpl(dateStart, duration, rp, name);
 		} catch (IllegalDateException e) {

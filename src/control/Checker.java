@@ -6,7 +6,6 @@ import java.util.Map;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
-import model.Squadron;
 
 public interface Checker {
 	/**

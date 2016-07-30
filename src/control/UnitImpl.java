@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-
 import control.myUtil.Pair;
+import model.Campo;
+import model.EventiDiZona;
 import model.Excursion;
-import model.ExcursionImpl;
+import model.Gemellaggi;
 import model.Member;
 import model.Reparto;
 import model.Roles;
 import model.Squadron;
 import model.Uscita;
+import model.UscitaSquadriglia;
 import view.general_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {
@@ -28,7 +29,7 @@ public class UnitImpl implements Unit, Serializable {
 	private String nameToSave;
 	private Container container;
 	private Reparto rep;
-	private List<? extends Excursion> excursions;
+	private List<Excursion> excursions;
 	
 	public UnitImpl(Reparto rep){
 		this.nameToSave = rep.getName().replace(' ','_');
@@ -156,8 +157,76 @@ public class UnitImpl implements Unit, Serializable {
 	}
 	@Override
 	public void addExcursion(Excursion exc) {
-		// TODO Auto-generated method stub
+		this.excursions.add(exc);
+	}
+	@Override
+	public Reparto getReparto() {
+		return this.rep;
+	}
+	@Override
+	public Uscita getExit(String name) {
+		Uscita tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof Uscita){
+					tmp = (Uscita)exc;
+				}
+			}
+		}
 		
+		return tmp;
+	}
+	@Override
+	public UscitaSquadriglia getExcursionSq(String name) {
+		UscitaSquadriglia tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof UscitaSquadriglia){
+					tmp = (UscitaSquadriglia)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public Gemellaggi getTwoUnitEvent(String name) {
+		Gemellaggi tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof Gemellaggi){
+					tmp = (Gemellaggi)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public EventiDiZona getLocalEvent(String name) {
+		EventiDiZona tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof EventiDiZona){
+					tmp = (EventiDiZona)exc;
+				}
+			}
+		}
+		
+		return tmp;
+	}
+	@Override
+	public Campo getCamp(String name) {
+		Campo tmp = null;
+		for(Excursion exc : this.excursions){
+			if(exc.getName().equals(name)){
+				if(exc instanceof Campo){
+					tmp = (Campo)exc;
+				}
+			}
+		}
+		
+		return tmp;
 	}
 
 }

@@ -3,7 +3,6 @@ package control;
 import java.util.List;
 import java.util.function.Predicate;
 
-import control.exception.EntityAlreadyExistsException;
 import control.exception.MemberNotExistException;
 import control.exception.SquadronNotExistException;
 import model.Excursion;

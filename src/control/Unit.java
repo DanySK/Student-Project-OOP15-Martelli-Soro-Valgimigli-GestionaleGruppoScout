@@ -4,10 +4,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 import control.myUtil.Pair;
+import model.Campo;
+import model.EventiDiZona;
 import model.Excursion;
+import model.Gemellaggi;
 import model.Member;
+import model.Reparto;
 import model.Roles;
 import model.Squadron;
+import model.Uscita;
+import model.UscitaSquadriglia;
 
 public interface Unit {
 	/**
@@ -90,6 +96,18 @@ public interface Unit {
 	 * @return
 	 */
 	public List<Member> getMemberDidntPay();
+	/**
+	 * 
+	 * @return
+	 */
+	public Reparto getReparto();
+	
+	public Uscita getExit(String name);
+	public UscitaSquadriglia getExcursionSq(String name);
+	public Gemellaggi getTwoUnitEvent(String name);
+	public EventiDiZona getLocalEvent(String name);
+	public Campo getCamp(String name);
+
 	
 	
 }
