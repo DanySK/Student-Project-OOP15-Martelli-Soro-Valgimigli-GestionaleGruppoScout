@@ -10,14 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import control.exception.DefaultDirectoryException;
 import control.exception.ProjectFilesCreationException;
-import model.RepartoImpl;
 import view.general_utility.WarningNotice;
 
 public class MasterProjectImpl implements MasterProject {
