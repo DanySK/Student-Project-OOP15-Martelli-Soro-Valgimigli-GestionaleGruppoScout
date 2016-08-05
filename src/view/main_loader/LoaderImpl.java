@@ -72,7 +72,7 @@ public class LoaderImpl extends MyJPanelImpl {
 						frame.validate();
 					}
 				});
-			}),BorderLayout.EAST);
+			}));
 			SwingUtilities.invokeLater(new Runnable(){
 				@Override
 				public void run() {

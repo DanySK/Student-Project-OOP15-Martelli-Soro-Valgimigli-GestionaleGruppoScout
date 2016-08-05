@@ -26,10 +26,10 @@ public class Main {
 		            ui.put("Panel.background", new Color(42,218,77));
 		            ui.put("Button.background", new Color(174,226,84));
 		            ui.put("Button.font", new Font("Aria", Font.ITALIC, 30));
-		            ui.put("OptionPane.background", new Color(42,218,77));
 		            ui.put("Tree.drawHorizontalLines", true);
 		            ui.put("Tree.drawVerticalLines", true);
 		            ui.put("Tree.font", new Font("Aria", Font.ITALIC, 18));
+		            ui.put("TextArea.background", new Color(42,218,77));
 		            break;
 		        }
 		    }

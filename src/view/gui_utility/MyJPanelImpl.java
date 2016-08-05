@@ -27,14 +27,19 @@ import model.Member;
  * @author giovanni
  */
 
-public class MyJPanelImpl extends JPanel implements  MyJPanel {
+public class MyJPanelImpl extends JPanel implements  MyJPanel{
 	private static final long serialVersionUID = 127205530034950651L;
 	protected JPanel callerPanel;
 	
-
+	/**Constructor
+	 * 
+	 */
 	public MyJPanelImpl(){
 		
 	}
+	/**Constructor
+	 * @param layout JPanel layout
+	 * */
 	public MyJPanelImpl(LayoutManager layout){
 		this.setLayout(layout);
 	}
@@ -102,12 +107,15 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel {
 		return area;
 	}
 	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.lang.String, int)
+	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.util.Optional, int)
 	 */
+	@Override
 	public JLabel createJLabel(String name,Optional<Member> text, int fontSize ){
 		return createJLabel(name, text.isPresent()?text.get().getName():"", fontSize);
 	}
-	
+	/* (non-Javadoc)
+	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.lang.String, int)
+	 */
 	@Override
 	public JLabel createJLabel(String name,String  text, int fontSize){
 		JLabel label=new JLabel(text, SwingConstants.CENTER);
@@ -118,7 +126,7 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel {
 	}
 	/**
 	 * Get a JButton with back icon and as action listener it sets MyJFrameSingletonImpl pane as previous panel
-	 * @return
+	 * @return JButton created
 	 */
 	protected JButton getBackButton(){
 		ImageIcon img = new ImageIcon("res/back-icon-small.png");
@@ -142,6 +150,8 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel {
 		List<Component> comp=Arrays.asList(this.getComponents());
 		return comp.stream().filter(e->e.getName().equals(name)).findFirst().get();
 	}
+	
+	
 	
 		
 		

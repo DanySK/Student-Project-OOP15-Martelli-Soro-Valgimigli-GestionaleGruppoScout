@@ -10,59 +10,71 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import model.Member;
+
 public interface MyJPanel {
 
-	/**Create a JButton
+	/**
 	 * 
-	 * @param title JButton's title
-	 * @param e JButton's ActionListener
-	 * @return The JButton created
+	 * @param title JButton's text(and also name)
+	 * @param e	ActionListener that will be addedd to the JButton
+	 * @return JButton created
 	 */
 	JButton createButton(String title, ActionListener e);
 
-	/**Create a JButton
+	/**
 	 * 
-	 * @param title JButton's title
-	 * @param e JButton's ActionListener
+	 * @param title	JButton's text(and also name)
 	 * @param c	JButton's background color
-	 * @return The JButton created
+	 * @param e	ActionListener that will be addedd to the JButton
+	 * @return JButton created
 	 */
 	JButton createButton(String title, Color c, ActionListener e);
 
-	/**Create a JButton
+	/**
 	 * 
-	 * @param title JButton's title
-	 * @param e JButton's ActionListener
+	 * @param title	JButton's text(and also name)
 	 * @param c	JButton's background color
-	 * @param f	JButton Title's font
-	 * @return The JButton created
+	 * @param f JButton's text font
+	 * @param e	ActionListener that will be addedd to the JButton
+	 * @return JButton created
 	 */
 
 	JButton createButton(String title, Color c, Font f, ActionListener e);
 
 	/**
-	 * Create a JTextArea
-	 * @param name component name
-	 * @param text text to display
-	 * @param editable editable or not
-	 * @param fontSize font dimension
-	 * @return
+	 * 
+	 * @param name JTextArea's name
+	 * @param text JTextArea's text
+	 * @param editable is editable?true:false :)
+	 * @param fontSize JTextArea's font size
+	 * @return JTextArea created
 	 */
 	JTextArea createJTextArea(String name, String text, boolean editable, int fontSize);
 
 	/**
-	 * Create a JLabel
-	 * @param name component name
-	 * @param text text to display
-	 * @param fontSize font dimension
-	 * @return
+	 * 
+	 * @param name JLabel's name
+	 * @param text JLabel's text(can be null)
+	 * @param fontSize	JLabel's text font size
+	 * @return	JLabel created
 	 */
-	
+	JLabel createJLabel(String name, Optional<Member> text, int fontSize);
 
-	Component getComponent(String name);
-
-	//JLabel createJLabel(String name, Optional<String> text, int fontSize);
-
+	/**
+	 * 
+	 * @param name JLabel's name
+	 * @param text JLabel's text(can't be null)
+	 * @param fontSize	JLabel's text font size
+	 * @return JLabel created
+	 */
 	JLabel createJLabel(String name, String text, int fontSize);
+
+	/**
+	 * 
+	 * @param name Searched component's name	
+	 * @return	Component founded(can fail and throw exception
+	 */
+	Component getComponent(String name);
 
 }

@@ -20,6 +20,7 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	private static MyJFrameSingletonImpl myframe=null;
 	public final static int HEIGTH;
 	public final static int WIDTH;
+	private boolean needSave=false;
 	private static JPanel myFramePanel=new JPanel();
 	private static UnitImpl unit;
 	
@@ -83,6 +84,16 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	 */
 	public UnitImpl getUnit(){
 		return MyJFrameSingletonImpl.unit;
+	}
+	public void setNeedToSave(){
+		this.needSave=true;
+	}
+	public void resetNeedToSava(){
+		this.needSave=false;
+	}
+	
+	public boolean getNeedToSave(){
+		return this.needSave;
 	}
 	
 	

@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 
 import control.MasterProjectImpl;
 import control.UnitImpl;
-import control.projectFactoryimpl;
+import control.projectFactoryImpl;
 import model.RepartoImpl;
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -146,9 +146,10 @@ public class LoaderUtil extends MyJPanelImpl {
 			this.add(textField);
 			this.add(createButton("Crea", e->{
 				try {
-					project.save(new UnitImpl(new RepartoImpl(projectFactoryimpl.getLeaderM("Mario", "Verdi") ,projectFactoryimpl.getLeaderF("Anna", "Rossi"), new ArrayList<>(), textField.getText())));
+					project.save(new UnitImpl(new RepartoImpl(projectFactoryImpl.getLeaderM("Mario", "Verdi") ,projectFactoryImpl.getLeaderF("Anna", "Rossi"), new ArrayList<>(), textField.getText())));
 					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText()));
 					new MainGuiImpl();
+					frame.dispose();
 				} catch (Exception k){
 					k.printStackTrace();
 				}
@@ -179,7 +180,7 @@ public class LoaderUtil extends MyJPanelImpl {
 			 * Instanzio e personalizzo tutti i componenti
 			 */
 			panelOptions=new MyJPanelImpl(new GridLayout(0, 2));
-			panelBottom=new MyJPanelImpl(new BorderLayout());
+			panelBottom=new MyJPanelImpl();
 			this.setLayout(new BorderLayout());
 			
 				//Directory
