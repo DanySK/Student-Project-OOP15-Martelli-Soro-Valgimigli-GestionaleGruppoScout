@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import model.exception.IllegalDateException;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 /**
  * @author riccardo
@@ -74,15 +76,17 @@ public interface Excursion {
 	 * @param member
 	 * @param pagato,
 	 *            must be true if the member has just paid
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addPartecipante(Member partecipante, Boolean pagato);
+	public void addPartecipante(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException;
 
 	/**
 	 * remove a member from the excursion
 	 * 
 	 * @param member
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removePartecipante(Member partecipante);
+	public void removePartecipante(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
@@ -109,8 +113,9 @@ public interface Excursion {
 	 * 
 	 * @param member
 	 *            that has paid
+	 * @throws ObjectNotContainedException 
 	 */
-	public void setPagante(Member partecipante);
+	public void setPagante(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
@@ -123,8 +128,9 @@ public interface Excursion {
 	 * 
 	 * @param member
 	 * @return true if the member had paid
+	 * @throws ObjectNotContainedException 
 	 */
-	public boolean isPagante(Member partecipante);
+	public boolean isPagante(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 

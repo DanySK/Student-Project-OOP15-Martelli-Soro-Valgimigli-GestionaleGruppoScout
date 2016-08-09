@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.myUtil.myOptional;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public class RepartoImpl implements Reparto,Serializable {
 	/**
@@ -14,7 +16,7 @@ public class RepartoImpl implements Reparto,Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Squadron> squadriglie;
 	private List<Member> aiutanti;
-	private List<Member> membriSenzaSquadriglia=new ArrayList<>();
+	private List<Member> membriSenzaSquadriglia;
 	private List<Integer> idUsati;
 	private myOptional<LocalDate> limitePerTasseAnnuali;
 	private String name;
@@ -27,6 +29,7 @@ public class RepartoImpl implements Reparto,Serializable {
 		this.capoM = capoMaschio;
 		this.squadriglie = new ArrayList<>();
 		this.idUsati = new ArrayList<>();
+		this.membriSenzaSquadriglia=new ArrayList<>();
 
 		this.setName(name);
 	}
@@ -49,11 +52,11 @@ public class RepartoImpl implements Reparto,Serializable {
 		this.name = name;
 	}
 
-	public void addMembroSenzaSquadriglia(Member membro) {
-		this.membriSenzaSquadriglia.add(membro);
+	public void addMembroSenzaSquadriglia(Member membro) throws ObjectAlreadyContainedException {
+		if (!this.membriSenzaSquadriglia.add(membro)) throw new ObjectAlreadyContainedException();
 	}
-	public void removeMembroSenzaSquadriglia(Member membro) {
-		this.membriSenzaSquadriglia.remove(membro);
+	public void removeMembroSenzaSquadriglia(Member membro) throws ObjectNotContainedException {
+		if (!this.membriSenzaSquadriglia.remove(membro))throw new ObjectNotContainedException();
 	}
 	public List<Member> getMembriSenzaSquadriglia(){
 		return this.membriSenzaSquadriglia;
@@ -66,18 +69,19 @@ public class RepartoImpl implements Reparto,Serializable {
 		squadriglia.addMembro(membro, ruolo);
 
 	}
-	public void remveMembro(Member membro){
+	public void remveMembro(Member membro) throws ObjectNotContainedException{
 		this.getSquadronOfMember(membro).removeMembro(membro);
+		this.idUsati.remove(membro.getId());
 	}
-	public Squadron getSquadronOfMember(Member membro){
+	public Squadron getSquadronOfMember(Member membro) throws ObjectNotContainedException{
 		for (Squadron e:this.squadriglie){
 			if (e.containMember(membro)){
 				return e;
 			}
 		}
-		return null;
+		throw new ObjectNotContainedException();
 	}
-	public void removeMemberFromSquadron (Member membro){
+	public void removeMemberFromSquadron (Member membro) throws ObjectNotContainedException{
 		this.remveMembro(membro);
 		this.membriSenzaSquadriglia.add(membro);
 	}
@@ -107,12 +111,16 @@ public class RepartoImpl implements Reparto,Serializable {
 		this.capoF = capoFemmina;
 	}
 
-	public void addSquadron(Squadron squadriglia) {
-		this.squadriglie.add(squadriglia);
+	public void addSquadron(Squadron squadriglia) throws ObjectAlreadyContainedException {
+		if(!this.squadriglie.add(squadriglia)){
+			throw new ObjectAlreadyContainedException();
+		}
 	}
 
-	public void removeSquadron(Squadron squadriglia) {
-		this.squadriglie.remove(squadriglia);
+	public void removeSquadron(Squadron squadriglia) throws ObjectNotContainedException {
+		if (!this.squadriglie.remove(squadriglia)){
+			throw new ObjectNotContainedException();
+		}
 	}
 
 	public boolean containedSquadron(Squadron squadriglia) {
@@ -131,12 +139,16 @@ public class RepartoImpl implements Reparto,Serializable {
 		return tmp;
 	}
 
-	public void addAiutante(Member aiutante) {
-		this.aiutanti.add(aiutante);
+	public void addAiutante(Member aiutante) throws ObjectAlreadyContainedException {
+		if (!this.aiutanti.add(aiutante)){
+			throw new ObjectAlreadyContainedException ();
+		}
 	}
 
-	public void removeAiutanten(Member aiutante) {
-		this.aiutanti.remove(aiutante);
+	public void removeAiutanten(Member aiutante) throws ObjectNotContainedException {
+		if (!this.aiutanti.remove(aiutante)){
+			throw new ObjectNotContainedException();
+		}
 	}
 
 	public boolean containedAiutante(Member aiutante) {

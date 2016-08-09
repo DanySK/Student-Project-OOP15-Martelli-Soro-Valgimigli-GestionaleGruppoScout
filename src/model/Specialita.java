@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
+
 public interface Specialita {
 	/**
 	 * 
@@ -39,11 +42,13 @@ public interface Specialita {
 	/**
 	 * 
 	 * @param specialita
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	void addNeededSpecialita (Specialita specialita);
+	void addNeededSpecialita (Specialita specialita) throws ObjectAlreadyContainedException;
 	/**
 	 * 
 	 * @param specialita
+	 * @throws ObjectNotContainedException 
 	 */
-	void removeNeededSpecialita (Specialita specialita);
+	void removeNeededSpecialita (Specialita specialita) throws ObjectNotContainedException;
 }

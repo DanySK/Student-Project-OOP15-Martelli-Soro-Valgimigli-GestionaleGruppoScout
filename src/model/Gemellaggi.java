@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
+
 public interface Gemellaggi {
 	/**
 	 * 
@@ -24,14 +27,16 @@ public interface Gemellaggi {
 	/**
 	 * 
 	 * @param name
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addOtherUnit(String name);
+	public void addOtherUnit(String name) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param name
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeOtherUnit(String name);
+	public void removeOtherUnit(String name) throws ObjectNotContainedException;
 
 	/**
 	 * 

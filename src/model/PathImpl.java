@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 import control.myUtil.myOptional;
+import model.exception.IllegalOperationException;
 
 public class PathImpl implements Serializable,model.Path{
 
@@ -21,7 +22,6 @@ public PathImpl (){
 	this.liv=1;
 	this.level="scoperta";
 	this.faith=myOptional.empty();
-			
 	this.school=myOptional.empty();
 	this.family=myOptional.empty();
 	this.relations=myOptional.empty();
@@ -64,21 +64,19 @@ public String getFaith(){
 public void setFaith (String faith){
 	this.faith=myOptional.of(faith);
 }
-public boolean livUp(){/*return false if liv is 3*/
+public void livUp() throws IllegalOperationException{
 	if (this.liv==3){
-		return false;
-	}
+		throw new IllegalOperationException();
+		}
 	this.liv=this.liv+1;
 	updateLevel();
-	return true;
 }
-public boolean livDown(){/*return false if liv is 3*/
+public void livDown() throws IllegalOperationException{/*return false if liv is 3*/
 	if (this.liv==1){
-		return false;
+		throw new IllegalOperationException();
 	}
 	this.liv=this.liv-1;
 	updateLevel();
-	return true;
 }
 
 private void updateLevel(){

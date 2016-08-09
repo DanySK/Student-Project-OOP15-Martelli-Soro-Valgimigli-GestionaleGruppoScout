@@ -1,16 +1,17 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.exception.IllegalDateException;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
-	private List<String> altriReparti=new ArrayList<>();
+	private List<String> altriReparti;
 	
 	public GemellaggiImpl (LocalDate dateStart,LocalDate dateEnd,Reparto reparto,String name,List<String>altriReparti) throws Exception{
 		super (name,dateStart,reparto.getAllMember());
@@ -36,11 +37,12 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 	public List<String> getOtherUnits(){
 		return this.altriReparti;
 	}
-	public void addOtherUnit (String name){
+	public void addOtherUnit (String name)throws ObjectAlreadyContainedException {
+		if (this.altriReparti.contains(name)) throw new ObjectAlreadyContainedException();
 		this.altriReparti.add(name);
 	}
-	public void removeOtherUnit(String name){
-		this.altriReparti.remove(name);
+	public void removeOtherUnit(String name) throws ObjectNotContainedException{
+		if (!this.altriReparti.remove(name))throw new ObjectNotContainedException ();
 	}
 	public boolean containOtherUnit(String name){
 		return this.altriReparti.contains(name);
@@ -50,6 +52,5 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 		if (dateStart.plusDays(1).isAfter(dateEnd)){
 			throw new IllegalDateException();
 		}
-		
 	}
 }

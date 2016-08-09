@@ -5,6 +5,8 @@ import java.util.Map;
 
 import control.exception.MemberSexException;
 import control.exception.MoreLeadersNotPermitException;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public interface Squadron {
 	
@@ -50,8 +52,9 @@ public interface Squadron {
 		/**
 		 * remove the capo
 		 * @return false if capo does not exist
+		 * @throws ObjectNotContainedException 
 		 */
-		public Boolean removeCapo();
+		public void removeCapo() throws ObjectNotContainedException;
 			
 		
 		/**
@@ -68,8 +71,9 @@ public interface Squadron {
 		/**
 		 * remove the vicecapo
 		 * @return false if vicecapo does not exist
+		 * @throws ObjectNotContainedException 
 		 */
-		public Boolean removeVice();
+		public void removeVice() throws ObjectNotContainedException;
 		/**
 		 * set the 3rd boss of the squadron
 		 * @param trice
@@ -84,8 +88,9 @@ public interface Squadron {
 		/**
 		 * remove the tricecapo
 		 * @return false if tricecapo does not exist
+		 * @throws ObjectNotContainedException 
 		 */
-		public Boolean removeTrice();
+		public void removeTrice() throws ObjectNotContainedException;
 		/**
 		 * 
 		 * @return a String conatined notes about the cash of the squadron
@@ -126,14 +131,15 @@ public interface Squadron {
 		 * @param membro
 		 * @param ruolo
 		 * @throws MemberSexException 
+		 * @throws ObjectAlreadyContainedException 
 		 */
-		public Boolean addMembro(final Member membro, final Roles ruolo) throws MemberSexException;
+		public void addMembro(final Member membro, final Roles ruolo) throws MemberSexException, ObjectAlreadyContainedException;
 		/**
 		 * 
 		 * @param membro
-		 * @return flase if the member is not contained
+		 * @throws ObjectNotContainedException 
 		 */
-		public Boolean removeMembro (final Member membro);
+		public void removeMembro (final Member membro) throws ObjectNotContainedException;
 			
 		
 		/**

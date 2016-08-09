@@ -8,6 +8,8 @@ import java.util.List;
 import control.myUtil.Pair;
 import control.myUtil.myOptional;
 import model.exception.IllegalDateException;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public abstract class ExcursionImpl implements Excursion,Serializable {
 	/**
@@ -48,11 +50,13 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		this.name = name;
 	}
 
-	public void addPartecipante(Member partecipante, Boolean pagato) {
+	public void addPartecipante(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException {
+		if (this.containMember(partecipante)) throw new ObjectAlreadyContainedException ();
 		this.partecipanti.add(new Pair<>(partecipante, pagato));
 	}
 
-	public void removePartecipante(Member partecipante) {
+	public void removePartecipante(Member partecipante) throws ObjectNotContainedException {
+		if (!this.containMember(partecipante))throw new ObjectNotContainedException();
 		if(this.isPagante(partecipante)){
 			this.partecipanti.remove(new Pair<>(partecipante,true));
 		}else{
@@ -88,7 +92,8 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
-	public void setPagante(Member partecipante) {
+	public void setPagante(Member partecipante) throws ObjectNotContainedException {
+		if (!this.containMember(partecipante)) throw new ObjectNotContainedException();
 		this.partecipanti.forEach(e -> {
 			if (e.getX().equals(partecipante)) {
 				e.setY(true);
@@ -105,7 +110,8 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return false;
 	}
 
-	public boolean isPagante(Member partecipante) {
+	public boolean isPagante(Member partecipante) throws ObjectNotContainedException {
+		if (!this.containMember(partecipante)) throw new ObjectNotContainedException();
 		for (Pair<Member, Boolean> e : this.partecipanti) {
 			if (e.getX().equals(partecipante)) {
 				return e.getY();
@@ -137,7 +143,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	}
 
 	public void setPlace(String place) {
-		if (place.equals(null))
+		if (place==null)
 			throw new IllegalArgumentException();
 		this.place = myOptional.of(place);
 	}

@@ -3,6 +3,8 @@
  */
 package model;
 
+import model.exception.IllegalOperationException;
+
 /**
  * @author riccardo soro
  *
@@ -91,17 +93,17 @@ public interface Path {
 	
 	/**
 	 * increase the level of the path
-	 * @return false if the level is 3
+	 * @throws IllegalOperationException 
 	 */
 	
-	public boolean livUp();
+	public void livUp() throws IllegalOperationException;
 	
 	/**
 	 * decrease the level of the path
-	 * @return false if the level is 1
+	 * @throws IllegalOperationException 
 	 */
 	
-	public boolean livDown();
+	public void livDown() throws IllegalOperationException;
 	
 	
 	

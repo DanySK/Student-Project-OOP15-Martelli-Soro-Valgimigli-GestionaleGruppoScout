@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import control.exception.MemberSexException;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public interface Reparto {
 	/**
@@ -43,14 +45,16 @@ public interface Reparto {
 	/**
 	 * 
 	 * @param squadriglia
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addSquadron(Squadron squadriglia);
+	public void addSquadron(Squadron squadriglia) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param squadriglia
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeSquadron(Squadron squadriglia);
+	public void removeSquadron(Squadron squadriglia) throws ObjectNotContainedException;
 
 	/**
 	 * 
@@ -74,14 +78,16 @@ public interface Reparto {
 	/**
 	 * 
 	 * @param aiutante
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addAiutante(Member aiutante);
+	public void addAiutante(Member aiutante) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param aiutante
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeAiutanten(Member aiutante);
+	public void removeAiutanten(Member aiutante) throws ObjectNotContainedException;
 
 	/**
 	 * 
@@ -99,14 +105,16 @@ public interface Reparto {
 	/**
 	 * 
 	 * @param membro
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addMembroSenzaSquadriglia(Member membro);
+	public void addMembroSenzaSquadriglia(Member membro) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param membro
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeMembroSenzaSquadriglia(Member membro);
+	public void removeMembroSenzaSquadriglia(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param anno
@@ -116,19 +124,22 @@ public interface Reparto {
 	/**
 	 * 
 	 * @param membro
+	 * @throws ObjectNotContainedException 
 	 */
-	public void remveMembro(Member membro);
+	public void remveMembro(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param membro
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeMemberFromSquadron (Member membro);
+	public void removeMemberFromSquadron (Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param membro
 	 * @return
+	 * @throws ObjectNotContainedException 
 	 */
-	public Squadron getSquadronOfMember(Member membro);
+	public Squadron getSquadronOfMember(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @return

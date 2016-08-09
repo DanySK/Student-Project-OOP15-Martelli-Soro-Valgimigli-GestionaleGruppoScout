@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
+
 public class SpecialitaImpl implements Specialita {
 	private String nome;
 	private List<Specialita> reqisiti;
@@ -43,13 +46,17 @@ public class SpecialitaImpl implements Specialita {
 		
 	}
 	@Override
-	public void addNeededSpecialita(Specialita specialita) {
-	this.reqisiti.add(specialita);
+	public void addNeededSpecialita(Specialita specialita) throws ObjectAlreadyContainedException {
+	if (!this.reqisiti.add(specialita)){
+		throw new ObjectAlreadyContainedException();
+	}
 		
 	}
 	@Override
-	public void removeNeededSpecialita(Specialita specialita) {
-	this.reqisiti.remove(specialita);	
+	public void removeNeededSpecialita(Specialita specialita) throws ObjectNotContainedException {
+	if (!this.reqisiti.remove(specialita)){
+		throw new ObjectNotContainedException();
+	}
 	}
 
 }

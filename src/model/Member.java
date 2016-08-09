@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 /**
  * @author riccardo
  *
@@ -47,8 +50,9 @@ public interface Member extends Person{
 	 	 * Add a competence. 
 	 	 * @return false if the competent is already contained
 	 	 * @param competence
+	 	 * @throws ObjectAlreadyContainedException 
 	 	 */
-	   public boolean addCompetence (String competence);
+	   public void addCompetence (String competence) throws ObjectAlreadyContainedException;
 			
 	   	/**
 		 * @return a list of the competences of the member
@@ -63,16 +67,18 @@ public interface Member extends Person{
 		 * Remove a specialities from the member
 		 * @param specialities
 		 * @return false if the specialities is not contained
+		 * @throws ObjectNotContainedException 
 		 */
-		public boolean removeSpecialities (Specialita specialities);
+		public void removeSpecialities (Specialita specialities) throws ObjectNotContainedException;
 		
 		/**
 	 	 * Add a speciality. 
 	 	 * @return false if the speciality is already contained
 	 	 * @param specialities
+		 * @throws ObjectAlreadyContainedException 
 	 	 */
 		
-		public boolean addSpecialities(Specialita specialities);
+		public void addSpecialities(Specialita specialities) throws ObjectAlreadyContainedException;
 		/**
 		 * 
 		 * @param specialities
@@ -83,10 +89,10 @@ public interface Member extends Person{
 		/**
 		  * Remove a competence from the member
 		 * @param competence
-		 * @return false if the competence is not contained
+		 * @throws ObjectNotContainedException 
 		 */
 		
-		public boolean removeCompetence (String competence);
+		public void removeCompetence (String competence) throws ObjectNotContainedException;
 		/**
 		 * 
 		 * @param competence

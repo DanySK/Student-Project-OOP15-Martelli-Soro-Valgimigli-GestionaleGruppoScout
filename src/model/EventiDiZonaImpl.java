@@ -9,7 +9,7 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
-	private List<String> altriReparti = new ArrayList<>();
+	private List<String> altriReparti;
 	private List<Attivita> attivita = new ArrayList<>();
 
 	public EventiDiZonaImpl(LocalDate dateStart, LocalDate dateEnd, Reparto reparto, String name,

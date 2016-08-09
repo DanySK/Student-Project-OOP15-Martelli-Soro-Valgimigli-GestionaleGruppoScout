@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.myUtil.myOptional;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public class MemberImpl extends PersonImpl implements Serializable, Member, Person {
 	/**
@@ -19,50 +21,51 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
 	private myOptional<Integer> annoTasse;
+
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.empty();
-		this.annoTasse=myOptional.empty();
-		this.totem=myOptional.empty();
-		promise=false;
-		competence=new ArrayList<>();
-		this.specialities=new ArrayList<>();
+		this.annoTasse = myOptional.empty();
+		this.totem = myOptional.empty();
+		promise = false;
+		competence = new ArrayList<>();
+		this.specialities = new ArrayList<>();
 	}
 
 	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor) {
 		super(name, surname, birthday, sex);
 		this.tutor = myOptional.of(tutor);
-		this.annoTasse=myOptional.empty();
-		this.totem=myOptional.empty();
-		promise=false;
-		competence=new ArrayList<>();
-		this.specialities=new ArrayList<>();
-		
+		this.annoTasse = myOptional.empty();
+		this.totem = myOptional.empty();
+		promise = false;
+		competence = new ArrayList<>();
+		this.specialities = new ArrayList<>();
+
 	}
-	public void setTasse (Integer anno){
-		if (this.annoTasse.isPresent()){
-			if (this.annoTasse.get()<anno){
-				this.annoTasse=myOptional.of(anno);
+
+	public void setTasse(Integer anno) {
+		if (this.annoTasse.isPresent()) {
+			if (this.annoTasse.get() < anno) {
+				this.annoTasse = myOptional.of(anno);
 			}
 		}
 	}
-	public boolean isTaxPaid (Integer anno){
-		if (this.annoTasse.isPresent()){
-			if(this.annoTasse.get().equals(anno))return true;
+
+	public boolean isTaxPaid(Integer anno) {
+		if (this.annoTasse.isPresent()) {
+			if (this.annoTasse.get().equals(anno))
+				return true;
 		}
 		return false;
 	}
-	public boolean addCompetence(String competence) {
-		/*
-		 * return false if the competent is already contained
-		 */
+
+	public void addCompetence(String competence) throws ObjectAlreadyContainedException {
 		if (this.competence.contains(competence)) {
-			return false;
+			throw new ObjectAlreadyContainedException();
 		}
 		this.competence.add(competence);
-		return true;
 	}
-	
+
 	public List<String> getCompetence() {
 		return this.competence;
 	}
@@ -70,9 +73,11 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public List<Specialita> getSpecialities() {
 		return this.specialities;
 	}
-	public myOptional<Tutor> getTutor(){
+
+	public myOptional<Tutor> getTutor() {
 		return this.tutor;
 	}
+
 	public void setTutorMail(String mail) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
@@ -124,47 +129,28 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return myOptional.empty();
 	}
 
-	public boolean removeSpecialities(
-			Specialita specialities) {/*
-									 * return false if the competent is not
-									 * already contained
-									 */
-		if (this.specialities.contains(specialities)) {
-			this.specialities.remove(specialities);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean addSpecialities(Specialita specialities) {
-		if (!this.containsSpecialities(specialities)) {
-			this.specialities.add(specialities);
-			return true;
-		} else {
-			return false;
+	public void removeSpecialities(Specialita specialities) throws ObjectNotContainedException {
+		if (!this.specialities.remove(specialities)) {
+			throw new ObjectNotContainedException();
 		}
 	}
 
-	public boolean containsSpecialities(
-			Specialita specialities) {/*
-									 * return true if the competent is contained
-									 */
-		
+	public void addSpecialities(Specialita specialities) throws ObjectAlreadyContainedException {
+		if (this.containsSpecialities(specialities)) {
+			throw new ObjectAlreadyContainedException();
+		}
+		this.specialities.add(specialities);
+	}
+
+	public boolean containsSpecialities(Specialita specialities) {
 		return this.specialities.contains(specialities);
 	}
 
-	public boolean removeCompetence(
-			String competence) {/*
-								 * return false if the competent is not already
-								 * contained
-								 */
-
-		return this.competence.remove(competence);
-
+	public void removeCompetence(String competence) throws ObjectNotContainedException {
+		if (!this.competence.remove(competence)) throw new ObjectNotContainedException ();
 	}
 
-	public boolean containsCompetence(
-			String competence) {/* return true if the competent is contained */
+	public boolean containsCompetence(String competence) {
 		return this.competence.contains(competence);
 	}
 
@@ -195,7 +181,8 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public void setId(int id) {
 		this.identificatore = id;
 	}
-	public boolean isComplete(){
+
+	public boolean isComplete() {
 		return this.tutor.isPresent();
 	}
 
