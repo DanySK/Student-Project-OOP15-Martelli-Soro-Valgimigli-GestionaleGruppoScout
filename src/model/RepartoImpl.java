@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.exception.MemberSexException;
-import control.myUtil.myOptional;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -19,14 +18,14 @@ public class RepartoImpl implements Reparto, Serializable {
 	private List<Capo> aiutanti;
 	private List<Member> membriSenzaSquadriglia;
 	private List<Integer> idUsati;
-	private myOptional<LocalDate> limitePerTasseAnnuali;
+	private LocalDate limitePerTasseAnnuali;
 	private String name;
 	private Capo capoM;
 	private Capo capoF;
 
-	public RepartoImpl(Capo capoMaschio, Capo capoFemmina, List<Capo> aiutanti, String name)
-			throws MemberSexException {
-		if (capoMaschio.getSex().equals(capoFemmina.getSex())) throw new MemberSexException();
+	public RepartoImpl(Capo capoMaschio, Capo capoFemmina, List<Capo> aiutanti, String name) throws MemberSexException {
+		if (capoMaschio.getSex().equals(capoFemmina.getSex()))
+			throw new MemberSexException();
 		this.aiutanti = aiutanti;
 		this.capoF = capoFemmina;
 		this.capoM = capoMaschio;
@@ -34,17 +33,15 @@ public class RepartoImpl implements Reparto, Serializable {
 		this.idUsati = new ArrayList<>();
 		this.membriSenzaSquadriglia = new ArrayList<>();
 		this.setName(name);
+		this.limitePerTasseAnnuali=LocalDate.now().plusYears(1);
 	}
 
 	public void setDateToPay(LocalDate limit) {
-		this.limitePerTasseAnnuali = myOptional.of(limit);
+		this.limitePerTasseAnnuali = limit;
 	}
 
 	public LocalDate getDateToPay() {
-		if (this.limitePerTasseAnnuali.isPresent())
-			return this.limitePerTasseAnnuali.get();
-		else
-			return null;
+		return this.limitePerTasseAnnuali;
 	}
 
 	public String getName() {
@@ -83,7 +80,7 @@ public class RepartoImpl implements Reparto, Serializable {
 
 	public void removeMembro(Member membro) throws ObjectNotContainedException {
 		this.getSquadronOfMember(membro).removeMembro(membro);
-		this.idUsati.remove((Integer)membro.getId());
+		this.idUsati.remove((Integer) membro.getId());
 	}
 
 	public Squadron getSquadronOfMember(Member membro) throws ObjectNotContainedException {
