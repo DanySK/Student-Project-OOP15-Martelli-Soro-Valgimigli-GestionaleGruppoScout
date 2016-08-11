@@ -16,7 +16,7 @@ public class CampoImpl extends ExcursionImpl implements Campo {
 		this.reparto=reparto;
 		this.setDateEnd(dateEnd);
 	}
-	public CampoImpl (LocalDate dateStart,int durata,Reparto reparto,String name) throws Exception{
+	public CampoImpl (LocalDate dateStart,int durata,Reparto reparto,String name) throws IllegalDateException{
 		super (name,dateStart,reparto.getAllMember());
 		this.check(dateStart, dateStart.plusDays(durata-1));
 		this.reparto=reparto;
@@ -30,7 +30,7 @@ public class CampoImpl extends ExcursionImpl implements Campo {
 		this.reparto = reparto;
 	}
 	@Override
-	protected void check(LocalDate dateStart, LocalDate dateEnd) throws Exception {
+	protected void check(LocalDate dateStart, LocalDate dateEnd) throws IllegalDateException {
 		if (dateStart.plusDays(2).isAfter(dateEnd)){
 			throw new IllegalDateException();
 		}

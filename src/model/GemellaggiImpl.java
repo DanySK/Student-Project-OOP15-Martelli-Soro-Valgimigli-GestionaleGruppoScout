@@ -48,7 +48,7 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 		return this.altriReparti.contains(name);
 	}
 	@Override
-	protected void check(LocalDate dateStart, LocalDate dateEnd) throws Exception {
+	protected void check(LocalDate dateStart, LocalDate dateEnd) throws IllegalDateException {
 		if (dateStart.plusDays(1).isAfter(dateEnd)){
 			throw new IllegalDateException();
 		}

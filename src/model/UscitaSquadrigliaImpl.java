@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import model.exception.IllegalDateException;
+
 public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadriglia, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,7 @@ public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadr
 		this.setDateEnd(dateEnd);
 	}
 
-	public UscitaSquadrigliaImpl(LocalDate dateStart, int durata, Squadron squadriglia, String name) throws Exception {
+	public UscitaSquadrigliaImpl(LocalDate dateStart, int durata, Squadron squadriglia, String name) throws IllegalDateException {
 		super(name, dateStart, new ArrayList<>(squadriglia.getMembri().keySet()));
 		this.squadriglia = squadriglia;
 		this.setDateEnd(dateStart.plusDays(durata));
@@ -31,7 +33,7 @@ public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadr
 	}
 
 	@Override
-	protected void check(LocalDate dateStart, LocalDate dateEnd) throws Exception {
+	protected void check(LocalDate dateStart, LocalDate dateEnd) throws IllegalDateException {
 		return;
 
 	}

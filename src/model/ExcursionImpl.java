@@ -23,7 +23,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	private myOptional<String> place;
 	private List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
 
-	public ExcursionImpl(LocalDate dateStart,String name) throws Exception {
+	public ExcursionImpl(LocalDate dateStart,String name) throws IllegalDateException {
 		if (dateStart.isBefore(LocalDate.now())){
 			throw new IllegalDateException();
 		}
@@ -34,14 +34,14 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		this.name=name;
 	}
 	
-	public ExcursionImpl(String name,LocalDate dateStart, List<Member> partecipanti) throws Exception {
+	public ExcursionImpl(String name,LocalDate dateStart, List<Member> partecipanti) throws IllegalDateException {
 		
 		this(dateStart,name);
 		partecipanti.forEach(e -> {
 			this.partecipanti.add(new Pair<>(e, false));
 		});
 	}
-	protected abstract void check(LocalDate dateStart,LocalDate dateEnd)throws Exception;
+	protected abstract void check(LocalDate dateStart,LocalDate dateEnd)throws IllegalDateException;
 	public String getName() {
 		return name;
 	}
