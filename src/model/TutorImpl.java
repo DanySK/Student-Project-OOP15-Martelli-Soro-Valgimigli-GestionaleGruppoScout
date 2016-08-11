@@ -1,8 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 import control.myUtil.myOptional;
 
-public class TutorImpl implements Tutor {
+public class TutorImpl implements Tutor,Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private myOptional<String> email;
 	private myOptional<String> name;
 	private myOptional<Long> phone;

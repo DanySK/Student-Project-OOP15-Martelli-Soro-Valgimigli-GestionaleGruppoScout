@@ -249,7 +249,9 @@ public class SquadronImpl implements Serializable, Squadron {
 
 	@Override
 	public void removeMembro(Member membro) throws ObjectNotContainedException {
-		if (map.remove(membro) == null) {
+		if (map.containsKey(membro)){
+				map.remove(membro);
+		}else{
 			throw new ObjectNotContainedException();
 		}
 	}

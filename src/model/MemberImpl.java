@@ -48,6 +48,8 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 			if (this.annoTasse.get() < anno) {
 				this.annoTasse = myOptional.of(anno);
 			}
+		}else{
+			this.annoTasse=myOptional.of(anno);
 		}
 	}
 

@@ -12,7 +12,7 @@ public interface Reparto {
 	 * 
 	 * @return
 	 */
-	public Member getCapoM();
+	public Capo getCapoM();
 	/**
 	 * 
 	 * @param limit
@@ -28,19 +28,19 @@ public interface Reparto {
 	 * @param capoMaschio
 	 */
 	
-	public void setCapoM(Member capoMaschio);
+	public void setCapoM(Capo capoMaschio);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public Member getCapoF();
+	public Capo getCapoF();
 
 	/**
 	 * 
 	 * @param capoFemmina
 	 */
-	public void setCapoF(Member capoFemmina);
+	public void setCapoF(Capo capoFemmina);
 
 	/**
 	 * 
@@ -80,27 +80,27 @@ public interface Reparto {
 	 * @param aiutante
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addAiutante(Member aiutante) throws ObjectAlreadyContainedException;
+	public void addAiutante(Capo aiutante) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param aiutante
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeAiutanten(Member aiutante) throws ObjectNotContainedException;
+	public void removeAiutante(Capo aiutante) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @param aiutante
 	 * @return
 	 */
-	public boolean containedAiutante(Member aiutante);
+	public boolean isContainedAiutante(Capo aiutante);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Member> getStaff();
+	public List<Capo> getStaff();
 
 	/**
 	 * 
@@ -126,7 +126,7 @@ public interface Reparto {
 	 * @param membro
 	 * @throws ObjectNotContainedException 
 	 */
-	public void remveMembro(Member membro) throws ObjectNotContainedException;
+	public void removeMembro(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param membro
