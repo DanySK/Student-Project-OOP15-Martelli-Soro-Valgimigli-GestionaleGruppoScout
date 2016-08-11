@@ -1,8 +1,11 @@
 package view.gui_utility;
 
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -35,10 +38,31 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	private  MyJFrameSingletonImpl(Unit u){
 		this.unit=(UnitImpl) u;
 		this.setSize(WIDTH, HEIGTH);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		myFramePanel=new JPanel();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		this.addWindowListener(new WindowAdapter() {
+			  public void windowClosing(WindowEvent e) {
+				  int confirmed=JOptionPane.YES_OPTION;
+				  if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
+					  confirmed = JOptionPane.showConfirmDialog(null, 
+							  "<html>Ci sono modifiche non salvate!<br>"
+									  + "Sicuro di voler proseguire senza salvare?</html>", "ATTENZIONE!",
+									  JOptionPane.YES_NO_OPTION);
+					
+				  }
+				  if (confirmed == JOptionPane.NO_OPTION) {
+				      
+				  }
+				  else{
+					  dispose();
+					  System.exit(0);
+				  }
+				  
+				   
+				  }
+			});
 	}
 	/**It return the instance of JFrame
 	 * 

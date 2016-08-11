@@ -1,0 +1,203 @@
+package view.gui_utility;
+
+import java.awt.BorderLayout;
+
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
+import control.SortMemberImpl;
+import control.myUtil.myOptional;
+import model.Excursion;
+import model.Member;
+import model.MemberImpl;
+import model.RepartoImpl;
+import model.Squadron;
+import view.gestioneReparto.utility.AddMemberJDialog;
+import view.gestioneReparto.utility.EditMemberInfoJDialog;
+import view.gestioneReparto.utility.ShowMemberInfoJDialog;
+import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
+import view.gestioneTasse.utility.MemberTasseJDialog;
+
+
+public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
+	public enum Type{
+		TasseReparto,
+		GestioneSquadriglia,
+		OverviewSquadriglia,
+		TasseSquadrigliaEscursioni,
+		OverviewReparto,
+		TasseSquadriglia;
+		
+	}
+	private static final long serialVersionUID = 9037769890822002300L;
+	private List<E> memList;
+	private JPanel panelMember;
+	private final JPanel sortPanel;
+	private final JScrollPane scroll;
+	private int fontSize=15;
+	private final SortMemberImpl sort;
+	private final EditableMemberPanelImpl<E> me;
+	private final Type type;
+	private Squadron squadImpl;
+	private final RepartoImpl rep;
+	private final Map<Member,List<Excursion>> mapPagamenti=new HashMap<>();
+	@SuppressWarnings("unchecked")
+	public EditableMemberPanelImpl(Type t, myOptional<String> squadName){
+		super(new BorderLayout());
+		this.type=t;
+		this.me=this;
+		this.rep=(RepartoImpl) MyJFrameSingletonImpl.getInstance().getUnit().getReparto();
+		
+		if(squadName.isPresent() ){
+			squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
+				.findSquadron(squadName.get());
+		}
+		this.updateMember();
+		this.sort=new SortMemberImpl();
+		this.panelMember=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		this.scroll = new JScrollPane(panelMember);
+		scroll.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(192,192,192)));
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		this.panelMember.setPreferredSize(scroll.getSize());
+		this.sortPanel=new JPanel();
+		sortPanel.add(createJLabel("Ordina Membri per:", fontSize));
+		sortPanel.add(createButton("nome", e->{
+			memList = (List<E>) sort.sortByName((List<Member>) memList);
+			updateMemberBotton();
+		}));
+		sortPanel.add(createButton("cognome",e->{
+			memList=(List<E>)sort.sortBySurname((List<Member>) memList);
+			updateMemberBotton();
+		}));
+		sortPanel.add(createButton("età",e->{
+			memList=(List<E>) sort.sortByAge((List<Member>) memList);
+			updateMemberBotton();
+		}));
+		Arrays.asList(sortPanel.getComponents()).stream().forEach(e->e.setFont(new Font("Aria", Font.ITALIC,fontSize)));
+		add(sortPanel, BorderLayout.NORTH);
+		this.add(scroll,BorderLayout.CENTER);
+		this.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void updateMember(){
+		if(type.equals(Type.GestioneSquadriglia)||type.equals(Type.OverviewSquadriglia)){
+			this.memList=(List<E>) squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
+			updateMemberBotton();
+		}
+		else if(type.equals(Type.OverviewReparto)){
+			this.memList=(List<E>)rep.getMembriSenzaSquadriglia();
+			updateMemberBotton();
+		}
+		else if(type.equals(Type.TasseReparto)){
+			this.memList=(List<E>) rep.getMembersNotPaid(Year.now().getValue());
+			updateMemberBotton();
+		}
+		else if(type.equals(Type.TasseSquadrigliaEscursioni)){
+			for(Member i: squadImpl.getMembri().keySet()){
+				List<Excursion> tmp= new ArrayList<>();
+				MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+				.forEach(e->{
+					if(e.getNonPaganti().contains(i)){tmp.add(e);};
+				});
+				if(tmp.size()>0){
+					mapPagamenti.put(i, tmp.stream().collect(Collectors.toList()));
+				}
+			}
+			this.memList=(List<E>) mapPagamenti.keySet().stream().collect(Collectors.toList());
+			
+			updateMemberBotton();
+		}
+		else if(type.equals(Type.TasseSquadriglia)){
+			this.memList=new ArrayList<>();
+			List<Member> mem = squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
+			mem.stream().forEach(e->{
+				if(rep.getMembersNotPaid(Year.now().getValue()).contains(e)){
+					memList.add((E) e);
+				}
+			});
+			updateMemberBotton();
+		}
+	}
+	
+	private void updateMemberBotton(){
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				panelMember.removeAll();
+				if(type.equals(Type.GestioneSquadriglia)){
+					panelMember.add((createButton("<html>Aggiungi<br>Membro<html>",  new Color(174,226,84), new Font("Aria", Font.ITALIC,16),e->{
+						(new AddMemberJDialog(MyJFrameSingletonImpl.getInstance().getUnit()
+								,me)).setVisible(true);
+					})));
+				}
+				
+				memList.stream().forEach(f->{
+					panelMember.add(instanceJButton((MemberImpl) f));
+				});
+			/*	if(panelMember.getComponents().length==0){
+					panelMember.add(createJLabel("noMember", "<html>Al momento non ci sono membri nella squadriglia<br>"
+							+ "Visita la sezione di gestione della squadriglia per aggiungerne</html>", fontSizeLabel-7));
+				}*/
+				panelMember.validate();
+				repaint();
+				validate();
+				}
+		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	private JButton instanceJButton(Member mem){
+		
+		if(type.equals(Type.GestioneSquadriglia)|| type.equals(Type.OverviewReparto)){
+			return createButton("<html>"+mem.getName()+"<br>"+mem.getSurname()+"</html>",  new Color(174,226,84), new Font("Aria", Font.ITALIC,16),  e->{
+				(new EditMemberInfoJDialog((MemberImpl)mem)).setVisible(true);
+			});
+		}
+		else if(type.equals(Type.OverviewSquadriglia)){
+			return createButton("<html>"+mem.getName()+"<br>"+mem.getSurname()+"</html>",  new Color(174,226,84), new Font("Aria", Font.ITALIC,16),  e->{
+				(new ShowMemberInfoJDialog(mem)).setVisible(true); 
+			});
+		}
+		else if(type.equals(Type.TasseSquadrigliaEscursioni)){
+			return createButton("<html>"+mem.getName()+"<br>"+mem.getSurname()+"</html>",  new Color(174,226,84), new Font("Aria", Font.ITALIC,16),  e->{
+				(new MemberTasseExcursionJDialog(mem, mapPagamenti)).setVisible(true);;
+			});
+		}
+		else{
+			return createButton("<html>"+mem.getName()+"<br>"+mem.getSurname(),  new Color(174,226,84), new Font("Aria", Font.ITALIC,16), e->{
+				(new MemberTasseJDialog((MemberImpl)mem, (EditableMemberPanelImpl<Member>)this)).setVisible(true);
+			
+			});
+		}
+		
+	}
+	
+	public void disableScroollBorder(){
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				scroll.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(0,0,0)));
+				
+			}
+		});
+	}
+	
+		
+	
+}

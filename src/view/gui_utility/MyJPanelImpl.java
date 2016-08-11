@@ -2,13 +2,9 @@
 package view.gui_utility;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,8 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-
-import model.Member;
 
 
 
@@ -94,32 +88,21 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		button.setFont(f);
 		return button;
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createJTextArea(java.lang.String, java.lang.String, boolean, int)
-	 */
-	@Override
-	public JTextArea createJTextArea(String name, String text, boolean editable, int fontSize){
+	
+	public JTextArea createJTextArea(String text, boolean editable, int fontSize){
 		JTextArea area=new JTextArea(text);
-		area.setName(name);
 		area.setEditable(editable);
 		area.setFont(new Font("Aria", Font.ITALIC, fontSize));
 		area.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		return area;
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.util.Optional, int)
-	 */
-	@Override
-	public JLabel createJLabel(String name,Optional<Member> text, int fontSize ){
-		return createJLabel(name, text.isPresent()?text.get().getName():"", fontSize);
+	/*
+	public JLabel createJLabel(Optional<Member> text, int fontSize ){
+		return createJLabel(text.isPresent()?text.get().getName():"", fontSize);
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createJLabel(java.lang.String, java.lang.String, int)
-	 */
-	@Override
-	public JLabel createJLabel(String name,String  text, int fontSize){
+	*/
+	public JLabel createJLabel(String  text, int fontSize){
 		JLabel label=new JLabel(text, SwingConstants.CENTER);
-		label.setName(name);
 		label.setFont(new Font("Aria", Font.ITALIC, fontSize));
 		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		return label;
@@ -142,14 +125,7 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		t.setIcon(img);
 		return t;
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#getComponent(java.lang.String)
-	 */
-	@Override
-	public Component getComponent(String name){
-		List<Component> comp=Arrays.asList(this.getComponents());
-		return comp.stream().filter(e->e.getName().equals(name)).findFirst().get();
-	}
+
 	
 	
 	

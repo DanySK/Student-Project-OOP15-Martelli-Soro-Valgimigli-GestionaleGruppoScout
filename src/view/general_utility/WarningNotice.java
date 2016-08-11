@@ -1,8 +1,10 @@
 package view.general_utility;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-/** @author Giovanni M. Martelli
- */
+import java.awt.BorderLayout;
+
+import javax.swing.JDialog;
+
+import view.gui_utility.MyJFrameSingletonImpl;
+import view.gui_utility.MyJPanelImpl;
 
 
 /** 
@@ -15,7 +17,18 @@ public class WarningNotice{
 	private final String str;
 	public WarningNotice(String stringa){
 		this.str = stringa;
-		JOptionPane.showMessageDialog(new JFrame(), str);
+		JDialog dial =new JDialog();
+		MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
+		MyJPanelImpl flow=new MyJPanelImpl();
+		pan.add(pan.createJTextArea(str, false, 18),BorderLayout.CENTER);
+		flow.add(flow.createButton("OK", e->{
+			dial.dispose();
+		}));
+		dial.add(pan);
+		pan.add(flow,BorderLayout.SOUTH);
+		dial.pack();
+		dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+		dial.setVisible(true);
 	}
 
 }

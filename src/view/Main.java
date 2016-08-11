@@ -24,6 +24,7 @@ public class Main {
 		    		UIManager.setLookAndFeel(info.getClassName());
 		            UIDefaults ui = UIManager.getLookAndFeelDefaults();
 		            ui.put("Panel.background", new Color(42,218,77));
+		            ui.put("OptionPane.background", new Color(42,218,77));
 		            ui.put("Button.background", new Color(174,226,84));
 		            ui.put("Button.font", new Font("Aria", Font.ITALIC, 30));
 		            ui.put("Tree.drawHorizontalLines", true);

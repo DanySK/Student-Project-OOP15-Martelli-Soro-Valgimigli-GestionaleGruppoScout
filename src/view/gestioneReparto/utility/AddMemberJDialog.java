@@ -1,0 +1,133 @@
+package view.gestioneReparto.utility;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.time.LocalDate;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import control.Unit;
+import control.projectFactoryImpl;
+import control.myUtil.myOptional;
+import model.Member;
+import model.Roles;
+import view.general_utility.WarningNotice;
+import view.gui_utility.EditableMemberPanelImpl;
+import view.gui_utility.MyJFrameSingletonImpl;
+import view.gui_utility.MyJPanelImpl;
+
+
+public class AddMemberJDialog extends JDialog{
+
+	private static final long serialVersionUID = 3066382359932767590L;
+	private final int fontSizeLabel=19;
+	private int fontSize=15;
+	private final EditableMemberPanelImpl panelParent;
+	public AddMemberJDialog(Unit unit,EditableMemberPanelImpl parent){
+		super();
+		this.panelParent=parent;
+		
+		MyJPanelImpl bottom=new MyJPanelImpl();
+		JPanel pan=new JPanel(new BorderLayout());
+		JPanel center=new JPanel(new GridLayout(0, 2));
+		pan.add(center, BorderLayout.CENTER);
+		pan.add(bottom.createJLabel( "<html><U>Dati Membro</U></html>", fontSizeLabel), BorderLayout.NORTH);
+		JPanel info=new JPanel(new GridLayout(2, 1));
+		info.add(bottom.createJLabel( "* campi obbligatori", fontSize));
+		info.add(bottom.createJLabel( "Se i campi opzionali vengono lasciati vuoti il membro viene aggiunto incompleto", fontSize));
+		
+		JTextField name=new JTextField();
+		JTextField surname=new JTextField();
+		JTextField tutorName=new JTextField();
+		JTextField tutorPhone=new JTextField();
+		JTextField tutorMail=new JTextField();
+		JTextField mm=new JTextField();
+		JTextField gg= new JTextField();
+		JTextField aa= new JTextField();
+		
+		JRadioButton sexM=new JRadioButton("Maschio");
+		JRadioButton sexF=new JRadioButton("Femmina");
+		ButtonGroup sex= new ButtonGroup();
+		JComboBox<Roles> roles = new JComboBox<>(Roles.values());
+		JComboBox<String> squad=new JComboBox<>();
+		squad.addItem("nessuna squadriglia");
+		unit.getContainers().getSquadrons().stream().forEach(e->{squad.addItem(e.getNome());});
+		sex.add(sexM);
+		sex.add(sexF);
+		center.add(bottom.createJLabel( "* Nome: ", fontSize));
+		center.add(name);
+		center.add(bottom.createJLabel( "* Cognome: ", fontSize));
+		center.add(surname);
+		center.add(bottom.createJLabel( "* Sesso: ", fontSize));
+		JPanel tmp=new JPanel();
+		tmp.add(sexM);
+		tmp.add(sexF);
+		center.add(tmp);
+		center.add(bottom.createJLabel( "* Data di nascita: ", fontSize));
+		tmp=new JPanel(new GridLayout(1, 6));
+		tmp.add(bottom.createJLabel( "giorno", fontSize-5));
+		tmp.add(gg);
+		tmp.add(bottom.createJLabel( "mese", fontSize-5));
+		tmp.add(mm);
+		tmp.add(bottom.createJLabel( "anno", fontSize-5));
+		tmp.add(aa);
+		center.add(tmp);
+		center.add(bottom.createJLabel( "Ruolo: ", fontSize));
+		center.add(roles);
+		center.add(bottom.createJLabel( "Squadriglia:",fontSize));
+		center.add(squad);
+		center.add(bottom.createJLabel( "Tutor: ", fontSize));
+		center.add(tutorName);
+		center.add(bottom.createJLabel( "Tel. Tutor: ", fontSize));
+		center.add(tutorPhone);
+		center.add(bottom.createJLabel( "Mail Tutor: ", fontSize));
+		center.add(tutorMail);
+		pan.add(center,BorderLayout.CENTER);
+		tmp=new JPanel(new GridLayout(2, 1));
+		tmp.add(info);
+		bottom.add(bottom.createButton("Aggiungi", e->{
+			
+			try{
+				Member mem=(tutorName.getText().isEmpty())?
+				projectFactoryImpl.getSimpleMember(name.getText(), surname.getText(), 
+							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected())
+					:projectFactoryImpl.getMember(name.getText(), surname.getText(), 
+							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected(),
+							myOptional.of(tutorName.getText()), myOptional.of(tutorMail.getText()), myOptional.of(Long.parseLong(tutorPhone.getText())));
+			
+				unit.addMember(mem);
+				if(!((String)squad.getSelectedItem()).equals("nessuna squadriglia")){
+					unit.putMemberInSq(mem,unit.getContainers().findSquadron((String)squad.getSelectedItem()), (Roles)roles.getSelectedItem());
+				}
+				SwingUtilities.invokeLater(new Runnable(){
+					@Override
+					public void run() {
+						panelParent.updateMember();
+						
+					}
+					
+				});
+				this.dispose();
+			}catch(Exception p){
+				new WarningNotice("I dati inseriti non sono corretti."+System.lineSeparator()+"Controllare data di nascita e sesso");
+				
+			}
+					
+		}));
+		bottom.add(bottom.createButton("Annulla", e->{
+			this.dispose();
+		}));
+		tmp.add(bottom);
+		pan.add(tmp, BorderLayout.SOUTH);
+		this.add(pan);		
+		this.pack();
+		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+	}
+
+}

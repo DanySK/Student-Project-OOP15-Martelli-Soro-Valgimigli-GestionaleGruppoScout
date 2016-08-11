@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
@@ -20,8 +19,9 @@ import javax.swing.SwingUtilities;
 import control.MasterProjectImpl;
 import control.UnitImpl;
 import control.projectFactoryImpl;
-import model.RepartoImpl;
+import model.CapoImpl;
 import view.general_utility.WarningNotice;
+import view.gestioneReparto.utility.PanelCapiReparto;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
@@ -68,14 +68,14 @@ public class LoaderUtil extends MyJPanelImpl {
 			 */
 			try {
 				
-					this.add(createJLabel("label", "Scegli quale reparto caricare", 22),BorderLayout.NORTH);
+					this.add(createJLabel( "Scegli quale reparto caricare", 22),BorderLayout.NORTH);
 					/*
 					 * Aggiungo i bottoni per ogni reparto, quando uno viene cliccato tutti gli altri vengono disattivati
 					 * e viene attivato il tasto carica/rimuovi
 					 */
 					if(project.getListOfUnit().isEmpty()){
 						this.removeAll();
-						this.add(createJLabel("label","<html>Al momento non ci sono reparti salvati!<br>"
+						this.add(createJLabel("<html>Al momento non ci sono reparti salvati!<br>"
 								+ "Torna indietro per crearne uno(utilizzando il tasto \"Crea\"</html>", 18),BorderLayout.NORTH);
 			
 						this.add(getBackButtonPrivate(),BorderLayout.SOUTH);
@@ -87,8 +87,9 @@ public class LoaderUtil extends MyJPanelImpl {
 					
 					for(String i: project.getListOfUnit()){
 						panelCenter.add(createButton(i, e->{
-							((JButton)panelBottom.getComponent("Carica")).setEnabled(true);
-							selected=((JButton)panelCenter.getComponent(i)).getText();
+							((JButton)panelBottom.getComponent(0)).setEnabled(true);
+							selected=((JButton)e.getSource()).getName();
+						
 							SwingUtilities.invokeLater(new Runnable(){
 									@Override
 									public void run() {
@@ -98,9 +99,10 @@ public class LoaderUtil extends MyJPanelImpl {
 									}
 							});
 						}));
-						((JButton)panelCenter.getComponent(i)).setFont(new Font("Aria", Font.ITALIC, 15));
+						
 					}
-										
+					Arrays.asList((panelCenter.getComponents())).stream()
+						.forEach(k->k.setFont(new Font("Aria", Font.ITALIC, 15)));
 					/*
 					 * Quando viene cliccato il tasto Carica viene caricato il reparto e parte il programma vero e proprio
 					 */
@@ -113,6 +115,7 @@ public class LoaderUtil extends MyJPanelImpl {
 							new WarningNotice(k.getMessage());
 						}
 					}),BorderLayout.LINE_END);
+					panelBottom.getComponent(0).setEnabled(false);
 					panelBottom.add(getBackButtonPrivate(), BorderLayout.LINE_START);
 					this.add(panelCenter, BorderLayout.CENTER);
 					this.add(panelBottom,BorderLayout.SOUTH);
@@ -132,36 +135,55 @@ public class LoaderUtil extends MyJPanelImpl {
 	public class CreateUnit extends JPanel{
   		
 		private static final long serialVersionUID = 6411454791261548663L;
-		private final JFrame frame=new JFrame();
 		private final JTextField textField;
 		public CreateUnit(){
 			
 			/*
 			 * Creo e personalizzo i vari componenti
 			 */
-			super(new GridLayout(2,2));
+			super(new BorderLayout());
+			MyJPanelImpl capi=new MyJPanelImpl(new GridLayout(0, 1));
+			MyJPanelImpl buttons=new MyJPanelImpl();
 			textField=new JTextField();
-		
-			this.add(createJLabel("label", "Nome Reparto: ", 20));
-			this.add(textField);
-			this.add(createButton("Crea", e->{
+			MyJPanelImpl nome=new MyJPanelImpl(new GridLayout(0, 2));
+			nome.add(createJLabel( "Nome Reparto: ", 20));
+			nome.add(textField);
+			PanelCapiReparto capoM=new PanelCapiReparto("Capo Maschio");
+			PanelCapiReparto capoF=new PanelCapiReparto("Capo Femmina");
+			capi.add(capoM);
+			capi.add(capoF);
+			this.add(nome,BorderLayout.NORTH);
+			this.add(capi,BorderLayout.CENTER);
+			
+			buttons.add(createButton("Crea", e->{
 				try {
-					project.save(new UnitImpl(new RepartoImpl(projectFactoryImpl.getLeaderM("Mario", "Verdi") ,projectFactoryImpl.getLeaderF("Anna", "Rossi"), new ArrayList<>(), textField.getText())));
+					/*
+					 * Temporaneo, da modificare in base a controller
+					 */
+				
+			
+					project.save(new UnitImpl(projectFactoryImpl.getReparto(new CapoImpl(capoM.getNome(), capoM.getSurname(),capoM.getDate(), capoM.getSex(),capoM.getPhone()),
+							new CapoImpl(capoF.getNome(), capoF.getSurname(), capoF.getDate(), capoF.getSex(), capoF.getPhone()), textField.getText())));
+				
 					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText()));
+					
+					
 					new MainGuiImpl();
 					frame.dispose();
+					
 				} catch (Exception k){
 					k.printStackTrace();
 				}
 			}));
-			this.add(getBackButtonPrivate());
+			buttons.add(getBackButtonPrivate());
+			this.add(buttons, BorderLayout.SOUTH);
 			/*
 			 * Aggiungo il tutto al frame
 			 */
-			this.frame.add(this);
-			this.frame.pack();
-			this.frame.setLocationRelativeTo(null);
-			this.frame.setVisible(true);
+			frame.add(this);
+			frame.pack();
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
 			
 		}
 	
@@ -185,8 +207,7 @@ public class LoaderUtil extends MyJPanelImpl {
 			
 				//Directory
 			try {
-				panelOptions.add(createJLabel("directory", "Directory: "+project.getDirectoryToSave()+"    ", 12));
-				panelOptions.getComponent("directory").setFont(new Font("Aria", Font.BOLD,12));
+				panelOptions.add(createJLabel( "Directory: "+project.getDirectoryToSave()+"    ", 12));
 				fileChooser=new JFileChooser(project.getDirectoryToSave());
 			} catch (IOException e) {
 				new WarningNotice(e.getMessage());
@@ -194,12 +215,19 @@ public class LoaderUtil extends MyJPanelImpl {
 			panelOptions.add(createButton("Cambia", e->{
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				fileChooser.showSaveDialog(null);
-				try{
-					project.setDirectoryToSave(fileChooser.getSelectedFile().getPath());
-					((JLabel)panelOptions.getComponent("directory")).setText("Directory: "+project.getDirectoryToSave()+"    ");
-				}catch(Exception k){
-					new WarningNotice(k.getMessage());
-				}
+				
+					SwingUtilities.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							try{
+								project.setDirectoryToSave(fileChooser.getSelectedFile().getPath());
+							((JLabel)panelOptions.getComponent(0)).setText("Directory: "+project.getDirectoryToSave()+"    ");
+							}catch(Exception k){
+								new WarningNotice(k.getMessage());
+							}
+						}
+					});				
 				this.repaint();
 				this.validate();
 				
