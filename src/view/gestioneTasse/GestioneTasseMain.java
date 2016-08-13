@@ -3,7 +3,6 @@ package view.gestioneTasse;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -48,17 +47,17 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 						 getPanelRight().add(getPanelCenter(),BorderLayout.CENTER);
 						 getPanelRight().repaint();
 						 getPanelRight().validate();
-						 if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
+						 /*if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
 							
 									getPanelBottom().getComponent(1).setEnabled(true);
 							JOptionPane.showMessageDialog(null, "<html><U>Attenzione!!</U><br>Ci sono modifiche"
 								+ "<br>non salvate.<br>Cliccare sul pulsante \"Salva\" <br>per scriverle su disco");
-						}
+						}*/
 					 }
 				 });
 			}
 		});
-		addNode(new DefaultMutableTreeNode(new GestioneTasseRepartoImpl(unit.getReparto().getName())));
+		this.getRoot().add(new DefaultMutableTreeNode(new GestioneTasseRepartoImpl(unit.getReparto().getName())));
 		unit.getContainers().getSquadrons().forEach(e->{
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new GestioneTasseSquadrigliaImpl(e.getNome())));

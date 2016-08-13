@@ -16,6 +16,8 @@ import model.Member;
 import model.Squadron;
 import model.Uscita;
 import model.UscitaSquadriglia;
+import model.exception.ObjectNotContainedException;
+import view.general_utility.WarningNotice;
 
 public class ContainerImpl implements Container, Serializable {
 	
@@ -91,7 +93,11 @@ public class ContainerImpl implements Container, Serializable {
 			throw new MemberNotExistException();
 		}
 		
-		this.squadronActive.get(this.squadronActive.indexOf(sq)).removeMembro(member);
+		try {
+			this.squadronActive.get(this.squadronActive.indexOf(sq)).removeMembro(member);
+		} catch (ObjectNotContainedException e) {
+			new WarningNotice(e.getMessage());
+		}
 	}
 
 

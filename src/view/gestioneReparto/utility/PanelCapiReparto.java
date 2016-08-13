@@ -72,4 +72,5 @@ public class PanelCapiReparto extends MyJPanelImpl {
 	public String getPhone(){
 		return phone.getText();
 	}
+	
 }

@@ -89,6 +89,14 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		return button;
 	}
 	
+	public JButton createButton(String title, int fontSize, ActionListener e){
+		JButton button=new JButton(title);
+		button.setName(title);
+		button.addActionListener(e);
+		button.setFont(new Font("Aria", Font.ITALIC, fontSize));
+		return button;
+	}
+	
 	public JTextArea createJTextArea(String text, boolean editable, int fontSize){
 		JTextArea area=new JTextArea(text);
 		area.setEditable(editable);

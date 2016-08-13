@@ -28,8 +28,8 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	private static UnitImpl unit;
 	
 	static {
-		HEIGTH=((int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/1.1));
-		WIDTH = ((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2);
+		HEIGTH=((int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/1.2));
+		WIDTH = ((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1.7));
 	}
 	/** private Constructor
 	 * 

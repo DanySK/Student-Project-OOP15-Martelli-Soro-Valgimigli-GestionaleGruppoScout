@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.time.LocalDate;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,8 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import control.CheckerImpl;
-import model.CampoImpl;
-import model.exception.IllegalDateException;
 import view.general_utility.WarningNotice;
 import view.gestioneEventi.GestioneEventiMain;
 import view.gestioneReparto.GestioneRepartoMain;
@@ -132,13 +129,14 @@ public class MainGuiImpl extends MyJPanelImpl{
 		/* Set this panel as componentPane of MyFrameSingleton istance */
 		MyJFrameSingletonImpl.getInstance().setPanel(this);
 		//////////////test a caso
+		/*
 		try {
-			MyJFrameSingletonImpl.getInstance().getUnit().addExcursion(new CampoImpl(LocalDate.of(2016,8,13), 3,	MyJFrameSingletonImpl.getInstance().getUnit().getReparto(), "prova"));
+			MyJFrameSingletonImpl.getInstance().getUnit().addExcursion(new CampoImpl(LocalDate.of(2016,8,13), 3,	MyJFrameSingletonImpl.getInstance().getUnit().getReparto(), "Ciao"));
 			System.out.println(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream().findFirst().get().getName());
 		} catch (IllegalDateException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 	}
 
 	/**Override used to paint the background image

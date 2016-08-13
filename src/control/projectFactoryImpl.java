@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import control.exception.MemberSexException;
 import control.myUtil.myOptional;
 import model.Campo;
 import model.CampoImpl;
+import model.Capo;
 import model.EventiDiZona;
 import model.EventiDiZonaImpl;
 import model.ExcursionImpl;
@@ -116,9 +118,12 @@ public class projectFactoryImpl implements Serializable {
 	 * @param capoFemmina
 	 * @param name
 	 * @return
+	 * @throws MemberSexException 
 	 */
-	public static Reparto getReparto(Member leaderM, Member leaderF, String name){
-		return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
+	public static Reparto getReparto(Capo leaderM, Capo leaderF, String name) throws MemberSexException{
+		
+			return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
+	
 	}
 	/**
 	 * 
@@ -127,8 +132,9 @@ public class projectFactoryImpl implements Serializable {
 	 * @param aiutanti
 	 * @param name
 	 * @return
+	 * @throws MemberSexException 
 	 */
-	public static Reparto getReparto(Member leaderM, Member leaderF, List<Member> helper,String name){
+	public static Reparto getReparto(Capo leaderM, Capo leaderF, List<Capo> helper,String name) throws MemberSexException{
 		return new RepartoImpl(leaderM, leaderF, helper, name);
 	}
 	/**

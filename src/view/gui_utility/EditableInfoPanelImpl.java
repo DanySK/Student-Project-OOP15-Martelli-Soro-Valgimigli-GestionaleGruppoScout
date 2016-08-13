@@ -103,14 +103,20 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 				JDialog dial = new JDialog();
 				JPanel panel = new JPanel(new BorderLayout());
 				JPanel bot = new JPanel();
-				JTextArea area = createJTextArea( e.getY(), isManager, fontLabel);
+				JTextArea area = createJTextArea( "", isManager, fontLabel);
+				if(!isManager){
+					area.setText(e.getY());
+				}
 				panel.add(area);
 				if( editable ) {
 					bot.add(createButton("Ok", t->{
+						String oldText=e.getY();
 						try { /*Utilizzo la reflection*/
-							Method m = squadImpl.getClass().getDeclaredMethod("setNote" + e.getX(), String.class);
-							m.invoke(squadImpl, area.getText());/*chiamata al metodo trovato*/
-							MyJFrameSingletonImpl.getInstance().setNeedToSave();
+							if(!area.getText().equals(oldText)){
+								Method m = squadImpl.getClass().getDeclaredMethod("setNote" + e.getX(), String.class);
+								m.invoke(squadImpl, area.getText());/*chiamata al metodo trovato*/
+								MyJFrameSingletonImpl.getInstance().setNeedToSave();
+							}
 							dial.dispose();
 						} catch (Exception g){
 							new WarningNotice(g.getMessage());

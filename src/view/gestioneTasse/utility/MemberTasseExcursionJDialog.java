@@ -2,17 +2,20 @@ package view.gestioneTasse.utility;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import model.Excursion;
 import model.Member;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
+import view.gui_utility.EditableMemberPanelImpl;
+import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
 public class MemberTasseExcursionJDialog extends JDialog {
@@ -21,34 +24,34 @@ public class MemberTasseExcursionJDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = -2645669972966333035L;
 	private final int fontSizeLabel=19;
+	private List<Excursion> list;
+	private Member me;
+	private JTextArea area;
+	private MyJPanelImpl memPane;
+	private JScrollPane scroll;
+	public MemberTasseExcursionJDialog(Member me, EditableMemberPanelImpl<Member> parent ){
+		this.me=me;
 	
-	
-	public MemberTasseExcursionJDialog(Member me , Map<Member,List<Excursion>> map){
-		MyJPanelImpl memPane=new MyJPanelImpl();
+		this.list=new ArrayList<>();	
+		memPane=new MyJPanelImpl();
 		
-		JScrollPane scroll = new JScrollPane(memPane);
+		scroll = new JScrollPane(memPane);
 		memPane.setPreferredSize(scroll.getPreferredSize());
 		MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		MyJPanelImpl panelCentral=new MyJPanelImpl(new GridLayout(2, 1));
+		
 		MyJPanelImpl panBot=new MyJPanelImpl();
-		panel.add(panelCentral.createJLabel( "<html><U>Pagamento Membro</U></html>", fontSizeLabel),BorderLayout.NORTH);
-		JTextArea area= new JTextArea("Questo membro non ha pagato le seguenti escursioni:");
-		map.get(me).stream().forEach(e->{
-			area.append(e.getName());
-			memPane.add(memPane.createButton(e.getName(), k->{
-				try {
-					e.setPagante(me);
-				} catch (ObjectNotContainedException e1) {
-					new WarningNotice(e1.getMessage());
-				}
-			}));
-		});
-		if(area.getLineCount()>1){
-			area.append("Cliccare su un pulsante per pagare un'escursione.");
-		}
+		panel.add(panelCentral.createJLabel( "<html><U>Pagamenti Escursioni "+me.getName()+" "+me.getSurname()+
+				"</U></html>", fontSizeLabel),BorderLayout.NORTH);
+		area=panel.createJTextArea("Questo membro non ha pagato le seguenti escursioni;"
+				+ "\ncliccare su un pulsante per pagare l'escursione", false, fontSizeLabel-2);
+		area.setEditable(false);
+		updateEscursion();
+		
+	
 		
 		panBot.add(panelCentral.createButton("Paga Tutte", u->{
-			map.get(me).stream().forEach(e->{
+			list.stream().forEach(e->{
 				try {
 					e.setPagante(me);
 				} catch (ObjectNotContainedException e1) {
@@ -56,6 +59,51 @@ public class MemberTasseExcursionJDialog extends JDialog {
 				}
 			});
 		}));
-		panBot.add(panelCentral.createButton("Annulla", u->this.dispose()));
+		panelCentral.add(area);
+		panelCentral.add(memPane);
+		panBot.add(panelCentral.createButton("OK", u->{
+			this.dispose();
+			parent.updateMember();
+		}));
+		panel.add(panelCentral,BorderLayout.CENTER);
+		panel.add(panBot,BorderLayout.SOUTH);
+		this.add(panel);
+		this.pack();
+		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+	}
+	private void updateEscursion(){
+		
+		list.clear();
+		MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+		.forEach(e->{
+			if(e.getNonPaganti().contains(me)){list.add(e);};
+		});
+		System.out.println(list.size());
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				memPane.removeAll();;
+				list.stream().forEach(e->{
+					memPane.add(memPane.createButton(e.getName(), k->{
+						try {
+							e.setPagante(me);
+							new WarningNotice("Pagamento registrato");
+							
+						} catch (ObjectNotContainedException e1) {
+							new WarningNotice(e1.getMessage());
+						}
+						updateEscursion();
+						memPane.repaint();
+						memPane.validate();
+						scroll.repaint();
+						scroll.validate();
+						
+						
+					}));
+				});
+				
+			}
+		});
 	}
 }

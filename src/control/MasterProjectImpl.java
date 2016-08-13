@@ -94,7 +94,7 @@ public class MasterProjectImpl implements MasterProject {
 	public void save(Unit unit) throws IOException, ProjectFilesCreationException {
 		this.directoryToSave = this.getDirectoryToSave();
 		String files = this.directoryToSave + System.getProperty("file.separator") + unit.getName() + PROJECT_EXTENSION;
-		System.out.println(files);
+		//System.out.println(files);
 		this.saver = new ObjectOutputStream(new FileOutputStream(files));
 		this.worker = new File(files);
 		if(! this.worker.exists()){

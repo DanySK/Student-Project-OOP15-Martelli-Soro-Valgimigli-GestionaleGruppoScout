@@ -13,6 +13,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
 import model.Squadron;
+import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 /**
@@ -42,24 +43,31 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 					 @Override
 					 public void run() { 
 						 me.getPanelRight().remove(getPanelCenter());
-						 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
-							setPanelCenter((((SquadrigliaOverviewImpl)node.getUserObject()). new SquadrigliaOverviewImplPanel()));
-							me.getPanelBottom().getComponent(1).setEnabled(false);
-						 }
-						 if (node.getUserObject() instanceof RepartoOverviewImpl){
-							me.setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
-							 getPanelBottom().getComponent(1).setEnabled(true);
-						 }
-						 if(node.getUserObject() instanceof SquadrigliaManagerImpl){
-							 setPanelCenter(((SquadrigliaManagerImpl)node.getUserObject()). new SquadrigliaManagerImplPanel());
-							 getPanelBottom().getComponent(1).setEnabled(true);
-						 }
+						 try{
+						
+							 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
+								 setPanelCenter((((SquadrigliaOverviewImpl)node.getUserObject()). new SquadrigliaOverviewImplPanel()));
+								 me.getPanelBottom().getComponent(1).setEnabled(false);
+							 }
+							 if (node.getUserObject() instanceof RepartoOverviewImpl){
+								 me.setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
+								 getPanelBottom().getComponent(1).setEnabled(true);
+							 }
+							 if(node.getUserObject() instanceof SquadrigliaManagerImpl){
+								 setPanelCenter(((SquadrigliaManagerImpl)node.getUserObject()). new SquadrigliaManagerImplPanel());
+								 getPanelBottom().getComponent(1).setEnabled(true);
+							 }
+							 
+						 }catch(NullPointerException k){
+							//new WarningNotice("Squadriglia rimossa con successo");
+						}
+						
 						 getPanelCenter().repaint();
 						 getPanelCenter().validate();
 						 getPanelRight().add(getPanelCenter(),BorderLayout.CENTER);
 						 getPanelRight().repaint();
 						 getPanelRight().validate();
-						 if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
+						/* if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
@@ -68,7 +76,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 							});
 							JOptionPane.showMessageDialog(null, "<html><U>Attenzione!!</U><br>Ci sono modifiche"
 								+ "<br>non salvate.<br>Cliccare sul pulsante \"Salva\" <br>per scriverle su disco");
-						}
+						}*/
 					 }
 				 });
 			}
@@ -82,7 +90,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		/*
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
 		 */
-		me.addNode(new DefaultMutableTreeNode(new RepartoOverviewImpl()));
+		me.getRoot().add(new DefaultMutableTreeNode(new RepartoOverviewImpl()));
 		unit.getContainers().getSquadrons().forEach(e->{
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e.getNome())));
@@ -103,6 +111,10 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(squad.getNome())));
 		t.add(new DefaultMutableTreeNode(new SquadrigliaManagerImpl(squad.getNome())));
 		me.addNode(t);
+	}
+	
+	public void removeSquadToJTree(String squadToRemove){
+		this.removeNode(squadToRemove);
 	}
 	public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {	
 		private static final long serialVersionUID = -2924024721151248795L;

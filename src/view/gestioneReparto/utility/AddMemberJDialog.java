@@ -1,6 +1,7 @@
 package view.gestioneReparto.utility;
 
 import java.awt.BorderLayout;
+
 import java.awt.GridLayout;
 import java.time.LocalDate;
 
@@ -28,8 +29,8 @@ public class AddMemberJDialog extends JDialog{
 	private static final long serialVersionUID = 3066382359932767590L;
 	private final int fontSizeLabel=19;
 	private int fontSize=15;
-	private final EditableMemberPanelImpl panelParent;
-	public AddMemberJDialog(Unit unit,EditableMemberPanelImpl parent){
+	private final EditableMemberPanelImpl<Member> panelParent;
+	public AddMemberJDialog(Unit unit,EditableMemberPanelImpl<Member> parent, myOptional<String> squadName ){
 		super();
 		this.panelParent=parent;
 		
@@ -41,19 +42,22 @@ public class AddMemberJDialog extends JDialog{
 		JPanel info=new JPanel(new GridLayout(2, 1));
 		info.add(bottom.createJLabel( "* campi obbligatori", fontSize));
 		info.add(bottom.createJLabel( "Se i campi opzionali vengono lasciati vuoti il membro viene aggiunto incompleto", fontSize));
-		
+		/*Dati Membro*/
 		JTextField name=new JTextField();
 		JTextField surname=new JTextField();
+		/*Dati tutor*/
 		JTextField tutorName=new JTextField();
 		JTextField tutorPhone=new JTextField();
 		JTextField tutorMail=new JTextField();
+		/*Data di nascita, verrà usato JPanel tmp*/
 		JTextField mm=new JTextField();
 		JTextField gg= new JTextField();
 		JTextField aa= new JTextField();
-		
+		/*Sesso*/
 		JRadioButton sexM=new JRadioButton("Maschio");
 		JRadioButton sexF=new JRadioButton("Femmina");
 		ButtonGroup sex= new ButtonGroup();
+		/*Ruolo e squadriglia( dipende da se siamo in ruolo o in squadriglia, vedi di seguito)*/
 		JComboBox<Roles> roles = new JComboBox<>(Roles.values());
 		JComboBox<String> squad=new JComboBox<>();
 		squad.addItem("nessuna squadriglia");
@@ -69,6 +73,7 @@ public class AddMemberJDialog extends JDialog{
 		tmp.add(sexM);
 		tmp.add(sexF);
 		center.add(tmp);
+		/*questa parte andrebbe modificata utilizzando un JCalendar*/
 		center.add(bottom.createJLabel( "* Data di nascita: ", fontSize));
 		tmp=new JPanel(new GridLayout(1, 6));
 		tmp.add(bottom.createJLabel( "giorno", fontSize-5));
@@ -78,10 +83,15 @@ public class AddMemberJDialog extends JDialog{
 		tmp.add(bottom.createJLabel( "anno", fontSize-5));
 		tmp.add(aa);
 		center.add(tmp);
+		
 		center.add(bottom.createJLabel( "Ruolo: ", fontSize));
 		center.add(roles);
-		center.add(bottom.createJLabel( "Squadriglia:",fontSize));
-		center.add(squad);
+		/*la lista di squadriglie è disponibile se e solo se siamo in RepartoOverview*/
+		if(!squadName.isPresent()){
+			center.add(bottom.createJLabel( "Squadriglia:",fontSize));
+			center.add(squad);
+		}
+		/*parte del tutor*/
 		center.add(bottom.createJLabel( "Tutor: ", fontSize));
 		center.add(tutorName);
 		center.add(bottom.createJLabel( "Tel. Tutor: ", fontSize));
@@ -90,19 +100,29 @@ public class AddMemberJDialog extends JDialog{
 		center.add(tutorMail);
 		pan.add(center,BorderLayout.CENTER);
 		tmp=new JPanel(new GridLayout(2, 1));
+		/*aggiungo la parte delle due JLabel con le info*/
 		tmp.add(info);
+		
 		bottom.add(bottom.createButton("Aggiungi", e->{
 			
 			try{
+				/*scelgo costruttore in base alla presenza o meno dei campi del tutore*/
 				Member mem=(tutorName.getText().isEmpty())?
 				projectFactoryImpl.getSimpleMember(name.getText(), surname.getText(), 
 							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected())
 					:projectFactoryImpl.getMember(name.getText(), surname.getText(), 
 							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected(),
 							myOptional.of(tutorName.getText()), myOptional.of(tutorMail.getText()), myOptional.of(Long.parseLong(tutorPhone.getText())));
-			
+				/*aggiungo il membro senza la squadriglia*/
 				unit.addMember(mem);
-				if(!((String)squad.getSelectedItem()).equals("nessuna squadriglia")){
+				/*se siamo in GestioneSquadriglia aggiungo il membro a tale squadriglia*/
+				if(squadName.isPresent()){
+					unit.putMemberInSq(mem, unit.getContainers().findSquadron(squadName.get()), (Roles)roles.getSelectedItem());
+				}
+				/*altrimenti se siamo in RepartoOverview ed è stata selezionata una squadriglia inserisco il membro
+				 * in tale squadriglia
+				 */
+				else if(!squadName.isPresent() && !((String)squad.getSelectedItem()).equals("nessuna squadriglia")){
 					unit.putMemberInSq(mem,unit.getContainers().findSquadron((String)squad.getSelectedItem()), (Roles)roles.getSelectedItem());
 				}
 				SwingUtilities.invokeLater(new Runnable(){
