@@ -13,6 +13,7 @@ import model.Member;
 import model.Squadron;
 import model.Uscita;
 import model.UscitaSquadriglia;
+import model.exception.ObjectNotContainedException;
 
 /**
  * Class that contains infos, entities and relations.
@@ -73,9 +74,12 @@ public interface Container {
 	 * To detached member from his squadron
 	 * @param member
 	 * @param sq
+	 * @throws SquadronNotExistException
+	 * @throws MemberNotExistException
+	 * @throws ObjectNotContainedException
 	 */
 	public void removeMeberFromSquadron(Member member, Squadron sq) 
-			throws SquadronNotExistException, MemberNotExistException;
+			throws SquadronNotExistException, MemberNotExistException, ObjectNotContainedException;
 	/**
 	 * 
 	 * @return

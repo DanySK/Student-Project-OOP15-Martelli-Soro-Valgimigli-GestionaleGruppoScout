@@ -7,7 +7,7 @@ public class CapoImpl extends PersonImpl implements Capo {
 	private static final long serialVersionUID = 1L;
 	private String phoneNumber;
 
-	public CapoImpl(String name, String surname, LocalDate birthday, Boolean sex, String phoneNumber) {
+	public CapoImpl(String name, String surname, LocalDate birthday, Boolean sex, String phoneNumber) throws IllegalArgumentException {
 		super(name, surname, birthday, sex);
 		Long.parseLong(phoneNumber);
 		if (phoneNumber.length()!=10){

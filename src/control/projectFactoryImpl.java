@@ -10,6 +10,10 @@ import control.myUtil.myOptional;
 import model.Campo;
 import model.CampoImpl;
 import model.Capo;
+<<<<<<< working copy
+import model.CapoImpl;
+=======
+>>>>>>> destination
 import model.EventiDiZona;
 import model.EventiDiZonaImpl;
 import model.ExcursionImpl;
@@ -120,10 +124,20 @@ public class projectFactoryImpl implements Serializable {
 	 * @return
 	 * @throws MemberSexException 
 	 */
+<<<<<<< working copy
+	public static Reparto getReparto(Capo leaderM, Capo leaderF, String name){
+		try {
+			return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
+		} catch (MemberSexException e) {
+			new WarningNotice(e.getMessage());
+			return null;
+		}
+=======
 	public static Reparto getReparto(Capo leaderM, Capo leaderF, String name) throws MemberSexException{
 		
 			return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
 	
+>>>>>>> destination
 	}
 	/**
 	 * 
@@ -134,25 +148,50 @@ public class projectFactoryImpl implements Serializable {
 	 * @return
 	 * @throws MemberSexException 
 	 */
+<<<<<<< working copy
+	public static Reparto getReparto(Capo leaderM, Capo leaderF, List<Capo> helper,String name){
+		try {
+			return new RepartoImpl(leaderM, leaderF, helper, name);
+		} catch (MemberSexException e) {
+			new WarningNotice(e.getMessage());
+			return null;
+		}
+=======
 	public static Reparto getReparto(Capo leaderM, Capo leaderF, List<Capo> helper,String name) throws MemberSexException{
 		return new RepartoImpl(leaderM, leaderF, helper, name);
+>>>>>>> destination
 	}
 	/**
-	 * For experiments and testing
-	 * @param name
-	 * @return
-	 */
-	public static Member getLeaderM(String name, String surname){
-		return new MemberImpl(name, surname, LocalDate.now(), true);
-	}
-	/**
-	 *  For experiments and testing
+	 * 
 	 * @param name
 	 * @param surname
+	 * @param birthDay
+	 * @param number
 	 * @return
 	 */
-	public static Member getLeaderF(String name, String surname){
-		return new MemberImpl(name, surname, LocalDate.now(), false);
+	public static Capo getLeaderM(String name, String surname, LocalDate birthDay, String number){
+		try{
+			return new CapoImpl(name, surname, birthDay, true, number);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+		return null;	
+	}
+	/**
+	 * 
+	 * @param name
+	 * @param surname
+	 * @param birthDay
+	 * @param number
+	 * @return
+	 */
+	public static Capo getLeaderF(String name, String surname, LocalDate birthDay, String number){
+		try{
+			return new CapoImpl(name, surname, birthDay, false, number);
+		}catch(Exception e){
+			new WarningNotice(e.getMessage());
+		}
+		return null;
 	}
 	/**
 	 * 

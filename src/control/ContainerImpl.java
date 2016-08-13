@@ -17,7 +17,10 @@ import model.Squadron;
 import model.Uscita;
 import model.UscitaSquadriglia;
 import model.exception.ObjectNotContainedException;
+<<<<<<< working copy
+=======
 import view.general_utility.WarningNotice;
+>>>>>>> destination
 
 public class ContainerImpl implements Container, Serializable {
 	
@@ -85,7 +88,7 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public void removeMeberFromSquadron(Member member, Squadron sq)
-			throws SquadronNotExistException, MemberNotExistException {
+			throws SquadronNotExistException, MemberNotExistException, ObjectNotContainedException {
 		if(!this.squadronActive.contains(sq)){
 			throw new SquadronNotExistException();
 		}
