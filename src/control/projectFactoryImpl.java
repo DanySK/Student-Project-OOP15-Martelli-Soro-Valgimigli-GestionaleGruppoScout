@@ -10,10 +10,10 @@ import control.myUtil.myOptional;
 import model.Campo;
 import model.CampoImpl;
 import model.Capo;
-<<<<<<< working copy
+
 import model.CapoImpl;
-=======
->>>>>>> destination
+
+
 import model.EventiDiZona;
 import model.EventiDiZonaImpl;
 import model.ExcursionImpl;
@@ -124,7 +124,7 @@ public class projectFactoryImpl implements Serializable {
 	 * @return
 	 * @throws MemberSexException 
 	 */
-<<<<<<< working copy
+
 	public static Reparto getReparto(Capo leaderM, Capo leaderF, String name){
 		try {
 			return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
@@ -132,13 +132,8 @@ public class projectFactoryImpl implements Serializable {
 			new WarningNotice(e.getMessage());
 			return null;
 		}
-=======
-	public static Reparto getReparto(Capo leaderM, Capo leaderF, String name) throws MemberSexException{
-		
-			return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
-	
->>>>>>> destination
 	}
+
 	/**
 	 * 
 	 * @param capoMaschio
@@ -148,7 +143,7 @@ public class projectFactoryImpl implements Serializable {
 	 * @return
 	 * @throws MemberSexException 
 	 */
-<<<<<<< working copy
+
 	public static Reparto getReparto(Capo leaderM, Capo leaderF, List<Capo> helper,String name){
 		try {
 			return new RepartoImpl(leaderM, leaderF, helper, name);
@@ -156,10 +151,7 @@ public class projectFactoryImpl implements Serializable {
 			new WarningNotice(e.getMessage());
 			return null;
 		}
-=======
-	public static Reparto getReparto(Capo leaderM, Capo leaderF, List<Capo> helper,String name) throws MemberSexException{
-		return new RepartoImpl(leaderM, leaderF, helper, name);
->>>>>>> destination
+
 	}
 	/**
 	 * 

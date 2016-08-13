@@ -17,10 +17,7 @@ import model.Squadron;
 import model.Uscita;
 import model.UscitaSquadriglia;
 import model.exception.ObjectNotContainedException;
-<<<<<<< working copy
-=======
 import view.general_utility.WarningNotice;
->>>>>>> destination
 
 public class ContainerImpl implements Container, Serializable {
 	
