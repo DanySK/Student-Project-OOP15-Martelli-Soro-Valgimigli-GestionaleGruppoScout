@@ -286,7 +286,7 @@ public class projectFactoryImpl implements Serializable {
 	 * @param altriReparti
 	 * @return
 	 */
-	public EventiDiZona getLocalEvent(LocalDate dateStart, LocalDate dateEnd, Reparto reparto, String name,
+	public static EventiDiZona getLocalEvent(LocalDate dateStart, LocalDate dateEnd, Reparto reparto, String name,
 			List<String> others){
 		try {
 			return new EventiDiZonaImpl(dateStart, dateEnd, reparto, name, others);
@@ -304,7 +304,7 @@ public class projectFactoryImpl implements Serializable {
 	 * @param others
 	 * @return
 	 */
-	public EventiDiZona getLocalEvent(LocalDate dateStart, int duration, Reparto reparto, String name,
+	public static EventiDiZona getLocalEvent(LocalDate dateStart, int duration, Reparto reparto, String name,
 			List<String> others){
 		try {
 			return new EventiDiZonaImpl(dateStart, duration, reparto, name, others);
@@ -322,7 +322,7 @@ public class projectFactoryImpl implements Serializable {
 	 * @param others
 	 * @return
 	 */
-	public Gemellaggi getEventTwoUnit(LocalDate dateStart,LocalDate dateEnd,Reparto reparto,
+	public static Gemellaggi getEventTwoUnit(LocalDate dateStart,LocalDate dateEnd,Reparto reparto,
 			String name,List<String> others){
 		try {
 			return new GemellaggiImpl(dateStart, dateEnd, reparto, name, others);
@@ -340,7 +340,7 @@ public class projectFactoryImpl implements Serializable {
 	 * @param others
 	 * @return
 	 */
-	public Gemellaggi getEventMoreUnit(LocalDate dateStart,int duration,Reparto reparto,
+	public static Gemellaggi getEventMoreUnit(LocalDate dateStart,int duration,Reparto reparto,
 			String name,List<String> others){
 		try {
 			return new GemellaggiImpl(dateStart, duration, reparto, name, others);

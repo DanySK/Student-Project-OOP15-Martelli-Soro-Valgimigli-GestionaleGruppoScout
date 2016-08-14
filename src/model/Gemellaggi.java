@@ -5,7 +5,7 @@ import java.util.List;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
-public interface Gemellaggi {
+public interface Gemellaggi extends Excursion {
 	/**
 	 * 
 	 * @return

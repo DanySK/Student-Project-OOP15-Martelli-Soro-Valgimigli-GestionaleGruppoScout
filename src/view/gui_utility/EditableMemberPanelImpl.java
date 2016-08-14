@@ -1,7 +1,6 @@
 package view.gui_utility;
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -23,15 +22,14 @@ import control.SortMemberImpl;
 import control.sortExcursion;
 import control.sortExcursionImpl;
 import control.myUtil.myOptional;
-import model.CampoImpl;
-import model.EventiDiZonaImpl;
+import model.Campo;
+import model.EventiDiZona;
 import model.Excursion;
-import model.GemellaggiImpl;
+import model.Gemellaggi;
 import model.Member;
 import model.MemberImpl;
 import model.RepartoImpl;
 import model.Squadron;
-import model.UscitaImpl;
 import view.gestioneReparto.utility.AddMemberJDialog;
 import view.gestioneReparto.utility.EditMemberInfoJDialog;
 import view.gestioneReparto.utility.ShowMemberInfoJDialog;
@@ -217,9 +215,9 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			});
 		}
 		else if(type.equals(Type.RepartoEventi)){
-			String str=(mem instanceof CampoImpl)?"Campo"
-					:(mem instanceof EventiDiZonaImpl)?"Evento di zona"
-							:(mem instanceof GemellaggiImpl)?"Gemellaggio"
+			String str=(mem instanceof Campo)?"Campo"
+					:(mem instanceof EventiDiZona)?"Evento di zona"
+							:(mem instanceof Gemellaggi)?"Gemellaggio"
 									:"Uscita di reparto";
 			return createButton("<html>"+str+"<br>"+((Excursion)mem).getDateStart().toString()+"</html>",16, e->{
 				

@@ -3,7 +3,6 @@ package view.gestioneReparto;
 import java.awt.BorderLayout;
 import java.awt.Component;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
@@ -13,7 +12,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
 import model.Squadron;
-import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 /**

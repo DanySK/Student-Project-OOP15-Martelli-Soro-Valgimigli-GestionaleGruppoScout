@@ -3,7 +3,7 @@ package model;
 import java.time.LocalTime;
 import java.util.List;
 
-public interface EventiDiZona {
+public interface EventiDiZona extends Excursion {
 	/**
 	 * 
 	 * @return

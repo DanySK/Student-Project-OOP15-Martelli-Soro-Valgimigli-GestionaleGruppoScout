@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import control.myUtil.myOptional;
+import model.Member;
 import view.gui_utility.EditableInfoPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
@@ -51,7 +52,7 @@ public class SquadrigliaOverviewImpl  {
 			this.add(createJLabel( "<html><U>Panoramica di "+squadName+"</U></html>", 22),BorderLayout.NORTH);
 			this.add(panelCenter, BorderLayout.CENTER);
 			panelCenter.add(panelSxDx);
-			panelCenter.add(new EditableMemberPanelImpl(Type.OverviewSquadriglia, myOptional.of(squadName)));
+			panelCenter.add(new EditableMemberPanelImpl<Member>(Type.OverviewSquadriglia, myOptional.of(squadName)));
 		}		
 	}	
 }

@@ -28,6 +28,7 @@ public class WarningNotice{
 		pan.add(flow,BorderLayout.SOUTH);
 		dial.pack();
 		dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+		dial.setTitle("ERRORE");
 		dial.setVisible(true);
 	}
 

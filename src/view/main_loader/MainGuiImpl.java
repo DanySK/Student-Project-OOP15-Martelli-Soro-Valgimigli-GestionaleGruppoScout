@@ -91,7 +91,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 				text="<html>";
 				MyJPanelImpl info=new MyJPanelImpl(new GridLayout(0,2));
 			
-				(new CheckerImpl()).stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).keySet().stream()
+				check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).keySet().stream()
 				.forEach(k->{
 					info.add(createJLabel( k+": ", fontSize+5));
 					

@@ -2,8 +2,6 @@ package view.main_loader;
 
 import java.awt.BorderLayout;
 
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;

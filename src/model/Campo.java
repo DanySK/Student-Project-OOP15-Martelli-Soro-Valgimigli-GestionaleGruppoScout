@@ -1,6 +1,6 @@
 package model;
 
-public interface Campo {
+public interface Campo extends Excursion {
 	/**
 	 * 
 	 * @return
