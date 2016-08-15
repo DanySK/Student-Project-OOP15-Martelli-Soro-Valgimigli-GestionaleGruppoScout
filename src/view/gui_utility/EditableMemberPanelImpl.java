@@ -30,11 +30,13 @@ import model.Member;
 import model.MemberImpl;
 import model.RepartoImpl;
 import model.Squadron;
+import model.UscitaSquadriglia;
 import view.gestioneReparto.utility.AddMemberJDialog;
 import view.gestioneReparto.utility.EditMemberInfoJDialog;
 import view.gestioneReparto.utility.ShowMemberInfoJDialog;
 import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
 import view.gestioneTasse.utility.MemberTasseJDialog;
+import view.gui_utility.SearchElementJDialog.SearchType;
 
 
 public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
@@ -95,8 +97,9 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			}));
 		}
 		else{
-		this.sortPanel=new JPanel();
-			sortPanel.add(createJLabel("Ordina membri "+(squadName.isPresent()?"squadriglia":"reparto")+" per: ", fontSize));
+			this.sortPanel=new JPanel();
+			sortPanel.add(createJLabel("Ordina Membri per: ", fontSize));
+			
 			sortPanel.add(createButton("nome", e->{
 				memList = (List<E>) sort.sortByName((List<Member>) memList);
 				updateMemberBotton();
@@ -108,6 +111,14 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			sortPanel.add(createButton("età",e->{
 				memList=(List<E>) sort.sortByAge((List<Member>) memList);
 				updateMemberBotton();
+			}));
+			sortPanel.add(createButton("<html>Cerca<br>Membro<hrml>", e->{
+				if(type.equals(Type.OverviewSquadriglia)){
+					new SearchElementJDialog<>(SearchType.ShowMember, squadName.get(), myOptional.empty(), this);
+				}
+				if(type.equals(Type.GestioneSquadriglia)){
+					new SearchElementJDialog<>(SearchType.EditMember, squadName.get(), myOptional.empty(), this);
+				}
 			}));
 		}
 		Arrays.asList(sortPanel.getComponents()).stream().forEach(e->e.setFont(new Font("Aria", Font.ITALIC,fontSize)));
@@ -147,7 +158,13 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.RepartoEventi)){
-			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion();
+			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
+					.stream().filter(e->!(e instanceof UscitaSquadriglia)).collect(Collectors.toList());
+			updateMemberBotton();
+		}
+		else if(type.equals(Type.SquadrigliaEventi)){
+			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
+					.stream().filter(e->e instanceof UscitaSquadriglia).collect(Collectors.toList());
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.TasseSquadriglia)){
@@ -215,13 +232,20 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			});
 		}
 		else if(type.equals(Type.RepartoEventi)){
-			String str=(mem instanceof Campo)?"Campo"
+			String str="("+((mem instanceof Campo)?"Campo"
 					:(mem instanceof EventiDiZona)?"Evento di zona"
 							:(mem instanceof Gemellaggi)?"Gemellaggio"
-									:"Uscita di reparto";
-			return createButton("<html>"+str+"<br>"+((Excursion)mem).getDateStart().toString()+"</html>",16, e->{
+									:"Uscita di reparto")+")";
+			return createButton("<html>"+((Excursion)mem).getName()+"<br>"+str+"<br>"+
+									((Excursion)mem).getDateStart().toString()+"</html>",16, e->{
 				
 			});
+		}
+		else if(type.equals(Type.SquadrigliaEventi)){
+			return createButton("<html>"+((Excursion)mem).getName()+"<br>"+"(Uscita Squadriglia)"+"<br>"+
+					((Excursion)mem).getDateStart().toString()+"</html>",16,e->{
+						
+					});
 		}
 		else{
 			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname(), 16, e->{

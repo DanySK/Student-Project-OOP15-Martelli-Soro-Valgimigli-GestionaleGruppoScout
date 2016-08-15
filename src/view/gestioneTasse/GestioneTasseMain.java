@@ -23,7 +23,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
-		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getUnit().getName());
+		super("Gestione Tasse", MyJFrameSingletonImpl.getInstance().getUnit().getName());
 		
 		
 		/*aggiung il SelectionListener al JTree*/
