@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import control.myUtil.Pair;
 import model.Excursion;
@@ -74,12 +75,6 @@ public class UnitImpl implements Unit, Serializable {
 		return info;
 	}
 	
-	
-	public void addUscita(Uscita exc) {
-		// controllo date
-		// controllo membri inseriti
-		this.excursions.add(exc);
-	}
 	@Override
 	public void addMember(Member m) {
 		try{
@@ -158,6 +153,25 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public Reparto getReparto() {
 		return this.rep;
+	}
+	@Override
+	public void removeExcursion(String name) {
+		List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equals(name))
+													  .collect(Collectors.toList());
+		if(exc.size() == 0){
+			new WarningNotice("Nessuna escursione corrisponde al nome: " + name);
+			return;
+		}
+		this.excursions.removeAll(exc);
+	}
+	@Override
+	public void removeExcursion(Excursion exc) {
+		if(this.excursions.contains(exc)){
+			this.excursions.remove(exc);
+		}else{
+			new WarningNotice("Nessuna escursione corrisponde al nome: " + exc.getName());
+		}
+		
 	}
 	
 

@@ -107,8 +107,4 @@ public class MasterProjectImpl implements MasterProject {
 		new WarningNotice("Salvataggio avvenuto con successo");
 	}
 	
-	public static void main (String[] s){
-		
-	}
-		
 }

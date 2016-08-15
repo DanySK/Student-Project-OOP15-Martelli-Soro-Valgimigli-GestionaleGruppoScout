@@ -1,7 +1,9 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import control.myUtil.Pair;
@@ -112,5 +114,59 @@ public class InfoProjectImpl implements InfoProject {
 		}
 		return info;
 	}
+
+	@Override
+	public Map<String, List<String>> getExcursionSpacificalInfo(Excursion e) {
+		Map<String, List<String>> info = new HashMap<>();
+		List<String> value = new ArrayList<>();
+		value.add(e.getName());
+		value.add(e.getPlace());
+		value.add(e.getPrize().toString());
+		info.put("Nome", value.subList(0, 1));
+		info.put("Dove", value.subList(1, 2));
+		info.put("Prezzo", value.subList(2, 3));
+		info.put("Partecipanti", e.getAllPartecipanti().stream()
+														.map(s -> s.getName() + " " + s.getSurname())
+														.collect(Collectors.toList()));
+		info.put("NonPaganti", e.getNonPaganti().stream()
+												.map(s -> s.getName() + " " + s.getSurname())
+												.collect(Collectors.toList()));
+		
+		
+		if(e instanceof Uscita){
+			value = new ArrayList<>();
+			value.add("Uscita");
+			info.put("Tipologia", value);
+		}
+		if(e instanceof UscitaSquadriglia){
+			value = new ArrayList<>();
+			value.add("Uscita di Squadriglia ");
+			value.add(((UscitaSquadriglia)e).getSquadriglia().getNome());
+			 info.put("Tipologia", value.subList(0, 1));
+			 info.put("Squadriglie",value.subList(1, 2));
+					
+		}
+		if(e instanceof Gemellaggi){
+			value = new ArrayList<>();
+			value.add("Gemellaggio");
+			
+			info.put("Tipologia", value);
+			info.put("Reparti", ((Gemellaggi)e).getOtherUnits());
+		}
+		if(e instanceof EventiDiZona){
+			value = new ArrayList<>();
+			value.add("Evento di Zona");
+			
+			info.put("Tipologia", value);
+		}
+		if(e instanceof Campo){
+			value = new ArrayList<>();
+			value.add("Campo");
+			
+			info.put("Tipologia", value);
+		}
+		return info;
+	}
+	
 
 }

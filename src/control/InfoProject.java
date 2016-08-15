@@ -1,6 +1,7 @@
 package control;
 
 import java.util.List;
+import java.util.Map;
 
 import control.myUtil.Pair;
 import model.Excursion;
@@ -60,4 +61,10 @@ public interface InfoProject {
 	 * @return
 	 */
 	public String getExcursionInfo(Excursion e);
+	/**
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public Map<String, List<String>> getExcursionSpacificalInfo(Excursion e);
 }

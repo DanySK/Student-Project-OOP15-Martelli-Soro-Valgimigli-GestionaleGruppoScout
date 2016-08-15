@@ -96,6 +96,15 @@ public interface Unit {
 	 * @return
 	 */
 	public Reparto getReparto();
-	
+	/**
+	 * 
+	 * @param name
+	 */
+	public void removeExcursion(String name);
+	/**
+	 * 
+	 * @param exc
+	 */
+	public void removeExcursion (Excursion exc);
 	
 }
