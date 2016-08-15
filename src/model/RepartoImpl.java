@@ -32,7 +32,7 @@ public class RepartoImpl implements Reparto, Serializable {
 		this.squadriglie = new ArrayList<>();
 		this.idUsati = new ArrayList<>();
 		this.membriSenzaSquadriglia = new ArrayList<>();
-		this.setName(name);
+		this.name=name;
 		this.limitePerTasseAnnuali=LocalDate.now().plusYears(1);
 	}
 

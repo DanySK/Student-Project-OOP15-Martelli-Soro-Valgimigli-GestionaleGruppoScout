@@ -12,7 +12,7 @@ public class UscitaImpl extends ExcursionImpl implements Uscita, Serializable {
 
 	public UscitaImpl(LocalDate dateStart, Reparto reparto, String name) throws IllegalDateException {
 		super(name, dateStart, reparto.getAllMember());
-		this.setReparto(reparto);
+		this.reparto=reparto;
 		this.setDateEnd(dateStart.plusDays(2));
 	}
 

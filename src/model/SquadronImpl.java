@@ -109,8 +109,6 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @throws MoreLeadersNotPermitException
 	 */
 	public void setVicecapoSq(final Member vicecapo) throws MoreLeadersNotPermitException {
-		if (vicecapo.equals(null))
-			throw new IllegalArgumentException();
 		if (this.viceSq.isPresent())
 			throw new MoreLeadersNotPermitException();
 		this.viceSq = myOptional.of(vicecapo);
@@ -164,8 +162,6 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param note
 	 */
 	public void setNoteCassa(final String note) {
-		if (note.equals(null))
-			throw new IllegalArgumentException();
 		this.noteCassa = myOptional.of(note);
 	}
 
@@ -183,8 +179,6 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param note
 	 */
 	public void setNoteBatteria(final String note) {
-		if (note.equals(null))
-			throw new IllegalArgumentException();
 		this.noteBatteria = myOptional.of(note);
 	}
 
@@ -202,8 +196,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param note
 	 */
 	public void setNoteCancelleria(final String note) {
-		if (note.equals(null))
-			throw new IllegalArgumentException();
+	
 		this.noteCancelleria = myOptional.of(note);
 	}
 
@@ -236,8 +229,6 @@ public class SquadronImpl implements Serializable, Squadron {
 	}
 
 	public void setCash(final Float cash) {
-		if (cash.equals(null))
-			throw new IllegalArgumentException();
 		if (cash < 0)
 			throw new IllegalArgumentException();
 		this.cash = cash;
@@ -282,7 +273,7 @@ public class SquadronImpl implements Serializable, Squadron {
 
 	@Override
 	public List<Member> getMemberCelebretingBirthday() {
-		List<Member> tmp = new ArrayList<>();
+		final List<Member> tmp = new ArrayList<>();
 		this.map.keySet().forEach(e -> {
 			if (e.isBirthday())
 				tmp.add(e);

@@ -15,7 +15,6 @@ public class PersonImpl implements Serializable,Person {
 	private Boolean sex;
 	
 	public PersonImpl(String name, String surname, LocalDate birthday,Boolean sex){
-		if (name.equals(null) || surname.equals(null) || birthday.equals(null)) throw new IllegalArgumentException();
 		this.name = name;
 		this.surname = surname;
 		this.birthday = birthday;
@@ -23,15 +22,12 @@ public class PersonImpl implements Serializable,Person {
 	}
 	
 	public void setName (String name){
-		if (name.equals(null)) throw new IllegalArgumentException();
 		this.name=name;
 	}
 	public void setSurname (String surname){
-		if (surname.equals(null)) throw new IllegalArgumentException();
 		this.surname=surname;
 	}
 	public void setBirthday (LocalDate birthday){
-		if (birthday.equals(null)) throw new IllegalArgumentException();
 		this.birthday=birthday;
 	}
 	public String getName (){
@@ -44,7 +40,6 @@ public class PersonImpl implements Serializable,Person {
 		return this.birthday;
 	}
 	public void setSex (Boolean sex){
-		if (sex.equals(null)) throw new IllegalArgumentException();
 		this.sex=sex;
 	}
 	public Boolean getSex(){
@@ -52,7 +47,7 @@ public class PersonImpl implements Serializable,Person {
 	}
 
 	public int getAnnata() {
-		return (LocalDate.now().getYear() - this.getBirthday().getYear());
+		return LocalDate.now().getYear() - this.getBirthday().getYear();
 	}
 
 	public Period getHowIsHold() {
