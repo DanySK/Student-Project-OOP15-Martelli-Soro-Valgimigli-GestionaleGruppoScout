@@ -24,7 +24,7 @@ public class MemberTasseJDialog extends JDialog {
 				" non ha pagato<br>nessuna quota di partecipazione agli Scout.<br>"
 				+ "Cliccando su \"Paga\" verrà registrata<br>la quota come pagata.", fontSizeLabel),BorderLayout.CENTER);
 		panBot.add(panel.createButton("Paga", u->{
-			mem.setTasse(Year.now().getValue());
+			mem.setTax(Year.now().getValue());
 			MyJFrameSingletonImpl.getInstance().setNeedToSave();
 			parent.updateMember();;
 			this.dispose();
