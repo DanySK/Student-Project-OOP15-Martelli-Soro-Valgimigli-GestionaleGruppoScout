@@ -16,8 +16,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		 */
 	private static final long serialVersionUID = 1L;
 	private int identificatore;
-	private final List<String> competence;
-	private final List<Specialita> specialities;
+	private final List<String> specialities;
 	private Boolean promise;
 	private MyOptional<Tutor> tutor;
 	private MyOptional<String> totem;
@@ -33,7 +32,6 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.annoTasse = MyOptional.empty();
 		this.totem = MyOptional.empty();
 		promise = false;
-		competence = new ArrayList<>();
 		this.specialities = new ArrayList<>();
 	}
 
@@ -47,47 +45,35 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.annoTasse = MyOptional.empty();
 		this.totem = MyOptional.empty();
 		promise = false;
-		competence = new ArrayList<>();
 		this.specialities = new ArrayList<>();
 
 	}
 
 	@Override
-	public void setTasse(final Integer anno) {
+	public void setTax(final Integer year) {
 		if (this.annoTasse.isPresent()) {
-			if (this.annoTasse.get() < anno) {
-				this.annoTasse = MyOptional.of(anno);
+			if (this.annoTasse.get() < year) {
+				this.annoTasse = MyOptional.of(year);
 			}
 		} else {
-			this.annoTasse = MyOptional.of(anno);
+			this.annoTasse = MyOptional.of(year);
 		}
 	}
 
 	@Override
-	public boolean isTaxPaid(final Integer anno) {
+	public boolean isTaxPaid(final Integer year) {
 		if (this.annoTasse.isPresent()) {
-			if (this.annoTasse.get().equals(anno)) {
+			if (this.annoTasse.get().equals(year)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	@Override
-	public void addCompetence(final String competence) throws ObjectAlreadyContainedException {
-		if (this.competence.contains(competence)) {
-			throw new ObjectAlreadyContainedException();
-		}
-		this.competence.add(competence);
-	}
+	
 
 	@Override
-	public List<String> getCompetence() {
-		return this.competence;
-	}
-
-	@Override
-	public List<Specialita> getSpecialities() {
+	public List<String> getSpecialities() {
 		return this.specialities;
 	}
 
@@ -151,15 +137,15 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		}
 		return MyOptional.empty();
 	}
-
-	public void removeSpecialities(final Specialita specialities) throws ObjectNotContainedException {
+@Override
+	public void removeSpecialities(final String specialities) throws ObjectNotContainedException {
 		if (!this.specialities.remove(specialities)) {
 			throw new ObjectNotContainedException();
 		}
 	}
 
 	@Override
-	public void addSpecialities(final Specialita specialities) throws ObjectAlreadyContainedException {
+	public void addSpecialities(final String specialities) throws ObjectAlreadyContainedException {
 		if (this.containsSpecialities(specialities)) {
 			throw new ObjectAlreadyContainedException();
 		}
@@ -167,30 +153,20 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	@Override
-	public boolean containsSpecialities(final Specialita specialities) {
-		return this.specialities.contains(specialities);
+	public boolean containsSpecialities(final String specialities2) {
+		return this.specialities.contains(specialities2);
 	}
 
-	@Override
-	public void removeCompetence(final String competence) throws ObjectNotContainedException {
-		if (!this.competence.remove(competence)) {
-			throw new ObjectNotContainedException();
-		}
-	}
-
-	@Override
-	public boolean isContainingCompetence(final String competence) {
-		return this.competence.contains(competence);
-	}
-
+	
+	
 	@Override
 	public Boolean getPromise() {
 		return this.promise;
 	}
 
 	@Override
-	public void setPromise(final boolean promessa) {
-		this.promise = promessa;
+	public void setPromise(final boolean promise) {
+		this.promise = promise;
 	}
 
 	@Override

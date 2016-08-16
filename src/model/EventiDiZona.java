@@ -39,30 +39,37 @@ public interface EventiDiZona extends Excursion {
 	/**
 	 * 
 	 * @param activity to add
+	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
-	 void addActivity(Attivita activity);
+	
+	
+	 void addActivity(Attivita activity) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param nameActivity to add
 	 * @param startTime of the activity
-	 * @throws ObjectAlreadyContainedException 
+	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
+	
 	 void addActivity(String nameActivity, LocalTime startTime) throws ObjectAlreadyContainedException;
-
+	 /**
+	  * remove all the units from the list
+	  */
+	 void clearUnitsList();
 	/**
 	 * 
 	 * @param nameActivity to add
 	 * @param startTime of the activity
 	 * @param endTime of the activity
-	 * @throws ObjectAlreadyContainedException 
+	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
 	 void addActivity(String nameActivity, LocalTime startTime, LocalTime endTime) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param activity to remove
-	 * @throws ObjectNotContainedException 
+	 * @throws ObjectNotContainedException if the object is notcontained
 	 */
 	 void removeActivity(Attivita activity) throws ObjectAlreadyContainedException, ObjectNotContainedException;
 
@@ -75,14 +82,16 @@ public interface EventiDiZona extends Excursion {
 	/**
 	 * 
 	 * @param name of the unit to add
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	 void addOtherUnit(String name);
+	 void addOtherUnit(String name) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param name of the unit to remove
+	 * @throws ObjectNotContainedException 
 	 */
-	 void removeOtherUnit(String name);
+	 void removeOtherUnit(String name) throws ObjectNotContainedException;
 
 	/**
 	 * 
