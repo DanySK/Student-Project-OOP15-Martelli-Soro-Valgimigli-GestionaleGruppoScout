@@ -47,7 +47,7 @@ public class InfoProjectImpl implements InfoProject {
 										.findFirst()
 										.get();
 		info.add(new Pair<>("Nome: ", sq.getNome()));
-		info.add(new Pair<>("Sesso: ", (sq.getSesso() ? "Maschi" : "Femmini")));
+		info.add(new Pair<>("Sesso: ", (sq.getSesso() ? "Maschi" : "Femmine")));
 		if(sq.isCapoPresent()){
 			info.add(new Pair<>("Capo: ", sq.getCapo().getName()+ " " + sq.getCapo().getSurname()));
 		}
