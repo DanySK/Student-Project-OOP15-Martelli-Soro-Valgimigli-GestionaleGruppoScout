@@ -14,10 +14,10 @@ public class MemberAgeOutOfBoundException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = -4450878539454867623L;
-	private static final String message = "Errore: gli anni inseriti sono fuori range";
+	private static final String MESSAGE = "Errore: gli anni inseriti sono fuori range";
 	
 	public String getMessage(){
-		return message;
+		return MESSAGE;
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
-import control.sortExcursionImpl;
+import control.SortExcursionImpl;
 import control.myUtil.myOptional;
 import model.Campo;
 import model.EventiDiZona;
@@ -40,7 +40,7 @@ public class EventiReparto {
 			this.add(createJLabel("<html><U>Gestione eventi reparto</U></html> ", fontSizeLabel+2), BorderLayout.NORTH);
 			this.panelCenter=new MyJPanelImpl(new GridLayout(2,1));
 			this.panelTopInfo=new MyJPanelImpl(new GridLayout(0, 2));
-			updatePaneInfo();
+			this.updatePaneInfo();
 			this.panelTopButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 			this.panelTopContainer=new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
@@ -75,22 +75,22 @@ public class EventiReparto {
 				public void run() {
 					//Long i =1 ;
 					panelTopInfo.add(createJLabel("Prossimo Campo: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+					panelTopInfo.add(createJLabel((new SortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 							.filter(e->e instanceof Campo).collect(Collectors.toList())))
 							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
 					
 					panelTopInfo.add(createJLabel("Prossimo Evento: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+					panelTopInfo.add(createJLabel((new SortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 							.filter(e->e instanceof EventiDiZona).collect(Collectors.toList())))
 							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
 					
 					panelTopInfo.add(createJLabel("Prossimo Gemellaggio: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+					panelTopInfo.add(createJLabel((new SortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 							.filter(e->e instanceof Gemellaggi).collect(Collectors.toList())))
 							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
 					
 					panelTopInfo.add(createJLabel("Prossima Uscita: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+					panelTopInfo.add(createJLabel((new SortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 							.filter(e->e instanceof Uscita).collect(Collectors.toList())))
 							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
 					panelTopInfo.repaint();

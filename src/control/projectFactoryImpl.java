@@ -48,14 +48,14 @@ public class ProjectFactoryImpl implements Serializable {
 	 * @return
 	 */
 	public static Member getSimpleMember(String nome,String cognome,LocalDate dataNascita, boolean sex){
-		Member prj_member = null;
+		Member prjMember = null;
 		try{
-			prj_member = new MemberImpl(nome, cognome, dataNascita, sex);
+			prjMember = new MemberImpl(nome, cognome, dataNascita, sex);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
 		
-		return prj_member;
+		return prjMember;
 	}
 	/**
 	 *  Returns a instance of class Member. This method can accept each possible parameter 
@@ -70,24 +70,24 @@ public class ProjectFactoryImpl implements Serializable {
 	 */
 	public static Member getMember(String name, String surname, LocalDate birthday, boolean sex,
 			myOptional<String> nameTutor, myOptional<String> mailTutor, myOptional<Long> phoneTutor){
-		Member prj_member = null;
-		Tutor prj_tutor = null;
+		Member prjMember = null;
+		Tutor prjTutor = null;
 		try{
-			prj_tutor = new TutorImpl();
+			prjTutor = new TutorImpl();
 			if(mailTutor.isPresent()){
-				prj_tutor.setEmail(mailTutor.get());
+				prjTutor.setEmail(mailTutor.get());
 			}
 			if(nameTutor.isPresent()){
-				prj_tutor.setName(nameTutor.get());
+				prjTutor.setName(nameTutor.get());
 			}
 			if(phoneTutor.isPresent()){
-				prj_tutor.setPhone(phoneTutor.get());
+				prjTutor.setPhone(phoneTutor.get());
 			}
-			prj_member = new MemberImpl(name, surname, birthday, sex, prj_tutor);
+			prjMember = new MemberImpl(name, surname, birthday, sex, prjTutor);
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}
-		return prj_member;
+		return prjMember;
 	}
 	/**
 	 * 

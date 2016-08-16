@@ -12,9 +12,9 @@ public class ErrorSqRuleException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = 4155904215251650093L;
-	private static final String message = "Errore: inserito un membro che svolge un ruolo gia occupato";
+	private static final String MESSAGE = "Errore: inserito un membro che svolge un ruolo gia occupato";
 	
 	public String getMessage(){
-		return message;
+		return MESSAGE;
 	}
 }

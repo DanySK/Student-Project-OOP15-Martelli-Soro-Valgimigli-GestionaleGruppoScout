@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import control.Unit;
-import control.projectFactoryImpl;
+import control.ProjectFactoryImpl;
 import control.myUtil.myOptional;
 import model.CapoImpl;
 import view.gestioneReparto.utility.PanelCapiReparto;
@@ -186,7 +186,7 @@ public class RepartoOverviewImpl  {
 							dial.dispose();
 						}));
 						button.add(createButton("Aggiungi", k->{
-							unit.createSq(projectFactoryImpl.getSquadron(nome.getText(), sexM.isSelected()));
+							unit.createSq(ProjectFactoryImpl.getSquadron(nome.getText(), sexM.isSelected()));
 							MyJFrameSingletonImpl.getInstance().setNeedToSave();
 							((GestioneRepartoMain)MyJFrameSingletonImpl.getInstance().getContenentPane())
 								.addSquadToJTree(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(nome.getText()));;

@@ -1,6 +1,7 @@
 package view.gestioneEventi;
 
 import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.stream.Collectors;
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
-import control.sortExcursionImpl;
+import control.SortExcursionImpl;
 import control.myUtil.myOptional;
 import model.Campo;
 import model.EventiDiZona;
@@ -46,7 +47,7 @@ public class EventiSquadriglia {
 			this.add(createJLabel("<html><U>Gestione eventi "+squadImpl.getNome()+"</U></html> ", fontSizeLabel+2), BorderLayout.NORTH);
 			this.panelCenter=new MyJPanelImpl(new GridLayout(2,1));
 			this.panelTopInfo=new MyJPanelImpl(new GridLayout(0, 2));
-			updatePaneInfo();
+			this.updatePaneInfo();
 			this.panelTopButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 			this.panelTopContainer=new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
@@ -74,7 +75,7 @@ public class EventiSquadriglia {
 					//Long i =1 ;
 					panelTopInfo.add(createJLabel("Prossimo Uscita: ", fontSizeLabel));
 					
-					panelTopInfo.add(createJLabel((new sortExcursionImpl()).sortByDateOfStart(MyJFrameSingletonImpl.getInstance()
+					panelTopInfo.add(createJLabel((new SortExcursionImpl()).sortByDateOfStart(MyJFrameSingletonImpl.getInstance()
 							.getUnit().getContainers().getExcursion().stream().filter(e->e instanceof UscitaSquadriglia)
 							.collect(Collectors.toList())).stream()
 							.map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"),

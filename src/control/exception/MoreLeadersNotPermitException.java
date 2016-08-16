@@ -13,11 +13,11 @@ public class MoreLeadersNotPermitException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = -8159666016468713151L;
-	private static final String message = "Errore: inserito un ragazzo che copre una posizione gerarchica \n"
+	private static final String MESSAGE = "Errore: inserito un ragazzo che copre una posizione gerarchica \n"
 			+ "non disponibile";
 	
 	public String getMessage(){
-		return message;
+		return MESSAGE;
 	}
 
 }
