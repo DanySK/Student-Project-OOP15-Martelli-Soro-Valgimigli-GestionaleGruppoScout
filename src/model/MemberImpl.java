@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.myUtil.myOptional;
+import model.exception.IllegalYearsException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -22,8 +23,11 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private myOptional<String> totem;
 	private myOptional<Integer> annoTasse;
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex) throws IllegalYearsException {
 		super(name, surname, birthday, sex);
+		if (this.getHowIsHold().getYears()<12 || this.getHowIsHold().getYears()>17){
+			throw new IllegalYearsException();
+		}
 		this.tutor = myOptional.empty();
 		this.annoTasse = myOptional.empty();
 		this.totem = myOptional.empty();
@@ -32,8 +36,11 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.specialities = new ArrayList<>();
 	}
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor) {
+	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor) throws IllegalYearsException {
 		super(name, surname, birthday, sex);
+		if (this.getHowIsHold().getYears()<12 || this.getHowIsHold().getYears()>17){
+			throw new IllegalYearsException();
+		}
 		this.tutor = myOptional.of(tutor);
 		this.annoTasse = myOptional.empty();
 		this.totem = myOptional.empty();

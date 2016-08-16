@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import control.Unit;
 import control.ProjectFactoryImpl;
@@ -19,6 +20,7 @@ import control.myUtil.myOptional;
 import model.Excursion;
 import view.general_utility.WarningNotice;
 import view.gestioneEventi.EventiReparto.EventiRepartoPane;
+import view.gestioneEventi.EventiSquadriglia.EventiSquadrigliaPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanel;
 import view.gui_utility.MyJPanelImpl;;
@@ -44,12 +46,13 @@ public class AddExcursionJDialog extends JDialog {
 	private final JTextField gg=new JTextField();
 	private final JTextField mm=new JTextField();
 	private final JTextField aa=new JTextField();
-	private final JTextField durata=new JTextField();
+	private final JTextField durata=new JTextField("GG");
 	private final JTextField ggF=new JTextField();
 	private final JTextField mmF=new JTextField();
 	private final JTextField aaF=new JTextField();
-	private final MyJPanelImpl dataFine=new MyJPanelImpl(new GridLayout(1,6));
+	private  MyJPanelImpl dataFine=new MyJPanelImpl(new GridLayout(1,6));
 	private final JTextArea area=new JTextArea();
+	private boolean perData=false;
 	private List<String>reparti=new ArrayList<>();
 	private final Unit unit;
 	private LocalDate start;
@@ -79,17 +82,39 @@ public class AddExcursionJDialog extends JDialog {
 		data.add(aa);
 		panelInter.add(data);
 		if(!type.equals(TypeExcursion.Uscita)){
-			panelInter.add(panel.createJLabel("Durata: ", fontSize));
-			
-			panelInter.add(durata);
-			
-			dataFine.add(panel.createJLabel("giorno",fontSize));
-			dataFine.add(ggF);
-			dataFine.add(panel.createJLabel("mese", fontSize));
-			dataFine.add(mmF);
-			dataFine.add(panel.createJLabel("anno", fontSize));
-			dataFine.add(aaF);
-			panelInter.add(panel.createJLabel("Data Fine:", fontSize));
+			panelInter.add(panel.createJLabel("Fine: ", fontSize));
+			dataFine=new MyJPanelImpl();
+			dataFine.add(panel.createButton("Data", 13,e->{
+				perData=true;
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					public void run() {
+						dataFine.removeAll();
+						dataFine.setLayout(new GridLayout(1,6));
+						dataFine.add(panel.createJLabel("giorno",fontSize));
+						dataFine.add(ggF);
+						dataFine.add(panel.createJLabel("mese", fontSize));
+						dataFine.add(mmF);
+						dataFine.add(panel.createJLabel("anno", fontSize));
+						dataFine.add(aaF);
+						dataFine.validate();
+						dataFine.repaint();
+					}
+				});
+			}));
+			dataFine.add(panel.createButton("Durata", 13,e->{
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						dataFine.removeAll();
+						dataFine.add(durata);
+						dataFine.validate();
+						dataFine.repaint();
+						
+					}
+				});
+			}));
 			panelInter.add(dataFine);
 		}
 		
@@ -127,13 +152,19 @@ public class AddExcursionJDialog extends JDialog {
 		
 		//JButton in basso
 		
-		panelBot.add(panelBot.createButton("Annulla", e->{
+		panelBot.add(panelBot.createButton("Annulla", 15,e->{
 			this.dispose();
 		}));
-		panelBot.add(panelBot.createButton("Aggiungi", e->{
+		panelBot.add(panelBot.createButton("Aggiungi", 15,e->{
 			try{
 				unit.addExcursion(getMethod());
-				((EventiRepartoPane)caller).updateEventi();
+				if(type.equals(TypeExcursion.Uscita_Squadriglia)){
+					((EventiSquadrigliaPanel)caller).updateEventi();
+				}
+				else{
+					((EventiRepartoPane)caller).updateEventi();
+				}
+				MyJFrameSingletonImpl.getInstance().setNeedToSave();
 			}catch(Exception l){
 				new WarningNotice(l.getMessage());
 			}
@@ -158,7 +189,7 @@ public class AddExcursionJDialog extends JDialog {
 		if(type.equals(TypeExcursion.Uscita)){
 			exc=ProjectFactoryImpl.getStdExcursion(start, unit.getReparto(), nome.getText());
 		}
-		else if(durata.getText().isEmpty()){
+		else if(perData){
 			
 			end=LocalDate.of(Integer.parseInt(aaF.getText()), Integer.parseInt(mmF.getText()), Integer.parseInt(ggF.getText()));
 			if(type.equals(TypeExcursion.Campo)){
@@ -192,7 +223,7 @@ public class AddExcursionJDialog extends JDialog {
 			}
 			
 		}
-		
+		exc.setPrice(Integer.parseInt(price.getText()));
 		return exc;
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());

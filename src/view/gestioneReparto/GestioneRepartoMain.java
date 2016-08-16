@@ -29,7 +29,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
-		super("Gestione Eventi",MyJFrameSingletonImpl.getInstance().getUnit().getName());
+		super("Gestione Reparto",MyJFrameSingletonImpl.getInstance().getUnit().getName());
 		me=this;
 		
 		/*aggiung il SelectionListener al JTree*/

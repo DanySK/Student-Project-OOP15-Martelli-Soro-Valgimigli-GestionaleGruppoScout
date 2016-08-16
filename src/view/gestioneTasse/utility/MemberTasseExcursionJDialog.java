@@ -62,8 +62,9 @@ public class MemberTasseExcursionJDialog extends JDialog {
 		panelCentral.add(area);
 		panelCentral.add(memPane);
 		panBot.add(panelCentral.createButton("OK", u->{
-			this.dispose();
 			parent.updateMember();
+			this.dispose();
+			
 		}));
 		panel.add(panelCentral,BorderLayout.CENTER);
 		panel.add(panBot,BorderLayout.SOUTH);
@@ -78,12 +79,11 @@ public class MemberTasseExcursionJDialog extends JDialog {
 		.forEach(e->{
 			if(e.getNonPaganti().contains(me)){list.add(e);};
 		});
-		System.out.println(list.size());
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
 			public void run() {
-				memPane.removeAll();;
+				memPane.removeAll();
 				list.stream().forEach(e->{
 					memPane.add(memPane.createButton(e.getName(), k->{
 						try {
@@ -94,14 +94,15 @@ public class MemberTasseExcursionJDialog extends JDialog {
 							new WarningNotice(e1.getMessage());
 						}
 						updateEscursion();
-						memPane.repaint();
-						memPane.validate();
-						scroll.repaint();
-						scroll.validate();
+						
 						
 						
 					}));
 				});
+				memPane.validate();
+				memPane.repaint();
+				scroll.revalidate();
+				scroll.repaint();
 				
 			}
 		});

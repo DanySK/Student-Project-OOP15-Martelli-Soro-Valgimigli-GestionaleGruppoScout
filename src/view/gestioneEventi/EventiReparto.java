@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.stream.Collectors;
 
+import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import control.SortExcursionImpl;
@@ -36,8 +37,8 @@ public class EventiReparto {
 		
 		public EventiRepartoPane() {
 			super(new BorderLayout());
-			this.panelCenter=new MyJPanelImpl(new GridLayout(2,1));
 			this.add(createJLabel("<html><U>Gestione eventi reparto</U></html> ", fontSizeLabel+2), BorderLayout.NORTH);
+			this.panelCenter=new MyJPanelImpl(new GridLayout(2,1));
 			this.panelTopInfo=new MyJPanelImpl(new GridLayout(0, 2));
 			updatePaneInfo();
 			this.panelTopButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
@@ -45,7 +46,7 @@ public class EventiReparto {
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			this.panelCenter.add(panelTopContainer);
 			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.RepartoEventi, myOptional.empty());
-			panelTopButton.add(createButton("<html>Aggiungi<br>campo</html>", 12, e->{
+			panelTopButton.add(createButton("<html>Aggiungi<br>Campo</html>", 12, e->{
 				new AddExcursionJDialog(TypeExcursion.Campo, myOptional.empty(),this);
 			}));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Evento di zona",12,e->{
@@ -56,6 +57,12 @@ public class EventiReparto {
 			}));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Uscita",12,e->{
 				new AddExcursionJDialog(TypeExcursion.Uscita, myOptional.empty(),this);
+			}));
+			panelTopButton.add(createButton("<html>Rimuovi<br>Escursione</html>", 12,e->{
+				JDialog dial =new JDialog();
+				MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
+				MyJPanelImpl bot=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
+				//EditableMemberPanelImpl<Excursion> exc=new MyJ
 			}));
 			this.panelTopContainer.add(panelTopButton, BorderLayout.SOUTH);
 			

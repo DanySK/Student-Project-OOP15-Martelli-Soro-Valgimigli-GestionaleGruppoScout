@@ -20,7 +20,7 @@ public class AttivitaImpl implements Attivita {
 		}
 		
 		public String getName() {
-			return name;
+			return this.name;
 		}
 		
 		public void setName(String name) {

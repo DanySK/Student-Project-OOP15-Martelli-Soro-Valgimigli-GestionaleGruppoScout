@@ -8,24 +8,21 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import control.InfoProjectImpl;
 import control.Unit;
 import control.myUtil.Pair;
-import model.Member;
-import model.Roles;
+import control.myUtil.myOptional;
 import model.Squadron;
 import view.general_utility.WarningNotice;
+import view.gui_utility.SearchElementJDialog.SearchType;
 /**
  * 
  * @author Giovanni Martelli
@@ -110,9 +107,10 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 				panel.add(area);
 				if( editable ) {
 					bot.add(createButton("Ok", t->{
+						
 						String oldText=e.getY();
 						try { /*Utilizzo la reflection*/
-							if(!area.getText().equals(oldText)){
+							if(!area.getText().equals(oldText) && !area.getText().isEmpty()){
 								Method m = squadImpl.getClass().getDeclaredMethod("setNote" + e.getX(), String.class);
 								m.invoke(squadImpl, area.getText());/*chiamata al metodo trovato*/
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
@@ -198,106 +196,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 				new WarningNotice("<html><U>ATTENZIONE!!</U><br>"
 						+ "La carica è già stata assegnata.<br>Continuando e salvando verrà riassegnata.</html>");
 			}
-			JDialog dial=new JDialog();
-			Map<Member,Roles> tmp = squadImpl.getMembri();
-			
-		
-			MyJPanelImpl panelExternal=new MyJPanelImpl(new BorderLayout());
-			MyJPanelImpl panelBotExternal=new MyJPanelImpl();
-			JPanel panelCenterExternal=new JPanel(new GridLayout(2,2));
-			
-			panelCenterExternal.add(panelBotExternal.createJLabel( "Nome:", fontSizeLabel));
-			JTextField nome=new JTextField();
-			panelCenterExternal.add(nome);
-			panelCenterExternal.add(panelBotExternal.createJLabel("Cognome:", fontSizeLabel));
-			JTextField cognome=new JTextField();
-			panelCenterExternal.add(cognome);
-			
-			
-			
-			
-			panelBotExternal.add(panelBotExternal.createButton("Cerca",k->{
-				
-				//se non trovo nessun member salvato con quel nome e cognome avviso utente
-				
-				List<Member>listChef= (!nome.getText().isEmpty()&&!cognome.getText().isEmpty())?
-						tmp.keySet().stream().filter(t->t.getName().equals(nome.getText())&&t.getSurname().equals(cognome.getText()))
-									.collect(Collectors.toList())
-						:(!nome.getText().isEmpty())?tmp.keySet().stream().filter(t->t.getName().equals(nome.getText()))
-									.collect(Collectors.toList())
-									:tmp.keySet().stream().filter(l->l.getSurname().equals(cognome.getText())).collect(Collectors.toList());
-				
-				if(listChef.isEmpty()){
-					new WarningNotice("<html>Nessun membro trovato con quel nome.<br>"
-							+ "Controllare i dati inseriti e riprovare</html>");
-				}
-				else{
-					JDialog dialInternal=new JDialog();
-					MyJPanelImpl panInternal=new MyJPanelImpl(new BorderLayout());
-					panInternal.add(panInternal.createJLabel( "Scegliere la corrispondenza desiderata", fontSizeLabel),BorderLayout.NORTH);
-					MyJPanelImpl panMember= new MyJPanelImpl(new GridLayout(0, 1));
-					MyJPanelImpl paneSelect=new MyJPanelImpl(new GridLayout(0,1));
-					MyJPanelImpl panBot=new MyJPanelImpl(new BorderLayout());
-					panBot.add(panBot.createButton("Annulla", u->{
-						dialInternal.dispose();
-					}),BorderLayout.EAST);
-					panInternal.add(panBot,BorderLayout.SOUTH);
-					panInternal.add(panMember,BorderLayout.CENTER);
-					panInternal.add(paneSelect,BorderLayout.EAST);
-					listChef.stream().forEach(p->{
-							panMember.add(panMember.createJTextArea("Nome: "+p.getName()+System.lineSeparator()+
-								"Cognome: "+p.getSurname()+System.lineSeparator()+
-								"Data di nascita: "+p.getBirthday().toString(), false, fontSizeLabel));
-							paneSelect.add(paneSelect.createButton("Scegli", o->{
-								
-								dialInternal.dispose();
-								String method="set"+i.getX().substring(0, i.getX().length()-2)+((i.getX().equals("Vice: "))?"capoSq":"Sq");
-								try {
-									if(i.getX().equals("Capo: ") && squadImpl.isCapoPresent()){
-										squadImpl.removeCapo();
-									}
-									else if(i.getX().equals("Vice: ") && squadImpl.isVicecapoPresent()){
-										squadImpl.removeVice();
-									}
-									else{
-										if(squadImpl.isTricecapoPresent())squadImpl.removeTrice();
-									}
-									Method mt=unit//ricavo metodo
-											.getContainers().findSquadron(squadName).getClass().getDeclaredMethod(method, Member.class);
-									//lancio metodo
-									mt.invoke(squadImpl,p);
-									MyJFrameSingletonImpl.getInstance().setNeedToSave();//setto che sono avvenuti dei cambiamenti
-									new WarningNotice("<html>Membro trovato e settato come "+i.getX().toLowerCase()+"<br>"
-											+"Ricordati di salvare o perderai le modifiche </html>");
-									updateInfo();
-						
-						}catch(Exception w){
-							
-						}
-												
-							}));
-						
-					});
-					
-					dialInternal.add(panInternal);
-					dialInternal.pack();
-					dialInternal.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
-					dialInternal.setVisible(true);
-							
-				}
-				
-				}));
-			panelBotExternal.add(panelBotExternal.createButton("Annulla", t->dial.dispose()));
-			panelExternal.add(panelCenterExternal, BorderLayout.CENTER);
-			panelExternal.add(panelBotExternal,BorderLayout.SOUTH);
-			panelExternal.add(panelBotExternal.createJLabel( "<html><U><CENTER>Assegna carica</CENTER></U><br>"
-					+ "Per effettuare la ricerca inserire almeno uno dei due campi richiesti</html>", fontSizeLabel),BorderLayout.NORTH);
-				dial.add(panelExternal);
-					
-				dial.pack();
-				dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
-				dial.setVisible(true);
-			
+			new SearchElementJDialog<>(SearchType.AssignCharge,squadName, myOptional.of(i.getX()), this);
 		
 	});
 	}
@@ -306,7 +205,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		this.panelBot.add(button);
 	}
 	
-	private void updateInfo(){
+	public void updateInfo(){
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
