@@ -71,12 +71,12 @@ public class RepartoImpl implements Reparto, Serializable {
 
 	public void spostaMembroInSquadriglia(final Member membro,final Roles ruolo,final Squadron squadriglia)
 			throws ObjectNotContainedException, MemberSexException, ObjectAlreadyContainedException {
-		if (!this.membriSenzaSquadriglia.remove(membro)) {
+		if (!this.membriSenzaSquadriglia.contains(membro)){
 			throw new ObjectNotContainedException();
 		}
-		membro.setId(this.getFreeId());
 		squadriglia.addMembro(membro, ruolo);
-
+		membro.setId(this.getFreeId());
+		this.membriSenzaSquadriglia.remove(membro);
 	}
 
 	public void removeMembro(final Member membro) throws ObjectNotContainedException {
