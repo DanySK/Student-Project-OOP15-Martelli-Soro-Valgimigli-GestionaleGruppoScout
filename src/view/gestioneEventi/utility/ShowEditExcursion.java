@@ -142,7 +142,12 @@ public class ShowEditExcursion extends JDialog{
 								   ((EventiDiZona)exc).getOtherUnits().clear();
 								   
 								   reparti.stream().forEach(t->{
-									   ((EventiDiZona)exc).addOtherUnit(t);
+									   try {
+										((EventiDiZona)exc).addOtherUnit(t);
+									} catch (ObjectAlreadyContainedException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
 								   });
 							   }
 								else{
