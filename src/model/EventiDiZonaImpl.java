@@ -14,76 +14,93 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	private final List<String> altriReparti;
 	private final List<Attivita> attivita = new ArrayList<>();
 
-	public EventiDiZonaImpl(final LocalDate dateStart,final  LocalDate dateEnd,final  Reparto reparto,final  String name,
-			final List<String> altriReparti) throws IllegalDateException {
-		super(name, dateStart, reparto.getAllMember());
-		this.reparto = reparto;
+	public EventiDiZonaImpl(final LocalDate dateStart, final LocalDate dateEnd, final Reparto unit, 
+			final String name, final List<String> otherUnits) throws IllegalDateException {
+		super(name, dateStart, unit.getAllMember());
+		this.reparto = unit;
 		this.setDateEnd(dateEnd);
-		this.altriReparti = altriReparti;
+		this.altriReparti = otherUnits;
 	}
 
-	public EventiDiZonaImpl(final LocalDate dateStart,final  int durata,final  Reparto reparto,final  String name,final  List<String> altriReparti)
-			throws IllegalDateException {
-		super(name, dateStart, reparto.getAllMember());
-		this.reparto = reparto;
-		this.setDateEnd(dateStart.plusDays(durata));
-		this.altriReparti = altriReparti;
+	public EventiDiZonaImpl(final LocalDate dateStart, final int duration, final Reparto unit, final String name,
+			final List<String> otherUnits) throws IllegalDateException {
+		super(name, dateStart, unit.getAllMember());
+		this.reparto = unit;
+		this.setDateEnd(dateStart.plusDays(duration));
+		this.altriReparti = otherUnits;
 	}
-	
-	public Reparto getReparto() {
+
+	@Override
+	public Reparto getUnit() {
 		return reparto;
 	}
 
-	public void setReparto(final Reparto reparto) {
-		this.reparto = reparto;
+	@Override
+	public void setUnit(final Reparto unit) {
+		this.reparto = unit;
 	}
 
-	public List<Attivita> getAllAttivita() {
+	@Override
+	public List<Attivita> getAllActivities() {
 		return this.attivita;
 	}
 
-	public List<Attivita> getAllAttivitaInTime(final LocalTime orario) {
+	@Override
+	public List<Attivita> getAllActivitiesInTime(final LocalTime time) {
 		final List<Attivita> tmp = new ArrayList<>();
 		this.attivita.forEach(e -> {
-			if (!e.haOrarioFine() && e.getOrarioInizio().equals(orario)) {
+			if (!e.haOrarioFine() && e.getOrarioInizio().equals(time)) {
 				tmp.add(e);
 			} else if (e.haOrarioFine()) {
-				if (e.getOrarioFine().isAfter(orario) && e.getOrarioInizio().isBefore(orario)) {
+				if (e.getOrarioFine().isAfter(time) && e.getOrarioInizio().isBefore(time)) {
 					tmp.add(e);
 				}
 			}
 		});
 		return tmp;
 	}
-	public void addAttivita (final Attivita attivita){
-		this.attivita.add(attivita);
+
+	@Override
+	public void addActivity(final Attivita activity) {
+		this.attivita.add(activity);
 	}
-	public void addAttivita (final String nomeAttivita,final LocalTime orarioInizio){
-		this.attivita.add(new AttivitaImpl (nomeAttivita,orarioInizio));
+
+	@Override
+	public void addActivity(final String nameActivity, final LocalTime startTime) {
+		this.attivita.add(new AttivitaImpl(nameActivity, startTime));
 	}
-	public void addAttivita (final String nomeAttivita,final LocalTime orarioInizio,final LocalTime orarioFine){
-		this.attivita.add(new AttivitaImpl (nomeAttivita,orarioInizio,orarioFine));
+
+	@Override
+	public void addActivity(final String nameActivity, final LocalTime startTime, final LocalTime endTime) {
+		this.attivita.add(new AttivitaImpl(nameActivity, startTime, endTime));
 	}
-	public void removeAttivita (final Attivita attivita){
+
+	@Override
+	public void removeActivity(final Attivita activity) {
 		this.attivita.remove(attivita);
 	}
+
+	@Override
 	public List<String> getOtherUnits() {
 		return this.altriReparti;
 	}
 
+	@Override
 	public void addOtherUnit(final String name) {
 		this.altriReparti.add(name);
 	}
 
+	@Override
 	public void removeOtherUnit(final String name) {
 		this.altriReparti.remove(name);
 	}
 
+	@Override
 	public boolean containOtherUnit(final String name) {
 		return this.altriReparti.contains(name);
 	}
 
 	@Override
-	protected void check(final LocalDate dateStart,final  LocalDate dateEnd) throws IllegalDateException {
+	protected void check(final LocalDate dateStart, final LocalDate dateEnd) throws IllegalDateException {
 	}
 }

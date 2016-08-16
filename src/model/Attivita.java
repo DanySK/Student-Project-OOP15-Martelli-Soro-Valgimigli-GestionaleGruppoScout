@@ -1,41 +1,45 @@
 package model;
 
 import java.time.LocalTime;
-
+/**
+ * 
+ * @author Riccardo Soro
+ * a simple class that allow to model an activity
+ */
 public interface Attivita {
 	/**
 	 * 
-	 * @return
+	 * @return the name
 	 */
-	 String getName() ;
+	 String getName();
 	/**
 	 * 
-	 * @param name
+	 * @param name to set
 	 */
-	 void setName(String name) ;
+	 void setName(String name);
 	/**
 	 * 
-	 * @return
+	 * @return the end time
 	 */
 	 LocalTime getOrarioInizio();
 	/**
 	 * 
-	 * @param orarioInizio
+	 * @param startTime to set
 	 */
-	 void setOrarioInizio(LocalTime orarioInizio) ;
+	 void setOrarioInizio(LocalTime startTime);
 	/**
 	 * 
-	 * @return
+	 * @return the start time
 	 */
-	 boolean haOrarioFine ();
+	 boolean haOrarioFine();
 	/**
 	 * 
-	 * @return
+	 * @return the end time
 	 */
 	 LocalTime getOrarioFine();
 	/**
 	 * 
-	 * @param orarioFine
+	 * @param endTime to set
 	 */
-	 void setOrarioFine(LocalTime orarioFine);
+	 void setOrarioFine(LocalTime endTime);
 }

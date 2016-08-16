@@ -52,6 +52,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	}
 
+	@Override
 	public void setTasse(final Integer anno) {
 		if (this.annoTasse.isPresent()) {
 			if (this.annoTasse.get() < anno) {
@@ -62,6 +63,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		}
 	}
 
+	@Override
 	public boolean isTaxPaid(final Integer anno) {
 		if (this.annoTasse.isPresent()) {
 			if (this.annoTasse.get().equals(anno)) {
@@ -71,6 +73,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return false;
 	}
 
+	@Override
 	public void addCompetence(final String competence) throws ObjectAlreadyContainedException {
 		if (this.competence.contains(competence)) {
 			throw new ObjectAlreadyContainedException();
@@ -78,18 +81,22 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.competence.add(competence);
 	}
 
+	@Override
 	public List<String> getCompetence() {
 		return this.competence;
 	}
 
+	@Override
 	public List<Specialita> getSpecialities() {
 		return this.specialities;
 	}
 
+	@Override
 	public myOptional<Tutor> getTutor() {
 		return this.tutor;
 	}
 
+	@Override
 	public void setTutorMail(final String mail) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
@@ -97,6 +104,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.tutor.get().setEmail(mail);
 	}
 
+	@Override
 	public myOptional<String> getTutorMail() {
 		if (this.tutor.isPresent()) {
 			if (this.tutor.get().getEmail().isPresent()) {
@@ -106,6 +114,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return myOptional.empty();
 	}
 
+	@Override
 	public void setTutorName(final String name) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
@@ -114,6 +123,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	}
 
+	@Override
 	public myOptional<String> getTutorName() {
 		if (this.tutor.isPresent()) {
 			if (this.tutor.get().getName().isPresent()) {
@@ -123,6 +133,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return myOptional.empty();
 	}
 
+	@Override
 	public void setTutorPhone(final Long phone) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
@@ -131,6 +142,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	}
 
+	@Override
 	public myOptional<Long> getTutorPhone() {
 		if (this.tutor.isPresent()) {
 			if (this.tutor.get().getPhone().isPresent()) {
@@ -146,6 +158,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		}
 	}
 
+	@Override
 	public void addSpecialities(final Specialita specialities) throws ObjectAlreadyContainedException {
 		if (this.containsSpecialities(specialities)) {
 			throw new ObjectAlreadyContainedException();
@@ -153,48 +166,59 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.specialities.add(specialities);
 	}
 
+	@Override
 	public boolean containsSpecialities(final Specialita specialities) {
 		return this.specialities.contains(specialities);
 	}
 
+	@Override
 	public void removeCompetence(final String competence) throws ObjectNotContainedException {
-		if (! this.competence.remove(competence)) {
+		if (!this.competence.remove(competence)) {
 			throw new ObjectNotContainedException();
 		}
 	}
 
+	@Override
 	public boolean isContainingCompetence(final String competence) {
 		return this.competence.contains(competence);
 	}
 
+	@Override
 	public Boolean getPromise() {
 		return this.promise;
 	}
 
+	@Override
 	public void setPromise(final boolean promessa) {
 		this.promise = promessa;
 	}
 
+	@Override
 	public boolean hasTotem() {
 		return totem.isPresent();
 	}
 
+	@Override
 	public void setTotem(final String totem) {
 		this.totem = myOptional.of(totem);
 	}
 
+	@Override
 	public String getTotem() {
 		return this.totem.get();
 	}
 
+	@Override
 	public int getId() {
 		return this.identificatore;
 	}
 
+	@Override
 	public void setId(final int id) {
 		this.identificatore = id;
 	}
 
+	@Override
 	public boolean isComplete() {
 		return this.tutor.isPresent();
 	}

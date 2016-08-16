@@ -11,7 +11,7 @@ import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
-public abstract class ExcursionImpl implements Excursion,Serializable {
+public abstract class ExcursionImpl implements Excursion, Serializable {
 	/**
 	 * 
 	 */
@@ -23,51 +23,60 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	private myOptional<String> place;
 	private final List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
 
-	public ExcursionImpl(final LocalDate dateStart,final String name) throws IllegalDateException {
-		if (dateStart.isBefore(LocalDate.now())){
+	public ExcursionImpl(final LocalDate dateStart, final String name) throws IllegalDateException {
+		if (dateStart.isBefore(LocalDate.now())) {
 			throw new IllegalDateException();
 		}
-		this.dateStart=dateStart;
+		this.dateStart = dateStart;
 		this.prize = myOptional.empty();
 		this.dateEnd = myOptional.empty();
 		this.place = myOptional.empty();
-		this.name=name;
+		this.name = name;
 	}
-	
-	public ExcursionImpl(final String name,final LocalDate dateStart,final  List<Member> partecipanti) throws IllegalDateException {
-		
-		this(dateStart,name);
+
+	public ExcursionImpl(final String name, final LocalDate dateStart, final List<Member> partecipanti)
+			throws IllegalDateException {
+
+		this(dateStart, name);
 		partecipanti.forEach(e -> {
 			this.partecipanti.add(new Pair<>(e, false));
 		});
 	}
-	protected abstract void check(LocalDate dateStart,LocalDate dateEnd)throws IllegalDateException;
+
+	protected abstract void check(LocalDate dateStart, LocalDate dateEnd) throws IllegalDateException;
+
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(final String name) {
 		this.name = name;
 	}
 
-	public void addPartecipante(final Member partecipante,final  Boolean pagato) throws ObjectAlreadyContainedException {
-		if (this.containMember(partecipante)){
-			throw new ObjectAlreadyContainedException ();
+	@Override
+	public void addPartecipante(final Member partecipante, final Boolean pagato)
+			throws ObjectAlreadyContainedException {
+		if (this.containMember(partecipante)) {
+			throw new ObjectAlreadyContainedException();
 		}
 		this.partecipanti.add(new Pair<>(partecipante, pagato));
 	}
 
+	@Override
 	public void removePartecipante(final Member partecipante) throws ObjectNotContainedException {
-		if (!this.containMember(partecipante)){
+		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
-		if(this.isPagante(partecipante)){
-			this.partecipanti.remove(new Pair<>(partecipante,true));
-		}else{
-			this.partecipanti.remove(new Pair<>(partecipante,false));
+		if (this.isPagante(partecipante)) {
+			this.partecipanti.remove(new Pair<>(partecipante, true));
+		} else {
+			this.partecipanti.remove(new Pair<>(partecipante, false));
 		}
 	}
 
+	@Override
 	public List<Member> getNonPaganti() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
@@ -78,6 +87,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
+	@Override
 	public List<Member> getAllPartecipanti() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
@@ -86,6 +96,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
+	@Override
 	public List<Member> getAllPaganti() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
@@ -96,8 +107,9 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
+	@Override
 	public void setPagante(final Member partecipante) throws ObjectNotContainedException {
-		if (! this.containMember(partecipante)){
+		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
 		this.partecipanti.forEach(e -> {
@@ -107,6 +119,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		});
 	}
 
+	@Override
 	public boolean containMember(final Member partecipante) {
 		for (final Pair<Member, Boolean> e : this.partecipanti) {
 			if (e.getX().equals(partecipante)) {
@@ -116,8 +129,9 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return false;
 	}
 
+	@Override
 	public boolean isPagante(final Member partecipante) throws ObjectNotContainedException {
-		if (! this.containMember(partecipante)) {
+		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
 		for (final Pair<Member, Boolean> e : this.partecipanti) {
@@ -128,60 +142,69 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return false;
 	}
 
+	@Override
 	public Integer getPrize() {
 		return this.prize.get();
 	}
 
+	@Override
 	public String getPlace() {
 		return this.place.get();
 	}
 
+	@Override
 	public LocalDate getDateStart() {
 		return this.dateStart;
 	}
 
+	@Override
 	public LocalDate getDateEnd() {
 		return this.dateEnd.get();
 	}
 
+	@Override
 	public void setPrice(final Integer prize) {
-		if (prize.compareTo(0) < 0){
+		if (prize.compareTo(0) < 0) {
 			throw new IllegalArgumentException();
 		}
 		this.prize = myOptional.of(prize);
 	}
 
+	@Override
 	public void setPlace(final String place) {
 		this.place = myOptional.of(place);
 	}
 
+	@Override
 	public void setDateStart(final LocalDate dateStart) throws IllegalDateException {
-		if (! dateStart.isAfter(LocalDate.now())){
+		if (!dateStart.isAfter(LocalDate.now())) {
 			throw new IllegalDateException();
 		}
 		this.dateStart = dateStart;
 	}
 
+	@Override
 	public void setDateEnd(final LocalDate dateEnd) throws IllegalDateException {
-		if (! dateEnd.isAfter(LocalDate.now())){
+		if (!dateEnd.isAfter(LocalDate.now())) {
 			throw new IllegalDateException();
 		}
-		if (! dateEnd.isAfter(this.dateStart)){
+		if (!dateEnd.isAfter(this.dateStart)) {
 			throw new IllegalDateException();
 		}
 		this.dateEnd = myOptional.of(dateEnd);
 	}
 
-	public List<Member> getAllBirthdays(){
-		final List<Member> tmp=new ArrayList<>();
-		partecipanti.forEach(e->{
-			if (this.dateEnd.isPresent()){
-				if (e.getX().getBirthday().getDayOfYear()>=this.dateStart.getDayOfYear()&&
-						e.getX().getBirthday().getDayOfYear()<=this.dateEnd.get().getDayOfYear()){
+	@Override
+	public List<Member> getAllBirthdays() {
+		final List<Member> tmp = new ArrayList<>();
+		partecipanti.forEach(e -> {
+			if (this.dateEnd.isPresent()) {
+				if (e.getX().getBirthday().getDayOfYear() >= this.dateStart.getDayOfYear()
+						&& e.getX().getBirthday().getDayOfYear() <= this.dateEnd.get().getDayOfYear()) {
 					tmp.add(e.getX());
 				}
-			}else{
-				if (e.getX().getBirthday().getDayOfYear()==this.dateStart.getDayOfYear()){
+			} else {
+				if (e.getX().getBirthday().getDayOfYear() == this.dateStart.getDayOfYear()) {
 					tmp.add(e.getX());
 				}
 			}

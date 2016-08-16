@@ -2,82 +2,86 @@ package model;
 
 import java.time.LocalTime;
 import java.util.List;
-
+/**
+ * 
+ * @author Riccardo Soro
+ *a class that allow to model a local event and its participants
+ */
 public interface EventiDiZona extends Excursion {
 	/**
 	 * 
-	 * @return
+	 * @return the unit of the event
 	 */
-	 Reparto getReparto();
+	 Reparto getUnit();
 
 	/**
 	 * 
-	 * @param reparto
+	 * @param unit to set
 	 */
-	 void setReparto(Reparto reparto);
+	 void setUnit(Reparto unit);
 
 	/**
 	 * 
-	 * @return
+	 * @return all activities
 	 */
-	 List<Attivita> getAllAttivita();
+	 List<Attivita> getAllActivities();
 
 	/**
 	 * 
-	 * @param orario
-	 * @return
+	 * @param time of the activities
+	 * @return all activities in that time
 	 */
-	 List<Attivita> getAllAttivitaInTime(LocalTime orario);
+	 List<Attivita> getAllActivitiesInTime(LocalTime time);
 
 	/**
 	 * 
-	 * @param attivita
+	 * @param activity to add
 	 */
-	 void addAttivita(Attivita attivita);
+	 void addActivity(Attivita activity);
 
 	/**
 	 * 
-	 * @param nomeAttivita
-	 * @param orarioInizio
+	 * @param nameActivity to add
+	 * @param startTime of the activity
 	 */
-	 void addAttivita(String nomeAttivita, LocalTime orarioInizio);
+	 void addActivity(String nameActivity, LocalTime startTime);
 
 	/**
 	 * 
-	 * @param nomeAttivita
-	 * @param orarioInizio
-	 * @param orarioFine
+	 * @param nameActivity to add
+	 * @param startTime of the activity
+	 * @param endTime of the activity
 	 */
-	 void addAttivita(String nomeAttivita, LocalTime orarioInizio, LocalTime orarioFine);
+	 void addActivity(String nameActivity, LocalTime startTime, LocalTime endTime);
 
 	/**
 	 * 
-	 * @param attivita
+	 * @param activity to remove
 	 */
-	 void removeAttivita(Attivita attivita);
+	 void removeActivity(Attivita activity);
 
 	/**
 	 * 
-	 * @return
+	 * @return the name of the other units
 	 */
 	 List<String> getOtherUnits();
 
 	/**
 	 * 
-	 * @param name
+	 * @param name of the unit to add
 	 */
 	 void addOtherUnit(String name);
 
 	/**
 	 * 
-	 * @param name
+	 * @param name of the unit to remove
 	 */
 	 void removeOtherUnit(String name);
 
 	/**
 	 * 
-	 * @param name
-	 * @return
+	 * @param name of the unit
+	 * @return true if the unit will take part to the event, however false
 	 */
 	 boolean containOtherUnit(String name);
 }

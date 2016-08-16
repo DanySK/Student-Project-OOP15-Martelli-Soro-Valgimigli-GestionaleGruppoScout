@@ -8,32 +8,38 @@ public class CampoImpl extends ExcursionImpl implements Campo {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
-	
-	
-	public CampoImpl (final LocalDate dateStart,final LocalDate dateEnd,final Reparto reparto,final String name) throws IllegalDateException{
-		super (name,dateStart,reparto.getAllMember());
+
+	public CampoImpl(final LocalDate dateStart, final LocalDate dateEnd, final Reparto reparto, final String name)
+			throws IllegalDateException {
+		super(name, dateStart, reparto.getAllMember());
 		this.check(dateStart, dateEnd);
-		this.reparto=reparto;
+		this.reparto = reparto;
 		this.setDateEnd(dateEnd);
 	}
-	public CampoImpl (final LocalDate dateStart,final int durata,final Reparto reparto,final String name) throws IllegalDateException{
-		super (name,dateStart,reparto.getAllMember());
-		this.check(dateStart, dateStart.plusDays(durata-1));
-		this.reparto=reparto;
+
+	public CampoImpl(final LocalDate dateStart, final int durata, final Reparto reparto, final String name)
+			throws IllegalDateException {
+		super(name, dateStart, reparto.getAllMember());
+		this.check(dateStart, dateStart.plusDays(durata - 1));
+		this.reparto = reparto;
 		this.setDateEnd(dateStart.plusDays(durata));
 	}
+
+	@Override
 	public Reparto getReparto() {
 		return reparto;
 	}
 
+	@Override
 	public void setReparto(final Reparto reparto) {
 		this.reparto = reparto;
 	}
+
 	@Override
-	final protected void check(final LocalDate dateStart,final LocalDate dateEnd) throws IllegalDateException {
-		if (dateStart.plusDays(2).isAfter(dateEnd)){
+	final protected void check(final LocalDate dateStart, final LocalDate dateEnd) throws IllegalDateException {
+		if (dateStart.plusDays(2).isAfter(dateEnd)) {
 			throw new IllegalDateException();
 		}
-		
+
 	}
 }

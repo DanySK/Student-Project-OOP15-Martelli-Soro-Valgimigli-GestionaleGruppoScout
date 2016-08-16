@@ -9,12 +9,9 @@ import model.exception.ObjectNotContainedException;
 
 /**
  * @author riccardo
- *
+ * a class to model an excursion
  */
-/**
- * An interface modelling a excursion
- *
- */
+
 public interface Excursion {
 	/**
 	 * 
@@ -66,7 +63,7 @@ public interface Excursion {
 	 * set the end date excursion
 	 * 
 	 * @param dateEnd
-	 * @throws IllegalDateException
+	 * @throws IllegalDateException if the date is not permitted
 	 */
 	 void setDateEnd(LocalDate dateEnd) throws IllegalDateException;
 
