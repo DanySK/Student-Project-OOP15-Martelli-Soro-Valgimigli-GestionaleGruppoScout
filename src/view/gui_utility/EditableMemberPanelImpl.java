@@ -155,6 +155,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				List<Excursion> tmp= new ArrayList<>();
 				MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 				.forEach(e->{
+					System.out.println(e.getNotPaied());
 					if(e.getNotPaied().contains(i)){tmp.add(e);};
 				});
 				if(tmp.size()>0){

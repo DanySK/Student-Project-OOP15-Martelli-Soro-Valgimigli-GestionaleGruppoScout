@@ -169,11 +169,13 @@ public class AddExcursionJDialog extends JDialog {
 					((EventiRepartoPane)caller).updateEventi();
 				}
 				MyJFrameSingletonImpl.getInstance().setNeedToSave();
+				this.dispose();
+				MyJFrameSingletonImpl.getInstance().setNeedToSave();
 			}catch(Exception l){
 				new WarningNotice(l.getMessage());
+				
 			}
-			this.dispose();
-			MyJFrameSingletonImpl.getInstance().setNeedToSave();
+			
 			
 			
 		}));
@@ -186,8 +188,8 @@ public class AddExcursionJDialog extends JDialog {
 		this.setVisible(true);
 		
 	}
-	public Excursion getMethod() {
-		try{
+	public Excursion getMethod() throws Exception {
+		
 		Excursion exc;
 		start=LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText()));
 		if(type.equals(TypeExcursion.Uscita)){
@@ -230,9 +232,7 @@ public class AddExcursionJDialog extends JDialog {
 		exc.setPlace(location.getText());
 		exc.setPrice(Integer.parseInt(price.getText()));
 		return exc;
-		}catch(Exception e){
-			new WarningNotice(e.getMessage());
-		}
-		return null;
+		
+		
 	}
 }
