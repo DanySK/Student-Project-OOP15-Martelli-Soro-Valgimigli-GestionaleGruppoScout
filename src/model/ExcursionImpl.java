@@ -88,7 +88,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public List<Member> getAllPatyecipants() {
+	public List<Member> getAllPartecipants() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			tmp.add(e.getX());

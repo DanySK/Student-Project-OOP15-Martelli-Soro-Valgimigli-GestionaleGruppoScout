@@ -94,7 +94,7 @@ public class InfoProjectImpl implements InfoProject {
 		info += "Nome uscita: \t" + e.getName();
 		info += "\nDove: \t" + e.getPlace();
 		info += "\nPrezzo: \t" + e.getPrize();
-		info += "\n Partecipanti: " + e.getAllPatyecipants().stream()
+		info += "\n Partecipanti: " + e.getAllPartecipants().stream()
 															.map(s -> s.getName() + " " + s.getSurname())
 															.collect(Collectors.joining());
 		info += "\nNon hanno pagato: " + e.getNotPaied().stream()
@@ -133,7 +133,7 @@ public class InfoProjectImpl implements InfoProject {
 		info.put("Dove", value.subList(1, 2));
 		info.put("Prezzo", value.subList(2, 3));
 		info.put("Data", value.subList(3, 4));
-		info.put("Partecipanti", e.getAllPatyecipants().stream()
+		info.put("Partecipanti", e.getAllPartecipants().stream()
 														.map(s -> s.getName() + " " + s.getSurname())
 														.collect(Collectors.toList()));
 		info.put("NonPaganti", e.getNotPaied().stream()
