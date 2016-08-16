@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 
 import control.Unit;
 import control.ProjectFactoryImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Member;
 import model.Roles;
 import view.general_utility.WarningNotice;
@@ -30,7 +30,7 @@ public class AddMemberJDialog extends JDialog{
 	private final int fontSizeLabel=19;
 	private int fontSize=15;
 	private final EditableMemberPanelImpl<Member> panelParent;
-	public AddMemberJDialog(Unit unit,EditableMemberPanelImpl<Member> parent, myOptional<String> squadName ){
+	public AddMemberJDialog(Unit unit,EditableMemberPanelImpl<Member> parent, MyOptional<String> squadName ){
 		super();
 		this.panelParent=parent;
 		
@@ -112,7 +112,7 @@ public class AddMemberJDialog extends JDialog{
 							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected())
 					:ProjectFactoryImpl.getMember(name.getText(), surname.getText(), 
 							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected(),
-							myOptional.of(tutorName.getText()), myOptional.of(tutorMail.getText()), myOptional.of(Long.parseLong(tutorPhone.getText())));
+							MyOptional.of(tutorName.getText()), MyOptional.of(tutorMail.getText()), MyOptional.of(Long.parseLong(tutorPhone.getText())));
 				/*aggiungo il membro senza la squadriglia*/
 				unit.addMember(mem);
 				/*se siamo in GestioneSquadriglia aggiungo il membro a tale squadriglia*/

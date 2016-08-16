@@ -16,7 +16,7 @@ import javax.swing.SwingUtilities;
 
 import control.Unit;
 import control.ProjectFactoryImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Excursion;
 import view.general_utility.WarningNotice;
 import view.gestioneEventi.EventiReparto.EventiRepartoPane;
@@ -60,7 +60,7 @@ public class AddExcursionJDialog extends JDialog {
 	private LocalDate end;
 	private String squadName;
 	
-	public AddExcursionJDialog(TypeExcursion type, myOptional<String> squadName, MyJPanel caller){
+	public AddExcursionJDialog(TypeExcursion type, MyOptional<String> squadName, MyJPanel caller){
 		super();
 		if(squadName.isPresent()){
 			this.squadName=squadName.get();

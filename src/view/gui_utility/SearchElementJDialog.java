@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import control.InfoProjectImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Member;
 import model.MemberImpl;
 import model.Roles;
@@ -53,7 +53,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 	private String charge;
 	private JPanel parent;
 	Squadron squadImpl;
-	public SearchElementJDialog(SearchType t,E param,myOptional<String> charge, JPanel parent){
+	public SearchElementJDialog(SearchType t,E param,MyOptional<String> charge, JPanel parent){
 		super();
 		this.elem=param;
 		this.type=t;

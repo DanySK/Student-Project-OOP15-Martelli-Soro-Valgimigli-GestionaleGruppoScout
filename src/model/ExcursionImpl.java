@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import control.myUtil.Pair;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
@@ -17,11 +17,11 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private myOptional<Integer> prize;
+	private MyOptional<Integer> prize;
 	private LocalDate dateStart;
 	private String name;
-	private myOptional<LocalDate> dateEnd;
-	private myOptional<String> place;
+	private MyOptional<LocalDate> dateEnd;
+	private MyOptional<String> place;
 	private List<Pair<Member, Boolean>> partecipanti;
 
 	public ExcursionImpl(final LocalDate dateStart, final String name) throws IllegalDateException {
@@ -30,9 +30,9 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 		}
 		this.partecipanti = new ArrayList<>();
 		this.dateStart = dateStart;
-		this.prize = myOptional.empty();
-		this.dateEnd = myOptional.empty();
-		this.place = myOptional.empty();
+		this.prize = MyOptional.empty();
+		this.dateEnd = MyOptional.empty();
+		this.place = MyOptional.empty();
 		this.name = name;
 	}
 
@@ -166,12 +166,12 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 		if (prize.compareTo(0) < 0) {
 			throw new IllegalArgumentException();
 		}
-		this.prize = myOptional.of(prize);
+		this.prize = MyOptional.of(prize);
 	}
 
 	@Override
 	public void setPlace(final String place) {
-		this.place = myOptional.of(place);
+		this.place = MyOptional.of(place);
 	}
 
 	@Override
@@ -190,7 +190,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 		if (!dateEnd.isAfter(this.dateStart)) {
 			throw new IllegalDateException();
 		}
-		this.dateEnd = myOptional.of(dateEnd);
+		this.dateEnd = MyOptional.of(dateEnd);
 	}
 
 	@Override

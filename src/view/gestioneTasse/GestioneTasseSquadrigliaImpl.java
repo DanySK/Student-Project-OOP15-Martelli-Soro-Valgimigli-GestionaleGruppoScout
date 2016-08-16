@@ -3,7 +3,7 @@ package view.gestioneTasse;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Member;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
@@ -31,8 +31,8 @@ public class GestioneTasseSquadrigliaImpl  {
 			this.panelSplitted=new MyJPanelImpl(new GridLayout(2, 1));
 			this.panelIscrizione=new MyJPanelImpl(new BorderLayout());
 			this.panelEscursioni=new MyJPanelImpl(new BorderLayout());
-			panelIscrizione.add(new EditableMemberPanelImpl<Member>(Type.TasseSquadriglia, myOptional.of(squadName)),BorderLayout.CENTER);
-			panelEscursioni.add(new EditableMemberPanelImpl<Member>(Type.TasseSquadrigliaEscursioni, myOptional.of(squadName)),BorderLayout.CENTER);
+			panelIscrizione.add(new EditableMemberPanelImpl<Member>(Type.TasseSquadriglia, MyOptional.of(squadName)),BorderLayout.CENTER);
+			panelEscursioni.add(new EditableMemberPanelImpl<Member>(Type.TasseSquadrigliaEscursioni, MyOptional.of(squadName)),BorderLayout.CENTER);
 			panelSplitted.add(panelIscrizione);
 			panelSplitted.add(panelEscursioni);
 			this.add(panelSplitted,BorderLayout.CENTER);

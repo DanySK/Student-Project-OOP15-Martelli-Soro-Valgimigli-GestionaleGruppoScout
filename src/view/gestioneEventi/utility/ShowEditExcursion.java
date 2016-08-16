@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import control.InfoProjectImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.EventiDiZona;
 import model.Excursion;
 import model.Gemellaggi;
@@ -96,7 +96,7 @@ public class ShowEditExcursion extends JDialog{
 					JDialog dial = new JDialog();
 					MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 					EditableMemberPanelImpl<Excursion> panCenter= new EditableMemberPanelImpl<Excursion>
-						(EditableMemberPanelImpl.Type.EventoPartecipanti,myOptional.of(exc.getName()));
+						(EditableMemberPanelImpl.Type.EventoPartecipanti,MyOptional.of(exc.getName()));
 					panel.add(panCenter);
 					dial.add(panel);
 					dial.setPreferredSize(MyJFrameSingletonImpl.getInstance().getContenentPane().getSize());
@@ -105,7 +105,7 @@ public class ShowEditExcursion extends JDialog{
 					dial.setVisible(true);
 				}));
 				panelEdit.add(panelCenter.createButton("<html>Aggiungi/<br>Rimuovi</html>",10,e->{
-					new SearchElementJDialog<>(SearchType.addMemberExc,exc.getName(), myOptional.empty(), null);
+					new SearchElementJDialog<>(SearchType.addMemberExc,exc.getName(), MyOptional.empty(), null);
 				}));
 				
 				if(exc instanceof EventiDiZona || exc instanceof GemellaggiImpl ){

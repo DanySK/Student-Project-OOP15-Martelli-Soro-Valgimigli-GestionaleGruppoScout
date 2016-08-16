@@ -14,7 +14,7 @@ import java.util.function.Predicate;
  * @param <E>
  */
 
-public class myOptional <E> implements Serializable {
+public class MyOptional <E> implements Serializable {
 	/**
 	 * 
 	 */
@@ -26,8 +26,8 @@ public class myOptional <E> implements Serializable {
 	 * static Method that returns a empty optional Object
 	 * @return
 	 */
-	public static <E> myOptional<E> empty(){
-		myOptional<E> opt = new myOptional<>();
+	public static <E> MyOptional<E> empty(){
+		MyOptional<E> opt = new MyOptional<>();
 		opt.setElement(null);
 		opt.isPresent = false;
 		return opt;
@@ -38,11 +38,11 @@ public class myOptional <E> implements Serializable {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public static <E> myOptional<E> of(E value) throws IllegalArgumentException {
+	public static <E> MyOptional<E> of(E value) throws IllegalArgumentException {
 		if(value == null){
 			throw new IllegalArgumentException();
 		}
-		myOptional<E> opt = new myOptional<>();
+		MyOptional<E> opt = new MyOptional<>();
 		opt.setElement(value);
 		opt.isPresent = true;
 		return opt;
@@ -53,14 +53,14 @@ public class myOptional <E> implements Serializable {
 	 * @return
 	 */
 	
-	public static <E> myOptional<E> ofNullable(E value){
+	public static <E> MyOptional<E> ofNullable(E value){
 		if(value == null){
-			myOptional<E> opt = new myOptional<>();
+			MyOptional<E> opt = new MyOptional<>();
 			opt.setElement(null);
 			opt.isPresent = false;
 			return opt;
 		}else{
-			myOptional<E> opt = new myOptional<>();
+			MyOptional<E> opt = new MyOptional<>();
 			opt.setElement(value);
 			opt.isPresent = true;
 			return opt;

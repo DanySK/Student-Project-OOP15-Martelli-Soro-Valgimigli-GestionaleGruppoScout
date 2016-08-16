@@ -1,6 +1,6 @@
 package model;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 
 public interface Tutor {
 	
@@ -8,17 +8,17 @@ public interface Tutor {
 	 * 
 	 * @return myOptional<Sting> contained the name of the tutor
 	 */
-	myOptional<String> getName();
+	MyOptional<String> getName();
 	/**
 	 * 
 	 * @return myOptional<String> contained the email of the tutor
 	 */
-	myOptional<String> getEmail();
+	MyOptional<String> getEmail();
 	/**
 	 * 
 	 * @return  myOptional<Long> contained the phone of the tutor
 	 */
-	myOptional<Long> getPhone();
+	MyOptional<Long> getPhone();
 	/**
 	 * 
 	 * @param name of the tutor

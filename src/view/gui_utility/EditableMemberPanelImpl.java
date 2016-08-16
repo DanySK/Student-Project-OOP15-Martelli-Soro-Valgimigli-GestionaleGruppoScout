@@ -23,7 +23,7 @@ import javax.swing.SwingUtilities;
 import control.SortExcursion;
 import control.SortExcursionImpl;
 import control.SortMemberImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Campo;
 import model.EventiDiZona;
 import model.Excursion;
@@ -71,7 +71,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	private final RepartoImpl rep;
 	private Map<Member,List<Excursion>> mapPagamenti=new HashMap<>();
 	@SuppressWarnings("unchecked")
-	public EditableMemberPanelImpl(Type t, myOptional<String> squadName){
+	public EditableMemberPanelImpl(Type t, MyOptional<String> squadName){
 		super(new BorderLayout());
 		this.type=t;
 		this.me=this;
@@ -130,10 +130,10 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			}));
 			sortPanel.add(createButton("<html>Cerca<br>Membro<hrml>", e->{
 				if(type.equals(Type.OverviewSquadriglia)){
-					new SearchElementJDialog<>(SearchType.ShowMember, squadName.get(), myOptional.empty(), this);
+					new SearchElementJDialog<>(SearchType.ShowMember, squadName.get(), MyOptional.empty(), this);
 				}
 				if(type.equals(Type.GestioneSquadriglia)){
-					new SearchElementJDialog<>(SearchType.EditMember, squadName.get(), myOptional.empty(), this);
+					new SearchElementJDialog<>(SearchType.EditMember, squadName.get(), MyOptional.empty(), this);
 				}
 			}));
 		}
@@ -211,11 +211,11 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 							,  16,e->{
 								if(type.equals(Type.GestioneSquadriglia)){
 						(new AddMemberJDialog(MyJFrameSingletonImpl.getInstance().getUnit()
-								,(EditableMemberPanelImpl<Member>)me, myOptional.of(squadImpl.getNome()))).setVisible(true);
+								,(EditableMemberPanelImpl<Member>)me, MyOptional.of(squadImpl.getNome()))).setVisible(true);
 								}
 								else{
 									(new AddMemberJDialog(MyJFrameSingletonImpl.getInstance().getUnit()
-											,(EditableMemberPanelImpl<Member>)me,myOptional.empty())).setVisible(true);
+											,(EditableMemberPanelImpl<Member>)me,MyOptional.empty())).setVisible(true);
 								}
 					})));
 				}
