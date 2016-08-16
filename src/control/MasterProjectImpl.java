@@ -91,7 +91,7 @@ public class MasterProjectImpl implements MasterProject {
 		this.directoryToSave = this.getDirectoryToSave();
 		final String files = this.directoryToSave + System.getProperty("file.separator") + unit.getName() + PROJECT_EXTENSION;
 		final File worker = new File(files);
-		if(! worker.exists() || ! worker.createNewFile()){
+		if(! worker.exists() && ! worker.createNewFile()){
 				throw new ProjectFilesCreationException();
 		}
 		final ObjectOutputStream saver = new ObjectOutputStream(new FileOutputStream(files));

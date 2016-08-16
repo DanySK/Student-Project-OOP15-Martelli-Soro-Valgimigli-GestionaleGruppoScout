@@ -10,10 +10,7 @@ import control.myUtil.myOptional;
 import model.Campo;
 import model.CampoImpl;
 import model.Capo;
-
 import model.CapoImpl;
-
-
 import model.EventiDiZona;
 import model.EventiDiZonaImpl;
 import model.ExcursionImpl;
@@ -34,7 +31,6 @@ import model.UscitaSquadrigliaImpl;
 import model.exception.IllegalDateException;
 import model.exception.IllegalPhoneNumberException;
 import model.exception.IllegalYearsException;
-import view.general_utility.WarningNotice;
 
 public class ProjectFactoryImpl implements Serializable {
 	
