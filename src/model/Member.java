@@ -54,24 +54,13 @@ public interface Member extends Person {
 	 */
 	String getName();
 
-	/**
-	 * Add a competence.
-	 * 
-	 * @return false if the competent is already contained
-	 * @param competence
-	 * @throws ObjectAlreadyContainedException
-	 */
-	void addCompetence(String competence) throws ObjectAlreadyContainedException;
 
-	/**
-	 * @return a list of the competences of the member
-	 */
-	List<String> getCompetence();
+	
 
 	/**
 	 * @return a list of the specialities of the member
 	 */
-	List<Specialita> getSpecialities();
+	List<String> getSpecialities();
 
 	/**
 	 * Remove a specialities from the member
@@ -80,7 +69,7 @@ public interface Member extends Person {
 	 * @return false if the specialities is not contained
 	 * @throws ObjectNotContainedException
 	 */
-	void removeSpecialities(Specialita specialities) throws ObjectNotContainedException;
+	void removeSpecialities(String specialities) throws ObjectNotContainedException;
 
 	/**
 	 * Add a speciality.
@@ -90,7 +79,7 @@ public interface Member extends Person {
 	 * @throws ObjectAlreadyContainedException
 	 */
 
-	void addSpecialities(Specialita specialities) throws ObjectAlreadyContainedException;
+	void addSpecialities(String specialities) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
@@ -98,24 +87,11 @@ public interface Member extends Person {
 	 * @return true if the member contain the aspecialities
 	 */
 
-	boolean containsSpecialities(Specialita specialities);
+	boolean containsSpecialities(String specialities);
 
-	/**
-	 * Remove a competence from the member
-	 * 
-	 * @param competence
-	 * @throws ObjectNotContainedException
-	 */
+	
 
-	void removeCompetence(String competence) throws ObjectNotContainedException;
-
-	/**
-	 * 
-	 * @param competence
-	 * @return true if the member contain the competence
-	 */
-
-	boolean isContainingCompetence(String competence);
+	
 
 	/**
 	 * 
