@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.exception.IllegalDateException;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
 public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 
@@ -66,18 +68,31 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	}
 
 	@Override
-	public void addActivity(final String nameActivity, final LocalTime startTime) {
+	public void addActivity(final String nameActivity, final LocalTime startTime) throws ObjectAlreadyContainedException {
+		for (final Attivita e:this.attivita){
+			if (e.getName().equals(nameActivity)){
+				throw new ObjectAlreadyContainedException();
+			}
+		}
 		this.attivita.add(new AttivitaImpl(nameActivity, startTime));
 	}
 
 	@Override
-	public void addActivity(final String nameActivity, final LocalTime startTime, final LocalTime endTime) {
+	public void addActivity(final String nameActivity, final LocalTime startTime, final LocalTime endTime) throws ObjectAlreadyContainedException {
+		for (final Attivita e:this.attivita){
+			if (e.getName().equals(nameActivity)){
+				throw new ObjectAlreadyContainedException();
+			}
+		}
 		this.attivita.add(new AttivitaImpl(nameActivity, startTime, endTime));
 	}
 
 	@Override
-	public void removeActivity(final Attivita activity) {
-		this.attivita.remove(attivita);
+	public void removeActivity(final Attivita activity) throws ObjectNotContainedException  {
+		if (! this.attivita.contains(activity)){
+			throw new ObjectNotContainedException();
+		}
+		this.attivita.remove(activity);
 	}
 
 	@Override

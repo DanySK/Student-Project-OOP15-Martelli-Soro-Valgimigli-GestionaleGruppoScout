@@ -30,7 +30,7 @@ public class CheckerImpl implements Checker, Serializable {
 
 	@Override
 	public List<Member> noPaied(final Excursion exc) {
-		return exc.getNonPaganti();
+		return exc.getNotPaied();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CheckerImpl implements Checker, Serializable {
 		final Map<String, List<Member>> map = new HashMap<>();
 		final List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
 		for(final Excursion e: exc){
-			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNonPaganti());
+			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNotPaied());
 		}
 		final List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);

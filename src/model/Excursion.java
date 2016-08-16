@@ -38,44 +38,43 @@ public interface Excursion {
 	 LocalDate getDateEnd();
 
 	/**
-	 * set the price of the excursion
-	 * 
-	 * @param prize
+	 *
+	 *
+	 * @param prize to set
 	 */
 	 void setPrice(Integer prize);
 
 	/**
-	 * set the place of the excursion
+	 *
 	 * 
-	 * @param place
+	 * @param place to set
 	 */
 	 void setPlace(String place);
 
 	/**
-	 * set the start date excursion
+	 *
 	 * 
-	 * @param dateStart
-	 * @throws IllegalDateException
+	 * @param dateStart to set
+	 * @throws IllegalDateException if the date is not permitted
 	 */
 	 void setDateStart(LocalDate dateStart) throws IllegalDateException;
 
 	/**
-	 * set the end date excursion
 	 * 
-	 * @param dateEnd
+	 * 
+	 * @param dateEnd to set
 	 * @throws IllegalDateException if the date is not permitted
 	 */
 	 void setDateEnd(LocalDate dateEnd) throws IllegalDateException;
 
 	/**
-	 * add a member in the excursion
 	 * 
-	 * @param member
-	 * @param pagato,
-	 *            must be true if the member has just paid
+	 * 
+	 * @param member to add
+	 * @param pagato must be true if the member has just paid
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	 void addPartecipante(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException;
+	 void addPartecipant(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException;
 
 	/**
 	 * remove a member from the excursion
@@ -83,27 +82,27 @@ public interface Excursion {
 	 * @param member
 	 * @throws ObjectNotContainedException 
 	 */
-	 void removePartecipante(Member partecipante) throws ObjectNotContainedException;
+	 void removePartecipant(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @return a List<Member> contained the members who has to pay
 	 */
-	 List<Member> getNonPaganti();
+	 List<Member> getNotPaied();
 
 	/**
 	 * 
 	 * @return a List<Member> contained the members who will take part in the
 	 *         excursion
 	 */
-	 List<Member> getAllPartecipanti();
+	 List<Member> getAllPatyecipants();
 
 	/**
 	 * 
 	 * @return a List<Integer> contained the ids of the members who has NOT to
 	 *         pay
 	 */
-	 List<Member> getAllPaganti();
+	 List<Member> getAllPaied();
 
 	/**
 	 * set true the payment boolean
@@ -112,7 +111,7 @@ public interface Excursion {
 	 *            that has paid
 	 * @throws ObjectNotContainedException 
 	 */
-	 void setPagante(Member partecipante) throws ObjectNotContainedException;
+	 void setPaied(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
@@ -127,7 +126,7 @@ public interface Excursion {
 	 * @return true if the member had paid
 	 * @throws ObjectNotContainedException 
 	 */
-	 boolean isPagante(Member partecipante) throws ObjectNotContainedException;
+	 boolean isPaied(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 

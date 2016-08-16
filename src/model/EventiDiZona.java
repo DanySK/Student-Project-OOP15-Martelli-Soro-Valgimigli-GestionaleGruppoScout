@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalTime;
 import java.util.List;
+
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 /**
  * 
  * @author Riccardo Soro
@@ -43,22 +46,25 @@ public interface EventiDiZona extends Excursion {
 	 * 
 	 * @param nameActivity to add
 	 * @param startTime of the activity
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	 void addActivity(String nameActivity, LocalTime startTime);
+	 void addActivity(String nameActivity, LocalTime startTime) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param nameActivity to add
 	 * @param startTime of the activity
 	 * @param endTime of the activity
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	 void addActivity(String nameActivity, LocalTime startTime, LocalTime endTime);
+	 void addActivity(String nameActivity, LocalTime startTime, LocalTime endTime) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param activity to remove
+	 * @throws ObjectNotContainedException 
 	 */
-	 void removeActivity(Attivita activity);
+	 void removeActivity(Attivita activity) throws ObjectAlreadyContainedException, ObjectNotContainedException;
 
 	/**
 	 * 

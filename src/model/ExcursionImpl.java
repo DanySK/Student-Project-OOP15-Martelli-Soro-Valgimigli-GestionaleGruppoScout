@@ -34,11 +34,11 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 		this.name = name;
 	}
 
-	public ExcursionImpl(final String name, final LocalDate dateStart, final List<Member> partecipanti)
+	public ExcursionImpl(final String name, final LocalDate dateStart, final List<Member> partecipants)
 			throws IllegalDateException {
 
 		this(dateStart, name);
-		partecipanti.forEach(e -> {
+		partecipants.forEach(e -> {
 			this.partecipanti.add(new Pair<>(e, false));
 		});
 	}
@@ -56,20 +56,20 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public void addPartecipante(final Member partecipante, final Boolean pagato)
+	public void addPartecipant(final Member partecipant, final Boolean paied)
 			throws ObjectAlreadyContainedException {
-		if (this.containMember(partecipante)) {
+		if (this.containMember(partecipant)) {
 			throw new ObjectAlreadyContainedException();
 		}
-		this.partecipanti.add(new Pair<>(partecipante, pagato));
+		this.partecipanti.add(new Pair<>(partecipant, paied));
 	}
 
 	@Override
-	public void removePartecipante(final Member partecipante) throws ObjectNotContainedException {
+	public void removePartecipant(final Member partecipante) throws ObjectNotContainedException {
 		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
-		if (this.isPagante(partecipante)) {
+		if (this.isPaied(partecipante)) {
 			this.partecipanti.remove(new Pair<>(partecipante, true));
 		} else {
 			this.partecipanti.remove(new Pair<>(partecipante, false));
@@ -77,7 +77,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public List<Member> getNonPaganti() {
+	public List<Member> getNotPaied() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (!e.getY()) {
@@ -88,7 +88,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public List<Member> getAllPartecipanti() {
+	public List<Member> getAllPatyecipants() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			tmp.add(e.getX());
@@ -97,7 +97,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public List<Member> getAllPaganti() {
+	public List<Member> getAllPaied() {
 		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (e.getY()) {
@@ -108,7 +108,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public void setPagante(final Member partecipante) throws ObjectNotContainedException {
+	public void setPaied(final Member partecipante) throws ObjectNotContainedException {
 		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
@@ -130,7 +130,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public boolean isPagante(final Member partecipante) throws ObjectNotContainedException {
+	public boolean isPaied(final Member partecipante) throws ObjectNotContainedException {
 		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}

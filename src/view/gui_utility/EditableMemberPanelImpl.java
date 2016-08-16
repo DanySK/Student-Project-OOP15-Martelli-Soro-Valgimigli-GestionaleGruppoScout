@@ -149,7 +149,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				List<Excursion> tmp= new ArrayList<>();
 				MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 				.forEach(e->{
-					if(e.getNonPaganti().contains(i)){tmp.add(e);};
+					if(e.getNotPaied().contains(i)){tmp.add(e);};
 				});
 				if(tmp.size()>0){
 					mapPagamenti.put(i, tmp.stream().collect(Collectors.toList()));

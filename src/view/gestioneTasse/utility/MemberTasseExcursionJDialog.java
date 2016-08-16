@@ -53,7 +53,7 @@ public class MemberTasseExcursionJDialog extends JDialog {
 		panBot.add(panelCentral.createButton("Paga Tutte", u->{
 			list.stream().forEach(e->{
 				try {
-					e.setPagante(me);
+					e.setPaied(me);
 				} catch (ObjectNotContainedException e1) {
 					new WarningNotice(e1.getMessage());
 				}
@@ -77,7 +77,7 @@ public class MemberTasseExcursionJDialog extends JDialog {
 		list.clear();
 		MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 		.forEach(e->{
-			if(e.getNonPaganti().contains(me)){list.add(e);};
+			if(e.getNotPaied().contains(me)){list.add(e);};
 		});
 		SwingUtilities.invokeLater(new Runnable() {
 			
@@ -87,7 +87,7 @@ public class MemberTasseExcursionJDialog extends JDialog {
 				list.stream().forEach(e->{
 					memPane.add(memPane.createButton(e.getName(), k->{
 						try {
-							e.setPagante(me);
+							e.setPaied(me);
 							new WarningNotice("Pagamento registrato");
 							
 						} catch (ObjectNotContainedException e1) {

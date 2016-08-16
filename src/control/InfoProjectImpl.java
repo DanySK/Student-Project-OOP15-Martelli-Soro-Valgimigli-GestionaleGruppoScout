@@ -94,10 +94,10 @@ public class InfoProjectImpl implements InfoProject {
 		info += "Nome uscita: \t" + e.getName();
 		info += "\nDove: \t" + e.getPlace();
 		info += "\nPrezzo: \t" + e.getPrize();
-		info += "\n Partecipanti: " + e.getAllPartecipanti().stream()
+		info += "\n Partecipanti: " + e.getAllPatyecipants().stream()
 															.map(s -> s.getName() + " " + s.getSurname())
 															.collect(Collectors.joining());
-		info += "\nNon hanno pagato: " + e.getNonPaganti().stream()
+		info += "\nNon hanno pagato: " + e.getNotPaied().stream()
 										.map(s -> s.getName() + " " + s.getSurname())
 										.collect(Collectors.joining());
 		if(e instanceof Uscita){
@@ -133,10 +133,10 @@ public class InfoProjectImpl implements InfoProject {
 		info.put("Dove", value.subList(1, 2));
 		info.put("Prezzo", value.subList(2, 3));
 		info.put("Data", value.subList(3, 4));
-		info.put("Partecipanti", e.getAllPartecipanti().stream()
+		info.put("Partecipanti", e.getAllPatyecipants().stream()
 														.map(s -> s.getName() + " " + s.getSurname())
 														.collect(Collectors.toList()));
-		info.put("NonPaganti", e.getNonPaganti().stream()
+		info.put("NonPaganti", e.getNotPaied().stream()
 												.map(s -> s.getName() + " " + s.getSurname())
 												.collect(Collectors.toList()));
 		
