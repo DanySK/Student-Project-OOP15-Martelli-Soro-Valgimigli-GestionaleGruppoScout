@@ -63,12 +63,12 @@ public class RepartoOverviewImpl  {
 			outerPanel.add(panCapo,BorderLayout.CENTER);
 			panelBot.add(createButton("OK", e->{
 				if(sex==true){
-					unit.getReparto().setCapoM( new CapoImpl(panCapo.getNome(), panCapo.getSurname(), panCapo.getDate(),
-						panCapo.getSex(),panCapo.getPhone()));
+					unit.getReparto().setCapoM( ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
+							panCapo.getDate(),panCapo.getPhone()));
 				}
 				else{
-					unit.getReparto().setCapoF( new CapoImpl(panCapo.getNome(), panCapo.getSurname(), panCapo.getDate(),
-						panCapo.getSex(),panCapo.getPhone()));
+					unit.getReparto().setCapoF( ProjectFactoryImpl.getLeaderF(panCapo.getNome(), panCapo.getSurname(), 
+							panCapo.getDate(),panCapo.getPhone()));
 				}
 				dial.dispose();
 				updateAll();
