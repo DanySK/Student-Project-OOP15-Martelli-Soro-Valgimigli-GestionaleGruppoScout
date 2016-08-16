@@ -12,7 +12,7 @@ public class SorterListImpl implements SorterList, Serializable {
 	private static final long serialVersionUID = -5058093158670642935L;
 
 	@Override
-	public <E> List<E> sortList(List<E> list, Comparator<? super E> comparator) {
+	public <E> List<E> sortList(final List<E> list, final Comparator<? super E> comparator) {
 		list.sort(comparator);
 		return list;
 	}

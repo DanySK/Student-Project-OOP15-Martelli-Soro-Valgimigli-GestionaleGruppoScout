@@ -23,37 +23,37 @@ public class SortExcursionImpl extends SorterListImpl implements SortExcursion {
 	
 
 	@Override
-	public List<Excursion> sortByDateOfStart(List<Excursion> exc) {
+	public List<Excursion> sortByDateOfStart(final List<Excursion> exc) {
 		return this.sortList(exc, BYDATE);
 	}
 
 	@Override
-	public List<Excursion> sortByPrice(List<Excursion> exc) {
+	public List<Excursion> sortByPrice(final List<Excursion> exc) {
 		return this.sortList(exc, BYPRICE);
 	}
 
 	@Override
-	public Map<String, List<Excursion>> mapExcursion(List<Excursion> exc) {
-		Map<String, List<Excursion>> map = new HashMap<>();
+	public Map<String, List<Excursion>> mapExcursion(final List<Excursion> exc) {
+		final Map<String, List<Excursion>> map = new HashMap<>();
 		map.put("Uscita", new ArrayList<>());
 		map.put("Uscita di squadriglia", new ArrayList<>());
 		map.put("Campo", new ArrayList<>());
 		
-		for(Excursion e : exc){
+		for(final Excursion e : exc){
 			if(e instanceof UscitaImpl){
-				List<Excursion> list = map.get("Uscita");
+				final List<Excursion> list = map.get("Uscita");
 				list.add(e);
 				map.replace("Uscita", list);
 				continue;
 			}
 			if(e instanceof CampoImpl){
-				List<Excursion> list = map.get("Campo");
+				final List<Excursion> list = map.get("Campo");
 				list.add(e);
 				map.replace("Campo", list);
 				continue;
 			}
 			if(e instanceof UscitaImpl){
-				List<Excursion> list = map.get("Uscita di squadriglia");
+				final List<Excursion> list = map.get("Uscita di squadriglia");
 				list.add(e);
 				map.replace("Uscita di squadriglia", list);
 				continue;
@@ -63,7 +63,7 @@ public class SortExcursionImpl extends SorterListImpl implements SortExcursion {
 	}
 
 	@Override
-	public List<Excursion> sortBy(List<Excursion> exc, Comparator<Excursion> c) {
+	public List<Excursion> sortBy(final List<Excursion> exc,final  Comparator<Excursion> c) {
 		return this.sortList(exc, c);
 	}
 

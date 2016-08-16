@@ -12,32 +12,32 @@ import control.exception.ProjectFilesCreationException;
  * @author Valgio
  *
  */
-public interface MasterProject {
+  public interface MasterProject {
 	/**
 	 * To modify the default directory 
 	 * @param directory
 	 */
-	public void setDirectoryToSave(final String directory) throws IOException;
+	  void setDirectoryToSave(final String directory) throws IOException;
 	/**
 	 * 
 	 * @return
 	 */
-	public String getDirectoryToSave()throws IOException;
+	  String getDirectoryToSave()throws IOException;
 	/**
 	 * Return all possible units to load
 	 * @return
 	 */
-	public List<String> getListOfUnit()throws IOException;
+	  List<String> getListOfUnit()throws IOException;
 	/**
 	 * 
 	 * @param unitName
 	 * @return
 	 * @throws NoUnitFoundException
 	 */
-	public Unit loadUnit(String unitName) throws IOException, ClassNotFoundException;
+	  Unit loadUnit(String unitName) throws IOException, ClassNotFoundException;
 	/**
 	 * 
 	 * @param unit
 	 */
-	public void save(Unit unit) throws IOException,  ProjectFilesCreationException ;
+	  void save(Unit unit) throws IOException,  ProjectFilesCreationException ;
 }

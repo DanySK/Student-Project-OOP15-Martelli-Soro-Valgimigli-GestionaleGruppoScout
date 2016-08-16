@@ -20,44 +20,50 @@ public class InfoProjectImpl implements InfoProject {
 
 
 	@Override
-	public String getSquadronGeneralInfo(String nameOfSquadron, Container cnt) {
+	public String getSquadronGeneralInfo(final String nameOfSquadron,final  Container cnt) {
 		String info = "";
-		Squadron sq =cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron))
+		final Squadron sq =cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron))
 												  .findFirst()
 												  .get();
 		info += "Nome: "+ sq.getNome() + "\n";
 		info += "Sesso: " + (sq.getSesso() ? "Maschi" : "Femmine")+ "\n";
-		if(sq.isCapoPresent())
-		info += "Capo: " + sq.getCapo().getName()+ " " + sq.getCapo().getSurname()+ "\n";
-		if(sq.isVicecapoPresent())
-		info += "Vice: " + sq.getVice().getName() +" " + sq.getVice().getSurname()+ "\n";
-		if(sq.isTricecapoPresent())
-		info += "Trice: "+ sq.getTrice().getName()+ " " + sq.getTrice().getSurname()+ "\n";
+		if(sq.isCapoPresent()){
+			info += "Capo: " + sq.getCapo().getName()+ " " + sq.getCapo().getSurname()+ "\n";
+		}
+		if(sq.isVicecapoPresent()){
+			info += "Vice: " + sq.getVice().getName() +" " + sq.getVice().getSurname()+ "\n";
+		}
+		if(sq.isTricecapoPresent()){
+			info += "Trice: "+ sq.getTrice().getName()+ " " + sq.getTrice().getSurname()+ "\n";
+		}
 		info += "Numero di membri: " + sq.getMembri().keySet().size();
 		return info;
 	}
 
 	@Override
-	public List<Pair<String, String>> getSquadronSpecificInfo(String nameOfSquadron, Container cnt) {
-		List<Pair<String,String>> info = new ArrayList<>();
-		Squadron sq = cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron))
+	public List<Pair<String, String>> getSquadronSpecificInfo(final String nameOfSquadron, final Container cnt) {
+		final List<Pair<String,String>> info = new ArrayList<>();
+		final Squadron sq = cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron))
 										.findFirst()
 										.get();
 		info.add(new Pair<>("Nome: ", sq.getNome()));
 		info.add(new Pair<>("Sesso: ", (sq.getSesso() ? "Maschi" : "Femmini")));
-		if(sq.isCapoPresent())
-		info.add(new Pair<>("Capo: ", sq.getCapo().getName()+ " " + sq.getCapo().getSurname()));
-		if(sq.isVicecapoPresent())
-		info.add(new Pair<>("Vice: ",sq.getVice().getName() +" " + sq.getVice().getSurname()));
-		if(sq.isTricecapoPresent())
-		info.add(new Pair<>("Trice: ",  sq.getTrice().getName()+ " " + sq.getTrice().getSurname()));
+		if(sq.isCapoPresent()){
+			info.add(new Pair<>("Capo: ", sq.getCapo().getName()+ " " + sq.getCapo().getSurname()));
+		}
+		if(sq.isVicecapoPresent()){
+			info.add(new Pair<>("Vice: ",sq.getVice().getName() +" " + sq.getVice().getSurname()));
+		}
+		if(sq.isTricecapoPresent()){
+			info.add(new Pair<>("Trice: ",  sq.getTrice().getName()+ " " + sq.getTrice().getSurname()));
+		}
 		info.add(new Pair<>("Numero di membri: ", Integer.toString(sq.getMembri().keySet().size())));
 		return info;
 	}
 
 	@Override
-	public List<Member> getMemberOfSquadron(String nameOfSquadron, Container cnt) {
-		Squadron sq = cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron)).findFirst().get();
+	public List<Member> getMemberOfSquadron(final String nameOfSquadron, final Container cnt) {
+		final Squadron sq = cnt.getSquadrons().stream().filter(e -> e.getNome().equals(nameOfSquadron)).findFirst().get();
 		return sq.getMembri().keySet()
 							 .stream()
 							 .collect(Collectors.toList());
@@ -66,8 +72,8 @@ public class InfoProjectImpl implements InfoProject {
 										  
 
 	@Override
-	public List<Pair<String, String>> getMemberSpecificalInfo(Member member) {
-		List<Pair<String,String>> info = new ArrayList<>();
+	public List<Pair<String, String>> getMemberSpecificalInfo(final Member member) {
+		final List<Pair<String,String>> info = new ArrayList<>();
 		info.add(new Pair<>("Nome", member.getName()));
 		info.add(new Pair<>("Cognome", member.getSurname()));
 		info.add(new Pair<>("Sesso", (member.getSex() ? "Maschio":"Femmina")));
@@ -83,7 +89,7 @@ public class InfoProjectImpl implements InfoProject {
 	}
 
 	@Override
-	public String getExcursionInfo(Excursion e) {
+	public String getExcursionInfo(final Excursion e) {
 		String info = "";
 		info += "Nome uscita: \t" + e.getName();
 		info += "\nDove: \t" + e.getPlace();
@@ -116,8 +122,8 @@ public class InfoProjectImpl implements InfoProject {
 	}
 
 	@Override
-	public Map<String, List<String>> getExcursionSpacificalInfo(Excursion e) {
-		Map<String, List<String>> info = new HashMap<>();
+	public Map<String, List<String>> getExcursionSpacificalInfo(final Excursion e) {
+		final Map<String, List<String>> info = new HashMap<>();
 		List<String> value = new ArrayList<>();
 		value.add(e.getName());
 		value.add(e.getPlace());

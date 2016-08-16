@@ -28,82 +28,75 @@ public class MasterProjectImpl implements MasterProject {
 	private final static String IMPFILE = DEFAULT_DIRECTORY + System.getProperty("file.separator") + "ImpScout.txt";
 	private final static String PROJECT_EXTENSION = ".sct";
 	
-	private File worker = null;
-	private String directoryToSave = null;
-	private BufferedReader reader;
-	private BufferedWriter writer;
-	private ObjectInputStream loader;
-	private ObjectOutputStream saver;
+	private String directoryToSave;
 	
 	
-	public MasterProjectImpl() throws Exception{
-		worker = new File(DEFAULT_DIRECTORY);
-		if(! this.worker.exists()){
-			if(! this.worker.mkdir()){
+	public MasterProjectImpl() throws DefaultDirectoryException, IOException,
+	ProjectFilesCreationException{
+		File worker = new File(DEFAULT_DIRECTORY);
+		if(! worker.exists()){
+			if(! worker.mkdir()){
 				throw new DefaultDirectoryException();
 			}
-			this.worker = new File(IMPFILE);
-			if(!this.worker.createNewFile()){
+			worker = new File(IMPFILE);
+			if(! worker.createNewFile()){
 				throw new ProjectFilesCreationException();
 			}
-			this.setDirectoryToSave(DEFAULT_DIR_TOSAVE);
-			this.worker = new File(DEFAULT_DIR_TOSAVE);
-			if(!this.worker.mkdir()){
+			this.directoryToSave = DEFAULT_DIR_TOSAVE;
+			worker = new File(DEFAULT_DIR_TOSAVE);
+			if(! worker.mkdir()){
 				throw new ProjectFilesCreationException();
 			}
 		}
 	}
 
 	@Override
-	public void setDirectoryToSave(String directory) throws IOException {
-		this.writer = new BufferedWriter( new FileWriter(IMPFILE));
-		this.writer.write(directory);
-		this.writer.newLine();
-		this.writer.close();
+	public void setDirectoryToSave(final String directory) throws IOException {
+		final BufferedWriter writer = new BufferedWriter( new FileWriter(IMPFILE));
+		writer.write(directory);
+		writer.newLine();
+		writer.close();
 	}
 
 	@Override
 	public String getDirectoryToSave() throws IOException {
-		this.reader = new BufferedReader(new FileReader(IMPFILE));
-		String dir = this.reader.readLine();
-		this.reader.close();
+		final BufferedReader reader = new BufferedReader(new FileReader(IMPFILE));
+		final String dir = reader.readLine();
+		reader.close();
 		return dir;
 	}
 
 	@Override
 	public List<String> getListOfUnit() throws IOException{
 		this.directoryToSave = this.getDirectoryToSave();
-		this.worker = new File(this.directoryToSave);
-		String[] files = this.worker.list();
-		List<String> filesList = Arrays.asList(files);
+		final File worker = new File(this.directoryToSave);
+		final String[] files = worker.list();
+		final List<String> filesList = Arrays.asList(files);
 		return filesList.stream().filter(e -> e.endsWith(PROJECT_EXTENSION))
 								 .map(e -> e.substring(0, e.length() - 4)).collect(Collectors.toList());
 	}
 
 	@Override
-	public Unit loadUnit(String unitName) throws IOException, ClassNotFoundException {
+	public Unit loadUnit(final String unitName) throws IOException, ClassNotFoundException {
 		this.directoryToSave = this.getDirectoryToSave();
-		String files = this.directoryToSave + System.getProperty("file.separator") + unitName + PROJECT_EXTENSION;
-		this.loader = new ObjectInputStream(new FileInputStream(files));
-		Unit unit = (Unit) this.loader.readObject();
-		this.loader.close();
+		final String files = this.directoryToSave + System.getProperty("file.separator") + unitName + PROJECT_EXTENSION;
+		final ObjectInputStream loader = new ObjectInputStream(new FileInputStream(files));
+		final Unit unit = (Unit) loader.readObject();
+		loader.close();
 		return unit;
 	}
 
 	@Override
-	public void save(Unit unit) throws IOException, ProjectFilesCreationException {
+	public void save(final Unit unit) throws IOException, ProjectFilesCreationException {
 		this.directoryToSave = this.getDirectoryToSave();
-		String files = this.directoryToSave + System.getProperty("file.separator") + unit.getName() + PROJECT_EXTENSION;
-		//System.out.println(files);
-		this.saver = new ObjectOutputStream(new FileOutputStream(files));
-		this.worker = new File(files);
-		if(! this.worker.exists()){
-			if(! this.worker.createNewFile()){
+		final String files = this.directoryToSave + System.getProperty("file.separator") + unit.getName() + PROJECT_EXTENSION;
+		final File worker = new File(files);
+		if(! worker.exists() || ! worker.createNewFile()){
 				throw new ProjectFilesCreationException();
-			}
 		}
-		this.saver.writeObject(unit);
-		this.saver.close();
+		final ObjectOutputStream saver = new ObjectOutputStream(new FileOutputStream(files));
+		saver.writeObject(unit);
+		saver.close();
 		new WarningNotice("Salvataggio avvenuto con successo");
 	}
 	

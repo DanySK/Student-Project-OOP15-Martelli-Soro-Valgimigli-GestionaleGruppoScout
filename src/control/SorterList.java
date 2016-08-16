@@ -16,5 +16,5 @@ public interface SorterList {
 	 * @return
 	 * A list with the element in list sorted by comparator
 	 */
-	public <E> List<E> sortList(List<E> list, Comparator<? super E> comparator);
+	<E> List<E> sortList(List<E> list, Comparator<? super E> comparator);
 }

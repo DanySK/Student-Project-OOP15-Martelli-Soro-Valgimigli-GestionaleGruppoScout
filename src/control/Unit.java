@@ -3,73 +3,86 @@ package control;
 import java.time.LocalDate;
 import java.util.List;
 
+import control.exception.MemberSexException;
 import control.myUtil.Pair;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
 import model.Roles;
 import model.Squadron;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 
-public interface Unit {
+  public interface Unit {
 	/**
 	 * 
 	 * @return
 	 */
-	public String getName();
+	  String getName();
 	/**
 	 * 
 	 * @return
 	 */
 	
-	public Container getContainers();
+	  Container getContainers();
 	/**
 	 * 
 	 * @param exc
 	 */
-	public void addExcursion(Excursion exc);
+	  void addExcursion(Excursion exc);
 	/**
 	 * 
 	 * @param m
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addMember(Member m);
+	  void addMember(Member m) throws ObjectAlreadyContainedException;
 	/**
 	 * 
 	 * @param sq
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void createSq(Squadron sq);
+	  void createSq(Squadron sq) throws ObjectAlreadyContainedException;
 	/**
 	 * 
 	 * @param m
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeMember(Member m);
+	  void removeMember(Member m) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param sq
+	 * @throws ObjectNotContainedException 
 	 */
-	public void removeSq(Squadron sq);
+	  void removeSq(Squadron sq) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param m
 	 * @param sq
+	 * @throws ObjectAlreadyContainedException 
+	 * @throws ObjectNotContainedException 
+	 * @throws MemberSexException 
 	 */
-	public void putMemberInSq(Member m, Squadron sq, Roles rl);
+	  void putMemberInSq(Member m, Squadron sq, Roles rl) throws MemberSexException, ObjectNotContainedException, ObjectAlreadyContainedException;
 	/**
 	 * Method to change member from a squadron to other one
 	 * @param m
 	 * @param sqOld
 	 * @param sqNew
+	 * @throws ObjectNotContainedException 
+	 * @throws ObjectAlreadyContainedException 
+	 * @throws MemberSexException 
 	 */
-	public void changeMemberFromSq(Member m, Squadron sqNew, Roles rl);
+	  void changeMemberFromSq(Member m, Squadron sqNew, Roles rl) throws ObjectNotContainedException, MemberSexException, ObjectAlreadyContainedException;
 	/**
 	 * 
 	 * @param name
 	 */
-	public void setName(String name);
+	  void setName(String name);
 	/**
 	 * Provides the info of unit
 	 * @return
 	 */
-	public String info();
+	  String info();
 	/**
 	 * Special method that provide a List of pair with the general info
 	 * @return
@@ -80,31 +93,31 @@ public interface Unit {
 	 * 3. Number of boys
 	 * 4. Number of girls
 	 */
-	public List<Pair<String, String>> getUnitSpecificInfo();
+	  List<Pair<String, String>> getUnitSpecificInfo();
 	/**
 	 * 
 	 * @return
 	 */
-	public LocalDate getLimitDateToPay();
+	  LocalDate getLimitDateToPay();
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Member> getMemberDidntPay();
+	  List<Member> getMemberDidntPay();
 	/**
 	 * 
 	 * @return
 	 */
-	public Reparto getReparto();
+	  Reparto getReparto();
 	/**
 	 * 
 	 * @param name
 	 */
-	public void removeExcursion(String name);
+	  void removeExcursion(String name);
 	/**
 	 * 
 	 * @param exc
 	 */
-	public void removeExcursion (Excursion exc);
+	  void removeExcursion (Excursion exc);
 	
 }

@@ -28,14 +28,14 @@ public class ContainerImpl implements Container, Serializable {
 	final private List<Member> unit;
 	final private List<Member> freeMember;
 	final private List<Squadron> squadronActive;
-	final private List<Excursion> excursions;
+	final private List<Excursion> excs;
 	
 	public ContainerImpl(final List<Squadron> sq, final List<Member> freeMember, final List<Excursion> exc){
 		this.unit = new ArrayList<>(freeMember);
 		sq.forEach(e -> this.unit.addAll(e.getMembri().keySet()));
 		this.freeMember = freeMember;
 		this.squadronActive = sq;
-		this.excursions = exc;
+		this.excs = exc;
 	}
 	
 	
@@ -104,21 +104,21 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public List<Excursion> getExcursion() {
-		return this.excursions;
+		return this.excs;
 	}
 
 
 
 	@Override
 	public List<Excursion> excursions(final Predicate<? super Excursion> p) {
-		return this.excursions.stream().filter(p).collect(Collectors.toList());
+		return this.excs.stream().filter(p).collect(Collectors.toList());
 	}
 
 
 
 	@Override
 	public Excursion getExcursionNamed(final String name) {
-		return this.excursions.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+		return this.excs.stream().filter(e -> e.getName().equals(name)).findFirst().get();
 	}
 
 
@@ -134,11 +134,9 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public Uscita getExit(final String name) {
 		Uscita tmp = null;
-		for(Excursion exc : this.excursions){
-			if(exc.getName().equals(name)){
-				if(exc instanceof Uscita){
+		for(final Excursion exc : this.excs){
+			if(exc.getName().equals(name) && exc instanceof Uscita){
 					tmp = (Uscita)exc;
-				}
 			}
 		}
 		
@@ -147,11 +145,9 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public UscitaSquadriglia getExcursionSq(final String name) {
 		UscitaSquadriglia tmp = null;
-		for(Excursion exc : this.excursions){
-			if(exc.getName().equals(name)){
-				if(exc instanceof UscitaSquadriglia){
+		for(final Excursion exc : this.excs){
+			if(exc.getName().equals(name) && exc instanceof UscitaSquadriglia){
 					tmp = (UscitaSquadriglia)exc;
-				}
 			}
 		}
 		
@@ -160,7 +156,7 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public Gemellaggi getTwoUnitEvent(final String name) {
 		Gemellaggi tmp = null;
-		for(Excursion exc : this.excursions){
+		for(final Excursion exc : this.excs){
 			if(exc.getName().equals(name) && exc instanceof Gemellaggi){
 					tmp = (Gemellaggi)exc;
 			}
@@ -171,7 +167,7 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public EventiDiZona getLocalEvent(final String name) {
 		EventiDiZona tmp = null;
-		for(final Excursion exc : this.excursions){
+		for(final Excursion exc : this.excs){
 			if(exc.getName().equals(name) && exc instanceof EventiDiZona){
 					tmp = (EventiDiZona)exc;
 			}
@@ -182,7 +178,7 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public Campo getCamp(final String name) {
 		Campo tmp = null;
-		for(final Excursion exc : this.excursions){
+		for(final Excursion exc : this.excs){
 			if(exc.getName().equals(name) && exc instanceof Campo){
 					tmp = (Campo)exc;
 			}

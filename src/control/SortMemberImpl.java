@@ -32,27 +32,27 @@ public class SortMemberImpl extends SorterListImpl implements SortMember {
 												e1.getCompetence().size() < e2.getCompetence().size() ?
 												-1 : 0;
 	@Override
-	public List<Member> sortByName(List<Member> members) {
+	public List<Member> sortByName(final List<Member> members) {
 		return this.sortList(members, CMPBYNAME);
 	}
 
 	@Override
-	public List<Member> sortByAge(List<Member> members) {
+	public List<Member> sortByAge(final List<Member> members) {
 		return this.sortList(members, CMPBYAGE);
 	}
 
 	@Override
-	public List<Member> sortBySurname(List<Member> members) {
+	public List<Member> sortBySurname(final List<Member> members) {
 		return this.sortList(members, CMPBYSURNAME);
 	}
 
 	@Override
-	public List<Member> sortByNOfSpecialties(List<Member> members) {
+	public List<Member> sortByNOfSpecialties(final List<Member> members) {
 		return this.sortList(members, CMPBYNUMBOFSPEC);
 	}
 
 	@Override
-	public List<Member> sortByNOfCompetences(List<Member> members) {
+	public List<Member> sortByNOfCompetences(final List<Member> members) {
 		return this.sortList(members, CMPBYNUMBOFCOMP);
 	}
 

@@ -12,24 +12,24 @@ public interface SortExcursion {
 	 * @param exc
 	 * @return
 	 */
-	public List<Excursion> sortByDateOfStart(List<Excursion> exc);
+	List<Excursion> sortByDateOfStart(List<Excursion> exc);
 	/**
 	 * 
 	 * @param exc
 	 * @return
 	 */
-	public List<Excursion> sortByPrice(List<Excursion> exc);
+	List<Excursion> sortByPrice(List<Excursion> exc);
 	/**
 	 * 
 	 * @param exc
 	 * @return
 	 */
-	public Map<String, List<Excursion>> mapExcursion(List<Excursion> exc);
+	Map<String, List<Excursion>> mapExcursion(List<Excursion> exc);
 	/**
 	 * 
 	 * @param exc
 	 * @param c
 	 * @return
 	 */
-	public List<Excursion> sortBy(List<Excursion> exc, Comparator<Excursion> c);
+	List<Excursion> sortBy(List<Excursion> exc, Comparator<Excursion> c);
 }

@@ -12,7 +12,7 @@ import model.Member;
  * @author Valgio
  *
  */
-public interface InfoProject {
+  public interface InfoProject {
 
 	
 	
@@ -21,7 +21,7 @@ public interface InfoProject {
 	 * number of member 
 	 * @return
 	 */
-	public String getSquadronGeneralInfo(String nameOfSquadron, Container cnt);
+	  String getSquadronGeneralInfo(String nameOfSquadron, Container cnt);
 	/**
 	 *  Special method that provide a List of pair with the general info
 	 * @return
@@ -33,14 +33,14 @@ public interface InfoProject {
 	 * 4. Name of 3rd
 	 * 5. Number of member
 	 */
-	public List<Pair<String,String>> getSquadronSpecificInfo(String nameOfSquadron, Container cnt);
+	  List<Pair<String,String>> getSquadronSpecificInfo(String nameOfSquadron, Container cnt);
 	/**
 	 * 
 	 * @param nameOfSquadron
 	 * @return
 	 * A list with all member in a squadron 
 	 */
-	public List<Member> getMemberOfSquadron(String nameOfSquadron, Container cnt);
+	  List<Member> getMemberOfSquadron(String nameOfSquadron, Container cnt);
 	/**
 	 * Method that provide all info about a mameber in input
 	 * @param member
@@ -54,17 +54,17 @@ public interface InfoProject {
 	 * 5. totem
 	 * 6. Birthday
 	 */
-	public List<Pair<String, String>> getMemberSpecificalInfo(Member member);
+	  List<Pair<String, String>> getMemberSpecificalInfo(Member member);
 	/**
 	 * 
 	 * @param e
 	 * @return
 	 */
-	public String getExcursionInfo(Excursion e);
+	  String getExcursionInfo(Excursion e);
 	/**
 	 * 
 	 * @param e
 	 * @return
 	 */
-	public Map<String, List<String>> getExcursionSpacificalInfo(Excursion e);
+	  Map<String, List<String>> getExcursionSpacificalInfo(Excursion e);
 }

@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import control.exception.MemberSexException;
 import control.myUtil.Pair;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
 import model.Roles;
 import model.Squadron;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {
@@ -22,12 +25,11 @@ public class UnitImpl implements Unit, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4391311361473527351L;
-	private String nameToSave;
-	private Container container;
-	private Reparto rep;
-	private List<Excursion> excursions;
+	final private String nameToSave;
+	final private Reparto rep;
+	final private List<Excursion> excursions;
 	
-	public UnitImpl(Reparto rep){
+	public UnitImpl(final Reparto rep){
 		this.nameToSave = rep.getName().replace(' ','_');
 		this.excursions = new ArrayList<>();
 		this.rep = rep;
@@ -39,13 +41,13 @@ public class UnitImpl implements Unit, Serializable {
 
 	@Override
 	public Container getContainers() {
-		this.container = new ContainerImpl(this.rep.getAllSquadron(),
+		final Container container = new ContainerImpl(this.rep.getAllSquadron(),
 				this.rep.getMembriSenzaSquadriglia(),this.excursions);
-		return this.container;
+		return container;
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.rep.setName(name);
 	}
 
@@ -62,7 +64,7 @@ public class UnitImpl implements Unit, Serializable {
 	
 	@Override
 	public List<Pair<String, String>> getUnitSpecificInfo() {
-		List<Pair<String, String>> info = new ArrayList<>();
+		final List<Pair<String, String>> info = new ArrayList<>();
 		
 		info.add(new Pair<>("Name", this.getName()));
 		info.add(new Pair<>("Number of member", Integer.toString(this.getContainers().getMembers().size())));
@@ -75,67 +77,38 @@ public class UnitImpl implements Unit, Serializable {
 	}
 	
 	@Override
-	public void addMember(Member m) {
-		try{
+	public void addMember(final Member m) throws ObjectAlreadyContainedException {
 			this.rep.addMembroSenzaSquadriglia(m);
-		}catch(Exception e){
-			e.printStackTrace();
-			new WarningNotice(e.getMessage());
+	}
+	@Override
+	public void createSq(final Squadron sq) throws ObjectAlreadyContainedException {
+			this.rep.addSquadron(sq);
+	}
+	@Override
+	public void removeMember(final Member m) throws ObjectNotContainedException {
+		if(this.rep.getMembriSenzaSquadriglia().contains(m)){
+			this.rep.removeMembroSenzaSquadriglia(m);
+		}
+	}
+	@Override
+	public void removeSq(final Squadron sq) throws ObjectNotContainedException {
+			this.rep.removeSquadron(sq);
+	}
+	@Override
+	public void putMemberInSq(final Member m,final  Squadron sq,final  Roles rl) throws MemberSexException, ObjectNotContainedException, ObjectAlreadyContainedException {
+			this.rep.spostaMembroInSquadriglia(m, rl, sq);
+	}
+	@Override
+	public void changeMemberFromSq(final Member m,final  Squadron sqNew,final  Roles rl) throws ObjectNotContainedException,
+	MemberSexException, ObjectAlreadyContainedException {
+
+		if( this.rep.getMembriSenzaSquadriglia().contains(m) ){
+			new WarningNotice("Il ragazzo non appartiene a nessuna squadriglia \n verrà comunque assegnato");
+		}else{
+			this.rep.removeMemberFromSquadron(m);
 		}
 		
-	}
-	@Override
-	public void createSq(Squadron sq) {
-		try{
-			this.rep.addSquadron(sq);
-		}catch(Exception e){
-			e.printStackTrace();
-			new WarningNotice(e.getMessage());
-		}
-	}
-	@Override
-	public void removeMember(Member m) {
-		try{
-			if(this.rep.getMembriSenzaSquadriglia().contains(m)){
-				this.rep.removeMembroSenzaSquadriglia(m);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			new WarningNotice(e.getMessage());
-		}
-	}
-	@Override
-	public void removeSq(Squadron sq) {
-		try{
-			this.rep.removeSquadron(sq);
-		}catch(Exception e){
-			e.printStackTrace();
-			new WarningNotice(e.getMessage());
-		}
-	}
-	@Override
-	public void putMemberInSq(Member m, Squadron sq, Roles rl) {
-		try{
-			this.rep.spostaMembroInSquadriglia(m, rl, sq);
-		}catch(Exception e){
-			e.printStackTrace();
-			new WarningNotice(e.getMessage());
-		}
-	}
-	@Override
-	public void changeMemberFromSq(Member m, Squadron sqNew, Roles rl) {
-		try{
-			if( this.rep.getMembriSenzaSquadriglia().contains(m) ){
-				new WarningNotice("Il ragazzo non appartiene a nessuna squadriglia \n verrà comunque assegnato");
-			}else{
-				this.rep.removeMemberFromSquadron(m);
-			}
-			
-			this.putMemberInSq(m, sqNew, rl );
-			
-		}catch(Exception e){
-			new WarningNotice(e.getMessage());
-		}
+		this.putMemberInSq(m, sqNew, rl );
 	}
 	@Override
 	public LocalDate getLimitDateToPay() {
@@ -146,7 +119,7 @@ public class UnitImpl implements Unit, Serializable {
 		return this.rep.getMembersNotPaid(Year.now().getValue());
 	}
 	@Override
-	public void addExcursion(Excursion exc) {
+	public void addExcursion(final Excursion exc) {
 		this.excursions.add(exc);
 	}
 	@Override
@@ -154,17 +127,17 @@ public class UnitImpl implements Unit, Serializable {
 		return this.rep;
 	}
 	@Override
-	public void removeExcursion(String name) {
-		List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equals(name))
+	public void removeExcursion(final String name) {
+		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equals(name))
 													  .collect(Collectors.toList());
-		if(exc.size() == 0){
+		if(Integer.valueOf(exc.size()).equals(0)){
 			new WarningNotice("Nessuna escursione corrisponde al nome: " + name);
 			return;
 		}
 		this.excursions.removeAll(exc);
 	}
 	@Override
-	public void removeExcursion(Excursion exc) {
+	public void removeExcursion(final Excursion exc) {
 		if(this.excursions.contains(exc)){
 			this.excursions.remove(exc);
 		}else{
