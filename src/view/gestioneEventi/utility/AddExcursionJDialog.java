@@ -50,6 +50,7 @@ public class AddExcursionJDialog extends JDialog {
 	private final JTextField ggF=new JTextField();
 	private final JTextField mmF=new JTextField();
 	private final JTextField aaF=new JTextField();
+	private final JTextField location=new JTextField();
 	private  MyJPanelImpl dataFine=new MyJPanelImpl(new GridLayout(1,6));
 	private final JTextArea area=new JTextArea();
 	private boolean perData;
@@ -72,6 +73,8 @@ public class AddExcursionJDialog extends JDialog {
 		panelInter.add(nome);
 		panelInter.add(panel.createJLabel("Prezzo: ", fontSize));
 		panelInter.add(price);
+		panelInter.add(panel.createJLabel("Luogo: ", fontSize));
+		panelInter.add(location);
 		panelInter.add(panel.createJLabel("Data Inizio: ", fontSize));
 		
 		data.add(panel.createJLabel("giorno",fontSize));
@@ -224,6 +227,7 @@ public class AddExcursionJDialog extends JDialog {
 			}
 			
 		}
+		exc.setPlace(location.getText());
 		exc.setPrice(Integer.parseInt(price.getText()));
 		return exc;
 		}catch(Exception e){
