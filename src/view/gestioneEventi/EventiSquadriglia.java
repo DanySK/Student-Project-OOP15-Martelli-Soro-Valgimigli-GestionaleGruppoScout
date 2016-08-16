@@ -10,7 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import control.SortExcursionImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Campo;
 import model.EventiDiZona;
 import model.Excursion;
@@ -52,9 +52,9 @@ public class EventiSquadriglia {
 			this.panelTopContainer=new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			this.panelCenter.add(panelTopContainer);
-			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.SquadrigliaEventi, myOptional.empty());
+			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.SquadrigliaEventi, MyOptional.empty());
 			panelTopButton.add(createButton("<html>Aggiungi<br>Uscita</html>", 12, e->{
-				new AddExcursionJDialog(TypeExcursion.Uscita_Squadriglia, myOptional.of(squadImpl.getNome()), this);
+				new AddExcursionJDialog(TypeExcursion.Uscita_Squadriglia, MyOptional.of(squadImpl.getNome()), this);
 			}));
 			
 			panelTopButton.add(createButton("<html>Rimuovi<br>Uscita</html>", 12,e->{

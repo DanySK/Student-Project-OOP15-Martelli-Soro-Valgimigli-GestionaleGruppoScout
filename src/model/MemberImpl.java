@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.exception.IllegalYearsException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
@@ -18,9 +18,9 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private int identificatore;
 	private final List<String> specialities;
 	private Boolean promise;
-	private myOptional<Tutor> tutor;
-	private myOptional<String> totem;
-	private myOptional<Integer> annoTasse;
+	private MyOptional<Tutor> tutor;
+	private MyOptional<String> totem;
+	private MyOptional<Integer> annoTasse;
 
 	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex)
 			throws IllegalYearsException {
@@ -28,9 +28,9 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		if (this.getHowIsHold().getYears() < 12 || this.getHowIsHold().getYears() > 17) {
 			throw new IllegalYearsException();
 		}
-		this.tutor = myOptional.empty();
-		this.annoTasse = myOptional.empty();
-		this.totem = myOptional.empty();
+		this.tutor = MyOptional.empty();
+		this.annoTasse = MyOptional.empty();
+		this.totem = MyOptional.empty();
 		promise = false;
 		this.specialities = new ArrayList<>();
 	}
@@ -41,9 +41,9 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		if (this.getHowIsHold().getYears() < 12 || this.getHowIsHold().getYears() > 17) {
 			throw new IllegalYearsException();
 		}
-		this.tutor = myOptional.of(tutor);
-		this.annoTasse = myOptional.empty();
-		this.totem = myOptional.empty();
+		this.tutor = MyOptional.of(tutor);
+		this.annoTasse = MyOptional.empty();
+		this.totem = MyOptional.empty();
 		promise = false;
 		this.specialities = new ArrayList<>();
 
@@ -53,10 +53,10 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public void setTasse(final Integer anno) {
 		if (this.annoTasse.isPresent()) {
 			if (this.annoTasse.get() < anno) {
-				this.annoTasse = myOptional.of(anno);
+				this.annoTasse = MyOptional.of(anno);
 			}
 		} else {
-			this.annoTasse = myOptional.of(anno);
+			this.annoTasse = MyOptional.of(anno);
 		}
 	}
 
@@ -78,64 +78,64 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	@Override
-	public myOptional<Tutor> getTutor() {
+	public MyOptional<Tutor> getTutor() {
 		return this.tutor;
 	}
 
 	@Override
 	public void setTutorMail(final String mail) {
 		if (!this.tutor.isPresent()) {
-			this.tutor = myOptional.of(new TutorImpl());
+			this.tutor = MyOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setEmail(mail);
 	}
 
 	@Override
-	public myOptional<String> getTutorMail() {
+	public MyOptional<String> getTutorMail() {
 		if (this.tutor.isPresent()) {
 			if (this.tutor.get().getEmail().isPresent()) {
 				return this.tutor.get().getEmail();
 			}
 		}
-		return myOptional.empty();
+		return MyOptional.empty();
 	}
 
 	@Override
 	public void setTutorName(final String name) {
 		if (!this.tutor.isPresent()) {
-			this.tutor = myOptional.of(new TutorImpl());
+			this.tutor = MyOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setName(name);
 
 	}
 
 	@Override
-	public myOptional<String> getTutorName() {
+	public MyOptional<String> getTutorName() {
 		if (this.tutor.isPresent()) {
 			if (this.tutor.get().getName().isPresent()) {
 				return this.tutor.get().getName();
 			}
 		}
-		return myOptional.empty();
+		return MyOptional.empty();
 	}
 
 	@Override
 	public void setTutorPhone(final Long phone) {
 		if (!this.tutor.isPresent()) {
-			this.tutor = myOptional.of(new TutorImpl());
+			this.tutor = MyOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setPhone(phone);
 
 	}
 
 	@Override
-	public myOptional<Long> getTutorPhone() {
+	public MyOptional<Long> getTutorPhone() {
 		if (this.tutor.isPresent()) {
 			if (this.tutor.get().getPhone().isPresent()) {
 				return this.tutor.get().getPhone();
 			}
 		}
-		return myOptional.empty();
+		return MyOptional.empty();
 	}
 @Override
 	public void removeSpecialities(final String specialities) throws ObjectNotContainedException {
@@ -176,7 +176,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	@Override
 	public void setTotem(final String totem) {
-		this.totem = myOptional.of(totem);
+		this.totem = MyOptional.of(totem);
 	}
 
 	@Override

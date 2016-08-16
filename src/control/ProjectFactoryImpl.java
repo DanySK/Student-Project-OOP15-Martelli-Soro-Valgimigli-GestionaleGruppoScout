@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.exception.MemberSexException;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Campo;
 import model.CampoImpl;
 import model.Capo;
@@ -62,7 +62,7 @@ public class ProjectFactoryImpl implements Serializable {
 	 * @throws IllegalYearsException 
 	 */
 	public static Member getMember(final String name, final String surname, final LocalDate birthday,final  boolean sex,
-			final myOptional<String> nameTutor, final myOptional<String> mailTutor,final  myOptional<Long> phoneTutor) throws IllegalYearsException{
+			final MyOptional<String> nameTutor, final MyOptional<String> mailTutor,final  MyOptional<Long> phoneTutor) throws IllegalYearsException{
 		Member prjMember = null;
 		Tutor prjTutor = null;
 		prjTutor = new TutorImpl();
@@ -85,8 +85,8 @@ public class ProjectFactoryImpl implements Serializable {
 	 * @param place
 	 * @return
 	 */
-	public static ExcursionImpl getGeneralExcursion(final LocalDate dateStart,final  myOptional<LocalDate> dateEnd,
-			final myOptional<String> place) {
+	public static ExcursionImpl getGeneralExcursion(final LocalDate dateStart,final  MyOptional<LocalDate> dateEnd,
+			final MyOptional<String> place) {
 		// TODO Auto-generated method stub
 		return null;
 	}
