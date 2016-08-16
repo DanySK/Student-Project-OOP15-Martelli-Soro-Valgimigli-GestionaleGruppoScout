@@ -80,24 +80,29 @@ public class UnitImpl implements Unit, Serializable {
 	public void addMember(final Member m) throws ObjectAlreadyContainedException {
 			this.rep.addMembroSenzaSquadriglia(m);
 	}
+	
 	@Override
 	public void createSq(final Squadron sq) throws ObjectAlreadyContainedException {
 			this.rep.addSquadron(sq);
 	}
+	
 	@Override
 	public void removeMember(final Member m) throws ObjectNotContainedException {
 		if(this.rep.getMembriSenzaSquadriglia().contains(m)){
 			this.rep.removeMembroSenzaSquadriglia(m);
 		}
 	}
+	
 	@Override
 	public void removeSq(final Squadron sq) throws ObjectNotContainedException {
 			this.rep.removeSquadron(sq);
 	}
+	
 	@Override
 	public void putMemberInSq(final Member m,final  Squadron sq,final  Roles rl) throws MemberSexException, ObjectNotContainedException, ObjectAlreadyContainedException {
 			this.rep.spostaMembroInSquadriglia(m, rl, sq);
 	}
+	
 	@Override
 	public void changeMemberFromSq(final Member m,final  Squadron sqNew,final  Roles rl) throws ObjectNotContainedException,
 	MemberSexException, ObjectAlreadyContainedException {
@@ -110,22 +115,27 @@ public class UnitImpl implements Unit, Serializable {
 		
 		this.putMemberInSq(m, sqNew, rl );
 	}
+	
 	@Override
 	public LocalDate getLimitDateToPay() {
 		return this.rep.getDateToPay();
 	}
+	
 	@Override
 	public List<Member> getMemberDidntPay() {
 		return this.rep.getMembersNotPaid(Year.now().getValue());
 	}
+	
 	@Override
 	public void addExcursion(final Excursion exc) {
 		this.excursions.add(exc);
 	}
+	
 	@Override
 	public Reparto getReparto() {
 		return this.rep;
 	}
+	
 	@Override
 	public void removeExcursion(final String name) {
 		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equals(name))
@@ -136,6 +146,7 @@ public class UnitImpl implements Unit, Serializable {
 		}
 		this.excursions.removeAll(exc);
 	}
+	
 	@Override
 	public void removeExcursion(final Excursion exc) {
 		if(this.excursions.contains(exc)){
