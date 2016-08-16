@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import control.Unit;
-import control.projectFactoryImpl;
+import control.ProjectFactoryImpl;
 import control.myUtil.myOptional;
 import model.Excursion;
 import view.general_utility.WarningNotice;
@@ -156,39 +156,39 @@ public class AddExcursionJDialog extends JDialog {
 		Excursion exc;
 		start=LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText()));
 		if(type.equals(TypeExcursion.Uscita)){
-			exc=projectFactoryImpl.getStdExcursion(start, unit.getReparto(), nome.getText());
+			exc=ProjectFactoryImpl.getStdExcursion(start, unit.getReparto(), nome.getText());
 		}
 		else if(durata.getText().isEmpty()){
 			
 			end=LocalDate.of(Integer.parseInt(aaF.getText()), Integer.parseInt(mmF.getText()), Integer.parseInt(ggF.getText()));
 			if(type.equals(TypeExcursion.Campo)){
-				exc=projectFactoryImpl.getCamp(start, end, unit.getReparto(),nome.getText());
+				exc=ProjectFactoryImpl.getCamp(start, end, unit.getReparto(),nome.getText());
 			}
 			else if(type.equals(TypeExcursion.Gemellaggio)){
-				exc=projectFactoryImpl.getEventTwoUnit(start,end,unit.getReparto(),nome.getText(),reparti);
+				exc=ProjectFactoryImpl.getEventTwoUnit(start,end,unit.getReparto(),nome.getText(),reparti);
 			}
 			else if(type.equals(TypeExcursion.Evento_di_Zona)){
-				exc=projectFactoryImpl.getLocalEvent(start, end, unit.getReparto(), nome.getText(), reparti);
+				exc=ProjectFactoryImpl.getLocalEvent(start, end, unit.getReparto(), nome.getText(), reparti);
 				
 			}
 			else {//UscitaSquad
-				exc=projectFactoryImpl.getSqExcursion(start, end, unit.getContainers().findSquadron(squadName), nome.getText());
+				exc=ProjectFactoryImpl.getSqExcursion(start, end, unit.getContainers().findSquadron(squadName), nome.getText());
 			}
 			
 		}
 		
 		else{
 			if(type.equals(TypeExcursion.Campo)){
-				exc=projectFactoryImpl.getCamp(start, Integer.parseInt(durata.getText()), unit.getReparto(),nome.getText());
+				exc=ProjectFactoryImpl.getCamp(start, Integer.parseInt(durata.getText()), unit.getReparto(),nome.getText());
 			}
 			else if(type.equals(TypeExcursion.Gemellaggio)){
-				exc=projectFactoryImpl.getEventMoreUnit(start, Integer.parseInt(durata.getText()), unit.getReparto(), nome.getText(), reparti);
+				exc=ProjectFactoryImpl.getEventMoreUnit(start, Integer.parseInt(durata.getText()), unit.getReparto(), nome.getText(), reparti);
 			}
 			else if(type.equals(TypeExcursion.Evento_di_Zona)){
-				exc=projectFactoryImpl.getLocalEvent(start,Integer.parseInt(durata.getText()), unit.getReparto(), nome.getText(),reparti);
+				exc=ProjectFactoryImpl.getLocalEvent(start,Integer.parseInt(durata.getText()), unit.getReparto(), nome.getText(),reparti);
 			}
 			else {//UscitaSquad
-				exc=projectFactoryImpl.getSqExcursion(start, Integer.parseInt(durata.getText()), unit.getContainers().findSquadron(squadName), nome.getText());
+				exc=ProjectFactoryImpl.getSqExcursion(start, Integer.parseInt(durata.getText()), unit.getContainers().findSquadron(squadName), nome.getText());
 			}
 			
 		}

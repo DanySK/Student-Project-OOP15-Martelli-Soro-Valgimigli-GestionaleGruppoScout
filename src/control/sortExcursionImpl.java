@@ -10,7 +10,7 @@ import model.CampoImpl;
 import model.Excursion;
 import model.UscitaImpl;
 
-public class sortExcursionImpl extends SorterListImpl implements sortExcursion {
+public class SortExcursionImpl extends SorterListImpl implements SortExcursion {
 
 	/**
 	 * 

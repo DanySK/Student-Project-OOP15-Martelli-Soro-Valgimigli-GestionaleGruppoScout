@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import control.Unit;
-import control.projectFactoryImpl;
+import control.ProjectFactoryImpl;
 import control.myUtil.myOptional;
 import model.Member;
 import model.Roles;
@@ -108,9 +108,9 @@ public class AddMemberJDialog extends JDialog{
 			try{
 				/*scelgo costruttore in base alla presenza o meno dei campi del tutore*/
 				Member mem=(tutorName.getText().isEmpty())?
-				projectFactoryImpl.getSimpleMember(name.getText(), surname.getText(), 
+				ProjectFactoryImpl.getSimpleMember(name.getText(), surname.getText(), 
 							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected())
-					:projectFactoryImpl.getMember(name.getText(), surname.getText(), 
+					:ProjectFactoryImpl.getMember(name.getText(), surname.getText(), 
 							LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText())), sexM.isSelected(),
 							myOptional.of(tutorName.getText()), myOptional.of(tutorMail.getText()), myOptional.of(Long.parseLong(tutorPhone.getText())));
 				/*aggiungo il membro senza la squadriglia*/

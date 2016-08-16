@@ -25,7 +25,7 @@ public class MasterProjectImpl implements MasterProject {
 													+"ScoutApp";
 	private final static String DEFAULT_DIR_TOSAVE = DEFAULT_DIRECTORY + System.getProperty("file.separator")
 													+ "SaveProject";
-	private final static String impFile = DEFAULT_DIRECTORY + System.getProperty("file.separator") + "ImpScout.txt";
+	private final static String IMPFILE = DEFAULT_DIRECTORY + System.getProperty("file.separator") + "ImpScout.txt";
 	private final static String PROJECT_EXTENSION = ".sct";
 	
 	private File worker = null;
@@ -42,7 +42,7 @@ public class MasterProjectImpl implements MasterProject {
 			if(! this.worker.mkdir()){
 				throw new DefaultDirectoryException();
 			}
-			this.worker = new File(impFile);
+			this.worker = new File(IMPFILE);
 			if(!this.worker.createNewFile()){
 				throw new ProjectFilesCreationException();
 			}
@@ -56,7 +56,7 @@ public class MasterProjectImpl implements MasterProject {
 
 	@Override
 	public void setDirectoryToSave(String directory) throws IOException {
-		this.writer = new BufferedWriter( new FileWriter(impFile));
+		this.writer = new BufferedWriter( new FileWriter(IMPFILE));
 		this.writer.write(directory);
 		this.writer.newLine();
 		this.writer.close();
@@ -64,7 +64,7 @@ public class MasterProjectImpl implements MasterProject {
 
 	@Override
 	public String getDirectoryToSave() throws IOException {
-		this.reader = new BufferedReader(new FileReader(impFile));
+		this.reader = new BufferedReader(new FileReader(IMPFILE));
 		String dir = this.reader.readLine();
 		this.reader.close();
 		return dir;

@@ -13,7 +13,6 @@ import model.Member;
 import model.Reparto;
 import model.Roles;
 import model.Squadron;
-import model.Uscita;
 import view.general_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {

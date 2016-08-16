@@ -14,10 +14,10 @@ public class MemberSexException extends Exception {
 	 * 
 	 */
 	private static final long serialVersionUID = -2113529536501172249L;
-	private static final String message = "Errore: Il sesso del ragazzo\\a inserito\\a non corrisponde\n"
+	private static final String MESSAGE = "Errore: Il sesso del ragazzo\\a inserito\\a non corrisponde\n"
 			+ "con quello della squadirglia";
 	
 	public String getMessage(){
-		return message;
+		return MESSAGE;
 	}
 }

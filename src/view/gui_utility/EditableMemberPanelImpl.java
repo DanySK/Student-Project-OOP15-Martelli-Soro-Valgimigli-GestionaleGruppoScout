@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import control.SortMemberImpl;
-import control.sortExcursion;
-import control.sortExcursionImpl;
+import control.SortExcursion;
+import control.SortExcursionImpl;
 import control.myUtil.myOptional;
 import model.Campo;
 import model.EventiDiZona;
@@ -56,7 +56,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	private final JScrollPane scroll;
 	private int fontSize=15;
 	private final SortMemberImpl sort;
-	private final sortExcursion sortExc;
+	private final SortExcursion sortExc;
 	private final EditableMemberPanelImpl<E> me;
 	private final Type type;
 	private Squadron squadImpl;
@@ -74,7 +74,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				.findSquadron(squadName.get());
 		}
 		this.updateMember();
-		this.sortExc=new sortExcursionImpl();
+		this.sortExc=new SortExcursionImpl();
 		this.sort=new SortMemberImpl();
 		this.panelMember=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.scroll = new JScrollPane(panelMember);
