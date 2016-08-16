@@ -26,11 +26,6 @@ public class SortMemberImpl extends SorterListImpl implements SortMember {
 												1 :
 												e1.getSpecialities().size() < e2.getSpecialities().size() ?
 												-1 : 0;
-	private static final Comparator<Member> CMPBYNUMBOFCOMP =  (Member e1, Member e2) ->
-												e1.getCompetence().size() > e2.getCompetence().size() ?
-												1 :
-												e1.getCompetence().size() < e2.getCompetence().size() ?
-												-1 : 0;
 	@Override
 	public List<Member> sortByName(final List<Member> members) {
 		return this.sortList(members, CMPBYNAME);
@@ -51,9 +46,5 @@ public class SortMemberImpl extends SorterListImpl implements SortMember {
 		return this.sortList(members, CMPBYNUMBOFSPEC);
 	}
 
-	@Override
-	public List<Member> sortByNOfCompetences(final List<Member> members) {
-		return this.sortList(members, CMPBYNUMBOFCOMP);
-	}
 
 }

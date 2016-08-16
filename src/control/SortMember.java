@@ -29,10 +29,4 @@ public interface SortMember extends SorterList {
 	 * @return
 	 */
 	 List<Member> sortByNOfSpecialties(List<Member> members);
-	/**
-	 * Sort the list according to the Number of Competences
-	 * @param members
-	 * @return
-	 */
-	 List<Member> sortByNOfCompetences(List<Member> members);
 }
