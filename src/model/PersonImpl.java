@@ -51,7 +51,7 @@ public class PersonImpl implements Serializable,Person {
 	}
 
 	public Period getHowIsHold() {
-		return LocalDate.now().until(this.birthday).normalized();
+		return this.birthday.until(LocalDate.now()).normalized();
 	
 	}
 
