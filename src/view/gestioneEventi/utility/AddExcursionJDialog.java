@@ -46,7 +46,7 @@ public class AddExcursionJDialog extends JDialog {
 	private final JTextField gg=new JTextField();
 	private final JTextField mm=new JTextField();
 	private final JTextField aa=new JTextField();
-	private final JTextField durata=new JTextField("GG");
+	private final JTextField durata=new JTextField("1");
 	private final JTextField ggF=new JTextField();
 	private final JTextField mmF=new JTextField();
 	private final JTextField aaF=new JTextField();

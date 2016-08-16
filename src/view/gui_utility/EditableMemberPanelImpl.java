@@ -3,6 +3,7 @@ package view.gui_utility;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.time.Year;
@@ -85,7 +86,12 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		scroll.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(192,192,192)));
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		this.panelMember.setPreferredSize(scroll.getSize());
+		//this.panelMember.setPreferredSize(scroll.getSize());
+		this.panelMember.setPreferredSize(new Dimension(
+	           scroll.getWidth(),
+	           2000
+	    ) );
+		
 		if(type.equals(Type.RepartoEventi) || type.equals(Type.SquadrigliaEventi)){
 			this.sortPanel=new JPanel();
 			sortPanel.add(createJLabel("Ordina escursioni per: ", fontSize));
@@ -209,6 +215,9 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 							+ "Visita la sezione di gestione della squadriglia per aggiungerne</html>", fontSizeLabel-7));
 				}*/
 				panelMember.validate();
+				panelMember.repaint();
+				scroll.revalidate();
+				scroll.repaint();
 				repaint();
 				validate();
 				}
