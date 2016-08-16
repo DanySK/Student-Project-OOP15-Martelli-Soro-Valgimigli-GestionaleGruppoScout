@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import control.myUtil.Pair;
 import control.myUtil.myOptional;
@@ -21,7 +22,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	private String name;
 	private myOptional<LocalDate> dateEnd;
 	private myOptional<String> place;
-	private final List<Pair<Member, Boolean>> partecipanti;
+	private List<Pair<Member, Boolean>> partecipanti;
 
 	public ExcursionImpl(final LocalDate dateStart, final String name) throws IllegalDateException {
 		if (dateStart.isBefore(LocalDate.now())) {
@@ -70,11 +71,8 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
-		if (this.isPaied(partecipante)) {
-			this.partecipanti.remove(new Pair<>(partecipante, true));
-		} else {
-			this.partecipanti.remove(new Pair<>(partecipante, false));
-		}
+		this.partecipanti=this.partecipanti.stream().
+				filter(e->!(e.getX().equals(partecipante))).collect(Collectors.toList());
 	}
 
 	@Override
