@@ -205,7 +205,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		this.panelBot.add(button);
 	}
 	
-	public void updateInfo(){
+	public final void updateInfo(){
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override

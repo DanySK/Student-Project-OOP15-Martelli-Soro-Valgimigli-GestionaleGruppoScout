@@ -168,6 +168,26 @@ public class RepartoOverviewImpl  {
 					}));
 					panelLeft.add(createJLabel("", fontSizeLabel));
 					panelLeft.add(createJLabel("Tel: "+unit.getReparto().getCapoF().getPhoneNumber(), fontSizeLabel));
+					panelLeft.add(createJLabel("Staff: ",fontSizeLabel));
+					panelLeft.add(createButton("Vedi", 12, t->{
+						JDialog dial =new JDialog();
+						MyJPanelImpl pan=new MyJPanelImpl(new GridLayout(0, 1));
+						unit.getReparto().getStaff().stream()
+						.filter(e->( !e.equals(unit.getReparto().getCapoF()) && !e.equals(unit.getReparto().getCapoM())))
+						.forEach(e->{
+							MyJPanelImpl tmp=new MyJPanelImpl(new BorderLayout());
+							MyJPanelImpl panelLeft =new MyJPanelImpl(new GridLayout(2, 0));
+							MyJPanelImpl panelRight=new MyJPanelImpl(new GridLayout(1, 0));
+							panelLeft.add(createJLabel("Aiutante: ",fontSizeLabel));
+							panelLeft.add(createJLabel(e.getName()+" "+e.getSurname(),fontSizeLabel));
+							
+							
+							
+							
+						});			
+						
+						
+					}));
 					Arrays.asList(panelRight.getComponents()).stream().forEach(e->{e.setFont(new Font("Aria",Font.ITALIC,12));});
 					panelBot.add(createButton("<html>Crea<br>Squadriglia</html>", e->{
 						JDialog dial = new JDialog();

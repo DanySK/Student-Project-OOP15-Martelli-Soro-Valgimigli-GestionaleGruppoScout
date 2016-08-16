@@ -1,133 +1,100 @@
 package view.gestioneEventi;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Component;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
-import control.MasterProjectImpl;
 import control.UnitImpl;
-import view.general_utility.WarningNotice;
+import model.Squadron;
+import view.gestioneReparto.RepartoOverviewImpl;
+import view.gestioneReparto.SquadrigliaManagerImpl;
+import view.gestioneReparto.SquadrigliaOverviewImpl;
+import view.gestioneReparto.GestioneRepartoMain.TooltipTreeRenderer;
+import view.gestioneReparto.RepartoOverviewImpl.RepartoOverviewImplPane;
+import view.gestioneReparto.SquadrigliaManagerImpl.SquadrigliaManagerImplPanel;
+import view.gestioneReparto.SquadrigliaOverviewImpl.SquadrigliaOverviewImplPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
-import view.gui_utility.MyJPanelImpl;
+import view.gui_utility.MySplittedPanelWithTree;
 
-public class GestioneEventiMain extends MyJPanelImpl {
-	private static final long serialVersionUID = 1746284130120063121L;
-	
-	private final JScrollPane panelLeft;
-	private final JPanel panelRight;
-	private JPanel panelCenter;
-	private final MyJPanelImpl panelBottom;
-	private GridBagConstraints c = new GridBagConstraints();
-	private final JTree tree;
-	private final DefaultMutableTreeNode reparto;
+public class GestioneEventiMain extends MySplittedPanelWithTree{
+
 	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
-	public GestioneEventiMain() {
-		/*
-		/*
+	private final MySplittedPanelWithTree me;
+	public GestioneEventiMain(){
+		/*	/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
-		super("Gestione Reparto", MyJFrameSingletonImpl.getInstance().getContenentPane(), new GridBagLayout());
-		panelRight = new MyJPanelImpl(new BorderLayout());
-		panelCenter=new MyJPanelImpl();
-		panelBottom=new MyJPanelImpl(new BorderLayout());
-		
-		/*Creo l'albero e il nodo root(reparto)*/
-		reparto = new DefaultMutableTreeNode(unit.getName());
-		
-		tree = new JTree(reparto);
-		tree.setSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight(), MyJFrameSingletonImpl.getInstance().getWidth()/4));
-		tree.setBackground(panelRight.getBackground());
-		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);			
-		panelLeft=new JScrollPane(tree);
-		
-		/*panelLeft.repaint();
-		panelLeft.validate();*/
-		
-		/*Inserisco il panelLeft*/
-		c.weightx=1;
-		c.weighty=1;
-		c.fill=GridBagConstraints.BOTH;
-		panelLeft.setSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight(), MyJFrameSingletonImpl.getInstance().getWidth()/4));
-		panelLeft.setViewportView(tree);
-		add(panelLeft, c);
-		
-		/*Inserisco il panelRight*/
-		c.weightx= 4;
-		c.weighty=1;
-		c.fill=GridBagConstraints.BOTH;
-		add(panelRight,c);
+		super("Gestione Reparto",MyJFrameSingletonImpl.getInstance().getUnit().getName());
+		me=this;
 		
 		/*aggiung il SelectionListener al JTree*/
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
+		this.setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
+				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)(me.getTree().getLastSelectedPathComponent());
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
 					 public void run() { 
-						 panelRight.remove(panelCenter);
-						 if(node.getUserObject() instanceof EventiReparto){
-							 panelCenter=((EventiReparto)node.getUserObject()). new EventiRepartoPane();
-						 }
-						 if(node.getUserObject() instanceof EventiSquadriglia){
-							 panelCenter=((EventiSquadriglia)node.getUserObject()). new EventiSquadrigliaPanel();
-						 }
-						 panelCenter.repaint();
-						 panelCenter.validate();
-						 panelRight.add(panelCenter,BorderLayout.CENTER);
-						 panelRight.repaint();
-						 panelRight.validate();
-					 } 
+						 me.getPanelRight().remove(getPanelCenter());
+							 if(node.getUserObject() instanceof EventiReparto){
+								 setPanelCenter((((EventiReparto)node.getUserObject()). new EventiRepartoPane()));
+								 
+							 }
+							 if (node.getUserObject() instanceof EventiSquadriglia){
+								 me.setPanelCenter(( (EventiSquadriglia)node.getUserObject()). new  EventiSquadrigliaPanel());
+								 
+							 }						
+						 getPanelCenter().repaint();
+						 getPanelCenter().validate();
+						 getPanelRight().add(getPanelCenter(),BorderLayout.CENTER);
+						 getPanelRight().repaint();
+						 getPanelRight().validate();
+						}
 				 });
 			}
 		});
-		reparto.add(new DefaultMutableTreeNode(new EventiReparto()));
+	
+		/*Setto i JToolTip dell'albero*/
+		getTree().setCellRenderer(new TooltipTreeRenderer());
+		javax.swing.ToolTipManager.sharedInstance().registerComponent(getTree());
+		getTree().setVisibleRowCount(1);
+	
+		/*
+		 * popolo il JTree con le varie entrate
+		 */
+		me.getRoot().add(new DefaultMutableTreeNode(new EventiReparto()));
 		unit.getContainers().getSquadrons().forEach(e->{
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
-			t.add(new DefaultMutableTreeNode(new EventiSquadriglia(e)));
-			
-			reparto.add(t);			
+			t.add(new DefaultMutableTreeNode(new EventiSquadriglia(e.getNome())));
+			me.addNode(t);		
 		});
 		
-		panelBottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));
-		JButton back=this.getBackButton();
-		back.setSize(new Dimension(panelRight.getHeight()/7,panelRight.getHeight()/7));
-		panelBottom.add(back, BorderLayout.EAST);
-		panelBottom.add(createButton("Salva", e->{
-			try {
-				(new MasterProjectImpl()).save(MyJFrameSingletonImpl.getInstance().getUnit());
-				MyJFrameSingletonImpl.getInstance().resetNeedToSava();
-			} catch (Exception e1) {
-				new WarningNotice(e1.getMessage());
-			}
-			
-		}));
-		panelBottom.getComponent(1).setEnabled(false);
-		panelRight.add(panelBottom, BorderLayout.SOUTH);
+	
+		/*inserisco il panelBottom e i relativi JButton in panelRight*/
 		
-		/* inserisco il panelCenter in panelRight*/
-		panelRight.add(panelCenter, BorderLayout.CENTER);
-		
-		MyJFrameSingletonImpl.getInstance().setPanel(this);
 	}
+	public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {	
+		private static final long serialVersionUID = -2924024721151248795L;
+		@Override
+		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);		
+			if( ((DefaultMutableTreeNode)value).getUserObject() instanceof SquadrigliaOverviewImpl){
+				setToolTipText("<html>In questa sezione viene mostrata un'anteprima della squadriglia,<br>"+
+						"comprendente l'elenco degli incarichi assegnati e l'elenco dei componenti.</html>");
+			}
+			else if(((DefaultMutableTreeNode)value).getUserObject() instanceof SquadrigliaManagerImpl){
+				setToolTipText("<html>In questa sezione è possibile modificare la squadriglia;<br>"
+						+ "aggiungendo membri, assegnando incarichi, etc...");
+			}
+			return this;
+		}	 
+	}
+}	
 
-	
-	
-
-	
-
-}

@@ -132,8 +132,11 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				if(type.equals(Type.OverviewSquadriglia)){
 					new SearchElementJDialog<>(SearchType.ShowMember, squadName.get(), MyOptional.empty(), this);
 				}
-				if(type.equals(Type.GestioneSquadriglia)){
+				if(type.equals(Type.GestioneSquadriglia) ){
 					new SearchElementJDialog<>(SearchType.EditMember, squadName.get(), MyOptional.empty(), this);
+				}
+				if(type.equals(Type.OverviewReparto)){
+					new SearchElementJDialog<>(SearchType.EditMemberRep, MyOptional.empty(), MyOptional.empty(), this);
 				}
 			}));
 		}
@@ -144,7 +147,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void updateMember(){
+	public final void updateMember(){
 		if(type.equals(Type.GestioneSquadriglia)||type.equals(Type.OverviewSquadriglia)){
 			this.memList=(List<E>) squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
 			updateMemberBotton();
@@ -247,7 +250,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		}
 		else if(type.equals(Type.OverviewSquadriglia)){
 			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname()+"</html>",  16,  e->{
-				(new ShowMemberInfoJDialog(((Member)mem))).setVisible(true); 
+				(new ShowMemberInfoJDialog(((Member)mem), true)).setVisible(true); 
 			});
 		}
 		else if(type.equals(Type.TasseSquadrigliaEscursioni)){

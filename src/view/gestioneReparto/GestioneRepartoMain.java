@@ -22,8 +22,8 @@ import view.gui_utility.MySplittedPanelWithTree;
  */
 public class GestioneRepartoMain extends MySplittedPanelWithTree{
 	private static final long serialVersionUID = -1348459245821012590L;
-		private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
-		private final MySplittedPanelWithTree me;
+	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
+	private final MySplittedPanelWithTree me;
 	public GestioneRepartoMain(){
 		/*	/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali

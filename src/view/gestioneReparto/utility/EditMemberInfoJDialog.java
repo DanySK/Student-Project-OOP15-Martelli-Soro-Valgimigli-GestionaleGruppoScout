@@ -1,17 +1,21 @@
 package view.gestioneReparto.utility;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import model.Member;
 import model.MemberImpl;
 import model.Roles;
 import model.Squadron;
+import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;
@@ -93,6 +97,55 @@ public class EditMemberInfoJDialog extends JDialog {
 		panelCenter.add(totem);
 		panelCenter.add(panel.createJLabel( "Cambia Squadriglia", fontSize));
 		panelCenter.add(squad);
+		panelCenter.add(panel.createJLabel("Specialità", fontSize));
+		panelCenter.add(panel.createButton("Edit",15, e->{
+			JDialog dial =new JDialog();
+			MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
+			MyJPanelImpl in=new MyJPanelImpl(new GridLayout(2,1));
+			JTextArea area=new JTextArea();
+			mem.getSpecialities().stream().forEach(k->{
+				area.append(k);
+			});
+			MyJPanelImpl bot=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
+			bot.add(bot.createButton("Annulla", k->{
+				dial.dispose();
+			}));
+			bot.add(bot.createButton("Salva", k->{
+				List<String> str=mem.getSpecialities();
+				str.stream().forEach(t->{
+					try {
+						mem.removeSpecialities(t);
+						
+						
+					} catch (Exception e1) {
+						new WarningNotice(e1.getMessage());
+					}
+				});
+				Arrays.asList(area.getText().split(System.lineSeparator())).stream()
+				.forEach(y->{
+					try {
+						mem.addSpecialities(y);
+					} catch (ObjectAlreadyContainedException e1) {
+						new WarningNotice(e1.getMessage());
+					}
+					
+				});
+				MyJFrameSingletonImpl.getInstance().setNeedToSave();
+				dial.dispose();
+				
+				
+			}));
+			in.add(in.createJLabel("<hmtl>Aggiungi le specialità,<br>"
+					+ "separandole con il tasto \"INVIO\"", fontSize));
+			in.add(area);
+			pan.add(in,BorderLayout.CENTER);
+			pan.add(bot,BorderLayout.SOUTH);
+			dial.add(pan);
+			dial.pack();
+			dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+			dial.setVisible(true);
+			
+		}));
 		panelCenter.add(panel.createJLabel( "Tutor ", fontSize));
 		panelCenter.add(tutorName);
 		panelCenter.add(panel.createJLabel( "Tel. Tutor:", fontSize));

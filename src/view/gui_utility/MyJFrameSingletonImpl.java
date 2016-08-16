@@ -16,7 +16,7 @@ import control.UnitImpl;
  * this app, each window is painted changing the contentPane of the unique JFrame.
  * @author giovanni
  */
-public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
+public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	
 	
 	private static final long serialVersionUID = -5285934581393069862L;

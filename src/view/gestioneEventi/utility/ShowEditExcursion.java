@@ -1,13 +1,11 @@
 package view.gestioneEventi.utility;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EventObject;
 import java.util.List;
 import java.util.Map;
 
@@ -122,16 +120,16 @@ public class ShowEditExcursion extends JDialog{
 						else ((Gemellaggi)exc).getOtherUnits().stream().forEach(l->{
 							area.append(l);
 						});
+						MyJPanelImpl container=new MyJPanelImpl(new GridLayout(2, 1));
 						MyJPanelImpl pan= new MyJPanelImpl(new BorderLayout());
 						MyJPanelImpl panN=new MyJPanelImpl(new GridLayout(2, 1));
 						MyJPanelImpl panS=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
 						panN.add(pan.createJLabel("<html><U>Aggiungi Reparti</U><html>", fontSize+2));
-						panN.add(pan.createJLabel("<html>Aggiungere i nomi dei reparti<br>"
+						panN.add(pan.createJLabel("<html>Aggiungere i nomi dei reparti,<br>"
 								+ "separando un reparto dall'altro con il tasto \"INVIO\"</html>", fontSize));
-						pan.add(panN,BorderLayout.NORTH);
-					
-						area.setPreferredSize(new Dimension(area.getWidth(),dial.getHeight()));
-						pan.add(area,BorderLayout.CENTER);
+						container.add(panN);
+						container.add(area);
+						pan.add(container,BorderLayout.CENTER);
 						panS.add(pan.createButton("Annulla", r->{
 							dial.dispose();
 						}));
