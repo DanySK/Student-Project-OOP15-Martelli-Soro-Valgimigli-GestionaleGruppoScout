@@ -101,13 +101,18 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	}
 
 	@Override
-	public void addOtherUnit(final String name) {
+	public void addOtherUnit(final String name) throws ObjectAlreadyContainedException {
+		if (this.altriReparti.contains(name)) {
+			throw new ObjectAlreadyContainedException();
+		}
 		this.altriReparti.add(name);
 	}
 
 	@Override
-	public void removeOtherUnit(final String name) {
-		this.altriReparti.remove(name);
+	public void removeOtherUnit(final String name) throws ObjectNotContainedException {
+		if (!this.altriReparti.remove(name)) {
+			throw new ObjectNotContainedException();
+		}
 	}
 
 	@Override

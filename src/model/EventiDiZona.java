@@ -75,14 +75,16 @@ public interface EventiDiZona extends Excursion {
 	/**
 	 * 
 	 * @param name of the unit to add
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	 void addOtherUnit(String name);
+	 void addOtherUnit(String name) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param name of the unit to remove
+	 * @throws ObjectNotContainedException 
 	 */
-	 void removeOtherUnit(String name);
+	 void removeOtherUnit(String name) throws ObjectNotContainedException;
 
 	/**
 	 * 
