@@ -14,22 +14,29 @@ import model.Excursion;
 import model.Member;
 import model.Reparto;
 
-
+/**
+ * 
+ * @author Valgio
+ *
+ */
 public class CheckerImpl implements Checker, Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2321120264672768555L;
-	private final Integer DAYTOCHECK = 7;
+	private static final Integer DAYTOCHECK = 7;
+	
+	public CheckerImpl(){
+	};
 
 	@Override
-	public List<Member> noPaied(Excursion e) {
-		return e.getNonPaganti();
+	public List<Member> noPaied(final Excursion exc) {
+		return exc.getNonPaganti();
 	}
 
 	@Override
-	public List<Member> birthday(int nDay, List<Member> people) {
+	public List<Member> birthday(final int nDay, final List<Member> people) {
 		LocalDate now = LocalDate.now();
 		LocalDate limit = LocalDate.now().plus(nDay, ChronoUnit.DAYS);
 		
@@ -39,7 +46,7 @@ public class CheckerImpl implements Checker, Serializable {
 	}
 
 	@Override
-	public List<Excursion> excursionInProgram(int nDay, List<Excursion> excursions) {
+	public List<Excursion> excursionInProgram(final int nDay, final List<Excursion> excursions) {
 		final LocalDate now = LocalDate.now();
 		List<Excursion> exc = new ArrayList<>();
 		for( int i = 0; i < nDay; i++){
@@ -52,15 +59,15 @@ public class CheckerImpl implements Checker, Serializable {
 		return exc;
 	}
 	@Override
-	public List<Member> noPaiedMembers(Reparto rp){
-		return rp.getMembersNotPaid(Year.now().getValue());
+	public List<Member> noPaiedMembers(Reparto rep){
+		return rep.getMembersNotPaid(Year.now().getValue());
 	}
 
 	@Override
-	public Map<String, List<Member>> stdRouting(Unit u) {
+	public Map<String, List<Member>> stdRouting(Unit unit) {
 		
-		List<Member> people = u.getContainers().getMembers();
-		List<Excursion> excursions = u.getContainers().getExcursion();
+		List<Member> people = unit.getContainers().getMembers();
+		List<Excursion> excursions = unit.getContainers().getExcursion();
 		
 		Map<String, List<Member>> map = new HashMap<>();
 		List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
@@ -70,9 +77,9 @@ public class CheckerImpl implements Checker, Serializable {
 		List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);
 		
-		if(this.checkDateIsBetween(u.getLimitDateToPay(), u.getLimitDateToPay()
+		if(this.checkDateIsBetween(unit.getLimitDateToPay(), unit.getLimitDateToPay()
 									.plus(- DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())){
-			map.put("Ragazzi che non hanno ancora pagato l'anno", u.getMemberDidntPay());
+			map.put("Ragazzi che non hanno ancora pagato l'anno", unit.getMemberDidntPay());
 		}
 		return map;
 	}

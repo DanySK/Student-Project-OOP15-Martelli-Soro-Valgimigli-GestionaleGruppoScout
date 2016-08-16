@@ -122,9 +122,11 @@ public class InfoProjectImpl implements InfoProject {
 		value.add(e.getName());
 		value.add(e.getPlace());
 		value.add(e.getPrize().toString());
+		value.add(e.getDateStart().toString());
 		info.put("Nome", value.subList(0, 1));
 		info.put("Dove", value.subList(1, 2));
 		info.put("Prezzo", value.subList(2, 3));
+		info.put("Data", value.subList(4, 5) );
 		info.put("Partecipanti", e.getAllPartecipanti().stream()
 														.map(s -> s.getName() + " " + s.getSurname())
 														.collect(Collectors.toList()));

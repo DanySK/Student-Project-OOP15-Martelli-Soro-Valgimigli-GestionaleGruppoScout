@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import control.exception.MoreLeadersNotPermitException;
 import model.*;
 
-public class tmpMain {
+public class test{
 
 	public static void main(String[] args) {
 		try{
