@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import control.exception.MemberSexException;
 import control.myUtil.Pair;
+import extra.mail.ControlMail;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
@@ -129,6 +130,7 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public void addExcursion(final Excursion exc) {
 		this.excursions.add(exc);
+		ControlMail.sendMailForExcursion(exc);
 	}
 	
 	@Override
