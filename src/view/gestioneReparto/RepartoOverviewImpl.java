@@ -17,6 +17,7 @@ import control.Unit;
 import control.ProjectFactoryImpl;
 import control.myUtil.myOptional;
 import model.CapoImpl;
+import view.general_utility.WarningNotice;
 import view.gestioneReparto.utility.PanelCapiReparto;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
@@ -62,16 +63,20 @@ public class RepartoOverviewImpl  {
 			PanelCapiReparto panCapo= new PanelCapiReparto("Nuovo Capo Reparto");
 			outerPanel.add(panCapo,BorderLayout.CENTER);
 			panelBot.add(createButton("OK", e->{
-				if(sex==true){
-					unit.getReparto().setCapoM( ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
-							panCapo.getDate(),panCapo.getPhone()));
+				try{
+					if(sex==true){
+						unit.getReparto().setCapoM( ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
+								panCapo.getDate(),panCapo.getPhone()));
+					}
+					else{
+						unit.getReparto().setCapoF( ProjectFactoryImpl.getLeaderF(panCapo.getNome(), panCapo.getSurname(), 
+								panCapo.getDate(),panCapo.getPhone()));
+					}
+					dial.dispose();
+					updateAll();
+				}catch(Exception f){
+					new WarningNotice(f.getMessage());
 				}
-				else{
-					unit.getReparto().setCapoF( ProjectFactoryImpl.getLeaderF(panCapo.getNome(), panCapo.getSurname(), 
-							panCapo.getDate(),panCapo.getPhone()));
-				}
-				dial.dispose();
-				updateAll();
 			}));
 			panelBot.add(createButton("Annulla", e->{
 				dial.dispose();
@@ -186,11 +191,15 @@ public class RepartoOverviewImpl  {
 							dial.dispose();
 						}));
 						button.add(createButton("Aggiungi", k->{
-							unit.createSq(ProjectFactoryImpl.getSquadron(nome.getText(), sexM.isSelected()));
-							MyJFrameSingletonImpl.getInstance().setNeedToSave();
-							((GestioneRepartoMain)MyJFrameSingletonImpl.getInstance().getContenentPane())
-								.addSquadToJTree(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(nome.getText()));;
-								dial.dispose();
+							try{
+								unit.createSq(ProjectFactoryImpl.getSquadron(nome.getText(), sexM.isSelected()));
+								MyJFrameSingletonImpl.getInstance().setNeedToSave();
+								((GestioneRepartoMain)MyJFrameSingletonImpl.getInstance().getContenentPane())
+									.addSquadToJTree(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(nome.getText()));;
+									dial.dispose();
+							}catch(Exception f){
+								new WarningNotice(f.getMessage());
+							}
 						}));
 						pan.add(createJLabel( "<html><U>Nuova squadriglia</U></html>", fontSizeLabel));
 						pan.add(info, BorderLayout.CENTER);
@@ -210,10 +219,14 @@ public class RepartoOverviewImpl  {
 							.forEach(t->squad.addItem(t.getNome()));
 						panel.add(squad,BorderLayout.CENTER);
 						panelBot.add(createButton("Elimina",t->{
-							unit.removeSq(unit.getContainers().findSquadron((String)squad.getSelectedItem()));
-							((GestioneRepartoMain)MyJFrameSingletonImpl.getInstance().getContenentPane()).removeSquadToJTree((String)squad.getSelectedItem());
-							MyJFrameSingletonImpl.getInstance().setNeedToSave();
-							dial.dispose();
+							try{
+								unit.removeSq(unit.getContainers().findSquadron((String)squad.getSelectedItem()));
+								((GestioneRepartoMain)MyJFrameSingletonImpl.getInstance().getContenentPane()).removeSquadToJTree((String)squad.getSelectedItem());
+								MyJFrameSingletonImpl.getInstance().setNeedToSave();
+								dial.dispose();
+							}catch(Exception f){
+								new WarningNotice(f.getMessage());
+							}
 							
 						}));
 						panelBot.add(createButton("Annulla", t->{

@@ -126,7 +126,11 @@ public class EditMemberInfoJDialog extends JDialog {
 			if(memberHasSquadron()){
 				//aggiorno se il ruolo è stato cambiato
 				if(!((Roles)role.getSelectedItem()).equals(squadImpl.getMembri().get(mem))){
-					MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem, squadImpl, (Roles)role.getSelectedItem());
+					try{
+						MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem, squadImpl, (Roles)role.getSelectedItem());
+					}catch(Exception f){
+						new WarningNotice(f.getMessage());
+					}
 				}
 				if(memberHasSquadron() &&((String)squad.getSelectedItem()).equals("nessuna squadriglia")){
 					try {
@@ -138,9 +142,13 @@ public class EditMemberInfoJDialog extends JDialog {
 				}
 				//se è stata cambiata la squadriglia di appartenenza sposto il membro
 				else if(!((String)squad.getSelectedItem()).equals(squadName) ){
-					MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem,
+					try{
+						MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem,
 						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(((String)squad.getSelectedItem())), 
 						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName).getMembri().get(mem));
+					}catch(Exception f){
+						new WarningNotice(f.getMessage());
+					}
 				}
 			}
 			else{
