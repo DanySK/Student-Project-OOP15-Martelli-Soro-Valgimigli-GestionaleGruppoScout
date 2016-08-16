@@ -19,8 +19,10 @@ import view.gestioneEventi.utility.AddExcursionJDialog;
 import view.gestioneEventi.utility.AddExcursionJDialog.TypeExcursion;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
+import view.gui_utility.SearchElementJDialog.SearchType;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
+import view.gui_utility.SearchElementJDialog;
 
 public class EventiReparto {
 
@@ -59,10 +61,7 @@ public class EventiReparto {
 				new AddExcursionJDialog(TypeExcursion.Uscita, myOptional.empty(),this);
 			}));
 			panelTopButton.add(createButton("<html>Rimuovi<br>Escursione</html>", 12,e->{
-				JDialog dial =new JDialog();
-				MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
-				MyJPanelImpl bot=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
-				//EditableMemberPanelImpl<Excursion> exc=new MyJ
+				new SearchElementJDialog<>(SearchType.removeExcursion,myOptional.empty(), myOptional.empty(), this);
 			}));
 			this.panelTopContainer.add(panelTopButton, BorderLayout.SOUTH);
 			
@@ -73,6 +72,7 @@ public class EventiReparto {
 			SwingUtilities.invokeLater(new Runnable() {
 				
 				public void run() {
+					panelTopInfo.removeAll();
 					//Long i =1 ;
 					panelTopInfo.add(createJLabel("Prossimo Campo: ", fontSizeLabel));
 					panelTopInfo.add(createJLabel((new SortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()

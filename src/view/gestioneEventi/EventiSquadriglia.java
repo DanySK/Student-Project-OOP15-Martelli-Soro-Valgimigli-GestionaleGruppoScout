@@ -24,6 +24,8 @@ import view.gestioneEventi.utility.AddExcursionJDialog.TypeExcursion;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
+import view.gui_utility.SearchElementJDialog;
+import view.gui_utility.SearchElementJDialog.SearchType;
 import view.gui_utility.EditableMemberPanelImpl.Type;
 
 public class EventiSquadriglia {
@@ -58,9 +60,7 @@ public class EventiSquadriglia {
 			}));
 			
 			panelTopButton.add(createButton("<html>Rimuovi<br>Uscita</html>", 12,e->{
-				JDialog dial =new JDialog();
-				MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
-				MyJPanelImpl bot=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
+				new SearchElementJDialog<>(SearchType.removeExcursion,myOptional.empty(), myOptional.empty(), this);
 				
 			}));
 			this.panelTopContainer.add(panelTopButton, BorderLayout.SOUTH);
@@ -72,6 +72,7 @@ public class EventiSquadriglia {
 			SwingUtilities.invokeLater(new Runnable() {
 				
 				public void run() {
+					panelTopInfo.removeAll();
 					//Long i =1 ;
 					panelTopInfo.add(createJLabel("Prossimo Uscita: ", fontSizeLabel));
 					
@@ -80,22 +81,6 @@ public class EventiSquadriglia {
 							.collect(Collectors.toList())).stream()
 							.map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"),
 							fontSizeLabel));
-					
-					/*panelTopInfo.add(createJLabel("Prossimo Evento: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
-							.filter(e->e instanceof EventiDiZona).collect(Collectors.toList())))
-							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
-					
-					panelTopInfo.add(createJLabel("Prossimo Gemellaggio: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
-							.filter(e->e instanceof Gemellaggi).collect(Collectors.toList())))
-							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
-					
-					panelTopInfo.add(createJLabel("Prossima Uscita: ", fontSizeLabel));
-					panelTopInfo.add(createJLabel((new sortExcursionImpl().sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
-							.filter(e->e instanceof Uscita).collect(Collectors.toList())))
-							.stream().map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"), fontSizeLabel));
-					*/
 					panelTopInfo.repaint();
 					panelTopInfo.validate();
 				
