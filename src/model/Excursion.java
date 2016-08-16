@@ -20,39 +20,39 @@ public interface Excursion {
 	 * 
 	 * @return an Integer contained the price of the excursion
 	 */
-	public Integer getPrize();
+	 Integer getPrize();
 
 	/**
 	 * 
 	 * @return a String contained the place of the excursion
 	 */
-	public String getPlace();
+	 String getPlace();
 
 	/**
 	 * 
 	 * @return a Date contained the start date excursion
 	 */
-	public LocalDate getDateStart();
+	 LocalDate getDateStart();
 
 	/**
 	 * 
 	 * @return a Date contained the end date excursion
 	 */
-	public LocalDate getDateEnd();
+	 LocalDate getDateEnd();
 
 	/**
 	 * set the price of the excursion
 	 * 
 	 * @param prize
 	 */
-	public void setPrice(Integer prize);
+	 void setPrice(Integer prize);
 
 	/**
 	 * set the place of the excursion
 	 * 
 	 * @param place
 	 */
-	public void setPlace(String place);
+	 void setPlace(String place);
 
 	/**
 	 * set the start date excursion
@@ -60,7 +60,7 @@ public interface Excursion {
 	 * @param dateStart
 	 * @throws IllegalDateException
 	 */
-	public void setDateStart(LocalDate dateStart) throws IllegalDateException;
+	 void setDateStart(LocalDate dateStart) throws IllegalDateException;
 
 	/**
 	 * set the end date excursion
@@ -68,7 +68,7 @@ public interface Excursion {
 	 * @param dateEnd
 	 * @throws IllegalDateException
 	 */
-	public void setDateEnd(LocalDate dateEnd) throws IllegalDateException;
+	 void setDateEnd(LocalDate dateEnd) throws IllegalDateException;
 
 	/**
 	 * add a member in the excursion
@@ -78,7 +78,7 @@ public interface Excursion {
 	 *            must be true if the member has just paid
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addPartecipante(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException;
+	 void addPartecipante(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException;
 
 	/**
 	 * remove a member from the excursion
@@ -86,27 +86,27 @@ public interface Excursion {
 	 * @param member
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removePartecipante(Member partecipante) throws ObjectNotContainedException;
+	 void removePartecipante(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @return a List<Member> contained the members who has to pay
 	 */
-	public List<Member> getNonPaganti();
+	 List<Member> getNonPaganti();
 
 	/**
 	 * 
 	 * @return a List<Member> contained the members who will take part in the
 	 *         excursion
 	 */
-	public List<Member> getAllPartecipanti();
+	 List<Member> getAllPartecipanti();
 
 	/**
 	 * 
 	 * @return a List<Integer> contained the ids of the members who has NOT to
 	 *         pay
 	 */
-	public List<Member> getAllPaganti();
+	 List<Member> getAllPaganti();
 
 	/**
 	 * set true the payment boolean
@@ -115,14 +115,14 @@ public interface Excursion {
 	 *            that has paid
 	 * @throws ObjectNotContainedException 
 	 */
-	public void setPagante(Member partecipante) throws ObjectNotContainedException;
+	 void setPagante(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @param member
 	 * @return true if the member will take part in the excursion
 	 */
-	public boolean containMember(Member partecipante);
+	 boolean containMember(Member partecipante);
 
 	/**
 	 * 
@@ -130,23 +130,23 @@ public interface Excursion {
 	 * @return true if the member had paid
 	 * @throws ObjectNotContainedException 
 	 */
-	public boolean isPagante(Member partecipante) throws ObjectNotContainedException;
+	 boolean isPagante(Member partecipante) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @return a List<Member> contained the members who has the birthday
 	 */
-	public List<Member> getAllBirthdays();
+	 List<Member> getAllBirthdays();
 
 	/**
 	 * 
 	 * @return
 	 */
-	public String getName();
+	 String getName();
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void setName(String name);
+	 void setName(String name);
 }

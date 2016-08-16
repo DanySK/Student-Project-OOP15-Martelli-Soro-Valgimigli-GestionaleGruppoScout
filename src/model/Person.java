@@ -9,26 +9,26 @@ public interface Person {
 	 * @param name
 	 *            of the person
 	 */
-	public void setName(String name);
+	 void setName(String name);
 
 	/**
 	 * 
 	 * @param surname
 	 *            of the person
 	 */
-	public void setSurname(String surname);
+	 void setSurname(String surname);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public int getAnnata();
+	 int getAnnata();
 
 	/**
 	 * 
 	 * @return
 	 */
-	public Period getHowIsHold();
+	 Period getHowIsHold();
 
 	/**
 	 * 
@@ -36,43 +36,43 @@ public interface Person {
 	 *            of the person
 	 */
 
-	public void setBirthday(LocalDate birthday);
+	 void setBirthday(LocalDate birthday);
 
 	/**
 	 * 
 	 * @param sex
 	 *            of the person (1 male)
 	 */
-	public void setSex(Boolean sex);
+	 void setSex(Boolean sex);
 
 	/**
 	 * 
 	 * @return true if the person is male
 	 */
-	public Boolean getSex();
+	 Boolean getSex();
 
 	/**
 	 * 
 	 * @return a String contained the name of the person
 	 */
-	public String getName();
+	 String getName();
 
 	/**
 	 * 
 	 * @return a String contained the surname of the person
 	 */
-	public String getSurname();
+	 String getSurname();
 
 	/**
 	 * 
 	 * @return a LocalDate contained the birthday of the person
 	 */
-	public LocalDate getBirthday();
+	 LocalDate getBirthday();
 
 	/**
 	 * 
 	 * @return true inf today is the birthday of the peson
 	 */
-	public Boolean isBirthday();
+	 Boolean isBirthday();
 
 }

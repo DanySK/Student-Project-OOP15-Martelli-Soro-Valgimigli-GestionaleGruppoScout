@@ -26,7 +26,7 @@ public PathImpl (){
 	this.family=myOptional.empty();
 	this.relations=myOptional.empty();
 }
-public PathImpl (Integer liv,String level,String faith,String school,String family,String relations){
+public PathImpl (final Integer liv,final String level,final String faith,final String school,final String family,final String relations){
 	this.liv=liv;
 	this.level=level;
 	this.faith=myOptional.of(faith);
@@ -43,25 +43,25 @@ public String getLevel(){
 public String getSchool(){
 	return this.school.get();
 }
-public void setSchool (String school){
+public void setSchool (final String school){
 	this.school=myOptional.of(school);
 }
 public String getFamily(){
 	return this.family.get();
 }
-public void setFamily (String family){
+public void setFamily (final String family){
 	this.family=myOptional.of(family);
 }
 public String getRelations(){
 	return this.relations.get();
 }
-public void setRelations (String relations){
+public void setRelations (final String relations){
 	this.relations=myOptional.of(relations);
 }
 public String getFaith(){
 	return this.faith.get();
 }
-public void setFaith (String faith){
+public void setFaith (final String faith){
 	this.faith=myOptional.of(faith);
 }
 public void livUp() throws IllegalOperationException{
@@ -71,7 +71,7 @@ public void livUp() throws IllegalOperationException{
 	this.liv=this.liv+1;
 	updateLevel();
 }
-public void livDown() throws IllegalOperationException{/*return false if liv is 3*/
+public void livDown() throws IllegalOperationException{
 	if (this.liv==1){
 		throw new IllegalOperationException();
 	}
@@ -80,8 +80,14 @@ public void livDown() throws IllegalOperationException{/*return false if liv is 
 }
 
 private void updateLevel(){
-	if (this.liv==1) this.level="scoperta";
-	if (this.liv==2) this.level="competenza";
-	if (this.liv==3) this.level="responsabilità";
+	if (this.liv==1){
+		this.level="scoperta";
+	}
+	if (this.liv==2){
+		this.level="competenza";
+	}
+	if (this.liv==3){
+		this.level="responsabilità";
+	}
 }
 }

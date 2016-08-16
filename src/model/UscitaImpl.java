@@ -10,7 +10,7 @@ public class UscitaImpl extends ExcursionImpl implements Uscita, Serializable {
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
 
-	public UscitaImpl(LocalDate dateStart, Reparto reparto, String name) throws IllegalDateException {
+	public UscitaImpl(final LocalDate dateStart,final Reparto reparto,final String name) throws IllegalDateException {
 		super(name, dateStart, reparto.getAllMember());
 		this.reparto=reparto;
 		this.setDateEnd(dateStart.plusDays(2));
@@ -20,13 +20,12 @@ public class UscitaImpl extends ExcursionImpl implements Uscita, Serializable {
 		return reparto;
 	}
 
-	public void setReparto(Reparto reparto) {
+	public void setReparto(final Reparto reparto) {
 		this.reparto = reparto;
 	}
 
 	@Override
-	protected void check(LocalDate dateStart, LocalDate dateEnd) throws IllegalDateException {
-		return;
+	protected void check(final LocalDate dateStart,final LocalDate dateEnd) throws IllegalDateException {
 	}
 
 }

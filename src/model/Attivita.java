@@ -7,35 +7,35 @@ public interface Attivita {
 	 * 
 	 * @return
 	 */
-	public String getName() ;
+	 String getName() ;
 	/**
 	 * 
 	 * @param name
 	 */
-	public void setName(String name) ;
+	 void setName(String name) ;
 	/**
 	 * 
 	 * @return
 	 */
-	public LocalTime getOrarioInizio();
+	 LocalTime getOrarioInizio();
 	/**
 	 * 
 	 * @param orarioInizio
 	 */
-	public void setOrarioInizio(LocalTime orarioInizio) ;
+	 void setOrarioInizio(LocalTime orarioInizio) ;
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean haOrarioFine ();
+	 boolean haOrarioFine ();
 	/**
 	 * 
 	 * @return
 	 */
-	public LocalTime getOrarioFine();
+	 LocalTime getOrarioFine();
 	/**
 	 * 
 	 * @param orarioFine
 	 */
-	public void setOrarioFine(LocalTime orarioFine);
+	 void setOrarioFine(LocalTime orarioFine);
 }

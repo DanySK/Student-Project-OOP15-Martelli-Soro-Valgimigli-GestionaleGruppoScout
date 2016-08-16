@@ -8,12 +8,12 @@ public class AttivitaImpl implements Attivita {
 		private String name;
 		private LocalTime orarioInizio;
 		private myOptional<LocalTime> orarioFine;
-		public AttivitaImpl (String name,LocalTime orarioInizio){
+		public AttivitaImpl (final String name,final LocalTime orarioInizio){
 			this.name=name;
 			this.orarioInizio=orarioInizio;
 			this.orarioFine=myOptional.empty();
 		}
-		public AttivitaImpl (String name,LocalTime orarioInizio,LocalTime orarioFine){
+		public AttivitaImpl (final String name,final LocalTime orarioInizio,final LocalTime orarioFine){
 			this.name=name;
 			this.orarioInizio=orarioInizio;
 			this.orarioFine=myOptional.of(orarioFine);
@@ -23,7 +23,7 @@ public class AttivitaImpl implements Attivita {
 			return this.name;
 		}
 		
-		public void setName(String name) {
+		public void setName(final String name) {
 			this.name = name;
 		}
 		
@@ -31,7 +31,7 @@ public class AttivitaImpl implements Attivita {
 			return orarioInizio;
 		}
 		
-		public void setOrarioInizio(LocalTime orarioInizio) {
+		public void setOrarioInizio(final LocalTime orarioInizio) {
 			this.orarioInizio = orarioInizio;
 		}
 		public boolean haOrarioFine (){
@@ -40,7 +40,7 @@ public class AttivitaImpl implements Attivita {
 		public LocalTime getOrarioFine(){
 			return this.orarioFine.get();
 		}
-		public void setOrarioFine(LocalTime orarioFine){
+		public void setOrarioFine(final LocalTime orarioFine){
 			this.orarioFine=myOptional.of(orarioFine);
 		}
  }

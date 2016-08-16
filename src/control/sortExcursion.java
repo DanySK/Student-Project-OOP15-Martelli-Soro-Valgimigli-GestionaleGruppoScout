@@ -6,7 +6,7 @@ import java.util.Map;
 
 import model.Excursion;
 
-public interface sortExcursion {
+public interface SortExcursion {
 	/**
 	 * 
 	 * @param exc

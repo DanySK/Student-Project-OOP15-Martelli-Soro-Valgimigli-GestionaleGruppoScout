@@ -21,20 +21,20 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	private String name;
 	private myOptional<LocalDate> dateEnd;
 	private myOptional<String> place;
-	private List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
+	private final List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
 
-	public ExcursionImpl(LocalDate dateStart,String name) throws IllegalDateException {
+	public ExcursionImpl(final LocalDate dateStart,final String name) throws IllegalDateException {
 		if (dateStart.isBefore(LocalDate.now())){
 			throw new IllegalDateException();
 		}
-		setDateStart(dateStart);
+		this.dateStart=dateStart;
 		this.prize = myOptional.empty();
 		this.dateEnd = myOptional.empty();
 		this.place = myOptional.empty();
 		this.name=name;
 	}
 	
-	public ExcursionImpl(String name,LocalDate dateStart, List<Member> partecipanti) throws IllegalDateException {
+	public ExcursionImpl(final String name,final LocalDate dateStart,final  List<Member> partecipanti) throws IllegalDateException {
 		
 		this(dateStart,name);
 		partecipanti.forEach(e -> {
@@ -46,17 +46,21 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
-	public void addPartecipante(Member partecipante, Boolean pagato) throws ObjectAlreadyContainedException {
-		if (this.containMember(partecipante)) throw new ObjectAlreadyContainedException ();
+	public void addPartecipante(final Member partecipante,final  Boolean pagato) throws ObjectAlreadyContainedException {
+		if (this.containMember(partecipante)){
+			throw new ObjectAlreadyContainedException ();
+		}
 		this.partecipanti.add(new Pair<>(partecipante, pagato));
 	}
 
-	public void removePartecipante(Member partecipante) throws ObjectNotContainedException {
-		if (!this.containMember(partecipante))throw new ObjectNotContainedException();
+	public void removePartecipante(final Member partecipante) throws ObjectNotContainedException {
+		if (!this.containMember(partecipante)){
+			throw new ObjectNotContainedException();
+		}
 		if(this.isPagante(partecipante)){
 			this.partecipanti.remove(new Pair<>(partecipante,true));
 		}else{
@@ -65,7 +69,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	}
 
 	public List<Member> getNonPaganti() {
-		List<Member> tmp = new ArrayList<>();
+		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (!e.getY()) {
 				tmp.add(e.getX());
@@ -75,7 +79,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	}
 
 	public List<Member> getAllPartecipanti() {
-		List<Member> tmp = new ArrayList<>();
+		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			tmp.add(e.getX());
 		});
@@ -83,7 +87,7 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 	}
 
 	public List<Member> getAllPaganti() {
-		List<Member> tmp = new ArrayList<>();
+		final List<Member> tmp = new ArrayList<>();
 		this.partecipanti.forEach(e -> {
 			if (e.getY()) {
 				tmp.add(e.getX());
@@ -92,8 +96,10 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return tmp;
 	}
 
-	public void setPagante(Member partecipante) throws ObjectNotContainedException {
-		if (!this.containMember(partecipante)) throw new ObjectNotContainedException();
+	public void setPagante(final Member partecipante) throws ObjectNotContainedException {
+		if (! this.containMember(partecipante)){
+			throw new ObjectNotContainedException();
+		}
 		this.partecipanti.forEach(e -> {
 			if (e.getX().equals(partecipante)) {
 				e.setY(true);
@@ -101,8 +107,8 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		});
 	}
 
-	public boolean containMember(Member partecipante) {
-		for (Pair<Member, Boolean> e : this.partecipanti) {
+	public boolean containMember(final Member partecipante) {
+		for (final Pair<Member, Boolean> e : this.partecipanti) {
 			if (e.getX().equals(partecipante)) {
 				return true;
 			}
@@ -110,9 +116,11 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return false;
 	}
 
-	public boolean isPagante(Member partecipante) throws ObjectNotContainedException {
-		if (!this.containMember(partecipante)) throw new ObjectNotContainedException();
-		for (Pair<Member, Boolean> e : this.partecipanti) {
+	public boolean isPagante(final Member partecipante) throws ObjectNotContainedException {
+		if (! this.containMember(partecipante)) {
+			throw new ObjectNotContainedException();
+		}
+		for (final Pair<Member, Boolean> e : this.partecipanti) {
 			if (e.getX().equals(partecipante)) {
 				return e.getY();
 			}
@@ -136,38 +144,36 @@ public abstract class ExcursionImpl implements Excursion,Serializable {
 		return this.dateEnd.get();
 	}
 
-	public void setPrice(Integer prize) {
-		if (prize.compareTo(0) < 0)
+	public void setPrice(final Integer prize) {
+		if (prize.compareTo(0) < 0){
 			throw new IllegalArgumentException();
+		}
 		this.prize = myOptional.of(prize);
 	}
 
-	public void setPlace(String place) {
-		if (place==null)
-			throw new IllegalArgumentException();
+	public void setPlace(final String place) {
 		this.place = myOptional.of(place);
 	}
 
-	public void setDateStart(LocalDate dateStart) throws IllegalDateException {
-		if (dateStart.equals(null))
-			throw new IllegalArgumentException();
-		if (!dateStart.isAfter(LocalDate.now()))
+	public void setDateStart(final LocalDate dateStart) throws IllegalDateException {
+		if (! dateStart.isAfter(LocalDate.now())){
 			throw new IllegalDateException();
+		}
 		this.dateStart = dateStart;
 	}
 
-	public void setDateEnd(LocalDate dateEnd) throws IllegalDateException {
-		if (dateEnd.equals(null))
-			throw new IllegalArgumentException();
-		if (!dateEnd.isAfter(LocalDate.now()))
+	public void setDateEnd(final LocalDate dateEnd) throws IllegalDateException {
+		if (! dateEnd.isAfter(LocalDate.now())){
 			throw new IllegalDateException();
-		if (!dateEnd.isAfter(this.dateStart))
+		}
+		if (! dateEnd.isAfter(this.dateStart)){
 			throw new IllegalDateException();
+		}
 		this.dateEnd = myOptional.of(dateEnd);
 	}
 
 	public List<Member> getAllBirthdays(){
-		List<Member> tmp=new ArrayList<>();
+		final List<Member> tmp=new ArrayList<>();
 		partecipanti.forEach(e->{
 			if (this.dateEnd.isPresent()){
 				if (e.getX().getBirthday().getDayOfYear()>=this.dateStart.getDayOfYear()&&

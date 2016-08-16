@@ -18,58 +18,58 @@ public interface Member extends Person{
 	 * 
 	 * @return true if today is the birthday
 	 */
-	public Boolean isBirthday();
+	 Boolean isBirthday();
 	/**
 	 * 
 	 * @param anno
 	 */
-	public void setTasse (Integer anno);
+	 void setTasse (Integer anno);
 	/**
 	 * 
 	 * @param anno
 	 * @return
 	 */
-	public boolean isTaxPaid (Integer anno);
+	 boolean isTaxPaid (Integer anno);
 	/**
 	 * 
 	 * @return the birthday
 	 */
-	public LocalDate getBirthday ();
+	 LocalDate getBirthday ();
 	/**
 	 * 
 	 * @return the surname
 	 */
 	
-	public String getSurname ();
+	 String getSurname ();
 		/**
 		 * 
 		 * @return the name
 		 */
-		public String getName ();
+		 String getName ();
 	 	/**
 	 	 * Add a competence. 
 	 	 * @return false if the competent is already contained
 	 	 * @param competence
 	 	 * @throws ObjectAlreadyContainedException 
 	 	 */
-	   public void addCompetence (String competence) throws ObjectAlreadyContainedException;
+	    void addCompetence (String competence) throws ObjectAlreadyContainedException;
 			
 	   	/**
 		 * @return a list of the competences of the member
 		 */
-		public List<String> getCompetence();
+		 List<String> getCompetence();
 			
 		 /**
 		 * @return a list of the specialities of the member
 		 */
-		public List<Specialita> getSpecialities();
+		 List<Specialita> getSpecialities();
 		/**
 		 * Remove a specialities from the member
 		 * @param specialities
 		 * @return false if the specialities is not contained
 		 * @throws ObjectNotContainedException 
 		 */
-		public void removeSpecialities (Specialita specialities) throws ObjectNotContainedException;
+		 void removeSpecialities (Specialita specialities) throws ObjectNotContainedException;
 		
 		/**
 	 	 * Add a speciality. 
@@ -78,74 +78,74 @@ public interface Member extends Person{
 		 * @throws ObjectAlreadyContainedException 
 	 	 */
 		
-		public void addSpecialities(Specialita specialities) throws ObjectAlreadyContainedException;
+		 void addSpecialities(Specialita specialities) throws ObjectAlreadyContainedException;
 		/**
 		 * 
 		 * @param specialities
 		 * @return true if the member contain the aspecialities
 		 */
 		
-		public boolean containsSpecialities (Specialita specialities);
+		 boolean containsSpecialities (Specialita specialities);
 		/**
 		  * Remove a competence from the member
 		 * @param competence
 		 * @throws ObjectNotContainedException 
 		 */
 		
-		public void removeCompetence (String competence) throws ObjectNotContainedException;
+		 void removeCompetence (String competence) throws ObjectNotContainedException;
 		/**
 		 * 
 		 * @param competence
 		 * @return true if the member contain the competence
 		 */
 		
-		public boolean containsCompetence (String competence);
+		 boolean isContainingCompetence (String competence);
 		/**
 		 * 
 		 * @return the promise of the member
 		 */
 		
-		public boolean getPromise();
+		 Boolean getPromise();
 		
 		
 		/** set the promise of the member
 		 * 
 		 * @param promessa
 		 */
-		public void setPromise(boolean promessa);
+		 void setPromise(boolean promessa);
 		
 		/**
 		 * 
 		 * @return true if the member has a totem
 		 */
-		public boolean hasTotem();
+		 boolean hasTotem();
 		/**
 		 * 
 		 * @return
 		 */
-		public int getId() ;
+		 int getId() ;
 		/**
 		 * 
 		 * @param id
 		 */
-		public void setId(int id) ;
+		 void setId(int id) ;
 		
 		/**set the totem of the member
 		 * 
 		 * @param totem
 		 */
-		public void setTotem(String totem);
+		 void setTotem(String totem);
 		/**
 		 * 
 		 * @return the totem of the member
 		 */
 		
-		public String getTotem ();
+		 String getTotem ();
 		/**
 		 * 
 		 * @return true if there is a Tutor for the member
 		 */
-		public boolean isComplete();
+		 boolean isComplete();
 		
 
 

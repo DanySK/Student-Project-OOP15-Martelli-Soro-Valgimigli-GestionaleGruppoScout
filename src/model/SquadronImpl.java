@@ -25,7 +25,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	 */
 	private static final long serialVersionUID = -742316483975432020L;
 
-	private Map<Member, Roles> map;
+	private final Map<Member, Roles> map;
 
 	private myOptional<Member> capoSq;
 	private myOptional<Member> viceSq;
@@ -90,8 +90,9 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @throws MoreLeadersNotPermitException
 	 */
 	public void setCapoSq(final Member capo) throws MoreLeadersNotPermitException {
-		if (this.capoSq.isPresent())
+		if (this.capoSq.isPresent()){
 			throw new MoreLeadersNotPermitException();
+		}
 		this.capoSq = myOptional.of(capo);
 	}
 
@@ -109,8 +110,9 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @throws MoreLeadersNotPermitException
 	 */
 	public void setVicecapoSq(final Member vicecapo) throws MoreLeadersNotPermitException {
-		if (this.viceSq.isPresent())
+		if (this.viceSq.isPresent()){
 			throw new MoreLeadersNotPermitException();
+		}
 		this.viceSq = myOptional.of(vicecapo);
 	}
 
@@ -135,8 +137,9 @@ public class SquadronImpl implements Serializable, Squadron {
 	}
 
 	public void setTriceSq(final Member trice) throws MoreLeadersNotPermitException {
-		if (this.triceSq.isPresent())
+		if (this.triceSq.isPresent()){
 			throw new MoreLeadersNotPermitException();
+		}
 		this.triceSq = myOptional.of(trice);
 	}
 
@@ -229,8 +232,9 @@ public class SquadronImpl implements Serializable, Squadron {
 	}
 
 	public void setCash(final Float cash) {
-		if (cash < 0)
+		if (cash < 0){
 			throw new IllegalArgumentException();
+		}
 		this.cash = cash;
 	}
 
@@ -239,7 +243,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	}
 
 	@Override
-	public void removeMembro(Member membro) throws ObjectNotContainedException {
+	public void removeMembro(final Member membro) throws ObjectNotContainedException {
 		if (map.containsKey(membro)){
 				map.remove(membro);
 		}else{
@@ -275,8 +279,9 @@ public class SquadronImpl implements Serializable, Squadron {
 	public List<Member> getMemberCelebretingBirthday() {
 		final List<Member> tmp = new ArrayList<>();
 		this.map.keySet().forEach(e -> {
-			if (e.isBirthday())
+			if (e.isBirthday()){
 				tmp.add(e);
+			}
 		});
 		return tmp;
 	}

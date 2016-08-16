@@ -6,11 +6,11 @@ public interface UscitaSquadriglia extends Excursion {
 	 * 
 	 * @return
 	 */
-	public Squadron getSquadriglia();
+	Squadron getSquadriglia();
 
 	/**
 	 * 
 	 * @param squadriglia
 	 */
-	public void setReparto(Squadron squadriglia);
+	void setReparto(Squadron squadriglia);
 }

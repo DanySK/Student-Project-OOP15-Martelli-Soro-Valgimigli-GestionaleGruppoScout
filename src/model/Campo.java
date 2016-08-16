@@ -5,11 +5,11 @@ public interface Campo extends Excursion {
 	 * 
 	 * @return
 	 */
-	public Reparto getReparto();
+	 Reparto getReparto();
 
 	/**
 	 * 
 	 * @param reparto
 	 */
-	public void setReparto(Reparto reparto);
+	 void setReparto(Reparto reparto);
 }

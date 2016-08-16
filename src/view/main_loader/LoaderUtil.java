@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 
 import control.MasterProjectImpl;
 import control.UnitImpl;
-import control.projectFactoryImpl;
+import control.ProjectFactoryImpl;
 import view.general_utility.WarningNotice;
 import view.gestioneReparto.utility.PanelCapiReparto;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -161,8 +161,8 @@ public class LoaderUtil extends MyJPanelImpl {
 					 */
 				
 			
-					project.save(new UnitImpl(projectFactoryImpl.getReparto(projectFactoryImpl.getLeaderM(
-							capoM.getNome(),capoM.getSurname(), capoM.getDate(), capoM.getPhone()), projectFactoryImpl.getLeaderF(
+					project.save(new UnitImpl(ProjectFactoryImpl.getReparto(ProjectFactoryImpl.getLeaderM(
+							capoM.getNome(),capoM.getSurname(), capoM.getDate(), capoM.getPhone()), ProjectFactoryImpl.getLeaderF(
 									capoF.getNome(),capoF.getSurname(),capoF.getDate(), capoF.getPhone()),textField.getText())));
 						
 					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText()));

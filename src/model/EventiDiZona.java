@@ -8,39 +8,39 @@ public interface EventiDiZona extends Excursion {
 	 * 
 	 * @return
 	 */
-	public Reparto getReparto();
+	 Reparto getReparto();
 
 	/**
 	 * 
 	 * @param reparto
 	 */
-	public void setReparto(Reparto reparto);
+	 void setReparto(Reparto reparto);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Attivita> getAllAttivita();
+	 List<Attivita> getAllAttivita();
 
 	/**
 	 * 
 	 * @param orario
 	 * @return
 	 */
-	public List<Attivita> getAllAttivitaInTime(LocalTime orario);
+	 List<Attivita> getAllAttivitaInTime(LocalTime orario);
 
 	/**
 	 * 
 	 * @param attivita
 	 */
-	public void addAttivita(Attivita attivita);
+	 void addAttivita(Attivita attivita);
 
 	/**
 	 * 
 	 * @param nomeAttivita
 	 * @param orarioInizio
 	 */
-	public void addAttivita(String nomeAttivita, LocalTime orarioInizio);
+	 void addAttivita(String nomeAttivita, LocalTime orarioInizio);
 
 	/**
 	 * 
@@ -48,36 +48,36 @@ public interface EventiDiZona extends Excursion {
 	 * @param orarioInizio
 	 * @param orarioFine
 	 */
-	public void addAttivita(String nomeAttivita, LocalTime orarioInizio, LocalTime orarioFine);
+	 void addAttivita(String nomeAttivita, LocalTime orarioInizio, LocalTime orarioFine);
 
 	/**
 	 * 
 	 * @param attivita
 	 */
-	public void removeAttivita(Attivita attivita);
+	 void removeAttivita(Attivita attivita);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<String> getOtherUnits();
+	 List<String> getOtherUnits();
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void addOtherUnit(String name);
+	 void addOtherUnit(String name);
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void removeOtherUnit(String name);
+	 void removeOtherUnit(String name);
 
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public boolean containOtherUnit(String name);
+	 boolean containOtherUnit(String name);
 }

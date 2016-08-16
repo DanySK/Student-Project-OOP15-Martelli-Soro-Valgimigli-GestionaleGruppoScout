@@ -16,16 +16,17 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		 */
 	private static final long serialVersionUID = 1L;
 	private int identificatore;
-	private List<String> competence;
-	private List<Specialita> specialities;
+	private final List<String> competence;
+	private final List<Specialita> specialities;
 	private Boolean promise;
 	private myOptional<Tutor> tutor;
 	private myOptional<String> totem;
 	private myOptional<Integer> annoTasse;
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex) throws IllegalYearsException {
+	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex)
+			throws IllegalYearsException {
 		super(name, surname, birthday, sex);
-		if (this.getHowIsHold().getYears()<12 || this.getHowIsHold().getYears()>17){
+		if (this.getHowIsHold().getYears() < 12 || this.getHowIsHold().getYears() > 17) {
 			throw new IllegalYearsException();
 		}
 		this.tutor = myOptional.empty();
@@ -36,9 +37,10 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.specialities = new ArrayList<>();
 	}
 
-	public MemberImpl(String name, String surname, LocalDate birthday, Boolean sex, Tutor tutor) throws IllegalYearsException {
+	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex,
+			final Tutor tutor) throws IllegalYearsException {
 		super(name, surname, birthday, sex);
-		if (this.getHowIsHold().getYears()<12 || this.getHowIsHold().getYears()>17){
+		if (this.getHowIsHold().getYears() < 12 || this.getHowIsHold().getYears() > 17) {
 			throw new IllegalYearsException();
 		}
 		this.tutor = myOptional.of(tutor);
@@ -50,25 +52,26 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	}
 
-	public void setTasse(Integer anno) {
+	public void setTasse(final Integer anno) {
 		if (this.annoTasse.isPresent()) {
 			if (this.annoTasse.get() < anno) {
 				this.annoTasse = myOptional.of(anno);
 			}
-		}else{
-			this.annoTasse=myOptional.of(anno);
+		} else {
+			this.annoTasse = myOptional.of(anno);
 		}
 	}
 
-	public boolean isTaxPaid(Integer anno) {
+	public boolean isTaxPaid(final Integer anno) {
 		if (this.annoTasse.isPresent()) {
-			if (this.annoTasse.get().equals(anno))
+			if (this.annoTasse.get().equals(anno)) {
 				return true;
+			}
 		}
 		return false;
 	}
 
-	public void addCompetence(String competence) throws ObjectAlreadyContainedException {
+	public void addCompetence(final String competence) throws ObjectAlreadyContainedException {
 		if (this.competence.contains(competence)) {
 			throw new ObjectAlreadyContainedException();
 		}
@@ -87,12 +90,11 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return this.tutor;
 	}
 
-	public void setTutorMail(String mail) {
+	public void setTutorMail(final String mail) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setEmail(mail);
-		return;
 	}
 
 	public myOptional<String> getTutorMail() {
@@ -104,12 +106,12 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return myOptional.empty();
 	}
 
-	public void setTutorName(String name) {
+	public void setTutorName(final String name) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setName(name);
-		return;
+
 	}
 
 	public myOptional<String> getTutorName() {
@@ -121,12 +123,12 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return myOptional.empty();
 	}
 
-	public void setTutorPhone(Long phone) {
+	public void setTutorPhone(final Long phone) {
 		if (!this.tutor.isPresent()) {
 			this.tutor = myOptional.of(new TutorImpl());
 		}
 		this.tutor.get().setPhone(phone);
-		return;
+
 	}
 
 	public myOptional<Long> getTutorPhone() {
@@ -138,36 +140,38 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return myOptional.empty();
 	}
 
-	public void removeSpecialities(Specialita specialities) throws ObjectNotContainedException {
+	public void removeSpecialities(final Specialita specialities) throws ObjectNotContainedException {
 		if (!this.specialities.remove(specialities)) {
 			throw new ObjectNotContainedException();
 		}
 	}
 
-	public void addSpecialities(Specialita specialities) throws ObjectAlreadyContainedException {
+	public void addSpecialities(final Specialita specialities) throws ObjectAlreadyContainedException {
 		if (this.containsSpecialities(specialities)) {
 			throw new ObjectAlreadyContainedException();
 		}
 		this.specialities.add(specialities);
 	}
 
-	public boolean containsSpecialities(Specialita specialities) {
+	public boolean containsSpecialities(final Specialita specialities) {
 		return this.specialities.contains(specialities);
 	}
 
-	public void removeCompetence(String competence) throws ObjectNotContainedException {
-		if (!this.competence.remove(competence)) throw new ObjectNotContainedException ();
+	public void removeCompetence(final String competence) throws ObjectNotContainedException {
+		if (! this.competence.remove(competence)) {
+			throw new ObjectNotContainedException();
+		}
 	}
 
-	public boolean containsCompetence(String competence) {
+	public boolean isContainingCompetence(final String competence) {
 		return this.competence.contains(competence);
 	}
 
-	public boolean getPromise() {
+	public Boolean getPromise() {
 		return this.promise;
 	}
 
-	public void setPromise(boolean promessa) {
+	public void setPromise(final boolean promessa) {
 		this.promise = promessa;
 	}
 
@@ -175,7 +179,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return totem.isPresent();
 	}
 
-	public void setTotem(String totem) {
+	public void setTotem(final String totem) {
 		this.totem = myOptional.of(totem);
 	}
 
@@ -187,7 +191,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return this.identificatore;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.identificatore = id;
 	}
 

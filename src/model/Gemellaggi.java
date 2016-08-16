@@ -10,38 +10,38 @@ public interface Gemellaggi extends Excursion {
 	 * 
 	 * @return
 	 */
-	public Reparto getReparto();
+	 Reparto getReparto();
 
 	/**
 	 * 
 	 * @param reparto
 	 */
-	public void setReparto(Reparto reparto);
+	 void setReparto(Reparto reparto);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<String> getOtherUnits();
+	 List<String> getOtherUnits();
 
 	/**
 	 * 
 	 * @param name
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addOtherUnit(String name) throws ObjectAlreadyContainedException;
+	 void addOtherUnit(String name) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param name
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeOtherUnit(String name) throws ObjectNotContainedException;
+	 void removeOtherUnit(String name) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public boolean containOtherUnit(String name);
+	 boolean containOtherUnit(String name);
 }

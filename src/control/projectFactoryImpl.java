@@ -34,7 +34,7 @@ import model.UscitaSquadrigliaImpl;
 import model.exception.IllegalDateException;
 import view.general_utility.WarningNotice;
 
-public class projectFactoryImpl implements Serializable {
+public class ProjectFactoryImpl implements Serializable {
 	
 	/**
 	 * 

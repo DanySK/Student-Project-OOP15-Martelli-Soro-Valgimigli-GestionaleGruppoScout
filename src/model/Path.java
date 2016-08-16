@@ -19,7 +19,7 @@ public interface Path {
 	 * 
 	 * @return a Integer contained the level of the path (1-3)
 	 */
-	public Integer getLiv();
+	 Integer getLiv();
 	
 	
 	/**
@@ -27,7 +27,7 @@ public interface Path {
 	 * @return a String contained the level of the path ("scoperta","competenza","responsabilità")
 	 */
 	
-	public String getLevel();
+	 String getLevel();
 	
 	/**
 	 * 
@@ -35,7 +35,7 @@ public interface Path {
 	 */
 	
 	
-	public String getSchool();
+	 String getSchool();
 	
 	/**
 	 *  set the school of the path
@@ -43,7 +43,7 @@ public interface Path {
 	 */
 	
 	
-	public void setSchool (String school);
+	 void setSchool (String school);
 	
 	/**
 	 * 
@@ -51,7 +51,7 @@ public interface Path {
 	 */
 	
 	
-	public String getFamily();
+	 String getFamily();
 	
 	/**
 	  *  set the family of the path
@@ -59,7 +59,7 @@ public interface Path {
 	 */
 	
 	
-	public void setFamily (String family);
+	 void setFamily (String family);
 	
 	 /**
 	  * 
@@ -67,7 +67,7 @@ public interface Path {
 	  */
 	
 	
-	public String getRelations();
+	 String getRelations();
 	
 	/**
 	 *  set the relations of the path
@@ -75,35 +75,35 @@ public interface Path {
 	 */
 	
 	
-	public void setRelations (String relations);
+	 void setRelations (String relations);
 	
 	/**
 	 * 
 	 * @return a String contained the faith
 	 */
 	
-	public String getFaith();
+	 String getFaith();
 	
 	/**
 	 *  set the faith of the path 
 	 * @param faith
 	 */
 	
-	public void setFaith (String faith);
+	 void setFaith (String faith);
 	
 	/**
 	 * increase the level of the path
 	 * @throws IllegalOperationException 
 	 */
 	
-	public void livUp() throws IllegalOperationException;
+	 void livUp() throws IllegalOperationException;
 	
 	/**
 	 * decrease the level of the path
 	 * @throws IllegalOperationException 
 	 */
 	
-	public void livDown() throws IllegalOperationException;
+	 void livDown() throws IllegalOperationException;
 	
 	
 	

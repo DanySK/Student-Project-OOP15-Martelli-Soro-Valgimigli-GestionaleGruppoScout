@@ -12,160 +12,162 @@ public interface Reparto {
 	 * 
 	 * @return
 	 */
-	public Capo getCapoM();
+	 Capo getCapoM();
 	/**
 	 * 
 	 * @param limit
 	 */
-	public void setDateToPay(LocalDate limit);
+	 void setDateToPay(LocalDate limit);
 	/**
 	 * 
 	 * @return
 	 */
-	public LocalDate getDateToPay();
+	 LocalDate getDateToPay();
 	/**
 	 * 
 	 * @param capoMaschio
 	 */
 	
-	public void setCapoM(Capo capoMaschio);
+	 void setCapoM(Capo capoMaschio);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public Capo getCapoF();
+	 Capo getCapoF();
 
 	/**
 	 * 
 	 * @param capoFemmina
 	 */
-	public void setCapoF(Capo capoFemmina);
+	 void setCapoF(Capo capoFemmina);
 
 	/**
 	 * 
 	 * @param squadriglia
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addSquadron(Squadron squadriglia) throws ObjectAlreadyContainedException;
+	 void addSquadron(Squadron squadriglia) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param squadriglia
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeSquadron(Squadron squadriglia) throws ObjectNotContainedException;
+	 void removeSquadron(Squadron squadriglia) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @param squadriglia
 	 * @return
 	 */
-	public boolean containedSquadron(Squadron squadriglia);
+	 boolean containedSquadron(Squadron squadriglia);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Squadron> getAllSquadron();
+	 List<Squadron> getAllSquadron();
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Member> getAllMember();
+	 List<Member> getAllMember();
 
 	/**
 	 * 
 	 * @param aiutante
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addAiutante(Capo aiutante) throws ObjectAlreadyContainedException;
+	 void addAiutante(Capo aiutante) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param aiutante
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeAiutante(Capo aiutante) throws ObjectNotContainedException;
+	 void removeAiutante(Capo aiutante) throws ObjectNotContainedException;
 
 	/**
 	 * 
 	 * @param aiutante
 	 * @return
 	 */
-	public boolean isContainedAiutante(Capo aiutante);
+	 boolean isContainedAiutante(Capo aiutante);
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Capo> getStaff();
+	 List<Capo> getStaff();
 
 	/**
 	 * 
 	 * @param membro
 	 * @throws ObjectAlreadyContainedException 
 	 */
-	public void addMembroSenzaSquadriglia(Member membro) throws ObjectAlreadyContainedException;
+	 void addMembroSenzaSquadriglia(Member membro) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param membro
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeMembroSenzaSquadriglia(Member membro) throws ObjectNotContainedException;
+	 void removeMembroSenzaSquadriglia(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param anno
 	 * @return
 	 */
-	public List<Member> getMembersNotPaid(int anno);
+	 List<Member> getMembersNotPaid(int anno);
 	/**
 	 * 
 	 * @param membro
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeMembro(Member membro) throws ObjectNotContainedException;
+	 void removeMembro(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param membro
 	 * @throws ObjectNotContainedException 
 	 */
-	public void removeMemberFromSquadron (Member membro) throws ObjectNotContainedException;
+	 void removeMemberFromSquadron (Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @param membro
 	 * @return
 	 * @throws ObjectNotContainedException 
 	 */
-	public Squadron getSquadronOfMember(Member membro) throws ObjectNotContainedException;
+	 Squadron getSquadronOfMember(Member membro) throws ObjectNotContainedException;
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Member> getMembriSenzaSquadriglia();
+	 List<Member> getMembriSenzaSquadriglia();
 	/**
 	 * 
 	 * @param membro
 	 * @param ruolo
 	 * @param squadriglia
 	 * @throws MemberSexException
-	 * @throws Exception 
+	 * @throws ObjectNotContainedException
+	 * @throws ObjectAlreadyContainedException
 	 */
 	
-	public void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException, Exception;
+	
+	 void spostaMembroInSquadriglia(Member membro, Roles ruolo, Squadron squadriglia) throws MemberSexException,ObjectNotContainedException,ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @return
 	 */
-	public String getName();
+	 String getName();
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void setName(String name);
+	 void setName(String name);
 
 }

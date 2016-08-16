@@ -14,20 +14,20 @@ public class PersonImpl implements Serializable,Person {
 	private LocalDate birthday;
 	private Boolean sex;
 	
-	public PersonImpl(String name, String surname, LocalDate birthday,Boolean sex){
+	public PersonImpl(final String name,final String surname,final LocalDate birthday,final Boolean sex){
 		this.name = name;
 		this.surname = surname;
 		this.birthday = birthday;
 		this.sex=sex;
 	}
 	
-	public void setName (String name){
+	public void setName (final String name){
 		this.name=name;
 	}
-	public void setSurname (String surname){
+	public void setSurname (final String surname){
 		this.surname=surname;
 	}
-	public void setBirthday (LocalDate birthday){
+	public void setBirthday (final LocalDate birthday){
 		this.birthday=birthday;
 	}
 	public String getName (){
@@ -39,7 +39,7 @@ public class PersonImpl implements Serializable,Person {
 	public LocalDate getBirthday (){
 		return this.birthday;
 	}
-	public void setSex (Boolean sex){
+	public void setSex (final Boolean sex){
 		this.sex=sex;
 	}
 	public Boolean getSex(){

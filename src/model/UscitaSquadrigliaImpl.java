@@ -11,14 +11,14 @@ public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadr
 	private static final long serialVersionUID = 1L;
 	private Squadron squadriglia;
 
-	public UscitaSquadrigliaImpl(LocalDate dateStart, LocalDate dateEnd, Squadron squadriglia, String name)
-			throws Exception {
+	public UscitaSquadrigliaImpl(final LocalDate dateStart,final LocalDate dateEnd,final Squadron squadriglia,final String name)
+			throws IllegalDateException {
 		super(name, dateStart, new ArrayList<>(squadriglia.getMembri().keySet()));
 		this.squadriglia = squadriglia;
 		this.setDateEnd(dateEnd);
 	}
 
-	public UscitaSquadrigliaImpl(LocalDate dateStart, int durata, Squadron squadriglia, String name) throws IllegalDateException {
+	public UscitaSquadrigliaImpl(final LocalDate dateStart,final int durata,final Squadron squadriglia,final String name) throws IllegalDateException {
 		super(name, dateStart, new ArrayList<>(squadriglia.getMembri().keySet()));
 		this.squadriglia = squadriglia;
 		this.setDateEnd(dateStart.plusDays(durata));
@@ -28,13 +28,11 @@ public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadr
 		return this.squadriglia;
 	}
 
-	public void setReparto(Squadron squadriglia) {
+	public void setReparto(final Squadron squadriglia) {
 		this.squadriglia = squadriglia;
 	}
 
 	@Override
-	protected void check(LocalDate dateStart, LocalDate dateEnd) throws IllegalDateException {
-		return;
-
+	protected void check(final LocalDate dateStart,final LocalDate dateEnd) throws IllegalDateException {
 	}
 }

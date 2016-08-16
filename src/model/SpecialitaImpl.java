@@ -8,9 +8,9 @@ import model.exception.ObjectNotContainedException;
 
 public class SpecialitaImpl implements Specialita {
 	private String nome;
-	private List<Specialita> reqisiti;
+	final private List<Specialita> reqisiti;
 	
-	SpecialitaImpl (String nome,List<Specialita>requisiti){
+	SpecialitaImpl (final String nome,final List<Specialita>requisiti){
 		this.nome=nome;
 		this.reqisiti=requisiti;
 	}
@@ -20,20 +20,20 @@ public class SpecialitaImpl implements Specialita {
 	}
 
 	@Override
-	public List<Specialita> getNeededSpecialita(Member membro) {
+	public List<Specialita> getNeededSpecialita(final Member membro) {
 		return this.getNeededSpecialita(membro.getSpecialities());
 	}
 
 	@Override
-	public List<Specialita> getNeededSpecialita(List<Specialita> list) {
-		List<Specialita>tmp=new ArrayList<>(this.reqisiti);
+	public List<Specialita> getNeededSpecialita(final List<Specialita> list) {
+		final List<Specialita>tmp=new ArrayList<>(this.reqisiti);
 		list.forEach(e->{
 			tmp.remove(e);
 		});
 		return tmp;
 	}
 	@Override
-	public boolean isSpacialitaPossible(Member membro) {
+	public boolean isSpacialitaPossible(final Member membro) {
 		return this.getNeededSpecialita(membro).isEmpty();
 	}
 	@Override
@@ -41,19 +41,19 @@ public class SpecialitaImpl implements Specialita {
 		return this.nome;
 	}
 	@Override
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.nome=name;
 		
 	}
 	@Override
-	public void addNeededSpecialita(Specialita specialita) throws ObjectAlreadyContainedException {
+	public void addNeededSpecialita(final Specialita specialita) throws ObjectAlreadyContainedException {
 	if (!this.reqisiti.add(specialita)){
 		throw new ObjectAlreadyContainedException();
 	}
 		
 	}
 	@Override
-	public void removeNeededSpecialita(Specialita specialita) throws ObjectNotContainedException {
+	public void removeNeededSpecialita(final Specialita specialita) throws ObjectNotContainedException {
 	if (!this.reqisiti.remove(specialita)){
 		throw new ObjectNotContainedException();
 	}

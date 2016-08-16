@@ -5,10 +5,10 @@ public interface Capo extends Person {
 	 * 
 	 * @param phoneNumber
 	 */
-	public void setPhoneNumber(String phoneNumber);
+	 void setPhoneNumber(String phoneNumber);
 	/**
 	 * 
 	 * @return
 	 */
-	public String getPhoneNumber();
+	 String getPhoneNumber();
 }
