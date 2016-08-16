@@ -151,6 +151,7 @@ public class RepartoImpl implements Reparto, Serializable {
 		squadriglie.forEach(e -> {
 			tmp.addAll(e.getMembri().keySet());
 		});
+		tmp.addAll(this.membriSenzaSquadriglia);
 		return tmp;
 	}
 
@@ -187,5 +188,14 @@ public class RepartoImpl implements Reparto, Serializable {
 			}
 			tmp++;
 		}
+	}
+
+	@Override
+	public List<Member> getAllMemberWithSquadron() {
+		final List<Member> tmp=new ArrayList<>();
+		this.squadriglie.forEach(e->{
+			tmp.addAll(e.getMembri().keySet());
+		});
+		return tmp;
 	}
 }

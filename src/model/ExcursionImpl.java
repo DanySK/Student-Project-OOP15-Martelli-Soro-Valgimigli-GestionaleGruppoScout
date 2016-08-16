@@ -21,12 +21,13 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	private String name;
 	private myOptional<LocalDate> dateEnd;
 	private myOptional<String> place;
-	private final List<Pair<Member, Boolean>> partecipanti = new ArrayList<>();
+	private final List<Pair<Member, Boolean>> partecipanti;
 
 	public ExcursionImpl(final LocalDate dateStart, final String name) throws IllegalDateException {
 		if (dateStart.isBefore(LocalDate.now())) {
 			throw new IllegalDateException();
 		}
+		this.partecipanti = new ArrayList<>();
 		this.dateStart = dateStart;
 		this.prize = myOptional.empty();
 		this.dateEnd = myOptional.empty();

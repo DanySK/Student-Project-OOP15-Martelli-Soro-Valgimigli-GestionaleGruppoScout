@@ -74,7 +74,11 @@ public interface Reparto {
 	 * @return
 	 */
 	 List<Member> getAllMember();
-
+	 /**
+	  * 
+	  * @return
+	  */
+	 List<Member> getAllMemberWithSquadron();
 	/**
 	 * 
 	 * @param aiutante
