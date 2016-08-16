@@ -25,12 +25,12 @@ public class ContainerImpl implements Container, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5561899153889400211L;
-	private List<Member> unit;
-	private List<Member> freeMember;
-	private List<Squadron> squadronActive;
-	private List<Excursion> excursions;
+	final private List<Member> unit;
+	final private List<Member> freeMember;
+	final private List<Squadron> squadronActive;
+	final private List<Excursion> excursions;
 	
-	public ContainerImpl(List<Squadron> sq, List<Member> freeMember, List<Excursion> exc){
+	public ContainerImpl(final List<Squadron> sq, final List<Member> freeMember, final List<Excursion> exc){
 		this.unit = new ArrayList<>(freeMember);
 		sq.forEach(e -> this.unit.addAll(e.getMembri().keySet()));
 		this.freeMember = freeMember;
@@ -41,7 +41,7 @@ public class ContainerImpl implements Container, Serializable {
 	
 
 	@Override
-	public List<Member> findMember(String name) throws IllegalArgumentException {
+	public List<Member> findMember(final String name) throws IllegalArgumentException {
 		return this.unit.stream()
 						.filter(e -> e.getName().equals(name))
 						.collect(Collectors.toList());
@@ -59,14 +59,14 @@ public class ContainerImpl implements Container, Serializable {
 	}
 
 	@Override
-	public Squadron findSquadron(String name) {
+	public Squadron findSquadron(final String name) {
 		return this.squadronActive.stream()
 							.filter(e -> e.getNome()
 							.equals(name)).findFirst().get();
 	}
 
 	@Override
-	public List<Member> members(Predicate<? super Member> p) {
+	public List<Member> members(final Predicate<? super Member> p) {
 		return this.unit.stream()
 						.filter(p)
 						.collect(Collectors.toList());
@@ -84,7 +84,7 @@ public class ContainerImpl implements Container, Serializable {
 	}
 
 	@Override
-	public void removeMeberFromSquadron(Member member, Squadron sq)
+	public void removeMeberFromSquadron(final Member member, final Squadron sq)
 			throws SquadronNotExistException, MemberNotExistException, ObjectNotContainedException {
 		if(!this.squadronActive.contains(sq)){
 			throw new SquadronNotExistException();
@@ -110,21 +110,21 @@ public class ContainerImpl implements Container, Serializable {
 
 
 	@Override
-	public List<Excursion> excursions(Predicate<? super Excursion> p) {
+	public List<Excursion> excursions(final Predicate<? super Excursion> p) {
 		return this.excursions.stream().filter(p).collect(Collectors.toList());
 	}
 
 
 
 	@Override
-	public Excursion getExcursionNamed(String name) {
+	public Excursion getExcursionNamed(final String name) {
 		return this.excursions.stream().filter(e -> e.getName().equals(name)).findFirst().get();
 	}
 
 
 
 	@Override
-	public Member getMember(String name, String surname) {
+	public Member getMember(final String name,final  String surname) {
 		return this.unit.stream().filter(e -> e.getName().equals(name) && e.getSurname().equals(surname))
 								 .findFirst()
 								 .get();
@@ -132,7 +132,7 @@ public class ContainerImpl implements Container, Serializable {
 	
 	
 	@Override
-	public Uscita getExit(String name) {
+	public Uscita getExit(final String name) {
 		Uscita tmp = null;
 		for(Excursion exc : this.excursions){
 			if(exc.getName().equals(name)){
@@ -145,7 +145,7 @@ public class ContainerImpl implements Container, Serializable {
 		return tmp;
 	}
 	@Override
-	public UscitaSquadriglia getExcursionSq(String name) {
+	public UscitaSquadriglia getExcursionSq(final String name) {
 		UscitaSquadriglia tmp = null;
 		for(Excursion exc : this.excursions){
 			if(exc.getName().equals(name)){
@@ -158,39 +158,33 @@ public class ContainerImpl implements Container, Serializable {
 		return tmp;
 	}
 	@Override
-	public Gemellaggi getTwoUnitEvent(String name) {
+	public Gemellaggi getTwoUnitEvent(final String name) {
 		Gemellaggi tmp = null;
 		for(Excursion exc : this.excursions){
-			if(exc.getName().equals(name)){
-				if(exc instanceof Gemellaggi){
+			if(exc.getName().equals(name) && exc instanceof Gemellaggi){
 					tmp = (Gemellaggi)exc;
-				}
 			}
 		}
 		
 		return tmp;
 	}
 	@Override
-	public EventiDiZona getLocalEvent(String name) {
+	public EventiDiZona getLocalEvent(final String name) {
 		EventiDiZona tmp = null;
-		for(Excursion exc : this.excursions){
-			if(exc.getName().equals(name)){
-				if(exc instanceof EventiDiZona){
+		for(final Excursion exc : this.excursions){
+			if(exc.getName().equals(name) && exc instanceof EventiDiZona){
 					tmp = (EventiDiZona)exc;
-				}
 			}
 		}
 		
 		return tmp;
 	}
 	@Override
-	public Campo getCamp(String name) {
+	public Campo getCamp(final String name) {
 		Campo tmp = null;
-		for(Excursion exc : this.excursions){
-			if(exc.getName().equals(name)){
-				if(exc instanceof Campo){
+		for(final Excursion exc : this.excursions){
+			if(exc.getName().equals(name) && exc instanceof Campo){
 					tmp = (Campo)exc;
-				}
 			}
 		}
 		

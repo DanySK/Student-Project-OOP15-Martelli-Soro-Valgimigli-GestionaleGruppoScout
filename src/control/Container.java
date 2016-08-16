@@ -21,7 +21,7 @@ import model.exception.ObjectNotContainedException;
  * @author Valgio
  *
  */
-public interface Container {
+  public interface Container {
 
 	/**
 	 * Research of a member in the whole list. If two or more members match a special graphic
@@ -31,45 +31,45 @@ public interface Container {
 	 * List of Members named Name
 	 * @throws IllegalArgumentException
 	 */
-	public List<Member> findMember(String name)throws IllegalArgumentException;
+	  List<Member> findMember(String name)throws IllegalArgumentException;
 	 /**
 	  * 
 	  * @return
 	  * Entire list of members
 	  */
-	public List<Member> getMembers();
+	  List<Member> getMembers();
 	/**
 	 * 
 	 * @return
 	 * 	All members which are incomplete
 	 */
-	public List<Member> membersIncomplete();
+	  List<Member> membersIncomplete();
 	/**
 	 * 
 	 * @param p 
 	 * @return
 	 * A list of member which match with the Predicate
 	 */
-	public List<Member> members(Predicate<? super Member> p);
+	  List<Member> members(Predicate<? super Member> p);
 	/**
 	 * Research of a Squadron in the whole list
 	 * @param name
 	 * @return
 	 * Squadron researched
 	 */
-	public Squadron findSquadron(String name);
+	  Squadron findSquadron(String name);
 	/**
 	 * 
 	 * @return
 	 * the entire list of squadrons
 	 */
-	public List<Squadron> getSquadrons();
+	  List<Squadron> getSquadrons();
 	/**
 	 * 
 	 * @param m
 	 */
 	
-	public List<Member> getFreeMember();
+	  List<Member> getFreeMember();
 	/**
 	 * To detached member from his squadron
 	 * @param member
@@ -78,62 +78,62 @@ public interface Container {
 	 * @throws MemberNotExistException
 	 * @throws ObjectNotContainedException
 	 */
-	public void removeMeberFromSquadron(Member member, Squadron sq) 
+	  void removeMeberFromSquadron(Member member, Squadron sq) 
 			throws SquadronNotExistException, MemberNotExistException, ObjectNotContainedException;
 	/**
 	 * 
 	 * @return
 	 */
-	public List<Excursion> getExcursion();
+	  List<Excursion> getExcursion();
 	/**
 	 * 
 	 * @param p
 	 * @return
 	 */
-	public List<Excursion> excursions(Predicate<? super Excursion> p);
+	  List<Excursion> excursions(Predicate<? super Excursion> p);
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public Excursion getExcursionNamed(String name);
+	  Excursion getExcursionNamed(String name);
 	/**
 	 * 
 	 * @param name
 	 * @param surname
 	 * @return
 	 */
-	public Member getMember(String name, String surname);
+	  Member getMember(String name, String surname);
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public Uscita getExit(String name);
+	  Uscita getExit(String name);
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public UscitaSquadriglia getExcursionSq(String name);
+	  UscitaSquadriglia getExcursionSq(String name);
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public Gemellaggi getTwoUnitEvent(String name);
+	  Gemellaggi getTwoUnitEvent(String name);
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public EventiDiZona getLocalEvent(String name);
+	  EventiDiZona getLocalEvent(String name);
 	/**
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public Campo getCamp(String name);
+	  Campo getCamp(String name);
 
 	
 
