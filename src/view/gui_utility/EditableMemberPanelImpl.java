@@ -32,6 +32,7 @@ import model.MemberImpl;
 import model.RepartoImpl;
 import model.Squadron;
 import model.UscitaSquadriglia;
+import view.gestioneEventi.utility.ShowEditExcursion;
 import view.gestioneReparto.utility.AddMemberJDialog;
 import view.gestioneReparto.utility.EditMemberInfoJDialog;
 import view.gestioneReparto.utility.ShowMemberInfoJDialog;
@@ -239,13 +240,14 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 									:"Uscita di reparto")+")";
 			return createButton("<html>"+((Excursion)mem).getName()+"<br>"+str+"<br>"+
 									((Excursion)mem).getDateStart().toString()+"</html>",16, e->{
+										new ShowEditExcursion((Excursion)mem, (EditableMemberPanelImpl<Excursion>) me);
 				
 			});
 		}
 		else if(type.equals(Type.SquadrigliaEventi)){
 			return createButton("<html>"+((Excursion)mem).getName()+"<br>"+"(Uscita Squadriglia)"+"<br>"+
 					((Excursion)mem).getDateStart().toString()+"</html>",16,e->{
-						
+						new ShowEditExcursion((Excursion)mem,(EditableMemberPanelImpl<Excursion>) me);
 					});
 		}
 		else{
