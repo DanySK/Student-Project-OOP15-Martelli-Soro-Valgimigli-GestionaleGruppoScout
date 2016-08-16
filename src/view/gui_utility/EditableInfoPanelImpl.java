@@ -19,7 +19,7 @@ import javax.swing.UIManager;
 import control.InfoProjectImpl;
 import control.Unit;
 import control.myUtil.Pair;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Squadron;
 import view.general_utility.WarningNotice;
 import view.gui_utility.SearchElementJDialog.SearchType;
@@ -196,7 +196,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 				new WarningNotice("<html><U>ATTENZIONE!!</U><br>"
 						+ "La carica è già stata assegnata.<br>Continuando e salvando verrà riassegnata.</html>");
 			}
-			new SearchElementJDialog<>(SearchType.AssignCharge,squadName, myOptional.of(i.getX()), this);
+			new SearchElementJDialog<>(SearchType.AssignCharge,squadName, MyOptional.of(i.getX()), this);
 		
 	});
 	}

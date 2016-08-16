@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import control.SortExcursionImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Campo;
 import model.EventiDiZona;
 import model.Excursion;
@@ -45,18 +45,18 @@ public class EventiReparto {
 			this.panelTopContainer=new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			this.panelCenter.add(panelTopContainer);
-			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.RepartoEventi, myOptional.empty());
+			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.RepartoEventi, MyOptional.empty());
 			panelTopButton.add(createButton("<html>Aggiungi<br>Campo</html>", 12, e->{
-				new AddExcursionJDialog(TypeExcursion.Campo, myOptional.empty(),this);
+				new AddExcursionJDialog(TypeExcursion.Campo, MyOptional.empty(),this);
 			}));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Evento di zona",12,e->{
-				new AddExcursionJDialog(TypeExcursion.Evento_di_Zona, myOptional.empty(),this);
+				new AddExcursionJDialog(TypeExcursion.Evento_di_Zona, MyOptional.empty(),this);
 			}));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Gemellaggio",12,e->{
-				new AddExcursionJDialog(TypeExcursion.Gemellaggio, myOptional.empty(),this);
+				new AddExcursionJDialog(TypeExcursion.Gemellaggio, MyOptional.empty(),this);
 			}));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Uscita",12,e->{
-				new AddExcursionJDialog(TypeExcursion.Uscita, myOptional.empty(),this);
+				new AddExcursionJDialog(TypeExcursion.Uscita, MyOptional.empty(),this);
 			}));
 			panelTopButton.add(createButton("<html>Rimuovi<br>Escursione</html>", 12,e->{
 				JDialog dial =new JDialog();

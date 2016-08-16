@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.List;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -147,7 +147,7 @@ public interface Member extends Person {
 	 * 
 	 * @return the phone number of the tutor
 	 */
-	myOptional<Long> getTutorPhone();
+	MyOptional<Long> getTutorPhone();
 
 	/**
 	 * 
@@ -160,7 +160,7 @@ public interface Member extends Person {
 	 * 
 	 * @return the name of the tutor
 	 */
-	myOptional<String> getTutorName();
+	MyOptional<String> getTutorName();
 
 	/**
 	 * 
@@ -173,7 +173,7 @@ public interface Member extends Person {
 	 * 
 	 * @return the tutor
 	 */
-	myOptional<Tutor> getTutor();
+	MyOptional<Tutor> getTutor();
 
 	/**
 	 * 
@@ -186,6 +186,6 @@ public interface Member extends Person {
 	 * 
 	 * @return the mail of the tutor
 	 */
-	myOptional<String> getTutorMail();
+	MyOptional<String> getTutorMail();
 
 }

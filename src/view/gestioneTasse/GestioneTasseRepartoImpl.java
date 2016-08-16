@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import control.Unit;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Member;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
@@ -95,7 +95,7 @@ public class GestioneTasseRepartoImpl {
 			this.infoLeft.add(new JLabel());
 			this.infoRight.add(new JLabel());
 			this.center.add(infoLeContainer,BorderLayout.NORTH);
-			center.add(new EditableMemberPanelImpl<Member>(Type.TasseReparto, myOptional.empty()));
+			center.add(new EditableMemberPanelImpl<Member>(Type.TasseReparto, MyOptional.empty()));
 			this.add(center,BorderLayout.CENTER);
 			this.infoLeContainer.add(createJLabel("<html><U>Membri che non hanno pagato la tassa annuale</U></html>",fontSizeLabel),
 					BorderLayout.SOUTH); 

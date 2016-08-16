@@ -2,42 +2,42 @@ package model;
 
 import java.io.Serializable;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 
 public class TutorImpl implements Tutor,Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private myOptional<String> email;
-	private myOptional<String> name;
-	private myOptional<Long> phone;
+	private MyOptional<String> email;
+	private MyOptional<String> name;
+	private MyOptional<Long> phone;
 
 	public TutorImpl(final String email,final String name,final Long phone) {
-		this.email=myOptional.ofNullable(email);
-		this.name=myOptional.ofNullable (name);
-		this.phone=myOptional.ofNullable(phone);
+		this.email=MyOptional.ofNullable(email);
+		this.name=MyOptional.ofNullable (name);
+		this.phone=MyOptional.ofNullable(phone);
 	}
 	public TutorImpl (){
-		this.email=myOptional.empty();
-		this.name=myOptional.empty();
-		this.phone=myOptional.empty();
+		this.email=MyOptional.empty();
+		this.name=MyOptional.empty();
+		this.phone=MyOptional.empty();
 	}
-	public myOptional<String> getName(){
+	public MyOptional<String> getName(){
 		return this.name;
 	}
-	public myOptional<String> getEmail(){
+	public MyOptional<String> getEmail(){
 		return this.email;
 	}
-	public myOptional<Long> getPhone(){
+	public MyOptional<Long> getPhone(){
 		return this.phone;
 	}
 	public void setName(final String name){
-		this.name=myOptional.of(name);
+		this.name=MyOptional.of(name);
 	}
 	public void setEmail(final String email){
-		this.email=myOptional.of(email);
+		this.email=MyOptional.of(email);
 	}
 	public void setPhone(final Long phone){
-		this.phone=myOptional.of(phone);
+		this.phone=MyOptional.of(phone);
 	}
 	
 }

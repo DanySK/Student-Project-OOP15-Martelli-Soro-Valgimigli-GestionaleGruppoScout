@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.Member;
 import view.gui_utility.EditableInfoPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl;
@@ -31,7 +31,7 @@ public class SquadrigliaManagerImpl extends MyJPanelImpl {
 		public SquadrigliaManagerImplPanel() {
 			super(new BorderLayout());
 			panelCenter=new EditableInfoPanelImpl(squadName, true, fontSizeLabel, fontSizeButton);
-			panelBottom =new EditableMemberPanelImpl<Member>(Type.GestioneSquadriglia, myOptional.of(squadName));
+			panelBottom =new EditableMemberPanelImpl<Member>(Type.GestioneSquadriglia, MyOptional.of(squadName));
 			panelBottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));
 			JPanel T=new JPanel(new GridLayout(2, 0));
 			this.add(createJLabel(  "<html><U>Gestione di "+squadName+"</U></html>" ,fontSizeLabel), BorderLayout.NORTH);

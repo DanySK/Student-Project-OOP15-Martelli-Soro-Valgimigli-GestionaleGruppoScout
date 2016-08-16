@@ -8,7 +8,7 @@ import java.util.Map;
 
 import control.exception.MemberSexException;
 import control.exception.MoreLeadersNotPermitException;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -27,17 +27,17 @@ public class SquadronImpl implements Serializable, Squadron {
 
 	private final Map<Member, Roles> map;
 
-	private myOptional<Member> capoSq;
-	private myOptional<Member> viceSq;
-	private myOptional<Member> triceSq;
+	private MyOptional<Member> capoSq;
+	private MyOptional<Member> viceSq;
+	private MyOptional<Member> triceSq;
 
 	private String nomeSq;
 	private Boolean sessoSq; // true maschi, false donne
 
 	private Float cash;
-	private myOptional<String> noteCassa;
-	private myOptional<String> noteCancelleria;
-	private myOptional<String> noteBatteria;
+	private MyOptional<String> noteCassa;
+	private MyOptional<String> noteCancelleria;
+	private MyOptional<String> noteBatteria;
 
 	public SquadronImpl(final String nome, final Boolean sesso) {
 		if (nome == null || sesso == null) {
@@ -47,12 +47,12 @@ public class SquadronImpl implements Serializable, Squadron {
 		this.sessoSq = sesso;
 		map = new HashMap<>();
 		this.cash = Float.valueOf(0);
-		capoSq = myOptional.empty();
-		viceSq = myOptional.empty();
-		triceSq = myOptional.empty();
-		noteCassa = myOptional.empty();
-		noteCancelleria = myOptional.empty();
-		noteBatteria = myOptional.empty();
+		capoSq = MyOptional.empty();
+		viceSq = MyOptional.empty();
+		triceSq = MyOptional.empty();
+		noteCassa = MyOptional.empty();
+		noteCancelleria = MyOptional.empty();
+		noteBatteria = MyOptional.empty();
 
 	}
 
@@ -93,7 +93,7 @@ public class SquadronImpl implements Serializable, Squadron {
 		if (this.capoSq.isPresent()){
 			throw new MoreLeadersNotPermitException();
 		}
-		this.capoSq = myOptional.of(capo);
+		this.capoSq = MyOptional.of(capo);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class SquadronImpl implements Serializable, Squadron {
 		if (this.viceSq.isPresent()){
 			throw new MoreLeadersNotPermitException();
 		}
-		this.viceSq = myOptional.of(vicecapo);
+		this.viceSq = MyOptional.of(vicecapo);
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class SquadronImpl implements Serializable, Squadron {
 		if (this.triceSq.isPresent()){
 			throw new MoreLeadersNotPermitException();
 		}
-		this.triceSq = myOptional.of(trice);
+		this.triceSq = MyOptional.of(trice);
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param note
 	 */
 	public void setNoteCassa(final String note) {
-		this.noteCassa = myOptional.of(note);
+		this.noteCassa = MyOptional.of(note);
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param note
 	 */
 	public void setNoteBatteria(final String note) {
-		this.noteBatteria = myOptional.of(note);
+		this.noteBatteria = MyOptional.of(note);
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	 */
 	public void setNoteCancelleria(final String note) {
 	
-		this.noteCancelleria = myOptional.of(note);
+		this.noteCancelleria = MyOptional.of(note);
 	}
 
 	/**
@@ -254,7 +254,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	@Override
 	public void removeCapo() throws ObjectNotContainedException {
 		if (this.isCapoPresent()) {
-			this.capoSq = myOptional.empty();
+			this.capoSq = MyOptional.empty();
 		}
 		throw new ObjectNotContainedException();
 	}
@@ -262,7 +262,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	@Override
 	public void removeVice() throws ObjectNotContainedException {
 		if (this.isVicecapoPresent()) {
-			this.viceSq = myOptional.empty();
+			this.viceSq = MyOptional.empty();
 		}
 		throw new ObjectNotContainedException();
 	}
@@ -270,7 +270,7 @@ public class SquadronImpl implements Serializable, Squadron {
 	@Override
 	public void removeTrice() throws ObjectNotContainedException {
 		if (this.isVicecapoPresent()) {
-			this.triceSq = myOptional.empty();
+			this.triceSq = MyOptional.empty();
 		}
 		throw new ObjectNotContainedException();
 	}

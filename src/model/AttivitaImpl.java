@@ -2,23 +2,23 @@ package model;
 
 import java.time.LocalTime;
 
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 
 public class AttivitaImpl implements Attivita {
 	private String name;
 	private LocalTime orarioInizio;
-	private myOptional<LocalTime> orarioFine;
+	private MyOptional<LocalTime> orarioFine;
 
 	public AttivitaImpl(final String name, final LocalTime orarioInizio) {
 		this.name = name;
 		this.orarioInizio = orarioInizio;
-		this.orarioFine = myOptional.empty();
+		this.orarioFine = MyOptional.empty();
 	}
 
 	public AttivitaImpl(final String name, final LocalTime orarioInizio, final LocalTime orarioFine) {
 		this.name = name;
 		this.orarioInizio = orarioInizio;
-		this.orarioFine = myOptional.of(orarioFine);
+		this.orarioFine = MyOptional.of(orarioFine);
 	}
 
 	@Override
@@ -53,6 +53,6 @@ public class AttivitaImpl implements Attivita {
 
 	@Override
 	public void setOrarioFine(final LocalTime endTime) {
-		this.orarioFine = myOptional.of(endTime);
+		this.orarioFine = MyOptional.of(endTime);
 	}
 }

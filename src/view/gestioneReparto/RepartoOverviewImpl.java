@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 
 import control.Unit;
 import control.ProjectFactoryImpl;
-import control.myUtil.myOptional;
+import control.myUtil.MyOptional;
 import model.CapoImpl;
 import view.general_utility.WarningNotice;
 import view.gestioneReparto.utility.PanelCapiReparto;
@@ -245,7 +245,7 @@ public class RepartoOverviewImpl  {
 					panelSxDx.add(panelRight,BorderLayout.EAST);
 					panelSxDx.add(panelBot, BorderLayout.SOUTH);
 					panelCenter.add(panelSxDx);
-					panelCenter.add(new EditableMemberPanelImpl<>(Type.OverviewReparto, myOptional.empty()));
+					panelCenter.add(new EditableMemberPanelImpl<>(Type.OverviewReparto, MyOptional.empty()));
 					add(panelCenter, BorderLayout.CENTER);
 					add(createJLabel("<html><U>Gestione Reparto</U></html>", fontSizeLabel+2),BorderLayout.NORTH);
 					validate();
