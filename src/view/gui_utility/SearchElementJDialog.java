@@ -81,14 +81,14 @@ public class SearchElementJDialog<E,K> extends JDialog {
 	@SuppressWarnings("unchecked")
 	private void searchMatches(){
 		if(type.equals(SearchType.AssignCharge) || type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember)){
-			Map<Member,Roles> MemberSquad= MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
+			final Map<Member,Roles> memberSquad= MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 					.findSquadron((String)elem).getMembri();
 			matches=(List<K>)((!first.getText().isEmpty() &&!second.getText().isEmpty())?
-					MemberSquad.keySet().stream().filter(t->t.getName().equals(first.getText())&&t.getSurname().equals(second.getText()))
+					memberSquad.keySet().stream().filter(t->t.getName().equals(first.getText())&&t.getSurname().equals(second.getText()))
 					.collect(Collectors.toList())
-					:(!first.getText().isEmpty())?MemberSquad.keySet().stream().filter(t->t.getName().equals(first.getText()))
+					:(!first.getText().isEmpty())?memberSquad.keySet().stream().filter(t->t.getName().equals(first.getText()))
 							.collect(Collectors.toList())
-							:MemberSquad.keySet().stream().filter(l->l.getSurname().equals(second.getText())).collect(Collectors.toList())
+							:memberSquad.keySet().stream().filter(l->l.getSurname().equals(second.getText())).collect(Collectors.toList())
 						);
 			if(matches.isEmpty()){
 				new WarningNotice("Nessun membro trovato con quel nome."+System.lineSeparator()

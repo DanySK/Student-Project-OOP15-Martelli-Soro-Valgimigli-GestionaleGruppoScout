@@ -1,6 +1,7 @@
 package view.gui_utility;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -18,9 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-import control.SortMemberImpl;
 import control.SortExcursion;
 import control.SortExcursionImpl;
+import control.SortMemberImpl;
 import control.myUtil.myOptional;
 import model.Campo;
 import model.EventiDiZona;

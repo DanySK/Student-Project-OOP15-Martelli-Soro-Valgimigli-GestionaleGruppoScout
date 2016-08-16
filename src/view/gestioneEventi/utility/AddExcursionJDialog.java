@@ -52,7 +52,7 @@ public class AddExcursionJDialog extends JDialog {
 	private final JTextField aaF=new JTextField();
 	private  MyJPanelImpl dataFine=new MyJPanelImpl(new GridLayout(1,6));
 	private final JTextArea area=new JTextArea();
-	private boolean perData=false;
+	private boolean perData;
 	private List<String>reparti=new ArrayList<>();
 	private final Unit unit;
 	private LocalDate start;
@@ -157,7 +157,8 @@ public class AddExcursionJDialog extends JDialog {
 		}));
 		panelBot.add(panelBot.createButton("Aggiungi", 15,e->{
 			try{
-				unit.addExcursion(getMethod());
+				Excursion ex=getMethod();
+				unit.addExcursion(ex);
 				if(type.equals(TypeExcursion.Uscita_Squadriglia)){
 					((EventiSquadrigliaPanel)caller).updateEventi();
 				}

@@ -40,7 +40,7 @@ public class EventiReparto {
 			this.add(createJLabel("<html><U>Gestione eventi reparto</U></html> ", fontSizeLabel+2), BorderLayout.NORTH);
 			this.panelCenter=new MyJPanelImpl(new GridLayout(2,1));
 			this.panelTopInfo=new MyJPanelImpl(new GridLayout(0, 2));
-			updatePaneInfo();
+			this.updatePaneInfo();
 			this.panelTopButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 			this.panelTopContainer=new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
