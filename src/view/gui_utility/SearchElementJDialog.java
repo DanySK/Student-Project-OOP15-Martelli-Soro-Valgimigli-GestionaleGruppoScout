@@ -13,14 +13,20 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import control.InfoProjectImpl;
 import control.myUtil.myOptional;
 import model.Member;
 import model.MemberImpl;
 import model.Roles;
 import model.Squadron;
+import model.SquadronImpl;
+import model.Excursion;
+import model.exception.ObjectAlreadyContainedException;
 import view.general_utility.WarningNotice;
 import view.gestioneReparto.utility.EditMemberInfoJDialog;
 import view.gestioneReparto.utility.ShowMemberInfoJDialog;
+import view.gestioneEventi.EventiReparto.EventiRepartoPane;
+import view.gestioneEventi.EventiSquadriglia.EventiSquadrigliaPanel;
 
 public class SearchElementJDialog<E,K> extends JDialog {
 	
@@ -28,6 +34,8 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		AssignCharge,
 		ShowMember,
 		EditMember,
+		addMemberExc,
+		removeExcursion,
 		Excursion;
 	}
 
@@ -44,6 +52,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 	private List<K> matches;
 	private String charge;
 	private JPanel parent;
+	Squadron squadImpl;
 	public SearchElementJDialog(SearchType t,E param,myOptional<String> charge, JPanel parent){
 		super();
 		this.elem=param;
@@ -51,7 +60,8 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		panel=new MyJPanelImpl(new BorderLayout());
 		panelButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 		
-		if(t.equals(SearchType.AssignCharge)||t.equals(SearchType.ShowMember) || t.equals(SearchType.EditMember)){
+		if(t.equals(SearchType.AssignCharge)||t.equals(SearchType.ShowMember) || t.equals(SearchType.EditMember) 
+				||type.equals(SearchType.addMemberExc)){
 			this.parent=parent;
 			this.charge=charge.orElse("");
 			panel.add(panel.createJLabel( "Inserire almeno uno dei campi richiesti", fontSizeLabel+2),BorderLayout.NORTH);
@@ -63,6 +73,14 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			panelCenter.add(panel.createJLabel("Cognome: ", fontSizeLabel));
 			panelCenter.add(second);
 			
+		}
+		else{
+			this.parent=parent;
+			panel.add(panel.createJLabel( "Inserire nome ", fontSizeLabel+2),BorderLayout.NORTH);
+			panelCenter=new MyJPanelImpl(new GridLayout(1,2));
+			panelCenter.add(panel.createJLabel("Nome: ", fontSizeLabel));
+			first=new JTextField();
+			panelCenter.add(first);
 		}
 		panelButton.add(panel.createButton("Annulla", e->{
 			this.dispose();
@@ -80,6 +98,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 	
 	@SuppressWarnings("unchecked")
 	private void searchMatches(){
+		
 		if(type.equals(SearchType.AssignCharge) || type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember)){
 			final Map<Member,Roles> memberSquad= MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 					.findSquadron((String)elem).getMembri();
@@ -98,13 +117,48 @@ public class SearchElementJDialog<E,K> extends JDialog {
 				tooItemAndExecute();
 			}
 		}
+		else if(type.equals(SearchType.addMemberExc)){
+			matches=(List<K>)((!first.getText().isEmpty() &&!second.getText().isEmpty())?
+					MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
+					.filter(g->g.getName().equals(first.getText()) && g.getSurname().equals(second.getText())).collect(Collectors.toList())
+					:(!first.getText().isEmpty())?
+							MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
+							.filter(g->g.getName().equals(first.getText())).collect(Collectors.toList())
+							:MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
+							.filter(g->g.getSurname().equals(second.getText())).collect(Collectors.toList()));
+			if(matches.isEmpty()){
+				new WarningNotice("Nessun membro trovato con quel nome."+System.lineSeparator()
+						+ "Controllare i dati inseriti e riprovare");
+			}
+			else{
+				tooItemAndExecute();
+			}
+		}
+		else if(type.equals(SearchType.removeExcursion)){
+			matches=(List<K>) MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+					.filter(d->d.getName().equals(first.getText())).collect(Collectors.toList());
+			if(matches.isEmpty()){
+				new WarningNotice("Nessuna escursione trovata con quel nome."+System.lineSeparator()
+						+ "Controllare i dati inseriti e riprovare");
+			}
+			else{
+				tooItemAndExecute();
+			}
+		}
 		
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void tooItemAndExecute(){
 		JDialog dialInternal=new JDialog();
-		Squadron squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron((String)elem);
+		
+		squadImpl=new SquadronImpl("a", false);
+		try{
+		squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron((String)elem);
+		}catch(Exception e){
+			
+		}
+		
 		MyJPanelImpl panInternal=new MyJPanelImpl(new BorderLayout());
 		panInternal.add(panInternal.createJLabel( "Scegliere la corrispondenza desiderata", fontSizeLabel),BorderLayout.NORTH);
 		MyJPanelImpl panMember= new MyJPanelImpl(new GridLayout(0, 1));
@@ -160,21 +214,63 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			dialInternal.setLocationRelativeTo(this);
 			dialInternal.setVisible(true);
 		}
-		else if(type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember)){
+		else if(type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember) || type.equals(SearchType.addMemberExc)){
 			matches.stream().forEach(e->{
 				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
 				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());
 				area.append("Nascita: "+((Member)e).getBirthday().toString());
 				panMember.add(area);
-				paneSelect.add(paneSelect.createButton("Vedi", o->{
+				if(type.equals(SearchType.addMemberExc)){
+					paneSelect.add(paneSelect.createButton("Partecipa", o->{
+						try {
+							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursionNamed((String)elem)
+								.addPartecipant((Member)e, false);
+							MyJFrameSingletonImpl.getInstance().setNeedToSave();
+							dialInternal.dispose();
+							this.dispose();
+						} catch (ObjectAlreadyContainedException e1) {
+							new WarningNotice(e1.getMessage());
+						}
+					}));
+				}
+				else{
+					paneSelect.add(paneSelect.createButton("Vedi", o->{
+						dialInternal.dispose();
+						if(type.equals(SearchType.ShowMember)){
+							new ShowMemberInfoJDialog((Member)e).setVisible(true);
+						}
+						else{
+							new EditMemberInfoJDialog((MemberImpl)e, (EditableMemberPanelImpl<Member>)parent).setVisible(true);
+						}
+					}));
+				}
+			});
+			panInternal.add(panMember, BorderLayout.CENTER);
+			panInternal.add(paneSelect,BorderLayout.EAST);
+			panInternal.add(panBot,BorderLayout.SOUTH);
+			dialInternal.add(panInternal);
+			dialInternal.pack();
+			dialInternal.setLocationRelativeTo(this);
+			dialInternal.setVisible(true);
+		}
+		else if(type.equals(SearchType.removeExcursion)){
+			matches.stream().forEach(e->{;
+				area.append((new InfoProjectImpl()).getExcursionInfo((Excursion)e));
+				panMember.add(area);
+				paneSelect.add(paneSelect.createButton("Rimuovi", o->{
 					dialInternal.dispose();
-					if(type.equals(SearchType.ShowMember)){
-						new ShowMemberInfoJDialog((Member)e).setVisible(true);
+					MyJFrameSingletonImpl.getInstance().getUnit().removeExcursion((Excursion)e);
+					if(parent instanceof EventiRepartoPane){
+						((EventiRepartoPane)parent).updatePaneInfo();
+						((EventiRepartoPane)parent).updateEventi();
 					}
 					else{
-						new EditMemberInfoJDialog((MemberImpl)e, (EditableMemberPanelImpl<Member>)parent).setVisible(true);
+						((EventiSquadrigliaPanel)parent).updatePaneInfo();
+						((EventiSquadrigliaPanel)parent).updateEventi();
 					}
+					
 				}));
+				
 			});
 			panInternal.add(panMember, BorderLayout.CENTER);
 			panInternal.add(paneSelect,BorderLayout.EAST);

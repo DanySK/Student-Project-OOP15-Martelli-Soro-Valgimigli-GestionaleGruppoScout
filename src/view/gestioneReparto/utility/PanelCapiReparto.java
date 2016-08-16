@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import view.general_utility.WarningNotice;
@@ -23,7 +20,6 @@ public class PanelCapiReparto extends MyJPanelImpl {
 	private final JTextField aa= new JTextField();
 	private final JTextField phone=new JTextField();
 
-	private final ButtonGroup sex= new ButtonGroup();
 	public PanelCapiReparto(String top){
 		super(new BorderLayout());
 		this.add(createJLabel("<html><U>"+top+"</U></html>", fontSize),BorderLayout.NORTH);

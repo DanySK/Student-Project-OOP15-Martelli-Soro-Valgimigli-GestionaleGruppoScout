@@ -33,6 +33,8 @@ import model.MemberImpl;
 import model.RepartoImpl;
 import model.Squadron;
 import model.UscitaSquadriglia;
+import model.exception.ObjectNotContainedException;
+import view.general_utility.WarningNotice;
 import view.gestioneEventi.utility.ShowEditExcursion;
 import view.gestioneReparto.utility.AddMemberJDialog;
 import view.gestioneReparto.utility.EditMemberInfoJDialog;
@@ -51,8 +53,8 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		OverviewReparto,
 		RepartoEventi,
 		SquadrigliaEventi,
-		TasseSquadriglia;
-		
+		TasseSquadriglia,
+		EventoPartecipanti;
 	}
 	private static final long serialVersionUID = 9037769890822002300L;
 	private List<E> memList;
@@ -65,6 +67,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	private final EditableMemberPanelImpl<E> me;
 	private final Type type;
 	private Squadron squadImpl;
+	private  String squadName;
 	private final RepartoImpl rep;
 	private Map<Member,List<Excursion>> mapPagamenti=new HashMap<>();
 	@SuppressWarnings("unchecked")
@@ -75,8 +78,13 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		this.rep=(RepartoImpl) MyJFrameSingletonImpl.getInstance().getUnit().getReparto();
 		
 		if(squadName.isPresent() ){
-			squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
-				.findSquadron(squadName.get());
+			this.squadName=squadName.get();
+			try{
+				squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
+						.findSquadron(squadName.get());
+			}catch(Exception e){
+				
+			}
 		}
 		this.updateMember();
 		this.sortExc=new SortExcursionImpl();
@@ -186,6 +194,10 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			});
 			updateMemberBotton();
 		}
+		else if(type.equals(Type.EventoPartecipanti)){
+			this.memList=(List<E>) MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursionNamed(squadName).getAllPartecipants();
+			updateMemberBotton();
+		}
 	}
 	
 	private void updateMemberBotton(){
@@ -259,6 +271,25 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 					((Excursion)mem).getDateStart().toString()+"</html>",16,e->{
 						new ShowEditExcursion((Excursion)mem,(EditableMemberPanelImpl<Excursion>) me);
 					});
+		}
+		else if(type.equals(Type.EventoPartecipanti)){
+			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname(), 16, e->{
+				ShowMemberInfoJDialog dial= new ShowMemberInfoJDialog((Member)mem);
+				dial.addButtonToBot("<html>Non<br>Partecipare</html>", u->{
+					try {
+						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursionNamed(squadName).removePartecipant((Member)mem);
+						dial.dispose();
+						updateMember();
+					} catch (ObjectNotContainedException e1) {
+						new WarningNotice(e1.getMessage());
+					}
+					
+				});
+				dial.validate();
+				dial.repaint();
+				dial.pack();
+				dial.setVisible(true);
+			});
 		}
 		else{
 			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname(), 16, e->{

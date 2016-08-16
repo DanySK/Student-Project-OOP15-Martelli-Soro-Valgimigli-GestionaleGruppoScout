@@ -1,34 +1,47 @@
 package view.gestioneEventi.utility;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EventObject;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import control.InfoProjectImpl;
+import control.myUtil.myOptional;
+import model.EventiDiZona;
 import model.Excursion;
-import model.exception.IllegalDateException;
+import model.Gemellaggi;
+import model.GemellaggiImpl;
+import model.exception.ObjectAlreadyContainedException;
+import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
+import view.gui_utility.SearchElementJDialog;
+import view.gui_utility.SearchElementJDialog.SearchType;
 
 public class ShowEditExcursion extends JDialog{
+	
+	private static final long serialVersionUID = 9016334026262612993L;
 	MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 	MyJPanelImpl panelCenterOuter = new MyJPanelImpl(new BorderLayout());
 	MyJPanelImpl panelCenter=new MyJPanelImpl(new GridLayout(0, 2));
 	MyJPanelImpl panelBot=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
 	EditableMemberPanelImpl<Excursion> parent;
 	MyJPanelImpl panelEdit = new MyJPanelImpl(new GridLayout(0,1));
+	List<String>reparti=new ArrayList<>();
 	int fontSize = 15;
 	Excursion exc;
 	public ShowEditExcursion(Excursion exc, EditableMemberPanelImpl<Excursion> parent){
@@ -66,9 +79,106 @@ public class ShowEditExcursion extends JDialog{
 				panelCenter.add(panelCenter.createJLabel(info.get("Dove").get(0), fontSize));
 				panelEdit.add(getJButton("Dove"));
 				
-				panelCenter.add(panelCenter.createJLabel("Data", fontSize));
+				panelCenter.add(panelCenter.createJLabel("Inizio: ", fontSize));
 				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), fontSize));
 				panelEdit.add(getJButton("Quando"));
+				
+				panelCenter.add(panelCenter.createJLabel("Fine: ", fontSize));
+				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), fontSize));
+				panelEdit.add(getJButton("Fine"));
+				
+				panelCenter.add(panelCenter.createJLabel("Prezzo: ", fontSize));
+				panelCenter.add(panelCenter.createJLabel(info.get("Prezzo").get(0), fontSize));
+				panelEdit.add(getJButton("Prezzo"));
+				
+				panelCenter.add(panelCenter.createJLabel("Partecipanti", fontSize));
+				panelCenter.add(panelCenter.createButton("vedi", 10, e->{
+					JDialog dial = new JDialog();
+					MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
+					EditableMemberPanelImpl<Excursion> panCenter= new EditableMemberPanelImpl<Excursion>
+						(EditableMemberPanelImpl.Type.EventoPartecipanti,myOptional.of(exc.getName()));
+					panel.add(panCenter);
+					dial.add(panel);
+					dial.setPreferredSize(MyJFrameSingletonImpl.getInstance().getContenentPane().getSize());
+					dial.pack();
+					dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+					dial.setVisible(true);
+				}));
+				panelEdit.add(panelCenter.createButton("<html>Aggiungi/<br>Rimuovi</html>",10,e->{
+					new SearchElementJDialog<>(SearchType.addMemberExc,exc.getName(), myOptional.empty(), null);
+				}));
+				
+				if(exc instanceof EventiDiZona || exc instanceof GemellaggiImpl ){
+					panelCenter.add(panelCenter.createJLabel("Reparti", fontSize));
+					panelCenter.add(panelCenter.createButton("Vedi"	,10, e->{
+						
+					}));
+					panelEdit.add(panelEdit.createButton("<html>Aggiungi/<br>Rimuovi</html>",10, e->{
+						JDialog dial=new JDialog();
+						JTextArea area=new JTextArea();
+						if(exc instanceof EventiDiZona)((EventiDiZona) exc).getOtherUnits().stream().forEach(l->{
+							area.append(l);
+						});
+						else ((Gemellaggi)exc).getOtherUnits().stream().forEach(l->{
+							area.append(l);
+						});
+						MyJPanelImpl pan= new MyJPanelImpl(new BorderLayout());
+						MyJPanelImpl panN=new MyJPanelImpl(new GridLayout(2, 1));
+						MyJPanelImpl panS=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
+						panN.add(pan.createJLabel("<html><U>Aggiungi Reparti</U><html>", fontSize+2));
+						panN.add(pan.createJLabel("<html>Aggiungere i nomi dei reparti<br>"
+								+ "separando un reparto dall'altro con il tasto \"INVIO\"</html>", fontSize));
+						pan.add(panN,BorderLayout.NORTH);
+					
+						area.setPreferredSize(new Dimension(area.getWidth(),dial.getHeight()));
+						pan.add(area,BorderLayout.CENTER);
+						panS.add(pan.createButton("Annulla", r->{
+							dial.dispose();
+						}));
+						panS.add(pan.createButton("Aggiungi", r->{
+						   reparti =Arrays.asList(area.getText().split(System.lineSeparator())) ;
+						   try{
+							   if(exc instanceof EventiDiZona){
+								   ((EventiDiZona)exc).getOtherUnits().clear();
+								   
+								   reparti.stream().forEach(t->{
+									   ((EventiDiZona)exc).addOtherUnit(t);
+								   });
+							   }
+								else{
+									((Gemellaggi) exc).getOtherUnits().stream().forEach(w->{
+										   try {
+											((Gemellaggi)exc).removeOtherUnit(w);
+										} catch (ObjectNotContainedException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+									   });
+									   reparti.stream().forEach(t->{
+										   try {
+											((Gemellaggi)exc).addOtherUnit(t);
+										} catch (ObjectAlreadyContainedException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+									   });
+								}
+						   }catch(Exception h){
+							   new WarningNotice(h.getMessage());
+						   }
+						   dial.dispose();
+						}));
+						pan.add(panS,BorderLayout.SOUTH);
+						dial.add(pan);
+						dial.pack();
+						dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+						dial.setVisible(true);
+						
+					}));
+					
+				}
+				
+				
 				
 				panel.validate();
 				panel.repaint();
@@ -86,15 +196,18 @@ public class ShowEditExcursion extends JDialog{
 		//if(exc instanceof )
 	}
 	private JButton getJButton(String type){
-		return panelEdit.createButton("Edit",11, e->{
+		return panelEdit.createButton("Edit",10, e->{
 			JDialog dial=new JDialog();
 			MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
-			if(type.equals("Nome") || type.equals("Dove")){
+			if(type.equals("Nome") || type.equals("Dove") || type.equals("Prezzo")){
 				JTextField txt=new JTextField();
 				pan.add(txt,BorderLayout.CENTER);
 				pan.add(pan.createButton("OK", t->{
-					if(type.equals("Nome")){exc.setName(txt.getText());}
-					else{exc.setPlace(txt.getText());}
+					if(!txt.getText().isEmpty()){
+						if(type.equals("Nome")){exc.setName(txt.getText());}
+						else if(type.equals("Dove")){exc.setPlace(txt.getText());}
+						else if(type.equals("Prezzo")){exc.setPrice(Integer.parseInt(txt.getText()));}
+					}
 					dial.dispose();
 					updateExcursion();
 				}),BorderLayout.SOUTH);
@@ -114,8 +227,19 @@ public class ShowEditExcursion extends JDialog{
 				
 				pan.add(pan.createButton("OK", t->{
 					try {
-						exc.setDateStart(LocalDate.of(Integer.parseInt(aa.getText()), 
-								Integer.parseInt(mm.getText()),Integer.parseInt(gg.getText())));
+						if(type.equals("Fine")){
+							if(!gg.getText().isEmpty() && !aa.getText().isEmpty() && !mm.getText().isEmpty()){
+								exc.setDateEnd((LocalDate.of(Integer.parseInt(aa.getText()), 
+									Integer.parseInt(mm.getText()),Integer.parseInt(gg.getText()))));
+							}
+							
+						}
+						else{
+							if(!gg.getText().isEmpty() && !aa.getText().isEmpty() && !mm.getText().isEmpty()){
+								exc.setDateStart(LocalDate.of(Integer.parseInt(aa.getText()), 
+									Integer.parseInt(mm.getText()),Integer.parseInt(gg.getText())));
+							}
+						}
 					} catch(Exception E){
 						new WarningNotice(E.getMessage());
 					}
