@@ -38,7 +38,7 @@ public interface EventiDiZona extends Excursion {
 
 	/**
 	 * 
-	 * @param activity
+	 * @param activity to add
 	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
 	
@@ -54,7 +54,7 @@ public interface EventiDiZona extends Excursion {
 	
 	 void addActivity(String nameActivity, LocalTime startTime) throws ObjectAlreadyContainedException;
 	 /**
-	  * 
+	  * remove all the units from the list
 	  */
 	 void clearUnitsList();
 	/**
@@ -62,14 +62,14 @@ public interface EventiDiZona extends Excursion {
 	 * @param nameActivity to add
 	 * @param startTime of the activity
 	 * @param endTime of the activity
-	 * @throws ObjectAlreadyContainedException 
+	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
 	 void addActivity(String nameActivity, LocalTime startTime, LocalTime endTime) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param activity to remove
-	 * @throws ObjectNotContainedException 
+	 * @throws ObjectNotContainedException if the object is notcontained
 	 */
 	 void removeActivity(Attivita activity) throws ObjectAlreadyContainedException, ObjectNotContainedException;
 

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import extra.mail.ControlMail;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
@@ -27,7 +26,6 @@ public class CheckerImpl implements Checker, Serializable {
 	 */
 	private static final long serialVersionUID = -2321120264672768555L;
 	private static final Integer DAYTOCHECK = 7;
-	private static final Integer TODAY = 1;
 	
 
 	@Override
@@ -68,30 +66,18 @@ public class CheckerImpl implements Checker, Serializable {
 		
 		final List<Member> people = unit.getContainers().getMembers();
 		final List<Excursion> excursions = unit.getContainers().getExcursion();
-		List<Excursion> toRemove = excursions.stream()
-											 .filter(e -> e.getDateEnd().compareTo(LocalDate.now()) < 0)
-											 .collect(Collectors.toList());
-		toRemove.forEach(e->unit.removeExcursion(e));
-						  
 		
 		final Map<String, List<Member>> map = new HashMap<>();
 		final List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
 		for(final Excursion e: exc){
 			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNotPaied());
-			if(this.checkDateIsBetween(LocalDate.now(), LocalDate.now().plus(DAYTOCHECK, ChronoUnit.DAYS),
-					e.getDateStart())){
-				ControlMail.sendMailForPaymentExcursion(e);
-			}
 		}
 		final List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);
 		
-		ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
-		
 		if(this.checkDateIsBetween(unit.getLimitDateToPay(), unit.getLimitDateToPay()
 									.plus(- DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())){
 			map.put("Ragazzi che non hanno ancora pagato l'anno", unit.getMemberDidntPay());
-			ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
 		}
 		return map;
 	}

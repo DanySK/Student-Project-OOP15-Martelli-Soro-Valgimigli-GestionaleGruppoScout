@@ -50,20 +50,20 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	@Override
-	public void setTasse(final Integer anno) {
+	public void setTax(final Integer year) {
 		if (this.annoTasse.isPresent()) {
-			if (this.annoTasse.get() < anno) {
-				this.annoTasse = MyOptional.of(anno);
+			if (this.annoTasse.get() < year) {
+				this.annoTasse = MyOptional.of(year);
 			}
 		} else {
-			this.annoTasse = MyOptional.of(anno);
+			this.annoTasse = MyOptional.of(year);
 		}
 	}
 
 	@Override
-	public boolean isTaxPaid(final Integer anno) {
+	public boolean isTaxPaid(final Integer year) {
 		if (this.annoTasse.isPresent()) {
-			if (this.annoTasse.get().equals(anno)) {
+			if (this.annoTasse.get().equals(year)) {
 				return true;
 			}
 		}
@@ -165,8 +165,8 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	@Override
-	public void setPromise(final boolean promessa) {
-		this.promise = promessa;
+	public void setPromise(final boolean promise) {
+		this.promise = promise;
 	}
 
 	@Override
