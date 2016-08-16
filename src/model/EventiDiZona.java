@@ -38,18 +38,25 @@ public interface EventiDiZona extends Excursion {
 
 	/**
 	 * 
-	 * @param activity to add
+	 * @param activity
+	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
-	 void addActivity(Attivita activity);
+	
+	
+	 void addActivity(Attivita activity) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
 	 * @param nameActivity to add
 	 * @param startTime of the activity
-	 * @throws ObjectAlreadyContainedException 
+	 * @throws ObjectAlreadyContainedException if the object is contained
 	 */
+	
 	 void addActivity(String nameActivity, LocalTime startTime) throws ObjectAlreadyContainedException;
-
+	 /**
+	  * 
+	  */
+	 void clearUnitsList();
 	/**
 	 * 
 	 * @param nameActivity to add

@@ -123,4 +123,9 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	@Override
 	protected void check(final LocalDate dateStart, final LocalDate dateEnd) throws IllegalDateException {
 	}
+
+	@Override
+	public void clearUnitsList() {
+	this.altriReparti.clear();
+	}
 }

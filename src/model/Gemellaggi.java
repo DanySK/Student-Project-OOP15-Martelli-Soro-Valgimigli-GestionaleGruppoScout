@@ -11,7 +11,10 @@ public interface Gemellaggi extends Excursion {
 	 * @return
 	 */
 	 Reparto getReparto();
-
+	 /**
+	  * 
+	  */
+	 void clearUnitsList();
 	/**
 	 * 
 	 * @param reparto

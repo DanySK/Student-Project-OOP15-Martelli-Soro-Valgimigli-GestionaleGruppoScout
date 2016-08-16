@@ -72,4 +72,9 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 			throw new IllegalDateException();
 		}
 	}
+
+	@Override
+	public void clearUnitsList() {
+	this.altriReparti.clear();
+	}
 }
