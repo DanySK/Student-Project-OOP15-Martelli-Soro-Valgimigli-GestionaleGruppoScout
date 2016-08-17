@@ -1,5 +1,7 @@
 package extra.sito;
 
-public interface ExcursionOnline {
+import model.Excursion;
+
+public interface ExcursionOnline extends Excursion{
 
 }

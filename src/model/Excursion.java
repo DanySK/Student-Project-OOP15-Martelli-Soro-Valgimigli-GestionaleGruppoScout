@@ -159,12 +159,5 @@ public interface Excursion {
 	 *            of the excursion to set
 	 */
 	void setName(String name);
-	/**
-	 * 
-	 * @return
-	 * @throws IllegalDateException
-	 * @throws IOException
-	 * @throws MalformedURLException
-	 */
-	List<ExcursionOnline> getExcursion() throws IllegalDateException, IOException, MalformedURLException;
+
 }
