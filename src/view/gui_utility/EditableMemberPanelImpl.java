@@ -1,7 +1,6 @@
 package view.gui_utility;
 
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import control.CheckerImpl;
 import control.SortExcursion;
 import control.SortExcursionImpl;
 import control.SortMemberImpl;
@@ -137,6 +137,15 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				if(type.equals(Type.OVERVIEWREP)){
 					new SearchElementJDialog<>(SearchType.EditMemberRep, MyOptional.empty(), MyOptional.empty(), this);
 				}
+				if(type.equals(Type.RETTAREP)){
+					new SearchElementJDialog<>(SearchType.tasseRep, MyOptional.empty(), MyOptional.empty(), this);
+				}
+				if(type.equals(Type.RETTASQUAD)){
+					new SearchElementJDialog<>(SearchType.tasseSquad, MyOptional.empty(), MyOptional.empty(), this);
+				}
+				if(type.equals(Type.TASSEEXCSQUAD)){
+					new SearchElementJDialog<>(SearchType.tasseSquadExc, MyOptional.empty(), MyOptional.empty(), this);
+				}
 			}));
 		}
 		Arrays.asList(sortPanel.getComponents()).stream().forEach(e->e.setFont(new Font("Aria", Font.ITALIC,FONTSIZE)));
@@ -156,7 +165,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.RETTAREP)){
-			this.memList=(List<E>) rep.getMembersNotPaid(Year.now().getValue());
+			this.memList=(List<E>)(new CheckerImpl()).noPaiedMembers(MyJFrameSingletonImpl.getInstance().getUnit().getReparto());
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.TASSEEXCSQUAD)){
@@ -173,7 +182,6 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				}
 			}
 			this.memList=(List<E>) mapPagamenti.keySet().stream().collect(Collectors.toList());
-			
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.EXCREP)){
@@ -296,6 +304,9 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			});
 		}
 		
+	}
+	public List<E> getList(){
+		return memList.stream().collect(Collectors.toList());
 	}
 
 	

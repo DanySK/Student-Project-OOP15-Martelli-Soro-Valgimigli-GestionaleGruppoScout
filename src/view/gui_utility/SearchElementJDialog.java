@@ -15,18 +15,19 @@ import javax.swing.JTextField;
 
 import control.InfoProjectImpl;
 import control.myUtil.MyOptional;
+import model.Excursion;
 import model.Member;
 import model.MemberImpl;
 import model.Roles;
 import model.Squadron;
-import model.SquadronImpl;
-import model.Excursion;
 import model.exception.ObjectAlreadyContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneReparto.utility.EditMemberInfoJDialog;
-import view.gestioneReparto.utility.ShowMemberInfoJDialog;
 import view.gestioneEventi.EventiReparto.EventiRepartoPane;
 import view.gestioneEventi.EventiSquadriglia.EventiSquadrigliaPanel;
+import view.gestioneReparto.utility.EditMemberInfoJDialog;
+import view.gestioneReparto.utility.ShowMemberInfoJDialog;
+import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
+import view.gestioneTasse.utility.MemberTasseJDialog;
 
 public class SearchElementJDialog<E,K> extends JDialog {
 	
@@ -37,24 +38,27 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		EditMemberRep,
 		addMemberExc,
 		removeExcursion,
-		Excursion;
+		Excursion,
+		tasseRep,
+		tasseSquad,
+		tasseSquadExc;
 	}
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2330303224987114376L;
 	private final MyJPanelImpl panel;
-	private JTextField first;
+	private final JTextField first;
 	private JTextField second;
-	private MyJPanelImpl panelCenter;
-	private MyJPanelImpl panelButton;
+	private final MyJPanelImpl panelCenter;
+	private final MyJPanelImpl panelButton;
 	private final int fontSizeLabel=15;
 	private final E elem;
 	private final SearchType type;
 	private List<K> matches;
 	private String charge;
 	private JPanel parent;
-	Squadron squadImpl;
+	private Squadron squadImpl;
 	public SearchElementJDialog(SearchType t,E param,MyOptional<String> charge, JPanel parent){
 		super();
 		this.elem=param;
@@ -63,16 +67,17 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		panelButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 		
 		if(t.equals(SearchType.AssignCharge)||t.equals(SearchType.ShowMember) || t.equals(SearchType.EditMember) 
-				||type.equals(SearchType.addMemberExc)|| type.equals(SearchType.EditMemberRep)){
+				||type.equals(SearchType.addMemberExc)|| type.equals(SearchType.EditMemberRep)
+				||type.equals(SearchType.tasseRep)||type.equals(SearchType.tasseSquad)|| type.equals(SearchType.tasseSquadExc)){
 			this.parent=parent;
 			this.charge=charge.orElse("");
 			panel.add(panel.createJLabel( "Inserire almeno uno dei campi richiesti", fontSizeLabel+2),BorderLayout.NORTH);
 			panelCenter=new MyJPanelImpl(new GridLayout(2,2));
-			first=new JTextField();
-			second=new JTextField();
 			panelCenter.add(panel.createJLabel("Nome: ", fontSizeLabel));
+			first=new JTextField();
 			panelCenter.add(first);
 			panelCenter.add(panel.createJLabel("Cognome: ", fontSizeLabel));
+			second=new JTextField();
 			panelCenter.add(second);
 			
 		}
@@ -119,7 +124,27 @@ public class SearchElementJDialog<E,K> extends JDialog {
 				tooItemAndExecute();
 			}
 		}
-		else if(type.equals(SearchType.addMemberExc)||type.equals(SearchType.EditMemberRep)){
+		else if(type.equals(SearchType.tasseSquad)||type.equals(SearchType.tasseRep)||type.equals(SearchType.tasseSquadExc)){
+			List<Member> tmp=((EditableMemberPanelImpl<Member>)parent).getList();
+			matches=(List<K>)((!first.getText().isEmpty() &&!second.getText().isEmpty())?
+					tmp.stream().filter(t->t.getName().equals(first.getText())&&t.getSurname().equals(second.getText()))
+					.collect(Collectors.toList())
+					:(!first.getText().isEmpty())?tmp.stream().filter(t->t.getName().equals(first.getText()))
+							.collect(Collectors.toList())
+							:tmp.stream().filter(l->l.getSurname().equals(second.getText())).collect(Collectors.toList())
+					);
+			
+			if(matches.isEmpty()){
+				new WarningNotice("Nessun membro trovato con quel nome."+System.lineSeparator()
+						+ "Controllare i dati inseriti e riprovare");
+			}
+			else{
+				tooItemAndExecute();
+			}
+		}
+		
+		else if(type.equals(SearchType.addMemberExc)||type.equals(SearchType.EditMemberRep)
+				||type.equals(SearchType.tasseRep)){
 			matches=(List<K>)((!first.getText().isEmpty() &&!second.getText().isEmpty())?
 					MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
 					.filter(g->g.getName().equals(first.getText()) && g.getSurname().equals(second.getText())).collect(Collectors.toList())
@@ -153,8 +178,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 	@SuppressWarnings("unchecked")
 	private void tooItemAndExecute(){
 		JDialog dialInternal=new JDialog();
-		
-		squadImpl=new SquadronImpl("a", false);
+		//squadImpl=new SquadronImpl("a", false);
 		try{
 		squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron((String)elem);
 		}catch(Exception e){
@@ -208,13 +232,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 				}));
 				
 			});
-			panInternal.add(panMember, BorderLayout.CENTER);
-			panInternal.add(paneSelect,BorderLayout.EAST);
-			panInternal.add(panBot,BorderLayout.SOUTH);
-			dialInternal.add(panInternal);
-			dialInternal.pack();
-			dialInternal.setLocationRelativeTo(this);
-			dialInternal.setVisible(true);
+			
 		}
 		else if(type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember) 
 				|| type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)){
@@ -248,13 +266,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 					}));
 				}
 			});
-			panInternal.add(panMember, BorderLayout.CENTER);
-			panInternal.add(paneSelect,BorderLayout.EAST);
-			panInternal.add(panBot,BorderLayout.SOUTH);
-			dialInternal.add(panInternal);
-			dialInternal.pack();
-			dialInternal.setLocationRelativeTo(this);
-			dialInternal.setVisible(true);
+		
 		}
 		else if(type.equals(SearchType.removeExcursion)){
 			matches.stream().forEach(e->{;
@@ -275,16 +287,34 @@ public class SearchElementJDialog<E,K> extends JDialog {
 				}));
 				
 			});
-			panInternal.add(panMember, BorderLayout.CENTER);
-			panInternal.add(paneSelect,BorderLayout.EAST);
-			panInternal.add(panBot,BorderLayout.SOUTH);
-			dialInternal.add(panInternal);
-			dialInternal.pack();
-			dialInternal.setLocationRelativeTo(this);
-			dialInternal.setVisible(true);
 		}
-		
+		else if(type.equals(SearchType.tasseRep)||type.equals(SearchType.tasseSquad)|| type.equals(SearchType.tasseSquadExc)){
+			matches.stream().forEach(e->{
+				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
+				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());
+				area.append("Nascita: "+((Member)e).getBirthday().toString()+ System.lineSeparator()) ;
+				panMember.add(area);
+				paneSelect.add(paneSelect.createButton("paga", o->{
+					if(type.equals(SearchType.tasseRep)|| type.equals(SearchType.tasseSquad)){
+						new MemberTasseJDialog((Member)e, (EditableMemberPanelImpl<Member>) parent).setVisible(true);
+					}
+					else{
+						new MemberTasseExcursionJDialog((Member)e, (EditableMemberPanelImpl<Member>)parent).setVisible(true);
+					}
+					dialInternal.dispose();
+				}));
+				
+			});
+		}
+		panInternal.add(panMember, BorderLayout.CENTER);
+		panInternal.add(paneSelect,BorderLayout.EAST);
+		panInternal.add(panBot,BorderLayout.SOUTH);
+		dialInternal.add(panInternal);
+		dialInternal.pack();
+		dialInternal.setLocationRelativeTo(this);
+		dialInternal.setVisible(true);
 	}
+	
 	
 	
 }
