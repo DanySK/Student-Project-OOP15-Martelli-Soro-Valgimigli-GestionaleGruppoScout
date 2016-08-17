@@ -165,7 +165,7 @@ public class LoaderUtil extends MyJPanelImpl {
 					frame.dispose();
 					
 				} catch (Exception k){
-					k.printStackTrace();
+					new WarningNotice(k.getMessage());
 				}
 			}));
 			buttons.add(getBackButtonPrivate());

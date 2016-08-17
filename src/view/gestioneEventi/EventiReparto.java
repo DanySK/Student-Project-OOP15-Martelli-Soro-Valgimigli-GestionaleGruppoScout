@@ -69,7 +69,7 @@ public class EventiReparto {
 			this.panelCenter.add(panelBot);
 			this.add(panelCenter,BorderLayout.CENTER);
 		}
-		public void updatePaneInfo(){
+		public final void updatePaneInfo(){
 			SwingUtilities.invokeLater(new Runnable() {
 				
 				public void run() {

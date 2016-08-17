@@ -9,10 +9,12 @@ import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import control.InfoProjectImpl;
+import control.myUtil.MyOptional;
 import control.myUtil.Pair;
 import model.Member;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
+import view.gestioneReparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
@@ -39,7 +41,11 @@ public class ShowMemberInfoJDialog extends JDialog {
 		}
 		panelIn.add(panelIn.createJLabel("Specialità", FONTSIZE));
 		panelIn.add(panelIn.createButton("Vedi",FONTSIZE, e->{
-			new SpecialitiesJDialog(mem, false);
+			new JTextAreaDialog<>(TextAreaType.SPCVIEW, mem, MyOptional.empty());
+		}));
+		panelIn.add(panelIn.createJLabel("Cammino", FONTSIZE));
+		panelIn.add(panelIn.createButton("Vedi", FONTSIZE, e->{
+			new PathJDialog(mem, false);
 		}));
 		panel.add(panelIn,BorderLayout.CENTER);
 		bot.add(panel.createButton("Ok", g->{
