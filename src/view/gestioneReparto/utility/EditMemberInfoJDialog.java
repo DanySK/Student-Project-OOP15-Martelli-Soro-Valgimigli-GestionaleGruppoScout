@@ -21,10 +21,10 @@ import view.gui_utility.MyJPanelImpl;
 public class EditMemberInfoJDialog extends JDialog {
 
 	private static final long serialVersionUID = -7599555866898270972L;
-	private int fontSize=15;
+	private final static int FONTSIZE=15;
 	private String squadName;
 	private Squadron squadImpl;
-	private Member mem;
+	private final Member mem;
 	public EditMemberInfoJDialog(MemberImpl mem, EditableMemberPanelImpl<Member> parent){
 		super();
 		this.mem=mem;
@@ -40,23 +40,23 @@ public class EditMemberInfoJDialog extends JDialog {
 		}
 		
 		//pannelli per dare il layout scelto
-		MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
-		MyJPanelImpl panelCenter= new MyJPanelImpl(new GridLayout(0, 2));
-		MyJPanelImpl panelBottom=new MyJPanelImpl();
+		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
+		final MyJPanelImpl panelCenter= new MyJPanelImpl(new GridLayout(0, 2));
+		final MyJPanelImpl panelBottom=new MyJPanelImpl();
 		//promessa e totem
-		JTextField totem=new JTextField();
-		JComboBox<String> promessa = new JComboBox<>();
+		final JTextField totem=new JTextField();
+		final JComboBox<String> promessa = new JComboBox<>();
 		promessa.addItem(mem.getPromise()?"fatta":"da fare");
 		promessa.addItem(mem.getPromise()?"da fare":"fatta");
 		if(mem.hasTotem())totem.setText(mem.getTotem());
 		//tutor
-		JTextField tutorName=new JTextField();
-		JTextField tutorPhone=new JTextField();
-		JTextField tutorMail=new JTextField();
+		final JTextField tutorName=new JTextField();
+		final JTextField tutorPhone=new JTextField();
+		final JTextField tutorMail=new JTextField();
 		//squadriglie
-		JComboBox<String> squad=new JComboBox<>();
+		final JComboBox<String> squad=new JComboBox<>();
 		//ruoli
-		JComboBox<Roles> role=new JComboBox<>();
+		final JComboBox<Roles> role=new JComboBox<>();
 		/*Se il membro appartiene ad una squadriglia aggiungo tale squadriglia in cima alla combobox delle squadriglie
 		 * e inoltre metto il suo ruolo nella squadriglia in cima alla combobox dei ruoli
 		 */
@@ -85,19 +85,19 @@ public class EditMemberInfoJDialog extends JDialog {
 		/*
 		 * Tutti i componenti aggiunti nell'ordine desiderato
 		 */
-		panelCenter.add(panel.createJLabel("Ruolo: ", fontSize));
+		panelCenter.add(panel.createJLabel("Ruolo: ", FONTSIZE));
 		panelCenter.add(role);
-		panelCenter.add(panel.createJLabel( "Promessa: ", fontSize));
+		panelCenter.add(panel.createJLabel( "Promessa: ", FONTSIZE));
 		panelCenter.add(promessa);
-		panelCenter.add(panel.createJLabel( "Totem: ", fontSize));
+		panelCenter.add(panel.createJLabel( "Totem: ", FONTSIZE));
 		panelCenter.add(totem);
-		panelCenter.add(panel.createJLabel( "Cambia Squadriglia", fontSize));
+		panelCenter.add(panel.createJLabel( "Cambia Squadriglia", FONTSIZE));
 		panelCenter.add(squad);
-		panelCenter.add(panel.createJLabel( "Tutor ", fontSize));
+		panelCenter.add(panel.createJLabel( "Tutor ", FONTSIZE));
 		panelCenter.add(tutorName);
-		panelCenter.add(panel.createJLabel( "Tel. Tutor:", fontSize));
+		panelCenter.add(panel.createJLabel( "Tel. Tutor:", FONTSIZE));
 		panelCenter.add(tutorPhone);
-		panelCenter.add(panel.createJLabel( "Mail Tutor: ",fontSize));
+		panelCenter.add(panel.createJLabel( "Mail Tutor: ",FONTSIZE));
 		panelCenter.add(tutorMail);
 		//se il tutor è già presente lo setto in modo che l'utente ne sia a conoscenza
 		if(mem.getTutor().isPresent()){
@@ -172,7 +172,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		
 		panel.add(panelCenter, BorderLayout.CENTER);
 		panel.add(panelBottom,BorderLayout.SOUTH);
-		panel.add(panel.createJLabel("<html><U>Modifica informazioni membro<U><html>", fontSize),BorderLayout.NORTH);
+		panel.add(panel.createJLabel("<html><U>Modifica informazioni membro<U><html>", FONTSIZE),BorderLayout.NORTH);
 		this.add(panel);
 		this.pack();
 		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());

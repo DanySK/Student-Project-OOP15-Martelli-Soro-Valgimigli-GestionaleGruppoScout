@@ -24,17 +24,17 @@ public class SquadrigliaManagerImpl extends MyJPanelImpl {
 		
 	public class SquadrigliaManagerImplPanel extends MyJPanelImpl{
 		private static final long serialVersionUID = 4972375090872028432L;
-		private final int fontSizeLabel=19;
-		private final int fontSizeButton=10;
+		private final static int FONTSIZELABEL=19;
+		private final static int FONTSIZEBUTTON=10;
 		private final EditableMemberPanelImpl<Member> panelBottom;
 		private final EditableInfoPanelImpl panelCenter;
 		public SquadrigliaManagerImplPanel() {
 			super(new BorderLayout());
-			panelCenter=new EditableInfoPanelImpl(squadName, true, fontSizeLabel, fontSizeButton);
+			panelCenter=new EditableInfoPanelImpl(squadName, true, FONTSIZELABEL, FONTSIZEBUTTON);
 			panelBottom =new EditableMemberPanelImpl<Member>(Type.GESTIONESQUADRIGLIA, MyOptional.of(squadName));
 			panelBottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));
-			JPanel T=new JPanel(new GridLayout(2, 0));
-			this.add(createJLabel(  "<html><U>Gestione di "+squadName+"</U></html>" ,fontSizeLabel), BorderLayout.NORTH);
+			final JPanel T=new JPanel(new GridLayout(2, 0));
+			this.add(createJLabel(  "<html><U>Gestione di "+squadName+"</U></html>" ,FONTSIZELABEL), BorderLayout.NORTH);
 			T.add(panelCenter);
 			T.add(panelBottom);
 			this.add(T, BorderLayout.CENTER);

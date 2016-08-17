@@ -3,7 +3,6 @@ package view.gestioneEventi.utility;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.util.Arrays;
 
 import javax.swing.JDialog;
@@ -13,7 +12,6 @@ import javax.swing.JTextArea;
 import model.EventiDiZona;
 import model.Excursion;
 import model.Gemellaggi;
-import model.GemellaggiImpl;
 import model.exception.ObjectAlreadyContainedException;
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -22,7 +20,7 @@ import view.gui_utility.MyJPanelImpl;
 public class OtherUnitJDialog extends JDialog {
 
 	private static final long serialVersionUID = 1710237645233014036L;
-	private final int fontSize=15;
+	private final static int FONTSIZE=15;
 	
 	public OtherUnitJDialog(Excursion exc, boolean editable){
 		final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
@@ -43,15 +41,15 @@ public class OtherUnitJDialog extends JDialog {
 			});
 		}
 		if(editable)inContainer.add(inContainer.createJLabel("<html>Aggiungi altri reparti,"
-				+ "<br>separandoli con il tasto \"INVIO\"", fontSize));
-		else inContainer.add(inContainer.createJLabel("Reparti che parteciperanno all'escursione", fontSize));
+				+ "<br>separandoli con il tasto \"INVIO\"", FONTSIZE));
+		else inContainer.add(inContainer.createJLabel("Reparti che parteciperanno all'escursione", FONTSIZE));
 		inContainer.add(scroll);
 		if(editable){
-			bot.add(bot.createButton("Annulla", fontSize, e->{
+			bot.add(bot.createButton("Annulla", FONTSIZE, e->{
 				dispose();
 			}));
 		}
-		bot.add(bot.createButton("OK",fontSize, e->{
+		bot.add(bot.createButton("OK",FONTSIZE, e->{
 			if(editable){
 				if(exc instanceof Gemellaggi){
 					((Gemellaggi)exc).clearUnitsList();

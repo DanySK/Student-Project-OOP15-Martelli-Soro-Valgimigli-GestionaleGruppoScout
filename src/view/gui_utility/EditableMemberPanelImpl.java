@@ -162,7 +162,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		else if(type.equals(Type.TASSEEXCSQUAD)){
 			mapPagamenti=new HashMap<>();
 			for(Member i: squadImpl.getMembri().keySet()){
-				List<Excursion> tmp= new ArrayList<>();
+				final List<Excursion> tmp= new ArrayList<>();
 				MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 				.forEach(e->{
 					System.out.println(e.getNotPaied());
@@ -188,7 +188,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		}
 		else if(type.equals(Type.RETTASQUAD)){
 			this.memList=new ArrayList<>();
-			List<Member> mem = squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
+			final List<Member> mem = squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
 			mem.stream().forEach(e->{
 				if(rep.getMembersNotPaid(Year.now().getValue()).contains(e)){
 					memList.add((E) e);

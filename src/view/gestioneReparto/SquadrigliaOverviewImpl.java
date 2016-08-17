@@ -22,30 +22,19 @@ public class SquadrigliaOverviewImpl  {
 	public String toString(){
 		return "Panoramica";
 	}
-	
-	/**
-	 * 
-	 * @author Giovanni Martelli
-	 *
-	 */
-	
 	public class SquadrigliaOverviewImplPanel extends MyJPanelImpl{
 		private static final long serialVersionUID = -6749522066747263034L;
-		private final int fontSizeLabel=19;
-		private final int fontSizeButton=10;
-		private	EditableInfoPanelImpl panelSxDx;
-		private MyJPanelImpl panelCenter;
-		
+		private final int FONTSIZE=19;
+		private final int FONTSIZEBUTTON=10;
+		private	final EditableInfoPanelImpl panelSxDx;
+		private final MyJPanelImpl panelCenter;
 		public SquadrigliaOverviewImplPanel() {
 			/*
 			 * Instanzio i vari oggetti e sopratutto instanzio tutti i pannelli che mi servono
 			 */
 			super(new BorderLayout());
 			panelCenter=new MyJPanelImpl(new GridLayout(2, 1));
-			panelSxDx=new EditableInfoPanelImpl(squadName, false, fontSizeLabel, fontSizeButton);
-			
-			
-			//JScrollPane panelScroll=new JScrollPane(panelMember);
+			panelSxDx=new EditableInfoPanelImpl(squadName, false, FONTSIZE, FONTSIZEBUTTON);
 			/*
 			 * aggiungo l'intestazione e tutti i pannelli nell'ordine in cui mi servono
 			 */

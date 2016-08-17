@@ -11,34 +11,28 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
-import model.Squadron;
-import view.gestioneReparto.RepartoOverviewImpl;
 import view.gestioneReparto.SquadrigliaManagerImpl;
 import view.gestioneReparto.SquadrigliaOverviewImpl;
-import view.gestioneReparto.GestioneRepartoMain.TooltipTreeRenderer;
-import view.gestioneReparto.RepartoOverviewImpl.RepartoOverviewImplPane;
-import view.gestioneReparto.SquadrigliaManagerImpl.SquadrigliaManagerImplPanel;
-import view.gestioneReparto.SquadrigliaOverviewImpl.SquadrigliaOverviewImplPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 
 public class GestioneEventiMain extends MySplittedPanelWithTree{
 
+	private static final long serialVersionUID = -6671105472838081521L;
 	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
 	private final MySplittedPanelWithTree me;
 	public GestioneEventiMain(){
-		/*	/*
+		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
 		super("Gestione Reparto",MyJFrameSingletonImpl.getInstance().getUnit().getName());
 		me=this;
-		
 		/*aggiung il SelectionListener al JTree*/
 		this.setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)(me.getTree().getLastSelectedPathComponent());
+				 final DefaultMutableTreeNode node = (DefaultMutableTreeNode)(me.getTree().getLastSelectedPathComponent());
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
 					 public void run() { 
@@ -60,23 +54,19 @@ public class GestioneEventiMain extends MySplittedPanelWithTree{
 				 });
 			}
 		});
-	
 		/*Setto i JToolTip dell'albero*/
 		getTree().setCellRenderer(new TooltipTreeRenderer());
 		javax.swing.ToolTipManager.sharedInstance().registerComponent(getTree());
 		getTree().setVisibleRowCount(1);
-	
 		/*
 		 * popolo il JTree con le varie entrate
 		 */
 		me.getRoot().add(new DefaultMutableTreeNode(new EventiReparto()));
 		unit.getContainers().getSquadrons().forEach(e->{
-			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
+			final DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new EventiSquadriglia(e.getNome())));
 			me.addNode(t);		
 		});
-		
-	
 		/*inserisco il panelBottom e i relativi JButton in panelRight*/
 		
 	}

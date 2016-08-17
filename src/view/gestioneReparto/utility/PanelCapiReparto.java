@@ -12,7 +12,7 @@ import view.gui_utility.MyJPanelImpl;
 public class PanelCapiReparto extends MyJPanelImpl {
 	
 	private static final long serialVersionUID = 8502378638137835431L;
-	private int fontSize=15;
+	private final static int FONTSIZE=15;
 	private final JTextField name=new JTextField();
 	private final JTextField surname=new JTextField();
 	private final JTextField mm=new JTextField();
@@ -22,26 +22,26 @@ public class PanelCapiReparto extends MyJPanelImpl {
 
 	public PanelCapiReparto(String top){
 		super(new BorderLayout());
-		this.add(createJLabel("<html><U>"+top+"</U></html>", fontSize),BorderLayout.NORTH);
-		MyJPanelImpl fields=new MyJPanelImpl(new GridLayout(0,2));
+		this.add(createJLabel("<html><U>"+top+"</U></html>", FONTSIZE),BorderLayout.NORTH);
+		final MyJPanelImpl fields=new MyJPanelImpl(new GridLayout(0,2));
 		
-		fields.add(createJLabel( "Nome: ", fontSize));
+		fields.add(createJLabel( "Nome: ", FONTSIZE));
 		fields.add(name);
-		fields.add(createJLabel( "Cognome: ", fontSize));
+		fields.add(createJLabel( "Cognome: ", FONTSIZE));
 		fields.add(surname);
-		fields.add(createJLabel( "Telefono: ", fontSize));
+		fields.add(createJLabel( "Telefono: ", FONTSIZE));
 		fields.add(phone);
 	
 		
-		MyJPanelImpl tmp;
+		final MyJPanelImpl tmp;
 		tmp=new MyJPanelImpl(new GridLayout(1, 6));
-		tmp.add(this.createJLabel( "giorno", fontSize-5));
+		tmp.add(this.createJLabel( "giorno", FONTSIZE-5));
 		tmp.add(gg);
-		tmp.add(this.createJLabel( "mese", fontSize-5));
+		tmp.add(this.createJLabel( "mese", FONTSIZE-5));
 		tmp.add(mm);
-		tmp.add(this.createJLabel( "anno", fontSize-5));
+		tmp.add(this.createJLabel( "anno", FONTSIZE-5));
 		tmp.add(aa);
-		fields.add(createJLabel( "Data di nascita:", fontSize));
+		fields.add(createJLabel( "Data di nascita:", FONTSIZE));
 		fields.add(tmp);
 		this.add(fields,BorderLayout.CENTER);
 		

@@ -1,32 +1,25 @@
 package view.gestioneEventi;
 
 import java.awt.BorderLayout;
-
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.stream.Collectors;
 
-import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import control.SortExcursionImpl;
 import control.myUtil.MyOptional;
-import model.Campo;
-import model.EventiDiZona;
 import model.Excursion;
-import model.Gemellaggi;
 import model.Squadron;
-import model.SquadronImpl;
-import model.Uscita;
 import model.UscitaSquadriglia;
 import view.gestioneEventi.utility.AddExcursionJDialog;
 import view.gestioneEventi.utility.AddExcursionJDialog.TypeExcursion;
 import view.gui_utility.EditableMemberPanelImpl;
+import view.gui_utility.EditableMemberPanelImpl.Type;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.SearchElementJDialog;
 import view.gui_utility.SearchElementJDialog.SearchType;
-import view.gui_utility.EditableMemberPanelImpl.Type;
 
 public class EventiSquadriglia {
 	private final Squadron squadImpl;
@@ -38,7 +31,8 @@ public class EventiSquadriglia {
 	public class EventiSquadrigliaPanel extends MyJPanelImpl{
 	
 		private static final long serialVersionUID = 5205825583794848349L;
-		private int fontSizeLabel=19;
+		private final static int FONTSIZELABEL=19;
+		private final static int FONTSIZELABELBIG=21;
 		private final MyJPanelImpl panelCenter;
 		private final MyJPanelImpl panelTopContainer;
 		private final MyJPanelImpl panelTopInfo;
@@ -46,7 +40,7 @@ public class EventiSquadriglia {
 		private final EditableMemberPanelImpl<Excursion> panelBot;
 		public EventiSquadrigliaPanel() {
 			super(new BorderLayout());
-			this.add(createJLabel("<html><U>Gestione eventi "+squadImpl.getNome()+"</U></html> ", fontSizeLabel+2), BorderLayout.NORTH);
+			this.add(createJLabel("<html><U>Gestione eventi "+squadImpl.getNome()+"</U></html> ", FONTSIZELABELBIG), BorderLayout.NORTH);
 			this.panelCenter=new MyJPanelImpl(new GridLayout(2,1));
 			this.panelTopInfo=new MyJPanelImpl(new GridLayout(0, 2));
 			this.updatePaneInfo();
@@ -74,13 +68,13 @@ public class EventiSquadriglia {
 				public void run() {
 					panelTopInfo.removeAll();
 					//Long i =1 ;
-					panelTopInfo.add(createJLabel("Prossimo Uscita: ", fontSizeLabel));
+					panelTopInfo.add(createJLabel("Prossimo Uscita: ", FONTSIZELABEL));
 					
 					panelTopInfo.add(createJLabel((new SortExcursionImpl()).sortByDateOfStart(MyJFrameSingletonImpl.getInstance()
 							.getUnit().getContainers().getExcursion().stream().filter(e->e instanceof UscitaSquadriglia)
 							.collect(Collectors.toList())).stream()
 							.map(t->new String(t.getName()+"("+t.getDateStart()+")")).findFirst().orElse("Niente in programma"),
-							fontSizeLabel));
+							FONTSIZELABEL));
 					panelTopInfo.repaint();
 					panelTopInfo.validate();
 				

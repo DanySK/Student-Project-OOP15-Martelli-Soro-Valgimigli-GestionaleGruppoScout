@@ -1,19 +1,14 @@
 package view.gestioneEventi.utility;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EventObject;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -21,10 +16,7 @@ import control.InfoProjectImpl;
 import control.myUtil.MyOptional;
 import model.EventiDiZona;
 import model.Excursion;
-import model.Gemellaggi;
 import model.GemellaggiImpl;
-import model.exception.ObjectAlreadyContainedException;
-import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -35,26 +27,25 @@ import view.gui_utility.SearchElementJDialog.SearchType;
 public class ShowEditExcursion extends JDialog{
 	
 	private static final long serialVersionUID = 9016334026262612993L;
-	MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
-	MyJPanelImpl panelCenterOuter = new MyJPanelImpl(new BorderLayout());
-	MyJPanelImpl panelCenter=new MyJPanelImpl(new GridLayout(0, 2));
-	MyJPanelImpl panelBot=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
-	EditableMemberPanelImpl<Excursion> parent;
-	MyJPanelImpl panelEdit = new MyJPanelImpl(new GridLayout(0,1));
-	List<String>reparti=new ArrayList<>();
-	int fontSize = 15;
-	Excursion exc;
+	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
+	private final MyJPanelImpl panelCenterOuter = new MyJPanelImpl(new BorderLayout());
+	private final MyJPanelImpl panelCenter=new MyJPanelImpl(new GridLayout(0, 2));
+	private final MyJPanelImpl panelBot=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
+	private final MyJPanelImpl panelEdit = new MyJPanelImpl(new GridLayout(0,1));
+	private final static int FONTSIZE = 15;
+	private final static int FONTBUTTONBIG=13;
+	private final static int FONTSIZEBUTTON=10;
+	private final Excursion exc;
 	public ShowEditExcursion(Excursion exc, EditableMemberPanelImpl<Excursion> parent){
 		super();
-		this.parent=parent;
 		this.exc=exc;
 		panel.add(panelCenterOuter,BorderLayout.CENTER);
 		panelCenterOuter.add(panelCenter,BorderLayout.CENTER);
 		updateExcursion();
-		panelBot.add(panelBot.createButton("Annulla",13, e->{
+		panelBot.add(panelBot.createButton("Annulla",FONTBUTTONBIG, e->{
 			this.dispose();
 		}));
-		panelBot.add(panelBot.createButton("Ok",13, e->{
+		panelBot.add(panelBot.createButton("Ok",FONTBUTTONBIG, e->{
 			parent.updateMember();
 			this.dispose();
 		}));
@@ -71,28 +62,28 @@ public class ShowEditExcursion extends JDialog{
 			public void run() {
 				panelCenter.removeAll();
 				panelEdit.removeAll();
-				panelCenter.add(panelCenter.createJLabel("Nome: ", fontSize));
-				panelCenter.add(panelCenter.createJLabel(info.get("Nome").get(0), fontSize));
+				panelCenter.add(panelCenter.createJLabel("Nome: ", FONTSIZE));
+				panelCenter.add(panelCenter.createJLabel(info.get("Nome").get(0), FONTSIZE));
 				panelEdit.add(getJButton("Nome"));
 				
-				panelCenter.add(panelCenter.createJLabel("Luogo: ", fontSize));
-				panelCenter.add(panelCenter.createJLabel(info.get("Dove").get(0), fontSize));
+				panelCenter.add(panelCenter.createJLabel("Luogo: ", FONTSIZE));
+				panelCenter.add(panelCenter.createJLabel(info.get("Dove").get(0), FONTSIZE));
 				panelEdit.add(getJButton("Dove"));
 				
-				panelCenter.add(panelCenter.createJLabel("Inizio: ", fontSize));
-				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), fontSize));
+				panelCenter.add(panelCenter.createJLabel("Inizio: ", FONTSIZE));
+				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), FONTSIZE));
 				panelEdit.add(getJButton("Quando"));
 				
-				panelCenter.add(panelCenter.createJLabel("Fine: ", fontSize));
-				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), fontSize));
+				panelCenter.add(panelCenter.createJLabel("Fine: ", FONTSIZE));
+				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), FONTSIZE));
 				panelEdit.add(getJButton("Fine"));
 				
-				panelCenter.add(panelCenter.createJLabel("Prezzo: ", fontSize));
-				panelCenter.add(panelCenter.createJLabel(info.get("Prezzo").get(0), fontSize));
+				panelCenter.add(panelCenter.createJLabel("Prezzo: ", FONTSIZE));
+				panelCenter.add(panelCenter.createJLabel(info.get("Prezzo").get(0), FONTSIZE));
 				panelEdit.add(getJButton("Prezzo"));
 				
-				panelCenter.add(panelCenter.createJLabel("Partecipanti", fontSize));
-				panelCenter.add(panelCenter.createButton("vedi", 10, e->{
+				panelCenter.add(panelCenter.createJLabel("Partecipanti", FONTSIZE));
+				panelCenter.add(panelCenter.createButton("vedi", FONTSIZEBUTTON, e->{
 					JDialog dial = new JDialog();
 					MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 					EditableMemberPanelImpl<Excursion> panCenter= new EditableMemberPanelImpl<Excursion>
@@ -104,16 +95,16 @@ public class ShowEditExcursion extends JDialog{
 					dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
 					dial.setVisible(true);
 				}));
-				panelEdit.add(panelCenter.createButton("<html>Aggiungi/<br>Rimuovi</html>",10,e->{
+				panelEdit.add(panelCenter.createButton("<html>Aggiungi/<br>Rimuovi</html>", FONTSIZEBUTTON,e->{
 					new SearchElementJDialog<>(SearchType.addMemberExc,exc.getName(), MyOptional.empty(), null);
 				}));
 				
 				if(exc instanceof EventiDiZona || exc instanceof GemellaggiImpl ){
-					panelCenter.add(panelCenter.createJLabel("Reparti", fontSize));
-					panelCenter.add(panelCenter.createButton("Vedi"	,10, e->{
+					panelCenter.add(panelCenter.createJLabel("Reparti", FONTSIZE));
+					panelCenter.add(panelCenter.createButton("Vedi"	, FONTSIZEBUTTON, e->{
 						new OtherUnitJDialog(exc, false);
 					}));
-					panelEdit.add(panelEdit.createButton("<html>Aggiungi/<br>Rimuovi</html>",10,e->{
+					panelEdit.add(panelEdit.createButton("<html>Aggiungi/<br>Rimuovi</html>", FONTSIZEBUTTON,e->{
 						new OtherUnitJDialog(exc,true);
 					}));
 					
@@ -137,7 +128,7 @@ public class ShowEditExcursion extends JDialog{
 		//if(exc instanceof )
 	}
 	private JButton getJButton(String type){
-		return panelEdit.createButton("Edit",10, e->{
+		return panelEdit.createButton("Edit", FONTSIZEBUTTON, e->{
 			JDialog dial=new JDialog();
 			MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
 			if(type.equals("Nome") || type.equals("Dove") || type.equals("Prezzo")){
@@ -158,11 +149,11 @@ public class ShowEditExcursion extends JDialog{
 				JTextField mm=new JTextField();
 				JTextField aa=new JTextField();
 				JTextField gg=new JTextField();
-				date.add(date.createJLabel("Giorno: ", fontSize));
+				date.add(date.createJLabel("Giorno: ", FONTSIZE));
 				date.add(gg);
-				date.add(date.createJLabel("Mese: ", fontSize));
+				date.add(date.createJLabel("Mese: ", FONTSIZE));
 				date.add(mm);
-				date.add(date.createJLabel("Anno: ",fontSize));
+				date.add(date.createJLabel("Anno: ",FONTSIZE));
 				date.add(aa);
 				pan.add(date,BorderLayout.CENTER);
 				

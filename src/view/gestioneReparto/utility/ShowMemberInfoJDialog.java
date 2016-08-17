@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
@@ -20,14 +19,13 @@ import view.gui_utility.MyJPanelImpl;
 public class ShowMemberInfoJDialog extends JDialog {
 
 	private static final long serialVersionUID = 6783431258852717871L;
-	MyJPanelImpl bot= new MyJPanelImpl();
-	MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
+	private final MyJPanelImpl bot= new MyJPanelImpl();
+	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
+	private final static int FONTSIZE=18;
 	public ShowMemberInfoJDialog(Member mem){
 		super();
-		List<Pair<String, String>> list = (new InfoProjectImpl()).getMemberSpecificalInfo(mem);
-		
-		
-		JTextArea area=panel.createJTextArea( "", false, 18);
+		final List<Pair<String, String>> list = (new InfoProjectImpl()).getMemberSpecificalInfo(mem);
+		final JTextArea area=panel.createJTextArea( "", false, FONTSIZE);
 		list.forEach(t->{
 			area.append(t.getX()+": "+t.getY()+System.lineSeparator());
 		});

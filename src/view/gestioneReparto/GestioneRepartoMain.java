@@ -22,32 +22,31 @@ import view.gui_utility.MySplittedPanelWithTree;
  */
 public class GestioneRepartoMain extends MySplittedPanelWithTree{
 	private static final long serialVersionUID = -1348459245821012590L;
-		private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
-		private final MySplittedPanelWithTree me;
+	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
+
 	public GestioneRepartoMain(){
-		/*	/*
+		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
 		super("Gestione Reparto",MyJFrameSingletonImpl.getInstance().getUnit().getName());
-		me=this;
 		
 		/*aggiung il SelectionListener al JTree*/
 		this.setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)(me.getTree().getLastSelectedPathComponent());
+				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)(getTree().getLastSelectedPathComponent());
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
 					 public void run() { 
-						 me.getPanelRight().remove(getPanelCenter());
+						 getPanelRight().remove(getPanelCenter());
 						 try{
 						
 							 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
 								 setPanelCenter((((SquadrigliaOverviewImpl)node.getUserObject()). new SquadrigliaOverviewImplPanel()));
 							 }
 							 if (node.getUserObject() instanceof RepartoOverviewImpl){
-								 me.setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
+								 setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
 							 }
 							 if(node.getUserObject() instanceof SquadrigliaManagerImpl){
 								 setPanelCenter(((SquadrigliaManagerImpl)node.getUserObject()). new SquadrigliaManagerImplPanel());
@@ -62,16 +61,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 						 getPanelRight().add(getPanelCenter(),BorderLayout.CENTER);
 						 getPanelRight().repaint();
 						 getPanelRight().validate();
-						/* if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									getPanelBottom().getComponent(1).setEnabled(true);
-								}
-							});
-							JOptionPane.showMessageDialog(null, "<html><U>Attenzione!!</U><br>Ci sono modifiche"
-								+ "<br>non salvate.<br>Cliccare sul pulsante \"Salva\" <br>per scriverle su disco");
-						}*/
+						
 					 }
 				 });
 			}
@@ -85,12 +75,12 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		/*
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
 		 */
-		me.getRoot().add(new DefaultMutableTreeNode(new RepartoOverviewImpl()));
+		getRoot().add(new DefaultMutableTreeNode(new RepartoOverviewImpl()));
 		unit.getContainers().getSquadrons().forEach(e->{
 			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e.getNome())));
 			t.add(new DefaultMutableTreeNode(new SquadrigliaManagerImpl(e.getNome())));
-			me.addNode(t);		
+			addNode(t);		
 		});
 		
 	
@@ -105,7 +95,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		DefaultMutableTreeNode t = new DefaultMutableTreeNode(squad.getNome());
 		t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(squad.getNome())));
 		t.add(new DefaultMutableTreeNode(new SquadrigliaManagerImpl(squad.getNome())));
-		me.addNode(t);
+		addNode(t);
 	}
 	
 	public void removeSquadToJTree(String squadToRemove){
