@@ -74,33 +74,27 @@ public class MainGuiImpl extends MyJPanelImpl{
 		opzioni.setEnabled(false);
 		if(this.checkOnStartup()){
 			SwingUtilities.invokeLater(new Runnable() {
-				
 				@Override
 				public void run() {
 					opzioni.setToolTipText("<html>Ci sono alcuni avvisi importanti<html>");
-					
 				}
 			});
 			opzioni.setEnabled(true);
 			opzioni.setBackground(new Color(252,168,23));
 			opzioni.addActionListener(e->{
-				
 				JDialog dial = new JDialog();
 				MyJPanelImpl pane= new MyJPanelImpl(new BorderLayout());
 				pane.add(createJLabel( "<html><U>AVVISI REPARTO</U></html>", fontSize+8),BorderLayout.NORTH);
 				text="<html>";
 				MyJPanelImpl info=new MyJPanelImpl(new GridLayout(0,2));
-			
 				check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).keySet().stream()
-				.forEach(k->{
-					info.add(createJLabel( k+": ", fontSize+5));
-					
+					.forEach(k->{
+						info.add(createJLabel( k+": ", fontSize+5));
 					check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).get(k).stream()
-					.forEach(t->{
+						.forEach(t->{
+							text=text+t.getName()+" "+t.getSurname()+"<br>";
 						
-						text=text+t.getName()+" "+t.getSurname()+"<br>";
-						
-					});
+						});
 					text=text+"</html>";
 					info.add(createJLabel( text, fontSize));
 					text = "<html>";
@@ -129,15 +123,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 		
 		/* Set this panel as componentPane of MyFrameSingleton istance */
 		MyJFrameSingletonImpl.getInstance().setPanel(this);
-		//////////////test a caso
-		/*
-		try {
-			MyJFrameSingletonImpl.getInstance().getUnit().addExcursion(new CampoImpl(LocalDate.of(2016,8,13), 3,	MyJFrameSingletonImpl.getInstance().getUnit().getReparto(), "Ciao"));
-			System.out.println(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream().findFirst().get().getName());
-		} catch (IllegalDateException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
+		
 	}
 
 	/**Override used to paint the background image
