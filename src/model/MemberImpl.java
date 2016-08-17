@@ -16,6 +16,10 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	/**
 		 * 
 		 */
+	private static final int MAX_AGE=17;
+	private static final int MIN_AGE=12;
+	private static final int PHONE_NUMBERS=10;
+	
 	private static final long serialVersionUID = 1L;
 	private int identificatore;
 	private final List<String> specialities;
@@ -29,7 +33,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex)
 			throws IllegalYearsException {
 		super(name, surname, birthday, sex);
-		if (this.getHowIsHold().getYears() < 12 || this.getHowIsHold().getYears() > 17) {
+		if (this.getHowIsHold().getYears() < MIN_AGE || this.getHowIsHold().getYears() > MAX_AGE) {
 			throw new IllegalYearsException();
 		}
 		this.tutor = MyOptional.empty();
@@ -43,7 +47,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex,
 			final Tutor tutor) throws IllegalYearsException {
 		super(name, surname, birthday, sex);
-		if (this.getHowIsHold().getYears() < 12 || this.getHowIsHold().getYears() > 17) {
+		if (this.getHowIsHold().getYears() < MIN_AGE || this.getHowIsHold().getYears() > MAX_AGE) {
 			throw new IllegalYearsException();
 		}
 		this.tutor = MyOptional.of(tutor);
@@ -130,7 +134,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	@Override
 	public void setTutorPhone(final Long phone) throws IllegalPhoneNumberException {
 		
-		if (phone.toString().length() != 10) {
+		if (phone.toString().length() != PHONE_NUMBERS) {
 			throw new IllegalPhoneNumberException();
 		}
 		if (!this.tutor.isPresent()) {

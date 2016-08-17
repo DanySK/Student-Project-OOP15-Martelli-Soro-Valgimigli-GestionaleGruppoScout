@@ -16,7 +16,7 @@ public class ExcursionOnlineImpl extends ExcursionImpl implements ExcursionOnlin
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private URL link;
+	private  final URL link;
 
 	public ExcursionOnlineImpl(final LocalDate dateStart, final String name, final LocalDate dateEnd,
 			final Double prize, final String place, final URL link) throws IllegalDateException {

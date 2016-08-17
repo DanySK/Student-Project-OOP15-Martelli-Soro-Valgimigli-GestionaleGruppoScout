@@ -9,7 +9,10 @@ public class PathImpl implements Serializable,model.Path{
 
 	
 
-
+private static final String DEFAULT_VOID_OPTIONAL="Non settato";
+private static final int SCOPERTA=1;
+private static final int COMPETENZA=2;
+private static final int RESPONSABILITA=3;
 private static final long serialVersionUID = 1L;
 private String level;
 private Integer liv;
@@ -41,38 +44,38 @@ public String getLevel(){
 	return this.level;
 }
 public String getSchool(){
-	return this.school.orElse("Non settato");
+	return this.school.orElse(DEFAULT_VOID_OPTIONAL);
 }
 public void setSchool (final String school){
 	this.school=MyOptional.of(school);
 }
 public String getFamily(){
-	return this.family.orElse("Non settato");
+	return this.family.orElse(DEFAULT_VOID_OPTIONAL);
 }
 public void setFamily (final String family){
 	this.family=MyOptional.of(family);
 }
 public String getRelations(){
-	return this.relations.orElse("Non settato");
+	return this.relations.orElse(DEFAULT_VOID_OPTIONAL);
 }
 public void setRelations (final String relations){
 	this.relations=MyOptional.of(relations);
 }
 public String getFaith(){
-	return this.faith.orElse("Non settato");
+	return this.faith.orElse(DEFAULT_VOID_OPTIONAL);
 }
 public void setFaith (final String faith){
 	this.faith=MyOptional.of(faith);
 }
 public void livUp() throws IllegalOperationException{
-	if (this.liv==3){
+	if (this.liv==RESPONSABILITA){
 		throw new IllegalOperationException();
 		}
 	this.liv=this.liv+1;
 	updateLevel();
 }
 public void livDown() throws IllegalOperationException{
-	if (this.liv==1){
+	if (this.liv==SCOPERTA){
 		throw new IllegalOperationException();
 	}
 	this.liv=this.liv-1;
@@ -80,13 +83,13 @@ public void livDown() throws IllegalOperationException{
 }
 
 private void updateLevel(){
-	if (this.liv==1){
+	if (this.liv==SCOPERTA){
 		this.level="scoperta";
 	}
-	if (this.liv==2){
+	if (this.liv==COMPETENZA){
 		this.level="competenza";
 	}
-	if (this.liv==3){
+	if (this.liv==RESPONSABILITA){
 		this.level="responsabilità";
 	}
 }

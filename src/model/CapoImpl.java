@@ -6,6 +6,8 @@ import model.exception.IllegalPhoneNumberException;
 
 public class CapoImpl extends PersonImpl implements Capo {
 
+	private static final int PHONE_NUMBERS=10;
+	
 	private static final long serialVersionUID = 1L;
 	private String phoneNumber;
 
@@ -17,7 +19,7 @@ public class CapoImpl extends PersonImpl implements Capo {
 		} catch (NumberFormatException E) {
 			throw new IllegalPhoneNumberException();
 		}
-		if (phoneNumber.length() != 10) {
+		if (phoneNumber.length() != PHONE_NUMBERS) {
 			throw new IllegalPhoneNumberException();
 		}
 		this.phoneNumber = phoneNumber;
@@ -30,7 +32,7 @@ public class CapoImpl extends PersonImpl implements Capo {
 		} catch (NumberFormatException E) {
 			throw new IllegalPhoneNumberException();
 		}
-		if (phoneNumber.length() != 10) {
+		if (phoneNumber.length() != PHONE_NUMBERS) {
 			throw new IllegalPhoneNumberException();
 		}
 		this.phoneNumber = phoneNumber;
