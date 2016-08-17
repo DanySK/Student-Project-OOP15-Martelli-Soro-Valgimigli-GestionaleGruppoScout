@@ -28,7 +28,7 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 			final List<String> otherUnits) throws IllegalDateException {
 		super(name, dateStart, unit.getAllMember());
 		this.reparto = unit;
-		this.setDateEnd(dateStart.plusDays(duration));
+		this.setDateEnd(dateStart.plusDays(duration-1));
 		this.altriReparti = otherUnits;
 	}
 

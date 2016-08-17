@@ -22,7 +22,7 @@ public class CampoImpl extends ExcursionImpl implements Campo {
 		super(name, dateStart, reparto.getAllMember());
 		this.check(dateStart, dateStart.plusDays(durata - 1));
 		this.reparto = reparto;
-		this.setDateEnd(dateStart.plusDays(durata));
+		this.setDateEnd(dateStart.plusDays(durata-1));
 	}
 
 	@Override
