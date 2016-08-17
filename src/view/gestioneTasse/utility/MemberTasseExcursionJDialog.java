@@ -58,6 +58,7 @@ public class MemberTasseExcursionJDialog extends JDialog {
 					new WarningNotice(e1.getMessage());
 				}
 			});
+			dispose();
 		}));
 		panelCentral.add(area);
 		panelCentral.add(memPane);

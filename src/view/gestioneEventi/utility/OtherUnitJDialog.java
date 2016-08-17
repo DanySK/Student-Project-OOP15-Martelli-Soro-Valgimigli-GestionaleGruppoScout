@@ -22,10 +22,9 @@ import view.gui_utility.MyJPanelImpl;
 public class OtherUnitJDialog extends JDialog {
 
 	private static final long serialVersionUID = 1710237645233014036L;
-	private final Excursion exc;
 	private final int fontSize=15;
+	
 	public OtherUnitJDialog(Excursion exc, boolean editable){
-		this.exc=exc;
 		final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl inContainer=new MyJPanelImpl(new GridLayout(2, 1));
 		final MyJPanelImpl bot= new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
