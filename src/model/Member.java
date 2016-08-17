@@ -191,5 +191,15 @@ public interface Member extends Person {
 	 * @return the mail of the tutor
 	 */
 	MyOptional<String> getTutorMail();
+	/**
+	 * 
+	 * @return
+	 */
+	Path getPath();
+	/**
+	 * 
+	 * @param path
+	 */
+	void setPath(Path path);
 
 }
