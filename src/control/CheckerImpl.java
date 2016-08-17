@@ -113,7 +113,7 @@ public class CheckerImpl implements Checker, Serializable {
 	
 	
 	private boolean checkMail(){
-		return ! this.lastMail.equals(LocalDate.now());
+		return false /*! this.lastMail.equals(LocalDate.now())*/;
 	}
 	
 	
