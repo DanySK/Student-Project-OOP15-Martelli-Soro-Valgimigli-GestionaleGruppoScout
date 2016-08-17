@@ -29,9 +29,9 @@ import view.gui_utility.SearchElementJDialog.SearchType;
 import view.gui_utility.EditableMemberPanelImpl.Type;
 
 public class EventiSquadriglia {
-	private final SquadronImpl squadImpl;
-	public EventiSquadriglia(Squadron squad){
-		squadImpl=(SquadronImpl) squad;
+	private final Squadron squadImpl;
+	public EventiSquadriglia(String squad){
+		squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squad);
 	}
 	
 	

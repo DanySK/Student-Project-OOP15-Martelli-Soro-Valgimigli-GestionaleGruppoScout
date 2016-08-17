@@ -34,6 +34,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		AssignCharge,
 		ShowMember,
 		EditMember,
+		EditMemberRep,
 		addMemberExc,
 		removeExcursion,
 		Excursion;
@@ -61,7 +62,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		panelButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 		
 		if(t.equals(SearchType.AssignCharge)||t.equals(SearchType.ShowMember) || t.equals(SearchType.EditMember) 
-				||type.equals(SearchType.addMemberExc)){
+				||type.equals(SearchType.addMemberExc)|| type.equals(SearchType.EditMemberRep)){
 			this.parent=parent;
 			this.charge=charge.orElse("");
 			panel.add(panel.createJLabel( "Inserire almeno uno dei campi richiesti", fontSizeLabel+2),BorderLayout.NORTH);
@@ -117,7 +118,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 				tooItemAndExecute();
 			}
 		}
-		else if(type.equals(SearchType.addMemberExc)){
+		else if(type.equals(SearchType.addMemberExc)||type.equals(SearchType.EditMemberRep)){
 			matches=(List<K>)((!first.getText().isEmpty() &&!second.getText().isEmpty())?
 					MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
 					.filter(g->g.getName().equals(first.getText()) && g.getSurname().equals(second.getText())).collect(Collectors.toList())
@@ -214,7 +215,8 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			dialInternal.setLocationRelativeTo(this);
 			dialInternal.setVisible(true);
 		}
-		else if(type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember) || type.equals(SearchType.addMemberExc)){
+		else if(type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember) 
+				|| type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)){
 			matches.stream().forEach(e->{
 				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
 				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());

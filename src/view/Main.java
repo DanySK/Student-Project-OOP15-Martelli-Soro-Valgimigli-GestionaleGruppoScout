@@ -33,7 +33,7 @@ public class Main {
 		            ui.put("Tree.drawHorizontalLines", true);
 		            ui.put("Tree.drawVerticalLines", true);
 		            ui.put("Tree.font", new Font("Aria", Font.ITALIC, 18));
-		            ui.put("TextArea.background", new Color(42,218,77));
+		            ui.put("TextArea.background", new Color(48,216,29));
 		            break;
 		        }
 		    }
