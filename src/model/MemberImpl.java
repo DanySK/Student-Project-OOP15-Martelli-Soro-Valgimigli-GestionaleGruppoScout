@@ -215,7 +215,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return path;
 	}
 	@Override
-	public void setPath(Path path) {
+	public void setPath(final Path path) {
 		this.path = path;
 	}
 

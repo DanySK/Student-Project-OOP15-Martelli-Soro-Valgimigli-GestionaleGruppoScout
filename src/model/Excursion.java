@@ -1,11 +1,8 @@
 package model;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import extra.sito.ExcursionOnline;
 import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;

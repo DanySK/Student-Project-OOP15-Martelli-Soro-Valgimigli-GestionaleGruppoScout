@@ -41,25 +41,25 @@ public String getLevel(){
 	return this.level;
 }
 public String getSchool(){
-	return this.school.get();
+	return this.school.orElse("Non settato");
 }
 public void setSchool (final String school){
 	this.school=MyOptional.of(school);
 }
 public String getFamily(){
-	return this.family.get();
+	return this.family.orElse("Non settato");
 }
 public void setFamily (final String family){
 	this.family=MyOptional.of(family);
 }
 public String getRelations(){
-	return this.relations.get();
+	return this.relations.orElse("Non settato");
 }
 public void setRelations (final String relations){
 	this.relations=MyOptional.of(relations);
 }
 public String getFaith(){
-	return this.faith.get();
+	return this.faith.orElse("Non settato");
 }
 public void setFaith (final String faith){
 	this.faith=MyOptional.of(faith);
