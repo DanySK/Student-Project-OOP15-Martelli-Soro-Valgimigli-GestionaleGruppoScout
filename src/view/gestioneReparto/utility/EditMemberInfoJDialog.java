@@ -22,9 +22,11 @@ public class EditMemberInfoJDialog extends JDialog {
 
 	private static final long serialVersionUID = -7599555866898270972L;
 	private final static int FONTSIZE=15;
+	private final static int FONTSIZEBUTTON=13;
 	private String squadName;
 	private Squadron squadImpl;
 	private final Member mem;
+
 	public EditMemberInfoJDialog(MemberImpl mem, EditableMemberPanelImpl<Member> parent){
 		super();
 		this.mem=mem;
@@ -106,6 +108,18 @@ public class EditMemberInfoJDialog extends JDialog {
 			tutorPhone.setText(mem.getTutor().get().getPhone().get().toString());
 			
 		}
+		panelCenter.add(panel.createJLabel("", FONTSIZE));
+		panelCenter.add(panel.createButton("<html>Rimuovi Membro<br>dal reparto</html>",FONTSIZEBUTTON, e->{
+			try {
+				if(memberHasSquadron())squadImpl.removeMembro(mem);
+				MyJFrameSingletonImpl.getInstance().getUnit().removeMember(mem);
+				
+				this.dispose();
+				parent.updateMember();
+			} catch (ObjectNotContainedException e1) {
+				new WarningNotice(e1.getMessage());
+			}
+		}));
 		/*
 		 * pulsante salva
 		 */
