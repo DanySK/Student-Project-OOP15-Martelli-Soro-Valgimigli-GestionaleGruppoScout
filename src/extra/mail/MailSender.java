@@ -12,9 +12,13 @@ import javax.mail.internet.MimeMessage;
 import model.Member;
 
 public class MailSender {
-
+	
+	static String email="apocalipsenowe@gmail.com";
+	static String password="scout2016";
+	
 	public static void sendMail(final String text, final String subject, final List<Member> members) {
 		final Properties props = new Properties();
+	
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -23,7 +27,7 @@ public class MailSender {
 
 		final Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("apocalipsenowe@gmail.com", "scout2016");
+				return new PasswordAuthentication(email,password);
 			}
 		});
 		for (final Member tmp : members) {
@@ -31,7 +35,7 @@ public class MailSender {
 				try {
 
 					final Message message = new MimeMessage(session);
-					message.setFrom(new InternetAddress("apocalipsenowe@gmail.com"));
+					message.setFrom(new InternetAddress(email));
 					message.setRecipients(Message.RecipientType.TO,
 							InternetAddress.parse(tmp.getTutorMail().get()));
 					message.setSubject(subject);
