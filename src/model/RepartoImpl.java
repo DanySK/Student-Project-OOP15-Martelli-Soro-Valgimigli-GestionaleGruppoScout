@@ -104,6 +104,11 @@ public class RepartoImpl implements Reparto, Serializable {
 
 	public List<Member> getMembersNotPaid(final int anno) {
 		final List<Member> tmp = new ArrayList<>();
+		this.membriSenzaSquadriglia.forEach(z->{
+			if (!z.isTaxPaid(anno)){
+				tmp.add(z);
+			}
+		});
 		this.squadriglie.forEach(e -> {
 			new ArrayList<>(e.getMembri().keySet()).forEach(g -> {
 				if (!g.isTaxPaid(anno)) {
