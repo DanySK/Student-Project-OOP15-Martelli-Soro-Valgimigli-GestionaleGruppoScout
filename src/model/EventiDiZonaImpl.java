@@ -13,7 +13,7 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
-	private final List<String> altriReparti;
+	private List<String> altriReparti;
 	private final List<Attivita> attivita = new ArrayList<>();
 
 	public EventiDiZonaImpl(final LocalDate dateStart, final LocalDate dateEnd, final Reparto unit, 
@@ -126,6 +126,6 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 
 	@Override
 	public void clearUnitsList() {
-	this.altriReparti.removeAll(this.altriReparti);
+		this.altriReparti.removeAll(this.altriReparti);
 	}
 }
