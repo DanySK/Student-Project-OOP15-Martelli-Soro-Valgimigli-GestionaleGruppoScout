@@ -45,15 +45,12 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 						
 							 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
 								 setPanelCenter((((SquadrigliaOverviewImpl)node.getUserObject()). new SquadrigliaOverviewImplPanel()));
-								 me.getPanelBottom().getComponent(1).setEnabled(false);
 							 }
 							 if (node.getUserObject() instanceof RepartoOverviewImpl){
 								 me.setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
-								 getPanelBottom().getComponent(1).setEnabled(true);
 							 }
 							 if(node.getUserObject() instanceof SquadrigliaManagerImpl){
 								 setPanelCenter(((SquadrigliaManagerImpl)node.getUserObject()). new SquadrigliaManagerImplPanel());
-								 getPanelBottom().getComponent(1).setEnabled(true);
 							 }
 							 
 						 }catch(NullPointerException k){

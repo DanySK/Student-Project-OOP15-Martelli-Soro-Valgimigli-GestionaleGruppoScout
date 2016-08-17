@@ -14,7 +14,7 @@ import view.gui_utility.MySplittedPanelWithTree;
 
 public class GestioneTasseMain extends MySplittedPanelWithTree{
 	private static final long serialVersionUID = -3022959242441377373L;
-	MySplittedPanelWithTree me;
+	private final MySplittedPanelWithTree me;
 	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
 	
 	public GestioneTasseMain( ) {
@@ -30,7 +30,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 		setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)getTree().getLastSelectedPathComponent();
+				final  DefaultMutableTreeNode node = (DefaultMutableTreeNode)getTree().getLastSelectedPathComponent();
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
 					 public void run() {
@@ -47,12 +47,6 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 						 getPanelRight().add(getPanelCenter(),BorderLayout.CENTER);
 						 getPanelRight().repaint();
 						 getPanelRight().validate();
-						 /*if(MyJFrameSingletonImpl.getInstance().getNeedToSave()){
-							
-									getPanelBottom().getComponent(1).setEnabled(true);
-							JOptionPane.showMessageDialog(null, "<html><U>Attenzione!!</U><br>Ci sono modifiche"
-								+ "<br>non salvate.<br>Cliccare sul pulsante \"Salva\" <br>per scriverle su disco");
-						}*/
 					 }
 				 });
 			}

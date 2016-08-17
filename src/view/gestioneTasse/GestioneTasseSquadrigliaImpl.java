@@ -25,7 +25,8 @@ public class GestioneTasseSquadrigliaImpl  {
 		private final MyJPanelImpl panelIscrizione;
 		private final MyJPanelImpl panelEscursioni;
 		private final MyJPanelImpl panelSplitted;
-		private int fontSize=19;
+		private final static int FONTSIZE=19;
+		private final static int FONTSIZEBIG=26;
 		public GestioneTasseSquadrigliaImplPane(){
 			super(new BorderLayout());
 			this.panelSplitted=new MyJPanelImpl(new GridLayout(2, 1));
@@ -36,9 +37,9 @@ public class GestioneTasseSquadrigliaImpl  {
 			panelSplitted.add(panelIscrizione);
 			panelSplitted.add(panelEscursioni);
 			this.add(panelSplitted,BorderLayout.CENTER);
-			this.add(createJLabel("<html><U>Tasse "+squadName+"</U></html>", fontSize+7), BorderLayout.NORTH);
-			panelIscrizione.add(createJLabel( "Pagamenti quota annuale", fontSize), BorderLayout.NORTH);
-			panelEscursioni.add(createJLabel("Pagamenti escursioni", fontSize),BorderLayout.NORTH);
+			this.add(createJLabel("<html><U>Tasse "+squadName+"</U></html>", FONTSIZEBIG), BorderLayout.NORTH);
+			panelIscrizione.add(createJLabel( "Pagamenti quota annuale", FONTSIZE), BorderLayout.NORTH);
+			panelEscursioni.add(createJLabel("Pagamenti escursioni", FONTSIZE),BorderLayout.NORTH);
 		}
 	}
 	

@@ -23,12 +23,12 @@ public class MemberTasseExcursionJDialog extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = -2645669972966333035L;
-	private final int fontSizeLabel=19;
-	private List<Excursion> list;
-	private Member me;
-	private JTextArea area;
-	private MyJPanelImpl memPane;
-	private JScrollPane scroll;
+	private final static int FONTSIZE=19;
+	private final List<Excursion> list;
+	private final Member me;
+	private final JTextArea area;
+	private final MyJPanelImpl memPane;
+	private final JScrollPane scroll;
 	public MemberTasseExcursionJDialog(Member me, EditableMemberPanelImpl<Member> parent ){
 		this.me=me;
 	
@@ -37,14 +37,14 @@ public class MemberTasseExcursionJDialog extends JDialog {
 		
 		scroll = new JScrollPane(memPane);
 		memPane.setPreferredSize(scroll.getPreferredSize());
-		MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
-		MyJPanelImpl panelCentral=new MyJPanelImpl(new GridLayout(2, 1));
+		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
+		final MyJPanelImpl panelCentral=new MyJPanelImpl(new GridLayout(2, 1));
 		
-		MyJPanelImpl panBot=new MyJPanelImpl();
+		final MyJPanelImpl panBot=new MyJPanelImpl();
 		panel.add(panelCentral.createJLabel( "<html><U>Pagamenti Escursioni "+me.getName()+" "+me.getSurname()+
-				"</U></html>", fontSizeLabel),BorderLayout.NORTH);
+				"</U></html>", FONTSIZE),BorderLayout.NORTH);
 		area=panel.createJTextArea("Questo membro non ha pagato le seguenti escursioni;"
-				+ "\ncliccare su un pulsante per pagare l'escursione", false, fontSizeLabel-2);
+				+ "\ncliccare su un pulsante per pagare l'escursione", false, FONTSIZE-2);
 		area.setEditable(false);
 		updateEscursion();
 		

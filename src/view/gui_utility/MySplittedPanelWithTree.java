@@ -37,7 +37,6 @@ public class MySplittedPanelWithTree extends MyJPanelImpl {
 	public MySplittedPanelWithTree(String name, Object rootNode){
 		
 		/*
-		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
@@ -81,8 +80,6 @@ public class MySplittedPanelWithTree extends MyJPanelImpl {
 				c.fill=GridBagConstraints.BOTH;
 				panelRight.setSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight(), (3*MyJFrameSingletonImpl.getInstance().getWidth())/4));
 				add(panelRight,c);
-				
-		
 				panelBottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));
 				JButton back=getBackButton();
 				back.setSize(new Dimension(panelRight.getHeight()/7,panelRight.getHeight()/7));

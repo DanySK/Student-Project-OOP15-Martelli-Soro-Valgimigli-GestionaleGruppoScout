@@ -13,16 +13,16 @@ import view.gui_utility.MyJPanelImpl;
 public class MemberTasseJDialog extends JDialog {
 
 	private static final long serialVersionUID = -3887913606041748337L;
-	private final int fontSizeLabel=19;
+	private final static int FONTSIZE=19;
 	
 	public MemberTasseJDialog(Member mem, EditableMemberPanelImpl<Member> parent){
 		super();
 		MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 		MyJPanelImpl panBot=new MyJPanelImpl();
-		panel.add(panel.createJLabel("<html><U>Pagamento Membro</U></html>", fontSizeLabel),BorderLayout.NORTH);
+		panel.add(panel.createJLabel("<html><U>Pagamento Membro</U></html>", FONTSIZE),BorderLayout.NORTH);
 		panel.add(panel.createJLabel("<html>Al momento "+mem.getName()+" "+mem.getSurname()+
 				" non ha pagato<br>nessuna quota di partecipazione agli Scout.<br>"
-				+ "Cliccando su \"Paga\" verrà registrata<br>la quota come pagata.", fontSizeLabel),BorderLayout.CENTER);
+				+ "Cliccando su \"Paga\" verrà registrata<br>la quota come pagata.", FONTSIZE),BorderLayout.CENTER);
 		panBot.add(panel.createButton("Paga", u->{
 			mem.setTax(Year.now().getValue());
 			MyJFrameSingletonImpl.getInstance().setNeedToSave();

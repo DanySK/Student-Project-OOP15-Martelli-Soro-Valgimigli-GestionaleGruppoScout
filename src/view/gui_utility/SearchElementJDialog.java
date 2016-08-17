@@ -39,7 +39,9 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		removeExcursion,
 		Excursion;
 	}
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -2330303224987114376L;
 	private final MyJPanelImpl panel;
 	private JTextField first;
