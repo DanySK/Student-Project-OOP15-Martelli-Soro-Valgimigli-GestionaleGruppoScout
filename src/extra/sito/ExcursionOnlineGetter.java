@@ -14,7 +14,7 @@ import java.util.List;
 import model.exception.IllegalDateException;
 
 public class ExcursionOnlineGetter {
-	public static List<ExcursionOnline> getExcursion() throws IllegalDateException, IOException,MalformedURLException {
+	public static List<ExcursionOnline> getExcursion(Regioni regione) throws IllegalDateException, IOException,MalformedURLException {
 		final List<ExcursionOnline> result = new ArrayList<>();
 		final URL url = new URL("http://buonacaccia.net/Events.aspx?CID=11");
 		final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
