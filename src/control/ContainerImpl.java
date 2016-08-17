@@ -95,6 +95,7 @@ public class ContainerImpl implements Container, Serializable {
 		
 		try {
 			this.squadronActive.get(this.squadronActive.indexOf(sq)).removeMembro(member);
+			this.freeMember.add(member);
 		} catch (ObjectNotContainedException e) {
 			new WarningNotice(e.getMessage());
 		}

@@ -23,6 +23,7 @@ public class EditMemberInfoJDialog extends JDialog {
 	private static final long serialVersionUID = -7599555866898270972L;
 	private final static int FONTSIZE=15;
 	private final static int FONTSIZEBUTTON=13;
+	private boolean ret=false;
 	private String squadName;
 	private Squadron squadImpl;
 	private final Member mem;
@@ -128,17 +129,21 @@ public class EditMemberInfoJDialog extends JDialog {
 		 * pulsante salva
 		 */
 		panelBottom.add(panel.createButton("Salva", g->{
-			try{
+				System.out.println("CIAO");
 				mem.setPromise(((String)promessa.getSelectedItem()).equals("fatta")?true:false);
 				//controllo promessa ed eventualmente setto il totem
 				if(mem.getPromise())mem.setTotem(totem.getText());
 				//inserisco eventuale tutor/modifico il tutor attuale
 				if(!tutorName.getText().isEmpty()){
-					
+					try{
+						
 						mem.setTutorName(tutorName.getText());
 						mem.setTutorMail(tutorMail.getText());
 						mem.setTutorPhone(Long.parseLong(tutorPhone.getText()));
-				
+					}catch(Exception y){
+						new WarningNotice(y.getMessage());
+					}
+				}
 				if((!tutorPhone.getText().isEmpty()|| ! tutorMail.getText().isEmpty())&&tutorName.getText().isEmpty()){
 					new WarningNotice("Il tutor deve avere un nominativo");
 				}
@@ -156,6 +161,8 @@ public class EditMemberInfoJDialog extends JDialog {
 						try {
 							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().removeMeberFromSquadron(mem, 
 									MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName));
+							parent.updateMember();
+							this.dispose();
 						} catch (Exception k){
 							new WarningNotice(k.getMessage());
 						}
@@ -172,7 +179,9 @@ public class EditMemberInfoJDialog extends JDialog {
 					}
 				}
 				else{
+					System.out.print("VAFFANCULO");
 					if(!((String)squad.getSelectedItem()).equals(squadName)){
+						System.out.print("VAFFANCULO!!!!!");
 						try{
 							MyJFrameSingletonImpl.getInstance().getUnit().putMemberInSq(mem, MyJFrameSingletonImpl.getInstance()
 								.getUnit().getContainers().findSquadron((String)squad.getSelectedItem()), (Roles)role.getSelectedItem());
@@ -180,13 +189,11 @@ public class EditMemberInfoJDialog extends JDialog {
 							new WarningNotice(y.getMessage());
 						}
 					}
-				}
+				
 				//comunico che è necessario il salvataggio
 				MyJFrameSingletonImpl.getInstance().setNeedToSave();
 				parent.updateMember();
 				this.dispose();
-				}}catch(Exception tt){
-					new WarningNotice(tt.getMessage());
 				}
 		}));
 		panelBottom.add(panel.createButton("Annulla", g->{
@@ -201,7 +208,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
 	}
 		private boolean memberHasSquadron(){
-			return !MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getMembriSenzaSquadriglia().contains(mem);
+			System.out.println(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().toString());
+			return !MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().contains(mem);
 		}
-	
 }

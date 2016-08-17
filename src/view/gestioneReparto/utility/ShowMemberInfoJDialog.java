@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import control.InfoProjectImpl;
@@ -27,9 +26,7 @@ public class ShowMemberInfoJDialog extends JDialog {
 	public ShowMemberInfoJDialog(Member mem){
 		super();
 		final List<Pair<String, String>> list = (new InfoProjectImpl()).getMemberSpecificalInfo(mem);
-		final JTextArea area=panel.createJTextArea( "", false, FONTSIZE);
 		list.forEach(t->{
-			//area.append(t.getX()+": "+t.getY()+System.lineSeparator());
 			panelIn.add(panelIn.createJLabel(t.getX(), FONTSIZE));
 			panelIn.add(panelIn.createJLabel(t.getY(), FONTSIZE));
 		});
@@ -37,8 +34,6 @@ public class ShowMemberInfoJDialog extends JDialog {
 			panelIn.add(panelIn.createJLabel("RUOLO", FONTSIZE));
 			panelIn.add(panelIn.createJLabel(MyJFrameSingletonImpl.getInstance().getUnit()
 					.getReparto().getSquadronOfMember(mem).getMembri().get(mem).toString(), FONTSIZE));
-			/*area.append("Ruolo: "+MyJFrameSingletonImpl.getInstance().getUnit()
-					.getReparto().getSquadronOfMember(mem).getMembri().get(mem));*/
 		} catch (ObjectNotContainedException e) {
 			new WarningNotice(e.getMessage());
 		}
