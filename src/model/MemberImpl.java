@@ -37,6 +37,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.totem = MyOptional.empty();
 		promise = false;
 		this.specialities = new ArrayList<>();
+		this.path=new PathImpl();
 	}
 
 	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex,
@@ -50,7 +51,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.totem = MyOptional.empty();
 		promise = false;
 		this.specialities = new ArrayList<>();
-
+		this.path=new PathImpl();
 	}
 
 	@Override
