@@ -143,12 +143,12 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 
 	@Override
 	public Integer getPrize() {
-		return this.prize.get();
+		return this.prize.orElse(0);
 	}
 
 	@Override
 	public String getPlace() {
-		return this.place.get();
+		return this.place.orElse("Luogo non impostato");
 	}
 
 	@Override
@@ -158,7 +158,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 
 	@Override
 	public LocalDate getDateEnd() {
-		return this.dateEnd.get();
+		return this.dateEnd.orElse(this.dateStart);
 	}
 
 	@Override
