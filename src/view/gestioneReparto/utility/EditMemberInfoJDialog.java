@@ -128,61 +128,66 @@ public class EditMemberInfoJDialog extends JDialog {
 		 * pulsante salva
 		 */
 		panelBottom.add(panel.createButton("Salva", g->{
-			mem.setPromise(((String)promessa.getSelectedItem()).equals("fatta")?true:false);
-			//controllo promessa ed eventualmente setto il totem
-			if(mem.getPromise())mem.setTotem(totem.getText());
-			//inserisco eventuale tutor/modifico il tutor attuale
-			if(!tutorName.getText().isEmpty()){
-				mem.setTutorName(tutorName.getText());
-				mem.setTutorMail(tutorMail.getText());
-				mem.setTutorPhone(Long.parseLong(tutorPhone.getText()));
-			}
-			if((!tutorPhone.getText().isEmpty()|| ! tutorMail.getText().isEmpty())&&tutorName.getText().isEmpty()){
-				new WarningNotice("Il tutor deve avere un nominativo");
-			}
-			
-			if(memberHasSquadron()){
-				//aggiorno se il ruolo è stato cambiato
-				if(!((Roles)role.getSelectedItem()).equals(squadImpl.getMembri().get(mem))){
-					try{
-						MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem, squadImpl, (Roles)role.getSelectedItem());
-					}catch(Exception f){
-						new WarningNotice(f.getMessage());
+			try{
+				mem.setPromise(((String)promessa.getSelectedItem()).equals("fatta")?true:false);
+				//controllo promessa ed eventualmente setto il totem
+				if(mem.getPromise())mem.setTotem(totem.getText());
+				//inserisco eventuale tutor/modifico il tutor attuale
+				if(!tutorName.getText().isEmpty()){
+					
+						mem.setTutorName(tutorName.getText());
+						mem.setTutorMail(tutorMail.getText());
+						mem.setTutorPhone(Long.parseLong(tutorPhone.getText()));
+				
+				if((!tutorPhone.getText().isEmpty()|| ! tutorMail.getText().isEmpty())&&tutorName.getText().isEmpty()){
+					new WarningNotice("Il tutor deve avere un nominativo");
+				}
+				
+				if(memberHasSquadron()){
+					//aggiorno se il ruolo è stato cambiato
+					if(!((Roles)role.getSelectedItem()).equals(squadImpl.getMembri().get(mem))){
+						try{
+							MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem, squadImpl, (Roles)role.getSelectedItem());
+						}catch(Exception f){
+							new WarningNotice(f.getMessage());
+						}
+					}
+					if(memberHasSquadron() &&((String)squad.getSelectedItem()).equals("nessuna squadriglia")){
+						try {
+							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().removeMeberFromSquadron(mem, 
+									MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName));
+						} catch (Exception k){
+							new WarningNotice(k.getMessage());
+						}
+					}
+					//se è stata cambiata la squadriglia di appartenenza sposto il membro
+					else if(!((String)squad.getSelectedItem()).equals(squadName) ){
+						try{
+							MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem,
+							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(((String)squad.getSelectedItem())), 
+							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName).getMembri().get(mem));
+						}catch(Exception f){
+							new WarningNotice(f.getMessage());
+						}
 					}
 				}
-				if(memberHasSquadron() &&((String)squad.getSelectedItem()).equals("nessuna squadriglia")){
-					try {
-						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().removeMeberFromSquadron(mem, 
-								MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName));
-					} catch (Exception k){
-						new WarningNotice(k.getMessage());
+				else{
+					if(!((String)squad.getSelectedItem()).equals(squadName)){
+						try{
+							MyJFrameSingletonImpl.getInstance().getUnit().putMemberInSq(mem, MyJFrameSingletonImpl.getInstance()
+								.getUnit().getContainers().findSquadron((String)squad.getSelectedItem()), (Roles)role.getSelectedItem());
+						}catch(Exception y){
+							new WarningNotice(y.getMessage());
+						}
 					}
 				}
-				//se è stata cambiata la squadriglia di appartenenza sposto il membro
-				else if(!((String)squad.getSelectedItem()).equals(squadName) ){
-					try{
-						MyJFrameSingletonImpl.getInstance().getUnit().changeMemberFromSq(mem,
-						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(((String)squad.getSelectedItem())), 
-						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName).getMembri().get(mem));
-					}catch(Exception f){
-						new WarningNotice(f.getMessage());
-					}
+				//comunico che è necessario il salvataggio
+				MyJFrameSingletonImpl.getInstance().setNeedToSave();
+				parent.updateMember();
+				this.dispose();
+				}}catch(Exception tt){
+					new WarningNotice(tt.getMessage());
 				}
-			}
-			else{
-				if(!((String)squad.getSelectedItem()).equals(squadName)){
-					try{
-						MyJFrameSingletonImpl.getInstance().getUnit().putMemberInSq(mem, MyJFrameSingletonImpl.getInstance()
-							.getUnit().getContainers().findSquadron((String)squad.getSelectedItem()), (Roles)role.getSelectedItem());
-					}catch(Exception y){
-						new WarningNotice(y.getMessage());
-					}
-				}
-			}
-			//comunico che è necessario il salvataggio
-			MyJFrameSingletonImpl.getInstance().setNeedToSave();
-			parent.updateMember();
-			this.dispose();
 		}));
 		panelBottom.add(panel.createButton("Annulla", g->{
 			this.dispose();

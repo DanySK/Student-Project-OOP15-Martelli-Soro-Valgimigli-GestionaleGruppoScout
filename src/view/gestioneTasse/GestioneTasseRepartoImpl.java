@@ -14,6 +14,7 @@ import control.Unit;
 import control.myUtil.MyOptional;
 import model.Member;
 import view.Main.MyColor;
+import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -68,21 +69,25 @@ public class GestioneTasseRepartoImpl {
 				date.add(anno);
 				panel.add(date,BorderLayout.CENTER);
 				panelInternal.add(createButton("Salva", k->{
-					unit.getReparto().setDateToPay(LocalDate.of(Integer.parseInt(anno.getText()),
-							Integer.parseInt(mese.getText()), Integer.parseInt(giorno.getText())));
-						MyJFrameSingletonImpl.getInstance().setNeedToSave();
-						SwingUtilities.invokeLater(new Runnable() {
-							public void run() {
-								infoLeft.removeAll();
-								infoLeft.add(createJLabel( "Limite pagamento retta:", FONTSIZELABELDATE));
-								infoLeft.add(createJLabel(MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getDateToPay().toString(), FONTSIZE-3));
-								infoLeft.add(new JLabel());
-								infoLeft.add(new JLabel());
-								infoLeft.validate();
-								center.validate();
-								}
-						});
-						dial.dispose();
+					try{
+						unit.getReparto().setDateToPay(LocalDate.of(Integer.parseInt(anno.getText()),
+								Integer.parseInt(mese.getText()), Integer.parseInt(giorno.getText())));
+							MyJFrameSingletonImpl.getInstance().setNeedToSave();
+							SwingUtilities.invokeLater(new Runnable() {
+								public void run() {
+									infoLeft.removeAll();
+									infoLeft.add(createJLabel( "Limite pagamento retta:", FONTSIZELABELDATE));
+									infoLeft.add(createJLabel(MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getDateToPay().toString(), FONTSIZE-3));
+									infoLeft.add(new JLabel());
+									infoLeft.add(new JLabel());
+									infoLeft.validate();
+									center.validate();
+									}
+							});
+							dial.dispose();
+					}catch(Exception o){
+						new WarningNotice(o.getMessage());
+					}
 				}));
 				panelInternal.add(createButton("Annulla", p->{
 					dial.dispose();
