@@ -89,10 +89,8 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param capo
 	 * @throws MoreLeadersNotPermitException
 	 */
-	public void setCapoSq(final Member capo) throws MoreLeadersNotPermitException {
-		if (this.capoSq.isPresent()){
-			throw new MoreLeadersNotPermitException();
-		}
+	public void setCapoSq(final Member capo) throws IllegalArgumentException {
+		this.controlLeader(capo);
 		this.capoSq = MyOptional.of(capo);
 	}
 
@@ -109,10 +107,8 @@ public class SquadronImpl implements Serializable, Squadron {
 	 * @param vicecapo
 	 * @throws MoreLeadersNotPermitException
 	 */
-	public void setVicecapoSq(final Member vicecapo) throws MoreLeadersNotPermitException {
-		if (this.viceSq.isPresent()){
-			throw new MoreLeadersNotPermitException();
-		}
+	public void setVicecapoSq(final Member vicecapo) throws IllegalArgumentException {
+		this.controlLeader(vicecapo);
 		this.viceSq = MyOptional.of(vicecapo);
 	}
 
@@ -136,10 +132,8 @@ public class SquadronImpl implements Serializable, Squadron {
 		return this.triceSq.isPresent();
 	}
 
-	public void setTriceSq(final Member trice) throws MoreLeadersNotPermitException {
-		if (this.triceSq.isPresent()){
-			throw new MoreLeadersNotPermitException();
-		}
+	public void setTriceSq(final Member trice) throws IllegalArgumentException {
+		this.controlLeader(trice);
 		this.triceSq = MyOptional.of(trice);
 	}
 
@@ -284,6 +278,23 @@ public class SquadronImpl implements Serializable, Squadron {
 			}
 		});
 		return tmp;
+	}
+	private void controlLeader(Member member){
+		if (this.capoSq.isPresent()){
+			if (this.capoSq.get().equals(member)){
+				throw new IllegalArgumentException ("membro gia presente tra i capi");
+			}
+		}
+		if (this.viceSq.isPresent()){
+			if (this.viceSq.get().equals(member)){
+				throw new IllegalArgumentException ("membro gia presente tra i capi");
+			}
+		}
+		if (this.triceSq.isPresent()){
+			if (this.triceSq.get().equals(member)){
+				throw new IllegalArgumentException ("membro gia presente tra i capi");
+			}
+		}
 	}
 
 }
