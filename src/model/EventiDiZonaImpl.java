@@ -126,6 +126,6 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 
 	@Override
 	public void clearUnitsList() {
-	this.altriReparti.clear();
+	this.altriReparti.removeAll(this.altriReparti);
 	}
 }

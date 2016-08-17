@@ -75,6 +75,6 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 
 	@Override
 	public void clearUnitsList() {
-	this.altriReparti.clear();
+		this.altriReparti.removeAll(this.altriReparti);
 	}
 }
