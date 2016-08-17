@@ -65,7 +65,7 @@ public class CheckerImpl implements Checker, Serializable {
 	}
 
 	@Override
-	public Map<String, List<Member>> stdRouting(final Unit unit) {
+	public Map<String, List<String>> stdRouting(final Unit unit) {
 		
 		final List<Member> people = unit.getContainers().getMembers();
 		final List<Excursion> excursions = unit.getContainers().getExcursion();
@@ -75,23 +75,28 @@ public class CheckerImpl implements Checker, Serializable {
 		toRemove.forEach(e->unit.removeExcursion(e));
 						  
 		
-		final Map<String, List<Member>> map = new HashMap<>();
+		final Map<String, List<String>> map = new HashMap<>();
 		final List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
 		for(final Excursion e: exc){
-			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNotPaied());
+			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNotPaied().stream()
+													.map(m-> m.getName() + " " + m.getSurname())
+													.collect(Collectors.toList()));
 			if(this.checkDateIsBetween(LocalDate.now(), LocalDate.now().plus(DAYTOCHECK, ChronoUnit.DAYS),
 					e.getDateStart()) && this.checkMail()){
 				ControlMail.sendMailForPaymentExcursion(e);
 			}
 		}
 		final List<Member> birthday = this.birthday(DAYTOCHECK, people);
-		map.put("Compleanni a breve", birthday);
+		map.put("Compleanni a breve", birthday.stream().map(m-> m.getName() + " " + m.getSurname()+ "[ "
+				+ m.getBirthday().toString() + " ]").collect(Collectors.toList()));
 		if(this.checkMail()){
 			ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
 		}
 		if(this.checkDateIsBetween(unit.getLimitDateToPay(), unit.getLimitDateToPay()
 									.plus(- DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())){
-			map.put("Ragazzi che non hanno ancora pagato l'anno", unit.getMemberDidntPay());
+			map.put("Ragazzi che non hanno ancora pagato l'anno", unit.getMemberDidntPay().stream()
+					.map(m-> m.getName() + " " + m.getSurname())
+					.collect(Collectors.toList()));
 			if(this.checkMail()){
 				ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
 			}

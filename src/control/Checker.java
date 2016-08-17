@@ -49,5 +49,5 @@ import model.Reparto;
 	 * all members which have the birthday
 	 * within Default Numb of days and all members which haven't payed the excursion
 	 */
-	  Map<String, List<Member>> stdRouting(Unit unit);
+	  Map<String, List<String>> stdRouting(Unit unit);
 }
