@@ -140,7 +140,7 @@ public class UnitImpl implements Unit, Serializable {
 	
 	@Override
 	public void removeExcursion(final String name) {
-		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equals(name))
+		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equalsIgnoreCase(name))
 													  .collect(Collectors.toList());
 		if(Integer.valueOf(exc.size()).equals(0)){
 			new WarningNotice("Nessuna escursione corrisponde al nome: " + name);

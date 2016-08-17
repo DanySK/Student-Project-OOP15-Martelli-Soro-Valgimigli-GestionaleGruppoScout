@@ -68,7 +68,7 @@ public class CheckerImpl implements Checker, Serializable {
 		
 		final List<Member> people = unit.getContainers().getMembers();
 		final List<Excursion> excursions = unit.getContainers().getExcursion();
-		List<Excursion> toRemove = excursions.stream()
+		final List<Excursion> toRemove = excursions.stream()
 											 .filter(e -> e.getDateEnd().compareTo(LocalDate.now()) < 0)
 											 .collect(Collectors.toList());
 		toRemove.forEach(e->unit.removeExcursion(e));
@@ -102,7 +102,6 @@ public class CheckerImpl implements Checker, Serializable {
 		return tmp.compareTo(start) >= 0 && tmp.compareTo(end) <= 0;
 	}
 	
-
 	
 	
 }
