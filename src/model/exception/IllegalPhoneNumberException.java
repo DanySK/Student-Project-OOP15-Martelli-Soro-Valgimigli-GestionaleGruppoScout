@@ -6,7 +6,7 @@ public class IllegalPhoneNumberException extends Exception{
  * 
  */
 private static final long serialVersionUID = 1L;
-	private static final String MESSAGE = "Errore: gli anni del membro devono essere compresi tra 12 e 17";
+	private static final String MESSAGE = "Errore: il numero insetrito non è valido (10 cifre)";
 	
 	public String getMessage(){
 		return IllegalPhoneNumberException.MESSAGE;
