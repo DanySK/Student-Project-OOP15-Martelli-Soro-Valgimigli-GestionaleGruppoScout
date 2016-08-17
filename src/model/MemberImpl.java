@@ -20,6 +20,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private int identificatore;
 	private final List<String> specialities;
 	private Boolean promise;
+	private Path path;
 	private MyOptional<Tutor> tutor;
 	private MyOptional<String> totem;
 	private MyOptional<Integer> annoTasse;
@@ -207,6 +208,14 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	@Override
 	public boolean isComplete() {
 		return this.tutor.isPresent();
+	}
+	@Override
+	public Path getPath() {
+		return path;
+	}
+	@Override
+	public void setPath(Path path) {
+		this.path = path;
 	}
 
 }
