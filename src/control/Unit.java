@@ -52,8 +52,9 @@ import model.exception.ObjectNotContainedException;
 	 * 
 	 * @param sq
 	 * @throws ObjectNotContainedException 
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	  void removeSq(Squadron sq) throws ObjectNotContainedException;
+	  void removeSq(Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException;
 	/**
 	 * 
 	 * @param m

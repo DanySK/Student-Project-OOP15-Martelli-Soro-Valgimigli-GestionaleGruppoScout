@@ -95,8 +95,12 @@ public class UnitImpl implements Unit, Serializable {
 	}
 	
 	@Override
-	public void removeSq(final Squadron sq) throws ObjectNotContainedException {
-			this.rep.removeSquadron(sq);
+	public void removeSq(final Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException {
+			
+		this.rep.removeSquadron(sq);
+		for(Member member : sq.getMembri().keySet()){
+			this.rep.addMembroSenzaSquadriglia(member);
+		}	
 	}
 	
 	@Override
