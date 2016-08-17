@@ -8,12 +8,14 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
+import control.myUtil.MyOptional;
 import model.Member;
 import model.MemberImpl;
 import model.Roles;
 import model.Squadron;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
+import view.gestioneReparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -23,7 +25,6 @@ public class EditMemberInfoJDialog extends JDialog {
 	private static final long serialVersionUID = -7599555866898270972L;
 	private final static int FONTSIZE=15;
 	private final static int FONTSIZEBUTTON=13;
-	private boolean ret=false;
 	private String squadName;
 	private Squadron squadImpl;
 	private final Member mem;
@@ -103,8 +104,12 @@ public class EditMemberInfoJDialog extends JDialog {
 		panelCenter.add(panel.createJLabel( "Mail Tutor: ",FONTSIZE));
 		panelCenter.add(tutorMail);
 		panelCenter.add(panel.createJLabel("Specialità: ", FONTSIZE));
-		panelCenter.add(panel.createButton("Vedi", FONTSIZE,i->{
-			new SpecialitiesJDialog(mem, true);
+		panelCenter.add(panel.createButton("edit", FONTSIZE,i->{
+			new JTextAreaDialog<>(TextAreaType.SPEDIT, mem, MyOptional.empty());
+		}));
+		panelCenter.add(panel.createJLabel("Cammino", FONTSIZE));
+		panelCenter.add(panel.createButton("Edit",FONTSIZE, e->{
+			new PathJDialog(mem, true);
 		}));
 		//se il tutor è già presente lo setto in modo che l'utente ne sia a conoscenza
 		if(mem.getTutor().isPresent()){
@@ -208,8 +213,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		this.pack();
 		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
 	}
-		private boolean memberHasSquadron(){
-			
-			return !MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().contains(mem);
-		}
+	private boolean memberHasSquadron(){
+		return !MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().contains(mem);
+	}
 }

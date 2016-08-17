@@ -155,7 +155,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void updateMember(){
+	public final void updateMember(){
 		if(type.equals(Type.GESTIONESQUADRIGLIA)||type.equals(Type.OVERVIEWSQUAD)){
 			this.memList=(List<E>) squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
 			updateMemberBotton();

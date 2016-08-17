@@ -200,7 +200,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		
 		});
 	}
-	public void updateInfo(){
+	public final void updateInfo(){
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

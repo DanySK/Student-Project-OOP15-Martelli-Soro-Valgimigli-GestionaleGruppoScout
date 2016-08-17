@@ -18,6 +18,7 @@ import control.Unit;
 import control.ProjectFactoryImpl;
 import control.myUtil.MyOptional;
 import model.Excursion;
+import model.exception.IllegalDateException;
 import view.general_utility.WarningNotice;
 import view.gestioneEventi.EventiReparto.EventiRepartoPane;
 import view.gestioneEventi.EventiSquadriglia.EventiSquadrigliaPanel;
@@ -160,7 +161,7 @@ public class AddExcursionJDialog extends JDialog {
 		}));
 		panelBot.add(panelBot.createButton("Aggiungi", 15,e->{
 			try{
-				Excursion ex=getMethod();
+				final Excursion ex=getMethod();
 				unit.addExcursion(ex);
 				if(type.equals(TypeExcursion.Uscita_Squadriglia)){
 					((EventiSquadrigliaPanel)caller).updateEventi();
@@ -188,10 +189,11 @@ public class AddExcursionJDialog extends JDialog {
 		this.setVisible(true);
 		
 	}
-	public Excursion getMethod() throws Exception {
+	public final Excursion getMethod() throws IllegalDateException {
 		
 		Excursion exc;
 		start=LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText()));
+		
 		if(type.equals(TypeExcursion.Uscita)){
 			exc=ProjectFactoryImpl.getStdExcursion(start, unit.getReparto(), nome.getText());
 		}
