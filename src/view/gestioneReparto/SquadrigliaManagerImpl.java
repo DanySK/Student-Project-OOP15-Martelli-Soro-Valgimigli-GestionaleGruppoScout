@@ -31,7 +31,7 @@ public class SquadrigliaManagerImpl extends MyJPanelImpl {
 		public SquadrigliaManagerImplPanel() {
 			super(new BorderLayout());
 			panelCenter=new EditableInfoPanelImpl(squadName, true, fontSizeLabel, fontSizeButton);
-			panelBottom =new EditableMemberPanelImpl<Member>(Type.GestioneSquadriglia, MyOptional.of(squadName));
+			panelBottom =new EditableMemberPanelImpl<Member>(Type.GESTIONESQUADRIGLIA, MyOptional.of(squadName));
 			panelBottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0,0,0)));
 			JPanel T=new JPanel(new GridLayout(2, 0));
 			this.add(createJLabel(  "<html><U>Gestione di "+squadName+"</U></html>" ,fontSizeLabel), BorderLayout.NORTH);

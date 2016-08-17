@@ -44,7 +44,6 @@ public class SearchElementJDialog<E,K> extends JDialog {
 	private final MyJPanelImpl panel;
 	private JTextField first;
 	private JTextField second;
-	//private MyJPanelImpl panelCenterExternal;
 	private MyJPanelImpl panelCenter;
 	private MyJPanelImpl panelButton;
 	private final int fontSizeLabel=15;

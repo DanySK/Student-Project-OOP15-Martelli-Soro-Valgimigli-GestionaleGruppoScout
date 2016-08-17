@@ -36,7 +36,6 @@ public class LoaderImpl extends MyJPanelImpl {
 		/*
 		 * Inizializzo e personalizzo i vari componenti
 		 */
-		
 			//JTextArea in alto
 		northString="Benvenuto nella schermata iniziale di SCOUTAPP!"+System.lineSeparator()+
 				"Qui potrai caricare un reparto o crearne di nuovi."+System.lineSeparator()+
@@ -52,19 +51,14 @@ public class LoaderImpl extends MyJPanelImpl {
 			//tasto crea
 		panelBotton.add(this.createButton("Crea", e->{loader. new CreateUnit(); this.frame.dispose();}));
 		
-		//panelBotton.getComponent("Crea").setPreferredSize(panelBotton.getComponent("Carica").getPreferredSize());
-		//((JButton)panelBotton.getComponent("Crea")).setToolTipText("Qui è possibile creare nuovi reparti");
-			
-			//tasto opzioni
+				//tasto opzioni
 		panelBotton.add(this.createButton("Opzioni", e->{
-			//String oldText=((JTextArea)getComponent("north")).getText();
 			LoaderUtil.LoaderOptions optPanel= loader. new LoaderOptions();
 			optPanel.getPanelBottom().add(this.createButton("ok",f->{
 				SwingUtilities.invokeLater(new Runnable(){
 					@Override
 					public void run(){
 						areaNorth.setText(northString);
-						//((JTextArea)getComponent("north")).setText(oldText);
 						remove(optPanel);
 						add(panelBotton,BorderLayout.CENTER);
 						repaint();
@@ -79,7 +73,6 @@ public class LoaderImpl extends MyJPanelImpl {
 				@Override
 				public void run() {
 					areaNorth.setText("Qui puoi cambiare la directory di salvataggio dei dati");
-					//((JTextArea)getComponent("north")).setText("Qui puoi cambiare la directory di salvataggio dei dati");
 					remove(panelBotton);
 					add(optPanel, BorderLayout.CENTER);
 					repaint();
@@ -89,7 +82,6 @@ public class LoaderImpl extends MyJPanelImpl {
 				}
 			});
 		}));
-		//((JButton)panelBotton.getComponent("Opzioni")).setToolTipText("Qui è possibile cambiare la directory di salvataggio");
 		add(panelBotton, BorderLayout.CENTER);
 		
 		/*

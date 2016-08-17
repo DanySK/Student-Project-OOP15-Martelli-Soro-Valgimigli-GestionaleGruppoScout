@@ -14,7 +14,7 @@ import view.gui_utility.MySplittedPanelWithTree;
 
 public class GestioneTasseMain extends MySplittedPanelWithTree{
 	private static final long serialVersionUID = -3022959242441377373L;
-	
+	MySplittedPanelWithTree me;
 	private final UnitImpl unit=MyJFrameSingletonImpl.getInstance().getUnit();
 	
 	public GestioneTasseMain( ) {
@@ -24,7 +24,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 		 * un pannello a sx(JScrollPane) e uno a dx(JPanel)
 		 */
 		super("Gestione Tasse", MyJFrameSingletonImpl.getInstance().getUnit().getName());
-		
+		this.me=this;
 		
 		/*aggiung il SelectionListener al JTree*/
 		setTreeSelectionListener(new TreeSelectionListener() {
@@ -34,7 +34,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
 					 public void run() {
-						 getPanelRight().remove(getPanelCenter());
+						 me.getPanelRight().remove(getPanelCenter());
 						 if(node.getUserObject() instanceof GestioneTasseRepartoImpl){
 							 setPanelCenter(((GestioneTasseRepartoImpl)node.getUserObject()). new GestioneTasseRepartoImplPane());
 						 }

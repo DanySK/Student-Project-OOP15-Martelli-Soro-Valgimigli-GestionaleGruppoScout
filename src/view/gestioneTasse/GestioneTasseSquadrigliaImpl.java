@@ -31,8 +31,8 @@ public class GestioneTasseSquadrigliaImpl  {
 			this.panelSplitted=new MyJPanelImpl(new GridLayout(2, 1));
 			this.panelIscrizione=new MyJPanelImpl(new BorderLayout());
 			this.panelEscursioni=new MyJPanelImpl(new BorderLayout());
-			panelIscrizione.add(new EditableMemberPanelImpl<Member>(Type.TasseSquadriglia, MyOptional.of(squadName)),BorderLayout.CENTER);
-			panelEscursioni.add(new EditableMemberPanelImpl<Member>(Type.TasseSquadrigliaEscursioni, MyOptional.of(squadName)),BorderLayout.CENTER);
+			panelIscrizione.add(new EditableMemberPanelImpl<Member>(Type.RETTASQUAD, MyOptional.of(squadName)),BorderLayout.CENTER);
+			panelEscursioni.add(new EditableMemberPanelImpl<Member>(Type.TASSEEXCSQUAD, MyOptional.of(squadName)),BorderLayout.CENTER);
 			panelSplitted.add(panelIscrizione);
 			panelSplitted.add(panelEscursioni);
 			this.add(panelSplitted,BorderLayout.CENTER);

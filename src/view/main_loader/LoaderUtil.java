@@ -36,7 +36,6 @@ public class LoaderUtil extends MyJPanelImpl {
 	private static final long serialVersionUID = 5231397320694535637L;
 	private static MasterProjectImpl project;
 	private final JFrame frame;
-	
 	public LoaderUtil(MasterProjectImpl pr){
 		LoaderUtil.project=pr;
 		frame=new JFrame();
@@ -82,22 +81,21 @@ public class LoaderUtil extends MyJPanelImpl {
 					}
 					
 					else{
-					
-					
-					for(String i: project.getListOfUnit()){
-						panelCenter.add(createButton(i, e->{
-							((JButton)panelBottom.getComponent(0)).setEnabled(true);
-							selected=((JButton)e.getSource()).getName();
-						
-							SwingUtilities.invokeLater(new Runnable(){
-									@Override
-									public void run() {
-										for(Component k : Arrays.asList(panelCenter.getComponents())){
-											k.setEnabled(false);
+									
+						for(String i: project.getListOfUnit()){
+							panelCenter.add(createButton(i, e->{
+								((JButton)panelBottom.getComponent(0)).setEnabled(true);
+								selected=((JButton)e.getSource()).getName();
+							
+								SwingUtilities.invokeLater(new Runnable(){
+										@Override
+										public void run() {
+											for(Component k : Arrays.asList(panelCenter.getComponents())){
+												k.setEnabled(false);
+											}
 										}
-									}
-							});
-						}));
+								});
+							}));
 						
 					}
 					Arrays.asList((panelCenter.getComponents())).stream()
@@ -156,18 +154,13 @@ public class LoaderUtil extends MyJPanelImpl {
 			
 			buttons.add(createButton("Crea", e->{
 				try {
-					/*
-					 * Temporaneo, da modificare in base a controller
-					 */
-				
-			
+								
 					project.save(new UnitImpl(ProjectFactoryImpl.getReparto(ProjectFactoryImpl.getLeaderM(
 							capoM.getNome(),capoM.getSurname(), capoM.getDate(), capoM.getPhone()), ProjectFactoryImpl.getLeaderF(
 									capoF.getNome(),capoF.getSurname(),capoF.getDate(), capoF.getPhone()),textField.getText())));
 						
 					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText()));
-					
-					
+									
 					new MainGuiImpl();
 					frame.dispose();
 					

@@ -96,7 +96,7 @@ public class ShowEditExcursion extends JDialog{
 					JDialog dial = new JDialog();
 					MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 					EditableMemberPanelImpl<Excursion> panCenter= new EditableMemberPanelImpl<Excursion>
-						(EditableMemberPanelImpl.Type.EventoPartecipanti,MyOptional.of(exc.getName()));
+						(EditableMemberPanelImpl.Type.EXCPARTECIPANTI,MyOptional.of(exc.getName()));
 					panel.add(panCenter);
 					dial.add(panel);
 					dial.setPreferredSize(MyJFrameSingletonImpl.getInstance().getContenentPane().getSize());

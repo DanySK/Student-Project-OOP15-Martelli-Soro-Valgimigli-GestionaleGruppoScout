@@ -59,8 +59,11 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		this(title, callerPanel);
 		this.setLayout(layout);
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createButton(java.lang.String, java.awt.event.ActionListener)
+	/**
+	 * create a JBUtton with title and actionListener
+	 * @param title
+	 * @param e
+	 * @return
 	 */
 	@Override
 	public JButton createButton(String title, ActionListener e){
@@ -69,8 +72,11 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		button.addActionListener(e);
 		return button;
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createButton(java.lang.String, java.awt.Color, java.awt.event.ActionListener)
+	/** create a JButton with title,color and actionListener
+	 * @param title
+	 * @param c
+	 * @param e
+	 * @return
 	 */
 	@Override
 	public JButton createButton(String title, Color c, ActionListener e){
@@ -78,8 +84,14 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		button.setBackground(c);
 		return button;
 	}
-	/* (non-Javadoc)
-	 * @see view.gui_utility.MyJPanel#createButton(java.lang.String, java.awt.Color, java.awt.Font, java.awt.event.ActionListener)
+
+	/**
+	 * creare a JButton with title, color, font and actionListener
+	 * @param title
+	 * @param c
+	 * @param f
+	 * @param e
+	 * @return
 	 */
 	
 	@Override
@@ -88,7 +100,15 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		button.setFont(f);
 		return button;
 	}
-	
+	/**
+	 * create a JButton with title,fontSize and actionlistener
+	 * @param title
+	 * @param fontSize
+	 * @param e
+	 * @return
+	 */
+
+	@Override
 	public JButton createButton(String title, int fontSize, ActionListener e){
 		JButton button=new JButton(title);
 		button.setName(title);
@@ -96,7 +116,15 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		button.setFont(new Font("Aria", Font.ITALIC, fontSize));
 		return button;
 	}
-	
+
+	/**
+	 * return a TextArea with text, fontsize
+	 * @param text area initial text
+	 * @param editable true if areaText has to be editable
+	 * @param fontSize font size dimensin
+	 * @return
+	 */
+	@Override
 	public JTextArea createJTextArea(String text, boolean editable, int fontSize){
 		JTextArea area=new JTextArea(text);
 		area.setEditable(editable);
@@ -104,11 +132,13 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 		area.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		return area;
 	}
-	/*
-	public JLabel createJLabel(Optional<Member> text, int fontSize ){
-		return createJLabel(text.isPresent()?text.get().getName():"", fontSize);
-	}
-	*/
+	/**return a JLabel with text and fontSize
+	 * 
+	 * @param text Label text
+	 * @param fontSize font size dimension
+	 * @return
+	 */
+	@Override
 	public JLabel createJLabel(String  text, int fontSize){
 		JLabel label=new JLabel(text, SwingConstants.CENTER);
 		label.setFont(new Font("Aria", Font.ITALIC, fontSize));

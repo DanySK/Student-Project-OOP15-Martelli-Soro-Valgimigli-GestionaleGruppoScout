@@ -68,10 +68,17 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 	 * 
 	 * @return MyFrameSingleton
 	 */
+
 	public static MyJFrameSingletonImpl getInstance(){
 		return myframe;
 	}
-	public static MyJFrameSingletonImpl getInstance(Unit u){
+	/**first call to getInstance() must be getInstance(Unit u)
+	 * 
+	 * @param u Unit in use
+	 * @return
+	 */
+	
+	public static MyJFrameSingleton getInstance(Unit u){
 		if(myframe==null){
 			myframe=new MyJFrameSingletonImpl(u);
 		}
@@ -79,10 +86,10 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 		return myframe;
 	}
 	
-	/**It set the ContentPane of MyFrameSingleton
-	 * 
-	 * @param panel The main panel you want to set in this frame
+	/* (non-Javadoc)
+	 * @see view.gui_utility.MyJFrameSingleton#setPanel(javax.swing.JPanel)
 	 */
+	@Override
 	public void setPanel(JPanel panel){
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
@@ -95,28 +102,37 @@ public class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingleton{
 			}
 		});
 	}
-	/**It returns the ContentPane already setted in MyFrameSingleton
-	 * 
-	 * @return JPanel	The main panel setted in this frame
+	/* (non-Javadoc)
+	 * @see view.gui_utility.MyJFrameSingleton#getContenentPane()
 	 */
+	@Override
 	public JPanel getContenentPane(){
 		return myFramePanel;
 	}
 	
-	/**it return the UnitImpl working on
-	 * @return UnitImpl UnitImpl working on
+	/* (non-Javadoc)
+	 * @see view.gui_utility.MyJFrameSingleton#getUnit()
 	 */
+	@Override
 	public UnitImpl getUnit(){
 		return MyJFrameSingletonImpl.unit;
 	}
+	/* (non-Javadoc)
+	 * @see view.gui_utility.MyJFrameSingleton#setNeedToSave()
+	 */
+	@Override
 	public void setNeedToSave(){
 		this.needSave=true;
 	}
+	/* (non-Javadoc)
+	 * @see view.gui_utility.MyJFrameSingleton#resetNeedToSava()
+	 */
+	@Override
 	public void resetNeedToSava(){
 		this.needSave=false;
 	}
 	
-	public boolean getNeedToSave(){
+	private boolean getNeedToSave(){
 		return this.needSave;
 	}
 	

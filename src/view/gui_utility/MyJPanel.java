@@ -11,54 +11,58 @@ import javax.swing.JTextArea;
 public interface MyJPanel {
 
 	/**
-	 * 
-	 * @param title JButton's text(and also name)
-	 * @param e	ActionListener that will be addedd to the JButton
-	 * @return JButton created
+	 * create a JBUtton with title and actionListener
+	 * @param title
+	 * @param e
+	 * @return
 	 */
 	JButton createButton(String title, ActionListener e);
 
 	/**
-	 * 
-	 * @param title	JButton's text(and also name)
-	 * @param c	JButton's background color
-	 * @param e	ActionListener that will be addedd to the JButton
-	 * @return JButton created
+	 * create a JButton with title,color and actionListener
+	 * @param title
+	 * @param c
+	 * @param e
+	 * @return
 	 */
 	JButton createButton(String title, Color c, ActionListener e);
 
 	/**
-	 * 
-	 * @param title	JButton's text(and also name)
-	 * @param c	JButton's background color
-	 * @param f JButton's text font
-	 * @param e	ActionListener that will be addedd to the JButton
-	 * @return JButton created
+	 * creare a JButton with title, color, font and actionListener
+	 * @param title
+	 * @param c
+	 * @param f
+	 * @param e
+	 * @return
 	 */
 
 	JButton createButton(String title, Color c, Font f, ActionListener e);
-/*
-	/**
-	 * 
-	 * @param name JTextArea's name
-	 * @param text JTextArea's text
-	 * @param editable is editable?true:false :)
-	 * @param fontSize JTextArea's font size
-	 * @return JTextArea created
-	 */
-	JTextArea createJTextArea( String text, boolean editable, int fontSize);
-
-	
 
 	/**
-	 * 
-	 * @param name JLabel's name
-	 * @param text JLabel's text(can't be null)
-	 * @param fontSize	JLabel's text font size
-	 * @return JLabel created
+	 * create a JButton with title,fontSize and actionlistener
+	 * @param title
+	 * @param fontSize
+	 * @param e
+	 * @return
 	 */
-	JLabel createJLabel( String text, int fontSize);
 
+	JButton createButton(String title, int fontSize, ActionListener e);
 
+	/**
+	 * return a TextArea with text, fontsize
+	 * @param text area initial text
+	 * @param editable true if areaText has to be editable
+	 * @param fontSize font size dimensin
+	 * @return
+	 */
+	JTextArea createJTextArea(String text, boolean editable, int fontSize);
+
+	/**return a JLabel with text and fontSize
+	 * 
+	 * @param text Label text
+	 * @param fontSize font size dimension
+	 * @return
+	 */
+	JLabel createJLabel(String text, int fontSize);
 
 }

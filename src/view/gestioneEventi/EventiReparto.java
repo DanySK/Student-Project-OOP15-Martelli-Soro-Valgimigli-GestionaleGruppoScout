@@ -47,7 +47,7 @@ public class EventiReparto {
 			this.panelTopContainer=new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			this.panelCenter.add(panelTopContainer);
-			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.RepartoEventi, MyOptional.empty());
+			this.panelBot=new EditableMemberPanelImpl<Excursion>(Type.EXCREP, MyOptional.empty());
 			panelTopButton.add(createButton("<html>Aggiungi<br>Campo</html>", 12, e->{
 				new AddExcursionJDialog(TypeExcursion.Campo, MyOptional.empty(),this);
 			}));

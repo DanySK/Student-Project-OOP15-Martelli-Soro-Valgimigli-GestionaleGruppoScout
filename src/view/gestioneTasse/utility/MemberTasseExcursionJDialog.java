@@ -54,6 +54,7 @@ public class MemberTasseExcursionJDialog extends JDialog {
 			list.stream().forEach(e->{
 				try {
 					e.setPaied(me);
+					parent.updateMember();
 				} catch (ObjectNotContainedException e1) {
 					new WarningNotice(e1.getMessage());
 				}

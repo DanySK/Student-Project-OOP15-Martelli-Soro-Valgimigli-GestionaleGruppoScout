@@ -245,7 +245,7 @@ public class RepartoOverviewImpl  {
 					panelSxDx.add(panelRight,BorderLayout.EAST);
 					panelSxDx.add(panelBot, BorderLayout.SOUTH);
 					panelCenter.add(panelSxDx);
-					panelCenter.add(new EditableMemberPanelImpl<>(Type.OverviewReparto, MyOptional.empty()));
+					panelCenter.add(new EditableMemberPanelImpl<>(Type.OVERVIEWREP, MyOptional.empty()));
 					add(panelCenter, BorderLayout.CENTER);
 					add(createJLabel("<html><U>Gestione Reparto</U></html>", fontSizeLabel+2),BorderLayout.NORTH);
 					validate();

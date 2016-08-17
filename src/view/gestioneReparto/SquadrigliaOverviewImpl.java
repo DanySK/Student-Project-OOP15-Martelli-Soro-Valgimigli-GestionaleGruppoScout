@@ -52,7 +52,7 @@ public class SquadrigliaOverviewImpl  {
 			this.add(createJLabel( "<html><U>Panoramica di "+squadName+"</U></html>", 22),BorderLayout.NORTH);
 			this.add(panelCenter, BorderLayout.CENTER);
 			panelCenter.add(panelSxDx);
-			panelCenter.add(new EditableMemberPanelImpl<Member>(Type.OverviewSquadriglia, MyOptional.of(squadName)));
+			panelCenter.add(new EditableMemberPanelImpl<Member>(Type.OVERVIEWSQUAD, MyOptional.of(squadName)));
 		}		
 	}	
 }

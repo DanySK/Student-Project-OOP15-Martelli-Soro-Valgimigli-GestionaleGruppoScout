@@ -4,28 +4,35 @@ import javax.swing.JPanel;
 
 import control.UnitImpl;
 
-/**
- * A class that model a JFrame using the Singleton pattern. Only one frame is(usualy) used in
- * this app, each window is painted changing the contentPane of the unique JFrame.
- * @author giovanni
- */
 public interface MyJFrameSingleton {
+
+	
 	
 	/**It set the ContentPane of MyFrameSingleton
 	 * 
 	 * @param panel The main panel you want to set in this frame
 	 */
-	public void setPanel(JPanel panel);
-	
+	void setPanel(JPanel panel);
+
 	/**It returns the ContentPane already setted in MyFrameSingleton
 	 * 
 	 * @return JPanel	The main panel setted in this frame
 	 */
-	public JPanel getContenentPane();
-	
+	JPanel getContenentPane();
+
 	/**it return the UnitImpl working on
 	 * @return UnitImpl UnitImpl working on
 	 */
-	public UnitImpl getUnit();
-	
+	UnitImpl getUnit();
+
+	/**
+	 * set that application has unsaved changes
+	 */
+	void setNeedToSave();
+
+	/**
+	 * sets tha application doesn't need to save changes
+	 */
+	void resetNeedToSava();
+
 }

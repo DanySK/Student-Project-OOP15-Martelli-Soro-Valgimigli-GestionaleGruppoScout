@@ -95,7 +95,7 @@ public class GestioneTasseRepartoImpl {
 			this.infoLeft.add(new JLabel());
 			this.infoRight.add(new JLabel());
 			this.center.add(infoLeContainer,BorderLayout.NORTH);
-			center.add(new EditableMemberPanelImpl<Member>(Type.TasseReparto, MyOptional.empty()));
+			center.add(new EditableMemberPanelImpl<Member>(Type.RETTAREP, MyOptional.empty()));
 			this.add(center,BorderLayout.CENTER);
 			this.infoLeContainer.add(createJLabel("<html><U>Membri che non hanno pagato la tassa annuale</U></html>",fontSizeLabel),
 					BorderLayout.SOUTH); 
