@@ -126,5 +126,5 @@ import model.exception.ObjectNotContainedException;
 	   * @param surname
 	   * @return
 	   */
-	  public Member getMember(final String name, final String surname);
+	  Member getMember(final String name, final String surname);
 }

@@ -91,33 +91,37 @@ public class InfoProjectImpl implements InfoProject {
 	@Override
 	public String getExcursionInfo(final Excursion e) {
 		String info = "";
-		info += "Nome uscita: \t" + e.getName();
-		info += "\nDove: \t" + e.getPlace();
-		info += "\nPrezzo: \t" + e.getPrize();
-		info += "\n Partecipanti: " + e.getAllPartecipants().stream()
+		info += "Nome uscita: \t" + e.getName() + System.lineSeparator();
+		info += "Dove: \t" + e.getPlace() + System.lineSeparator();
+		info += "Prezzo: \t" + e.getPrize() + System.lineSeparator();
+		info += " Partecipanti: " + e.getAllPartecipants().stream()
 															.map(s -> s.getName() + " " + s.getSurname())
 															.collect(Collectors.joining());
-		info += "\nNon hanno pagato: " + e.getNotPaied().stream()
+		info += System.lineSeparator() + "Non hanno pagato: " + e.getNotPaied().stream()
 										.map(s -> s.getName() + " " + s.getSurname())
 										.collect(Collectors.joining());
 		if(e instanceof Uscita){
-			info = "\nTipologia: \t Uscita di reparto"; 
+			info = System.lineSeparator() + "Tipologia: \t Uscita di reparto"; 
 		}
 		if(e instanceof UscitaSquadriglia){
-			info = "\nTipologia: \t Uscita di suqdriglia ( " + 
+			info = System.lineSeparator() + "Tipologia: \t Uscita di suqdriglia ( " + 
 						((UscitaSquadriglia)e).getSquadriglia().getNome() + " )"; 
 		}
 		if(e instanceof Gemellaggi){
-			info = "\nTipologia: \t Gemellaggio (" + ((Gemellaggi) e).getOtherUnits()
+			info = System.lineSeparator() + "Tipologia: \t Gemellaggio (" + ((Gemellaggi) e).getOtherUnits()
 																   .stream()
 																   .collect(Collectors.joining()) + ")";
 		}
 		if(e instanceof EventiDiZona){
-			info = "\nTipologia: \t Evento di Zona"; 
+			info = System.lineSeparator() + "\nTipologia: \t Evento di Zona"; 
 		}
 		if(e instanceof Campo){
-			info = "\nTipologia: \t Campo"; 
+			info = System.lineSeparator() + "Tipologia: \t Campo"; 
 		}
+		
+		info += System.lineSeparator()+ "Da: " + e.getDateStart().toString()
+				+ "  fino a: "+ e.getDateEnd().toString();
+		
 		return info;
 	}
 

@@ -28,6 +28,7 @@ public class CheckerImpl implements Checker, Serializable {
 	private static final long serialVersionUID = -2321120264672768555L;
 	private static final Integer DAYTOCHECK = 7;
 	private static final Integer TODAY = 1;
+	private LocalDate lastMail;
 	
 
 	@Override
@@ -79,20 +80,23 @@ public class CheckerImpl implements Checker, Serializable {
 		for(final Excursion e: exc){
 			map.put("Evento del " + e.getDateStart() + ": " + e.getName(), e.getNotPaied());
 			if(this.checkDateIsBetween(LocalDate.now(), LocalDate.now().plus(DAYTOCHECK, ChronoUnit.DAYS),
-					e.getDateStart())){
+					e.getDateStart()) && this.checkMail()){
 				ControlMail.sendMailForPaymentExcursion(e);
 			}
 		}
 		final List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday);
-		
-		ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
-		
+		if(this.checkMail()){
+			ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
+		}
 		if(this.checkDateIsBetween(unit.getLimitDateToPay(), unit.getLimitDateToPay()
 									.plus(- DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())){
 			map.put("Ragazzi che non hanno ancora pagato l'anno", unit.getMemberDidntPay());
-			ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
+			if(this.checkMail()){
+				ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
+			}
 		}
+		this.lastMail = LocalDate.now();
 		return map;
 	}
 	
@@ -100,6 +104,11 @@ public class CheckerImpl implements Checker, Serializable {
 		
 		final LocalDate tmp = Year.now().atMonth(birthday.getMonthValue()).atDay(birthday.getDayOfMonth());
 		return tmp.compareTo(start) >= 0 && tmp.compareTo(end) <= 0;
+	}
+	
+	
+	private boolean checkMail(){
+		return ! this.lastMail.equals(LocalDate.now());
 	}
 	
 	

@@ -91,6 +91,14 @@ public class UnitImpl implements Unit, Serializable {
 	public void removeMember(final Member m) throws ObjectNotContainedException {
 		if(this.rep.getMembriSenzaSquadriglia().contains(m)){
 			this.rep.removeMembroSenzaSquadriglia(m);
+		}else{
+			if(this.rep.getAllMember().contains(m)){
+				for(final Squadron sq : this.rep.getAllSquadron()){
+					if(sq.getMembri().containsKey(m)){
+						sq.removeMembro(m);
+					}
+				}
+			}
 		}
 	}
 	
@@ -98,7 +106,7 @@ public class UnitImpl implements Unit, Serializable {
 	public void removeSq(final Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException {
 			
 		this.rep.removeSquadron(sq);
-		for(Member member : sq.getMembri().keySet()){
+		for(final Member member : sq.getMembri().keySet()){
 			this.rep.addMembroSenzaSquadriglia(member);
 		}	
 	}

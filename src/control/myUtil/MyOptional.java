@@ -21,16 +21,16 @@ public class MyOptional <E> implements Serializable {
 	 */
 	private static final long serialVersionUID = -4092864802291780152L;
 	private E element = null;
-	private Boolean isPresent = false;
+	private Boolean isPresentElem = false;
 	
 	/**
 	 * static Method that returns a empty optional Object
 	 * @return
 	 */
 	public static <E> MyOptional<E> empty(){
-		MyOptional<E> opt = new MyOptional<>();
+		final MyOptional<E> opt = new MyOptional<>();
 		opt.setElement(null);
-		opt.isPresent = false;
+		opt.isPresentElem = false;
 		return opt;
 	}
 	/**
@@ -39,13 +39,13 @@ public class MyOptional <E> implements Serializable {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public static <E> MyOptional<E> of(E value) throws IllegalArgumentException {
+	public static <E> MyOptional<E> of(final E value) throws IllegalArgumentException {
 		if(value == null){
 			throw new IllegalArgumentException();
 		}
-		MyOptional<E> opt = new MyOptional<>();
+		final MyOptional<E> opt = new MyOptional<>();
 		opt.setElement(value);
-		opt.isPresent = true;
+		opt.isPresentElem = true;
 		return opt;
 	}
 	/**
@@ -54,16 +54,16 @@ public class MyOptional <E> implements Serializable {
 	 * @return
 	 */
 	
-	public static <E> MyOptional<E> ofNullable(E value){
+	public static <E> MyOptional<E> ofNullable(final E value){
 		if(value == null){
-			MyOptional<E> opt = new MyOptional<>();
+			final MyOptional<E> opt = new MyOptional<>();
 			opt.setElement(null);
-			opt.isPresent = false;
+			opt.isPresentElem = false;
 			return opt;
 		}else{
-			MyOptional<E> opt = new MyOptional<>();
+			final MyOptional<E> opt = new MyOptional<>();
 			opt.setElement(value);
-			opt.isPresent = true;
+			opt.isPresentElem = true;
 			return opt;
 		}
 	}
@@ -74,7 +74,7 @@ public class MyOptional <E> implements Serializable {
 	 */
 	
 	public E get() throws NoSuchElementException{
-		if(!this.isPresent){
+		if(!this.isPresentElem){
 			throw new NoSuchElementException();
 		}else{
 			return this.element;
@@ -85,7 +85,7 @@ public class MyOptional <E> implements Serializable {
 	 * @return
 	 */
 	public boolean isPresent(){
-		return this.isPresent;
+		return this.isPresentElem;
 	}
 	/**
 	 * If the value is present returns the value otherwise returns other
@@ -93,7 +93,7 @@ public class MyOptional <E> implements Serializable {
 	 * @return
 	 */
 	
-	public E orElse(E other){
+	public E orElse(final E other){
 		if(this.isPresent()){
 			return this.element;
 		}else{
@@ -104,10 +104,10 @@ public class MyOptional <E> implements Serializable {
 	 * Returns a String about the object
 	 */
 	public String toString(){
-		String r_v = "Optional[ "
+		final String rv = "Optional[ "
 				+ this.element.toString() 
 				+ " ] ";
-		return r_v;
+		return rv;
 	}
 	
 	/**
@@ -117,13 +117,13 @@ public class MyOptional <E> implements Serializable {
 	 * @return
 	 */
 	
-	public boolean filter(Predicate<? super E> predicate){
+	public boolean filter(final Predicate<? super E> predicate){
 		return predicate.test(this.element);
 	}
 	/*
 	 * Private class to set the element
 	 */
-	private void setElement(E elem){
+	private void setElement(final E elem){
 		this.element = elem;
 	}
 	

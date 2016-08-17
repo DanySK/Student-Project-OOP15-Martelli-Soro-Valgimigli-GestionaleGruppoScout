@@ -23,11 +23,11 @@ public class Pair<X, Y> implements Serializable {
 		this.y = y;
 	}
 	
-	public void setX(X x){
+	public void setX(final X x){
 		this.x = x;
 	}
 	
-	public void setY(Y y){
+	public void setY(final Y y){
 		this.y = y;
 	}
 	
