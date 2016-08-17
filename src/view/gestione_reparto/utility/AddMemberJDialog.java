@@ -1,4 +1,4 @@
-package view.gestioneReparto.utility;
+package view.gestione_reparto.utility;
 
 import java.awt.BorderLayout;
 
@@ -30,7 +30,7 @@ public class AddMemberJDialog extends JDialog{
 	private final static int FONTSIZELABEL=19;
 	private final static int FONTSIZE=15;
 	private final EditableMemberPanelImpl<Member> panelParent;
-	public AddMemberJDialog(Unit unit,EditableMemberPanelImpl<Member> parent, MyOptional<String> squadName ){
+	public AddMemberJDialog(final Unit unit,final EditableMemberPanelImpl<Member> parent, final MyOptional<String> squadName ){
 		super();
 		this.panelParent=parent;
 		final MyJPanelImpl bottom=new MyJPanelImpl();

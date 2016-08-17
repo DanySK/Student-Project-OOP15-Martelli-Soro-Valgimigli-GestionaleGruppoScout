@@ -1,4 +1,4 @@
-package view.gestioneReparto.utility;
+package view.gestione_reparto.utility;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -20,7 +20,7 @@ public class PanelCapiReparto extends MyJPanelImpl {
 	private final JTextField aa= new JTextField();
 	private final JTextField phone=new JTextField();
 
-	public PanelCapiReparto(String top){
+	public PanelCapiReparto(final String top){
 		super(new BorderLayout());
 		this.add(createJLabel("<html><U>"+top+"</U></html>", FONTSIZE),BorderLayout.NORTH);
 		final MyJPanelImpl fields=new MyJPanelImpl(new GridLayout(0,2));
@@ -57,8 +57,7 @@ public class PanelCapiReparto extends MyJPanelImpl {
 	
 	public LocalDate getDate(){
 		try{
-		LocalDate date= LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()),Integer.parseInt(gg.getText()));
-		return date;
+			return LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()),Integer.parseInt(gg.getText()));
 		}catch(Exception e){
 			new WarningNotice(e.getMessage());
 		}

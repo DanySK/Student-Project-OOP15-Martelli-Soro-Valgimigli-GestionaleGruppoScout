@@ -14,13 +14,11 @@ import view.gui_utility.MyJPanelImpl;
 /**@param stringa*/
 public class WarningNotice{
 	private final static int FONTSIZE=18;
-	private final String str;
-	public WarningNotice(String stringa){
-		this.str = stringa;
-		JDialog dial =new JDialog();
-		MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
-		MyJPanelImpl flow=new MyJPanelImpl();
-		pan.add(pan.createJTextArea(str, false, FONTSIZE),BorderLayout.CENTER);
+	public WarningNotice(final String stringa){
+		final JDialog dial =new JDialog();
+		final MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
+		final MyJPanelImpl flow=new MyJPanelImpl();
+		pan.add(pan.createJTextArea(stringa, false, FONTSIZE),BorderLayout.CENTER);
 		flow.add(flow.createButton("OK", e->{
 			dial.dispose();
 		}));

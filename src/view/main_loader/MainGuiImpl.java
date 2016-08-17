@@ -14,10 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import control.CheckerImpl;
+import view.Main;
 import view.general_utility.WarningNotice;
-import view.gestioneEventi.GestioneEventiMain;
-import view.gestioneReparto.GestioneRepartoMain;
 import view.gestioneTasse.GestioneTasseMain;
+import view.gestione_eventi.GestioneEventiMain;
+import view.gestione_reparto.GestioneRepartoMain;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 /**
@@ -36,8 +37,9 @@ public class MainGuiImpl extends MyJPanelImpl{
 	private final JPanel south;
 	private final JPanel north;
 	private final int fontSize = 15;
-	private final Image image=Toolkit.getDefaultToolkit().createImage("res/agesci.png"); //background image
-	private final ImageIcon img = new ImageIcon("res/alert-icon.png");//options icon
+	private  Image image; //background image
+	private  ImageIcon img ;//options icon
+	
 	private String text ="";
 	private final JButton opzioni;
 	private CheckerImpl check;
@@ -45,9 +47,15 @@ public class MainGuiImpl extends MyJPanelImpl{
 	
 	public MainGuiImpl(){
 		super("SCOUTAPP",MyJFrameSingletonImpl.getInstance().getContenentPane(), new BorderLayout());
+		image=Toolkit.getDefaultToolkit().createImage(Main.class.getResource("/agesci.png"));
+		img= new ImageIcon(Main.class.getResource("/alertIcon.png"));
+			
+		
 		south = new MyJPanelImpl("south", this.callerPanel, new GridLayout(2,2));
 		north = new MyJPanelImpl("nortg", this.callerPanel, new BorderLayout());
+	
 		check=new CheckerImpl();
+		
 		/* Add JButton in south panel(GestioneReparto, GestioneEventi,GestioneTasse,Altro)*/
 		this.south.add(createButton("GestioneReparto", e->{
 			new GestioneRepartoMain();
@@ -133,13 +141,16 @@ public class MainGuiImpl extends MyJPanelImpl{
 	@Override
 	public void paintComponent(Graphics g){
 		    super.paintComponent(g);
-		    if (image != null){
-		        g.drawImage(image, 0,0,getWidth(), getHeight(), this);
+		    try{
+			    if (image != null){
+			        g.drawImage(image, 0,0,getWidth(), getHeight(), this);
+			    }
+		    }catch(Exception e){
+		    	e.printStackTrace();
 		    }
 	}
 	
 	private boolean checkOnStartup(){
-		
 		check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).keySet().stream()
 		.forEach(e->{
 			if(!check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).get(e).isEmpty()){

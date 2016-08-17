@@ -24,6 +24,9 @@ import control.SortExcursion;
 import control.SortExcursionImpl;
 import control.SortMemberImpl;
 import control.myUtil.MyOptional;
+import extra.sito.ExcursionOnline;
+import extra.sito.ExcursionOnlineGetter;
+import extra.sito.Regioni;
 import model.Campo;
 import model.EventiDiZona;
 import model.Excursion;
@@ -35,12 +38,12 @@ import model.Squadron;
 import model.UscitaSquadriglia;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneEventi.utility.ShowEditExcursion;
-import view.gestioneReparto.utility.AddMemberJDialog;
-import view.gestioneReparto.utility.EditMemberInfoJDialog;
-import view.gestioneReparto.utility.ShowMemberInfoJDialog;
 import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
 import view.gestioneTasse.utility.MemberTasseJDialog;
+import view.gestione_eventi.utility.ShowEditExcursion;
+import view.gestione_reparto.utility.AddMemberJDialog;
+import view.gestione_reparto.utility.EditMemberInfoJDialog;
+import view.gestione_reparto.utility.ShowMemberInfoJDialog;
 import view.gui_utility.SearchElementJDialog.SearchType;
 
 
@@ -187,6 +190,13 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		else if(type.equals(Type.EXCREP)){
 			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
 					.stream().filter(e->!(e instanceof UscitaSquadriglia)).collect(Collectors.toList());
+			try{
+				ExcursionOnlineGetter.getExcursion(Regioni.NAZIONALE).stream().forEach(e->{
+					memList.add((E)e);
+				});
+			}catch(Exception e){
+				new WarningNotice(e.getMessage());
+			}
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.EXCSQUAD)){
@@ -247,9 +257,17 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	private JButton instanceJButton(E mem){
 		
 		if(type.equals(Type.GESTIONESQUADRIGLIA)|| type.equals(Type.OVERVIEWREP)){
-			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname()+"</html>",FONTSIZEBUTTON,  e->{
-				(new EditMemberInfoJDialog((MemberImpl)mem,(EditableMemberPanelImpl<Member>)me)).setVisible(true);
-			});
+			if(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().contains(((Member)mem))){
+				return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname()+"</html>",
+						Color.ORANGE, new Font("Aria", Font.ITALIC, FONTSIZEBUTTON), e->{
+					(new EditMemberInfoJDialog((MemberImpl)mem,(EditableMemberPanelImpl<Member>)me)).setVisible(true);
+				});
+			}
+			else{
+				return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname()+"</html>",FONTSIZEBUTTON,  e->{
+					(new EditMemberInfoJDialog((MemberImpl)mem,(EditableMemberPanelImpl<Member>)me)).setVisible(true);
+				});
+			}
 		}
 		else if(type.equals(Type.OVERVIEWSQUAD)){
 			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname()+"</html>",  FONTSIZEBUTTON,  e->{
@@ -262,6 +280,13 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			});
 		}
 		else if(type.equals(Type.EXCREP)){
+			if(mem instanceof ExcursionOnline){
+				return createButton("<html>"+((Excursion)mem).getName()+"<br>"+"(PiccoleOrme)"+"<br>"+
+									((Excursion)mem).getDateStart().toString()+"</html>",FONTSIZEBUTTON, e->{
+										new ShowEditExcursion((Excursion)mem, (EditableMemberPanelImpl<Excursion>) me);
+				
+			});
+			}
 			String str="("+((mem instanceof Campo)?"Campo"
 					:(mem instanceof EventiDiZona)?"Evento di zona"
 							:(mem instanceof Gemellaggi)?"Gemellaggio"

@@ -1,4 +1,4 @@
-package view.gestioneEventi;
+package view.gestione_eventi;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,8 +12,8 @@ import control.myUtil.MyOptional;
 import model.Excursion;
 import model.Squadron;
 import model.UscitaSquadriglia;
-import view.gestioneEventi.utility.AddExcursionJDialog;
-import view.gestioneEventi.utility.AddExcursionJDialog.TypeExcursion;
+import view.gestione_eventi.utility.AddExcursionJDialog;
+import view.gestione_eventi.utility.AddExcursionJDialog.TypeExcursion;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -23,7 +23,7 @@ import view.gui_utility.SearchElementJDialog.SearchType;
 
 public class EventiSquadriglia {
 	private final Squadron squadImpl;
-	public EventiSquadriglia(String squad){
+	public EventiSquadriglia(final String squad){
 		squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squad);
 	}
 	

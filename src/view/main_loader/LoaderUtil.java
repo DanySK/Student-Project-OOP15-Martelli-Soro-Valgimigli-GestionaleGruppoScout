@@ -20,7 +20,7 @@ import control.MasterProjectImpl;
 import control.UnitImpl;
 import control.ProjectFactoryImpl;
 import view.general_utility.WarningNotice;
-import view.gestioneReparto.utility.PanelCapiReparto;
+import view.gestione_reparto.utility.PanelCapiReparto;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
@@ -106,7 +106,9 @@ public class LoaderUtil extends MyJPanelImpl {
 					panelBottom.add(createButton("Carica", e->{
 						try{
 							MyJFrameSingletonImpl.getInstance(project.loadUnit(selected));
+							
 							new MainGuiImpl();
+							
 							frame.dispose();
 						} catch (Exception k){
 							new WarningNotice(k.getMessage());
@@ -119,7 +121,7 @@ public class LoaderUtil extends MyJPanelImpl {
 					this.validate();
 					}
 			} catch (IOException e) {
-				e.printStackTrace();
+				new WarningNotice(e.getMessage());
 			} 
 			
 			frame.add(this);

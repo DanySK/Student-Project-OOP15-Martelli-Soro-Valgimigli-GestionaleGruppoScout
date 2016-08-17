@@ -1,4 +1,4 @@
-package view.gestioneReparto;
+package view.gestione_reparto;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -15,7 +15,7 @@ import control.ProjectFactoryImpl;
 import control.Unit;
 import control.myUtil.MyOptional;
 import view.general_utility.WarningNotice;
-import view.gestioneReparto.utility.PanelCapiReparto;
+import view.gestione_reparto.utility.PanelCapiReparto;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -55,7 +55,7 @@ public class RepartoOverviewImpl  {
 		}
 		
 		
-		private void dialogChef(boolean sex){
+		private void dialogChef(final boolean sex){
 			final JDialog dial= new JDialog();
 			final MyJPanelImpl outerPanel=new MyJPanelImpl(new BorderLayout());
 			final MyJPanelImpl panelBot=new MyJPanelImpl();
@@ -63,7 +63,7 @@ public class RepartoOverviewImpl  {
 			outerPanel.add(panCapo,BorderLayout.CENTER);
 			panelBot.add(createButton("OK", e->{
 				try{
-					if(sex==true){
+					if(sex){
 						unit.getReparto().setCapoM( ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
 								panCapo.getDate(),panCapo.getPhone()));
 					}
@@ -201,7 +201,7 @@ public class RepartoOverviewImpl  {
 								unit.createSq(ProjectFactoryImpl.getSquadron(nome.getText(), sexM.isSelected()));
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
 								((GestioneRepartoMain)MyJFrameSingletonImpl.getInstance().getContenentPane())
-									.addSquadToJTree(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(nome.getText()));;
+									.addSquadToJTree(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(nome.getText()));
 									dial.dispose();
 							}catch(Exception f){
 								new WarningNotice(f.getMessage());

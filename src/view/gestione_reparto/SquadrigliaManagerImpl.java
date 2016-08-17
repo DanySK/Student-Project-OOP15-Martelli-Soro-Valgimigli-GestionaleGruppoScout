@@ -1,4 +1,4 @@
-package view.gestioneReparto;
+package view.gestione_reparto;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,11 +14,11 @@ import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
 import view.gui_utility.MyJPanelImpl;
 
-public class SquadrigliaManagerImpl extends MyJPanelImpl {
-	private static final long serialVersionUID = -906799651249952573L;
+public class SquadrigliaManagerImpl {
 	private final String squadName;
 	
-	public SquadrigliaManagerImpl(String name){
+	public SquadrigliaManagerImpl(final String name){
+		
 		this.squadName=name;
 	}
 		

@@ -1,4 +1,4 @@
-package view.gestioneEventi;
+package view.gestione_eventi;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -11,8 +11,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
-import view.gestioneReparto.SquadrigliaManagerImpl;
-import view.gestioneReparto.SquadrigliaOverviewImpl;
+import view.gestione_reparto.SquadrigliaManagerImpl;
+import view.gestione_reparto.SquadrigliaOverviewImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 
@@ -31,7 +31,7 @@ public class GestioneEventiMain extends MySplittedPanelWithTree{
 		/*aggiung il SelectionListener al JTree*/
 		this.setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
-			public void valueChanged(TreeSelectionEvent e) {
+			public void valueChanged(final TreeSelectionEvent e) {
 				 final DefaultMutableTreeNode node = (DefaultMutableTreeNode)(me.getTree().getLastSelectedPathComponent());
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
@@ -73,7 +73,8 @@ public class GestioneEventiMain extends MySplittedPanelWithTree{
 	public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {	
 		private static final long serialVersionUID = -2924024721151248795L;
 		@Override
-		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+		public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean sel,
+				final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
 			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);		
 			if( ((DefaultMutableTreeNode)value).getUserObject() instanceof SquadrigliaOverviewImpl){
 				setToolTipText("<html>In questa sezione viene mostrata un'anteprima della squadriglia,<br>"+

@@ -1,4 +1,4 @@
-package view.gestioneReparto.utility;
+package view.gestione_reparto.utility;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -41,7 +41,7 @@ public class JTextAreaDialog<E> extends JDialog {
 	private final E elem;
 	private OB ob;
 	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
-	public JTextAreaDialog(TextAreaType type,E m,MyOptional<OB> obt){
+	public JTextAreaDialog(final TextAreaType type,final E m,final MyOptional<OB> obt){
 		super();	
 		this.type=type;
 		this.elem=m;
@@ -70,11 +70,11 @@ public class JTextAreaDialog<E> extends JDialog {
 	}
 
 	private JLabel getLabelTop(){
-		if(type.equals(TextAreaType.SPCVIEW))return panel.createJLabel("Specialità del Membro", FONTSIZE);
-		else if(type.equals(TextAreaType.SPEDIT))return panel.createJLabel("<html><U>Specialità del Membro</U><br>"
-					+ "Aggiungere specialità, separandole dalle altre con il tasto \"INVIO\"</html>", FONTSIZE);
-		else if(type.equals(TextAreaType.OBBEDIT))return panel.createJLabel("Modifica Obbiettivo",FONTSIZE);
-		else return panel.createJLabel("Obbiettivo",FONTSIZE);
+		if(type.equals(TextAreaType.SPCVIEW)){return panel.createJLabel("Specialità del Membro", FONTSIZE);}
+		else if(type.equals(TextAreaType.SPEDIT)){return panel.createJLabel("<html><U>Specialità del Membro</U><br>"
+					+ "Aggiungere specialità, separandole dalle altre con il tasto \"INVIO\"</html>", FONTSIZE);}
+		else if(type.equals(TextAreaType.OBBEDIT)){return panel.createJLabel("Modifica Obbiettivo",FONTSIZE);}
+		else {return panel.createJLabel("Obbiettivo",FONTSIZE);}
 	}
 	private void getArea(){
 		area=panel.createJTextArea("", false,FONTSIZEAREA);
@@ -84,10 +84,10 @@ public class JTextAreaDialog<E> extends JDialog {
 			});
 		}
 		else{
-			if(ob.equals(OB.FD))area.setText((((Member)elem).getPath().getFaith()));
-			else if(ob.equals(OB.SCL))area.setText(((Member)elem).getPath().getSchool());
-			else if(ob.equals(OB.FM))area.setText(((Member)elem).getPath().getFamily());
-			else area.setText(((Member)elem).getPath().getRelations());
+			if(ob.equals(OB.FD)){area.setText((((Member)elem).getPath().getFaith()));}
+			else if(ob.equals(OB.SCL)){area.setText(((Member)elem).getPath().getSchool());}
+			else if(ob.equals(OB.FM)){area.setText(((Member)elem).getPath().getFamily());}
+			else {area.setText(((Member)elem).getPath().getRelations());}
 		}
 		if(type.equals(TextAreaType.SPEDIT)|| type.equals(TextAreaType.OBBEDIT)){
 			area.setEditable(true);
@@ -125,10 +125,10 @@ public class JTextAreaDialog<E> extends JDialog {
 		}
 		else{
 			return e->{
-				if(ob.equals(OB.FD))((Member)elem).getPath().setFaith(area.getText());
-				else if(ob.equals(OB.FM))((Member)elem).getPath().setFamily(area.getText());
-				else if(ob.equals(OB.SCL))((Member)elem).getPath().setSchool(area.getText());
-				else ((Member)elem).getPath().setRelations(area.getText());
+				if(ob.equals(OB.FD)){ ((Member)elem).getPath().setFaith(area.getText()); } 
+				else if(ob.equals(OB.FM)){ ((Member)elem).getPath().setFamily(area.getText()); }
+				else if(ob.equals(OB.SCL)){ ((Member)elem).getPath().setSchool(area.getText()); }
+				else { ((Member)elem).getPath().setRelations(area.getText()); }
 				MyJFrameSingletonImpl.getInstance().setNeedToSave();
 				dispose();
 			};
