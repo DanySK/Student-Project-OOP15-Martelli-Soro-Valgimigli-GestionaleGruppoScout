@@ -24,7 +24,15 @@ public class CapoImpl extends PersonImpl implements Capo {
 	}
 
 	@Override
-	public void setPhoneNumber(final String phoneNumber) {
+	public void setPhoneNumber(final String phoneNumber) throws IllegalPhoneNumberException {
+		try {
+			Long.parseLong(phoneNumber);
+		} catch (NumberFormatException E) {
+			throw new IllegalPhoneNumberException();
+		}
+		if (phoneNumber.length() != 10) {
+			throw new IllegalPhoneNumberException();
+		}
 		this.phoneNumber = phoneNumber;
 	}
 

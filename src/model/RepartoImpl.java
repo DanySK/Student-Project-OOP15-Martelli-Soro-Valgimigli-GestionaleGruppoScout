@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.exception.MemberSexException;
+import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -37,7 +38,10 @@ public class RepartoImpl implements Reparto, Serializable {
 		this.limitePerTasseAnnuali=LocalDate.now().plusYears(1);
 	}
 
-	public void setDateToPay(final LocalDate limit) {
+	public void setDateToPay(final LocalDate limit) throws IllegalDateException {
+		if (limit.isBefore(LocalDate.now())){
+			throw new IllegalDateException();
+		}
 		this.limitePerTasseAnnuali = limit;
 	}
 

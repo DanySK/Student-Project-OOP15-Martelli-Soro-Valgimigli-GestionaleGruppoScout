@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import control.myUtil.MyOptional;
+import model.exception.IllegalEmailException;
+import model.exception.IllegalPhoneNumberException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -153,8 +155,9 @@ public interface Member extends Person {
 	 * 
 	 * @param phone
 	 *            number of the tutor to set
+	 * @throws IllegalPhoneNumberException if the number is not correct
 	 */
-	void setTutorPhone(Long phone);
+	void setTutorPhone(Long phone) throws IllegalPhoneNumberException;
 
 	/**
 	 * 
@@ -179,8 +182,9 @@ public interface Member extends Person {
 	 * 
 	 * @param mail
 	 *            of the tutor to set
+	 * @throws IllegalEmailException 
 	 */
-	void setTutorMail(String mail);
+	void setTutorMail(String mail) throws IllegalEmailException;
 
 	/**
 	 * 

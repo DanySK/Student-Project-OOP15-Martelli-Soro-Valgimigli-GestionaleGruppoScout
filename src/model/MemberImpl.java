@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.myUtil.MyOptional;
+import model.exception.IllegalEmailException;
+import model.exception.IllegalPhoneNumberException;
 import model.exception.IllegalYearsException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
@@ -21,6 +23,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	private MyOptional<Tutor> tutor;
 	private MyOptional<String> totem;
 	private MyOptional<Integer> annoTasse;
+	private static String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex)
 			throws IllegalYearsException {
@@ -83,7 +86,10 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	@Override
-	public void setTutorMail(final String mail) {
+	public void setTutorMail(final String mail) throws IllegalEmailException {
+		if (! mail.matches(emailPattern)){
+			throw new IllegalEmailException();
+		}
 		if (!this.tutor.isPresent()) {
 			this.tutor = MyOptional.of(new TutorImpl());
 		}
@@ -120,7 +126,11 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	}
 
 	@Override
-	public void setTutorPhone(final Long phone) {
+	public void setTutorPhone(final Long phone) throws IllegalPhoneNumberException {
+		
+		if (phone.toString().length() != 10) {
+			throw new IllegalPhoneNumberException();
+		}
 		if (!this.tutor.isPresent()) {
 			this.tutor = MyOptional.of(new TutorImpl());
 		}

@@ -21,16 +21,16 @@ public class MailSender {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
 
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+		final Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication("apocalipsenowe@gmail.com", "scout2016");
 			}
 		});
-		for (Member tmp : members) {
+		for (final Member tmp : members) {
 			if (tmp.getTutorMail().isPresent()) {
 				try {
 
-					Message message = new MimeMessage(session);
+					final Message message = new MimeMessage(session);
 					message.setFrom(new InternetAddress("apocalipsenowe@gmail.com"));
 					message.setRecipients(Message.RecipientType.TO,
 							InternetAddress.parse(tmp.getTutorMail().get()));

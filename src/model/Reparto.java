@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import control.exception.MemberSexException;
+import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
@@ -16,8 +17,9 @@ public interface Reparto {
 	/**
 	 * 
 	 * @param limit
+	 * @throws IllegalDateException 
 	 */
-	 void setDateToPay(LocalDate limit);
+	 void setDateToPay(LocalDate limit) throws IllegalDateException;
 	/**
 	 * 
 	 * @return

@@ -1,4 +1,7 @@
 package model;
+
+import model.exception.IllegalPhoneNumberException;
+
 /**
  * 
  * @author Riccardo Soro
@@ -8,8 +11,9 @@ public interface Capo extends Person {
 	/**
 	 * 
 	 * @param phoneNumber to set
+	 * @throws IllegalPhoneNumberException 
 	 */
-	 void setPhoneNumber(String phoneNumber);
+	 void setPhoneNumber(String phoneNumber) throws IllegalPhoneNumberException;
 	/**
 	 * 
 	 * @return the phone number
