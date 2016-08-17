@@ -98,7 +98,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 					check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).get(k).stream()
 					.forEach(t->{
 						
-						text=text+t.getName()+" "+t.getSurname()+"</br>";
+						text=text+t.getName()+" "+t.getSurname()+"<br>";
 						
 					});
 					text=text+"</html>";
