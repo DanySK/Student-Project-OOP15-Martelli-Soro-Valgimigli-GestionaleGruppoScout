@@ -101,6 +101,10 @@ public class EditMemberInfoJDialog extends JDialog {
 		panelCenter.add(tutorPhone);
 		panelCenter.add(panel.createJLabel( "Mail Tutor: ",FONTSIZE));
 		panelCenter.add(tutorMail);
+		panelCenter.add(panel.createJLabel("Specialità: ", FONTSIZE));
+		panelCenter.add(panel.createButton("Vedi", FONTSIZE,i->{
+			new SpecialitiesJDialog(mem, true);
+		}));
 		//se il tutor è già presente lo setto in modo che l'utente ne sia a conoscenza
 		if(mem.getTutor().isPresent()){
 			tutorName.setText(mem.getTutor().get().getName().get());

@@ -1,6 +1,7 @@
 package view.gestioneReparto.utility;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -21,21 +22,31 @@ public class ShowMemberInfoJDialog extends JDialog {
 	private static final long serialVersionUID = 6783431258852717871L;
 	private final MyJPanelImpl bot= new MyJPanelImpl();
 	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
+	private final MyJPanelImpl panelIn=new MyJPanelImpl(new GridLayout(0, 2));
 	private final static int FONTSIZE=18;
 	public ShowMemberInfoJDialog(Member mem){
 		super();
 		final List<Pair<String, String>> list = (new InfoProjectImpl()).getMemberSpecificalInfo(mem);
 		final JTextArea area=panel.createJTextArea( "", false, FONTSIZE);
 		list.forEach(t->{
-			area.append(t.getX()+": "+t.getY()+System.lineSeparator());
+			//area.append(t.getX()+": "+t.getY()+System.lineSeparator());
+			panelIn.add(panelIn.createJLabel(t.getX(), FONTSIZE));
+			panelIn.add(panelIn.createJLabel(t.getY(), FONTSIZE));
 		});
 		try {
-			area.append("Ruolo: "+MyJFrameSingletonImpl.getInstance().getUnit()
-					.getReparto().getSquadronOfMember(mem).getMembri().get(mem));
+			panelIn.add(panelIn.createJLabel("RUOLO", FONTSIZE));
+			panelIn.add(panelIn.createJLabel(MyJFrameSingletonImpl.getInstance().getUnit()
+					.getReparto().getSquadronOfMember(mem).getMembri().get(mem).toString(), FONTSIZE));
+			/*area.append("Ruolo: "+MyJFrameSingletonImpl.getInstance().getUnit()
+					.getReparto().getSquadronOfMember(mem).getMembri().get(mem));*/
 		} catch (ObjectNotContainedException e) {
 			new WarningNotice(e.getMessage());
 		}
-		panel.add(area,BorderLayout.CENTER);
+		panelIn.add(panelIn.createJLabel("Specialità", FONTSIZE));
+		panelIn.add(panelIn.createButton("Vedi",FONTSIZE, e->{
+			new SpecialitiesJDialog(mem, false);
+		}));
+		panel.add(panelIn,BorderLayout.CENTER);
 		bot.add(panel.createButton("Ok", g->{
 			this.dispose();
 		}));
@@ -49,7 +60,7 @@ public class ShowMemberInfoJDialog extends JDialog {
 			
 			@Override
 			public void run() {
-				System.out.println("CCCCCCCCCCCCCCCAAAAAAAAAAAAAA");
+				
 				bot.add(bot.createButton(title, e));
 				bot.validate();
 				bot.repaint();
