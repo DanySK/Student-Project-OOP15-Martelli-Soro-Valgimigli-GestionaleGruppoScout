@@ -47,7 +47,7 @@ public class SpecialitiesJDialog extends JDialog {
 			}));
 		}
 		else{
-			panelBot.setLayout(new FlowLayout(FlowLayout.LEFT));
+			panelBot.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			panelBot.add(panelBot.createButton("Annulla", FONTSIZEBUTTON,e->{
 				this.dispose();
 			}));
@@ -60,15 +60,17 @@ public class SpecialitiesJDialog extends JDialog {
 					}
 					
 				});
-				Arrays.asList(area.getText().split(System.lineSeparator())).stream()
-				.forEach(t->{
-					try {
-						m.addSpecialities(t);
-					} catch (ObjectAlreadyContainedException e1) {
-						new WarningNotice(e1.getMessage());
-					}
-				});;
-				
+				if(!area.getText().isEmpty()){
+					Arrays.asList(area.getText().split(System.lineSeparator())).stream()
+					.forEach(t->{
+						try {
+							m.addSpecialities(t);
+						} catch (ObjectAlreadyContainedException e1) {
+							new WarningNotice(e1.getMessage());
+						}
+					});;
+				}
+				this.dispose();
 			}));
 		}
 		panel.add(panelBot,BorderLayout.SOUTH);

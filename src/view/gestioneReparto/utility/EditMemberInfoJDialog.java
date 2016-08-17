@@ -177,11 +177,12 @@ public class EditMemberInfoJDialog extends JDialog {
 							new WarningNotice(f.getMessage());
 						}
 					}
+					this.dispose();
 				}
 				else{
-					System.out.print("VAFFANCULO");
+					
 					if(!((String)squad.getSelectedItem()).equals(squadName)){
-						System.out.print("VAFFANCULO!!!!!");
+						
 						try{
 							MyJFrameSingletonImpl.getInstance().getUnit().putMemberInSq(mem, MyJFrameSingletonImpl.getInstance()
 								.getUnit().getContainers().findSquadron((String)squad.getSelectedItem()), (Roles)role.getSelectedItem());
@@ -208,7 +209,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
 	}
 		private boolean memberHasSquadron(){
-			System.out.println(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().toString());
+			
 			return !MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember().contains(mem);
 		}
 }
