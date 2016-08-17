@@ -119,5 +119,11 @@ import model.exception.ObjectNotContainedException;
 	 * @param exc
 	 */
 	  void removeExcursion (Excursion exc);
-	
+	  /**
+	   * 
+	   * @param name
+	   * @param surname
+	   * @return
+	   */
+	  public Member getMember(final String name, final String surname);
 }

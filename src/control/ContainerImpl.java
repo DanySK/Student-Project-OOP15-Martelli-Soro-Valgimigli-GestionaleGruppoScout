@@ -188,10 +188,6 @@ public class ContainerImpl implements Container, Serializable {
 	}
 
 	
-	public static void main(String[] s){
-		Container ct = new ContainerImpl(null, null, null);
-		ct.findMember("lollo");
-	}
 	
 
 	

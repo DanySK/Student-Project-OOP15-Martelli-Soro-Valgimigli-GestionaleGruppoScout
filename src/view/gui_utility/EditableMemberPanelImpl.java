@@ -150,7 +150,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.OverviewReparto)){
-			this.memList=(List<E>)rep.getMembriSenzaSquadriglia();
+			this.memList=(List<E>)rep.getAllMember();
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.TasseReparto)){

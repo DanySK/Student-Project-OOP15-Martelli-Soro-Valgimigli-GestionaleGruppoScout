@@ -176,7 +176,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			matches.stream().forEach(e->{
 				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
 				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());
-				area.append("Nascita: "+((Member)e).getBirthday().toString());
+				area.append("Nascita: "+((Member)e).getBirthday().toString() + System.lineSeparator());
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("Scegli", o->{
 					dialInternal.dispose();
@@ -218,7 +218,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			matches.stream().forEach(e->{
 				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
 				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());
-				area.append("Nascita: "+((Member)e).getBirthday().toString());
+				area.append("Nascita: "+((Member)e).getBirthday().toString()+ System.lineSeparator()) ;
 				panMember.add(area);
 				if(type.equals(SearchType.addMemberExc)){
 					paneSelect.add(paneSelect.createButton("Partecipa", o->{

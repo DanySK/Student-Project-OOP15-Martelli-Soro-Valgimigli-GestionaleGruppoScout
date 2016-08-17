@@ -52,9 +52,14 @@ public class testTest {
 			Container ct = fenice.getContainers(); 
 			assertTrue(ct.getMember("Andrea", "Rossi").getName().equals("Andrea"));
 			
+			
+			fenice.getMember("Gio", "Prati").setTutorMail("lorenzo.valgimigli@libero.it");
+			
 			assertTrue(new SortMemberImpl().sortByAge(ct.getMembers()).get(0).getName().equals("Maria"));
 			Uscita usc = ProjectFactoryImpl.getStdExcursion(LocalDate.now().plus(5, ChronoUnit.DAYS), fenice.getReparto() , "Yuuuppi");
 			assertTrue(usc.getNotPaied().size() == 8);
+			
+			usc.setPlace("Camaldoli");
 			fenice.addExcursion(usc);
 			Checker ch = new CheckerImpl();
 			ch.stdRouting(fenice).entrySet().forEach(e -> System.out.println(e.getKey() +" " +e.getValue()));

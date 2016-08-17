@@ -159,6 +159,13 @@ public class UnitImpl implements Unit, Serializable {
 		
 	}
 	
+	public Member getMember(final String name, final String surname){
+		return this.rep.getAllMember()
+				.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name) 
+						&& e.getSurname().equalsIgnoreCase(surname)).findFirst().get();
+	}
+	
 
 }
 
