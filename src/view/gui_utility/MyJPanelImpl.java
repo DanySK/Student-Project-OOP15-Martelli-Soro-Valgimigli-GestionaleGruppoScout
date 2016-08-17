@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import view.Main;
+
 
 
 /**Class used to easy create JPanel and add in it JButton
@@ -150,7 +152,7 @@ public class MyJPanelImpl extends JPanel implements  MyJPanel{
 	 * @return JButton created
 	 */
 	protected JButton getBackButton(){
-		ImageIcon img = new ImageIcon("res/back-icon-small.png");
+		ImageIcon img = new ImageIcon(Main.class.getResource("/backIconSmall.png"));
 		JButton t=new JButton();
 		t.addActionListener(e->{
 			

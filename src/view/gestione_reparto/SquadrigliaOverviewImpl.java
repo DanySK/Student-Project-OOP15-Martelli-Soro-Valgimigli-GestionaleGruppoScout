@@ -1,4 +1,4 @@
-package view.gestioneReparto;
+package view.gestione_reparto;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -13,7 +13,7 @@ import view.gui_utility.MyJPanelImpl;
 public class SquadrigliaOverviewImpl  {
 	private final String squadName;
 	
-	public SquadrigliaOverviewImpl(String param){
+	public SquadrigliaOverviewImpl(final String param){
 		this.squadName=param;
 		
 	}
@@ -24,8 +24,8 @@ public class SquadrigliaOverviewImpl  {
 	}
 	public class SquadrigliaOverviewImplPanel extends MyJPanelImpl{
 		private static final long serialVersionUID = -6749522066747263034L;
-		private final int FONTSIZE=19;
-		private final int FONTSIZEBUTTON=10;
+		private final static int FONTSIZE=19;
+		private final static int FONTSIZEBUTTON=10;
 		private	final EditableInfoPanelImpl panelSxDx;
 		private final MyJPanelImpl panelCenter;
 		public SquadrigliaOverviewImplPanel() {

@@ -1,4 +1,4 @@
-package view.gestioneEventi.utility;
+package view.gestione_eventi.utility;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,8 +20,8 @@ import control.myUtil.MyOptional;
 import model.Excursion;
 import model.exception.IllegalDateException;
 import view.general_utility.WarningNotice;
-import view.gestioneEventi.EventiReparto.EventiRepartoPane;
-import view.gestioneEventi.EventiSquadriglia.EventiSquadrigliaPanel;
+import view.gestione_eventi.EventiReparto.EventiRepartoPane;
+import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanel;
 import view.gui_utility.MyJPanelImpl;;
@@ -36,7 +36,7 @@ public class AddExcursionJDialog extends JDialog {
 		
 	}
 	private static final long serialVersionUID = -6908793366965929992L;
-	private final int fontSize=15;
+	private final static int FONTSIZE=15;
 	private final TypeExcursion type;
 	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 	private final MyJPanelImpl panelInter= new MyJPanelImpl(new GridLayout(0, 2));
@@ -57,36 +57,36 @@ public class AddExcursionJDialog extends JDialog {
 	private boolean perData;
 	private List<String>reparti=new ArrayList<>();
 	private final Unit unit;
-	private LocalDate start;
 	private LocalDate end;
 	private String squadName;
 	
-	public AddExcursionJDialog(TypeExcursion type, MyOptional<String> squadName, MyJPanel caller){
+	public AddExcursionJDialog(final TypeExcursion type, final MyOptional<String> squadName, final MyJPanel caller){
 		super();
+		
 		if(squadName.isPresent()){
 			this.squadName=squadName.get();
 		}
 		this.type=type;
 		this.unit=MyJFrameSingletonImpl.getInstance().getUnit();
-		panel.add(panel.createJLabel("Nuovo/a"+ type.toString(), fontSize+2),BorderLayout.NORTH);
+		panel.add(panel.createJLabel("Nuovo/a"+ type.toString(), FONTSIZE+2),BorderLayout.NORTH);
 		//casi base
-		panelInter.add(panel.createJLabel("Nome: ", fontSize));
+		panelInter.add(panel.createJLabel("Nome: ", FONTSIZE));
 		panelInter.add(nome);
-		panelInter.add(panel.createJLabel("Prezzo: ", fontSize));
+		panelInter.add(panel.createJLabel("Prezzo: ", FONTSIZE));
 		panelInter.add(price);
-		panelInter.add(panel.createJLabel("Luogo: ", fontSize));
+		panelInter.add(panel.createJLabel("Luogo: ", FONTSIZE));
 		panelInter.add(location);
-		panelInter.add(panel.createJLabel("Data Inizio: ", fontSize));
+		panelInter.add(panel.createJLabel("Data Inizio: ", FONTSIZE));
 		
-		data.add(panel.createJLabel("giorno",fontSize));
+		data.add(panel.createJLabel("giorno",FONTSIZE));
 		data.add(gg);
-		data.add(panel.createJLabel("mese", fontSize));
+		data.add(panel.createJLabel("mese", FONTSIZE));
 		data.add(mm);
-		data.add(panel.createJLabel("anno", fontSize));
+		data.add(panel.createJLabel("anno", FONTSIZE));
 		data.add(aa);
 		panelInter.add(data);
 		if(!type.equals(TypeExcursion.Uscita)){
-			panelInter.add(panel.createJLabel("Fine: ", fontSize));
+			panelInter.add(panel.createJLabel("Fine: ", FONTSIZE));
 			dataFine=new MyJPanelImpl();
 			dataFine.add(panel.createButton("Data", 13,e->{
 				perData=true;
@@ -95,11 +95,11 @@ public class AddExcursionJDialog extends JDialog {
 					public void run() {
 						dataFine.removeAll();
 						dataFine.setLayout(new GridLayout(1,6));
-						dataFine.add(panel.createJLabel("giorno",fontSize));
+						dataFine.add(panel.createJLabel("giorno",FONTSIZE));
 						dataFine.add(ggF);
-						dataFine.add(panel.createJLabel("mese", fontSize));
+						dataFine.add(panel.createJLabel("mese", FONTSIZE));
 						dataFine.add(mmF);
-						dataFine.add(panel.createJLabel("anno", fontSize));
+						dataFine.add(panel.createJLabel("anno", FONTSIZE));
 						dataFine.add(aaF);
 						dataFine.validate();
 						dataFine.repaint();
@@ -123,15 +123,15 @@ public class AddExcursionJDialog extends JDialog {
 		}
 		
 		if(type.equals(TypeExcursion.Gemellaggio) || type.equals(TypeExcursion.Evento_di_Zona)){
-			panelInter.add(panel.createJLabel("Altri reparti", fontSize));
+			panelInter.add(panel.createJLabel("Altri reparti", FONTSIZE));
 			panelInter.add(panel.createButton("Aggiungi",12, o->{
-				JDialog dial=new JDialog();
-				MyJPanelImpl pan= new MyJPanelImpl(new BorderLayout());
-				MyJPanelImpl panN=new MyJPanelImpl(new GridLayout(2, 1));
-				MyJPanelImpl panS=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
-				panN.add(pan.createJLabel("<html><U>Aggiungi Reparti</U><html>", fontSize+2));
+				final JDialog dial=new JDialog();
+				final MyJPanelImpl pan= new MyJPanelImpl(new BorderLayout());
+				final MyJPanelImpl panN=new MyJPanelImpl(new GridLayout(2, 1));
+				final MyJPanelImpl panS=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
+				panN.add(pan.createJLabel("<html><U>Aggiungi Reparti</U><html>", FONTSIZE+2));
 				panN.add(pan.createJLabel("<html>Aggiungere i nomi dei reparti<br>"
-						+ "separando un reparto dall'altro con il tasto \"INVIO\"</html>", fontSize));
+						+ "separando un reparto dall'altro con il tasto \"INVIO\"</html>", FONTSIZE));
 				pan.add(panN,BorderLayout.NORTH);
 			
 				area.setPreferredSize(new Dimension(area.getWidth(),this.getHeight()));
@@ -192,7 +192,7 @@ public class AddExcursionJDialog extends JDialog {
 	public final Excursion getMethod() throws IllegalDateException {
 		
 		Excursion exc;
-		start=LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText()));
+		final LocalDate start=LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()), Integer.parseInt(gg.getText()));
 		
 		if(type.equals(TypeExcursion.Uscita)){
 			exc=ProjectFactoryImpl.getStdExcursion(start, unit.getReparto(), nome.getText());

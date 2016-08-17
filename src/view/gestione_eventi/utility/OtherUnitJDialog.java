@@ -1,4 +1,4 @@
-package view.gestioneEventi.utility;
+package view.gestione_eventi.utility;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -22,7 +22,8 @@ public class OtherUnitJDialog extends JDialog {
 	private static final long serialVersionUID = 1710237645233014036L;
 	private final static int FONTSIZE=15;
 	
-	public OtherUnitJDialog(Excursion exc, boolean editable){
+	public OtherUnitJDialog(final Excursion exc, final boolean editable){
+		super();
 		final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl inContainer=new MyJPanelImpl(new GridLayout(2, 1));
 		final MyJPanelImpl bot= new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
@@ -40,9 +41,9 @@ public class OtherUnitJDialog extends JDialog {
 				area.append(e);
 			});
 		}
-		if(editable)inContainer.add(inContainer.createJLabel("<html>Aggiungi altri reparti,"
-				+ "<br>separandoli con il tasto \"INVIO\"", FONTSIZE));
-		else inContainer.add(inContainer.createJLabel("Reparti che parteciperanno all'escursione", FONTSIZE));
+		if(editable){inContainer.add(inContainer.createJLabel("<html>Aggiungi altri reparti,"
+				+ "<br>separandoli con il tasto \"INVIO\"", FONTSIZE));}
+		else{inContainer.add(inContainer.createJLabel("Reparti che parteciperanno all'escursione", FONTSIZE));}
 		inContainer.add(scroll);
 		if(editable){
 			bot.add(bot.createButton("Annulla", FONTSIZE, e->{
@@ -76,7 +77,7 @@ public class OtherUnitJDialog extends JDialog {
 				}
 				dispose();
 			}
-			else dispose();
+			else{ dispose();}
 		}));
 		
 		panel.add(inContainer,BorderLayout.CENTER);

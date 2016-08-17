@@ -1,4 +1,4 @@
-package view.gestioneReparto;
+package view.gestione_reparto;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -34,28 +34,21 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		/*aggiung il SelectionListener al JTree*/
 		this.setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				 DefaultMutableTreeNode node = (DefaultMutableTreeNode)(getTree().getLastSelectedPathComponent());
+			public void valueChanged(final TreeSelectionEvent e) {
+				final DefaultMutableTreeNode node = (DefaultMutableTreeNode)(getTree().getLastSelectedPathComponent());
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
 					 public void run() { 
 						 getPanelRight().remove(getPanelCenter());
-						 try{
-						
-							 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
-								 setPanelCenter((((SquadrigliaOverviewImpl)node.getUserObject()). new SquadrigliaOverviewImplPanel()));
-							 }
-							 if (node.getUserObject() instanceof RepartoOverviewImpl){
-								 setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
-							 }
-							 if(node.getUserObject() instanceof SquadrigliaManagerImpl){
-								 setPanelCenter(((SquadrigliaManagerImpl)node.getUserObject()). new SquadrigliaManagerImplPanel());
-							 }
-							 
-						 }catch(NullPointerException k){
-							//new WarningNotice("Squadriglia rimossa con successo");
+						 if(node.getUserObject() instanceof SquadrigliaOverviewImpl){
+							 setPanelCenter((((SquadrigliaOverviewImpl)node.getUserObject()). new SquadrigliaOverviewImplPanel()));
 						}
-						
+						if (node.getUserObject() instanceof RepartoOverviewImpl){
+								 setPanelCenter(( (RepartoOverviewImpl)node.getUserObject()). new  RepartoOverviewImplPane());
+						}
+						if(node.getUserObject() instanceof SquadrigliaManagerImpl){
+							setPanelCenter(((SquadrigliaManagerImpl)node.getUserObject()). new SquadrigliaManagerImplPanel());
+						}
 						 getPanelCenter().repaint();
 						 getPanelCenter().validate();
 						 getPanelRight().add(getPanelCenter(),BorderLayout.CENTER);
@@ -77,7 +70,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		 */
 		getRoot().add(new DefaultMutableTreeNode(new RepartoOverviewImpl()));
 		unit.getContainers().getSquadrons().forEach(e->{
-			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
+			final DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(e.getNome())));
 			t.add(new DefaultMutableTreeNode(new SquadrigliaManagerImpl(e.getNome())));
 			addNode(t);		
@@ -91,20 +84,21 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 	 * Insert a squadron's Jtree entry in the Jtree
 	 * @param squad new squadron to insert
 	 */
-	public void addSquadToJTree(Squadron squad){
-		DefaultMutableTreeNode t = new DefaultMutableTreeNode(squad.getNome());
+	public void addSquadToJTree(final Squadron squad){
+		final DefaultMutableTreeNode t = new DefaultMutableTreeNode(squad.getNome());
 		t.add(new DefaultMutableTreeNode(new SquadrigliaOverviewImpl(squad.getNome())));
 		t.add(new DefaultMutableTreeNode(new SquadrigliaManagerImpl(squad.getNome())));
 		addNode(t);
 	}
 	
-	public void removeSquadToJTree(String squadToRemove){
+	public void removeSquadToJTree(final String squadToRemove){
 		this.removeNode(squadToRemove);
 	}
 	public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {	
 		private static final long serialVersionUID = -2924024721151248795L;
 		@Override
-		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+		public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean sel, final boolean expanded,
+				final boolean leaf, final int row, final boolean hasFocus) {
 			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);		
 			if( ((DefaultMutableTreeNode)value).getUserObject() instanceof SquadrigliaOverviewImpl){
 				setToolTipText("<html>In questa sezione viene mostrata un'anteprima della squadriglia,<br>"+

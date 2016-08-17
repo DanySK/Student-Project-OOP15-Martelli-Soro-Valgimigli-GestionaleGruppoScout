@@ -22,12 +22,12 @@ import model.Roles;
 import model.Squadron;
 import model.exception.ObjectAlreadyContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneEventi.EventiReparto.EventiRepartoPane;
-import view.gestioneEventi.EventiSquadriglia.EventiSquadrigliaPanel;
-import view.gestioneReparto.utility.EditMemberInfoJDialog;
-import view.gestioneReparto.utility.ShowMemberInfoJDialog;
 import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
 import view.gestioneTasse.utility.MemberTasseJDialog;
+import view.gestione_eventi.EventiReparto.EventiRepartoPane;
+import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPanel;
+import view.gestione_reparto.utility.EditMemberInfoJDialog;
+import view.gestione_reparto.utility.ShowMemberInfoJDialog;
 
 public class SearchElementJDialog<E,K> extends JDialog {
 	
@@ -182,7 +182,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		try{
 		squadImpl=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron((String)elem);
 		}catch(Exception e){
-			
+			new WarningNotice(e.getMessage());
 		}
 		
 		MyJPanelImpl panInternal=new MyJPanelImpl(new BorderLayout());

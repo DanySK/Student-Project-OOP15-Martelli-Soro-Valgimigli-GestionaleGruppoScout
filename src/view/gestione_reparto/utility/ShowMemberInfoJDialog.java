@@ -1,4 +1,4 @@
-package view.gestioneReparto.utility;
+package view.gestione_reparto.utility;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -14,7 +14,7 @@ import control.myUtil.Pair;
 import model.Member;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneReparto.utility.JTextAreaDialog.TextAreaType;
+import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
@@ -25,7 +25,7 @@ public class ShowMemberInfoJDialog extends JDialog {
 	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 	private final MyJPanelImpl panelIn=new MyJPanelImpl(new GridLayout(0, 2));
 	private final static int FONTSIZE=18;
-	public ShowMemberInfoJDialog(Member mem){
+	public ShowMemberInfoJDialog(final Member mem){
 		super();
 		final List<Pair<String, String>> list = (new InfoProjectImpl()).getMemberSpecificalInfo(mem);
 		list.forEach(t->{
@@ -56,7 +56,7 @@ public class ShowMemberInfoJDialog extends JDialog {
 		this.pack();
 		this.setLocationRelativeTo(null);
 	}
-	public void addButtonToBot(String title,ActionListener e){
+	public void addButtonToBot(final String title,final ActionListener e){
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override

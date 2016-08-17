@@ -1,4 +1,4 @@
-package view.gestioneReparto.utility;
+package view.gestione_reparto.utility;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -15,7 +15,7 @@ import model.Roles;
 import model.Squadron;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneReparto.utility.JTextAreaDialog.TextAreaType;
+import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -29,7 +29,7 @@ public class EditMemberInfoJDialog extends JDialog {
 	private Squadron squadImpl;
 	private final Member mem;
 
-	public EditMemberInfoJDialog(MemberImpl mem, EditableMemberPanelImpl<Member> parent){
+	public EditMemberInfoJDialog(final MemberImpl mem, final EditableMemberPanelImpl<Member> parent){
 		super();
 		this.mem=mem;
 		/*Se il membro appartiene ad una squadriglia la recupero*/
@@ -52,7 +52,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		final JComboBox<String> promessa = new JComboBox<>();
 		promessa.addItem(mem.getPromise()?"fatta":"da fare");
 		promessa.addItem(mem.getPromise()?"da fare":"fatta");
-		if(mem.hasTotem())totem.setText(mem.getTotem());
+		if(mem.hasTotem()){totem.setText(mem.getTotem());}
 		//tutor
 		final JTextField tutorName=new JTextField();
 		final JTextField tutorPhone=new JTextField();
@@ -67,11 +67,11 @@ public class EditMemberInfoJDialog extends JDialog {
 		if(memberHasSquadron()){
 			squad.addItem(squadName);
 			MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getSquadrons().stream().forEach(t->{
-				if(!t.getNome().equals(squadName))squad.addItem(t.getNome());
+				if(!t.getNome().equals(squadName)){squad.addItem(t.getNome());}
 			});
 			squad.addItem("nessuna squadriglia");
 			role.addItem(squadImpl.getMembri().get(mem));
-			Arrays.asList(Roles.values()).stream().forEach(k->{if(!k.equals(squadImpl.getMembri().get(mem)))role.addItem(k);});
+			Arrays.asList(Roles.values()).stream().forEach(k->{if(!k.equals(squadImpl.getMembri().get(mem))){role.addItem(k);}});
 		}
 		/*
 		 * se invece il membro non appartiene a nessuna squadriglia metto tutto nell'ordine che capita, tranne
@@ -121,7 +121,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		panelCenter.add(panel.createJLabel("", FONTSIZE));
 		panelCenter.add(panel.createButton("<html>Rimuovi Membro<br>dal reparto</html>",FONTSIZEBUTTON, e->{
 			try {
-				if(memberHasSquadron())squadImpl.removeMembro(mem);
+				if(memberHasSquadron()){squadImpl.removeMembro(mem);}
 				MyJFrameSingletonImpl.getInstance().getUnit().removeMember(mem);
 				
 				this.dispose();
@@ -137,7 +137,7 @@ public class EditMemberInfoJDialog extends JDialog {
 				System.out.println("CIAO");
 				mem.setPromise(((String)promessa.getSelectedItem()).equals("fatta")?true:false);
 				//controllo promessa ed eventualmente setto il totem
-				if(mem.getPromise())mem.setTotem(totem.getText());
+				if(mem.getPromise()){mem.setTotem(totem.getText());}
 				//inserisco eventuale tutor/modifico il tutor attuale
 				if(!tutorName.getText().isEmpty()){
 					try{
