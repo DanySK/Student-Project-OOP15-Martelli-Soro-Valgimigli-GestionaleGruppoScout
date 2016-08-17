@@ -113,10 +113,14 @@ public class RepartoOverviewImpl  {
 						final JTextField field= new JTextField();
 						panel.add(field);
 						bot.add(createButton("Salva", p->{
-							MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getCapoM().setPhoneNumber(field.getText());
-							dial.dispose();
-							MyJFrameSingletonImpl.getInstance().setNeedToSave();
-							updateAll();
+							try{
+								MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getCapoM().setPhoneNumber(field.getText());
+								dial.dispose();
+								MyJFrameSingletonImpl.getInstance().setNeedToSave();
+								updateAll();
+							}catch(Exception kk){
+								new WarningNotice(kk.getMessage());
+							}
 						}));
 						bot.add(createButton("Annulla", k->{
 							dial.dispose();
@@ -148,10 +152,14 @@ public class RepartoOverviewImpl  {
 						final JTextField field= new JTextField();
 						panel.add(field);
 						bot.add(createButton("Salva", p->{
-							MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getCapoF().setPhoneNumber(field.getText());
-							dial.dispose();
-							MyJFrameSingletonImpl.getInstance().setNeedToSave();
-							updateAll();
+							try{
+								MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getCapoF().setPhoneNumber(field.getText());
+								dial.dispose();
+								MyJFrameSingletonImpl.getInstance().setNeedToSave();
+								updateAll();
+							}catch(Exception kk){
+								new WarningNotice(kk.getMessage());
+							}
 						}));
 						bot.add(createButton("Annulla", k->{
 							dial.dispose();

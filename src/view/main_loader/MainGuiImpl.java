@@ -92,7 +92,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 						info.add(createJLabel( k+": ", fontSize+5));
 					check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).get(k).stream()
 						.forEach(t->{
-							text=text+t.getName()+" "+t.getSurname()+"<br>";
+							text=text+t+"<br>";
 						
 						});
 					text=text+"</html>";
