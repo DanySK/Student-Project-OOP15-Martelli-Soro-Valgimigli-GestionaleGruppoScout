@@ -111,74 +111,10 @@ public class ShowEditExcursion extends JDialog{
 				if(exc instanceof EventiDiZona || exc instanceof GemellaggiImpl ){
 					panelCenter.add(panelCenter.createJLabel("Reparti", fontSize));
 					panelCenter.add(panelCenter.createButton("Vedi"	,10, e->{
-						
+						new OtherUnitJDialog(exc, false);
 					}));
-					panelEdit.add(panelEdit.createButton("<html>Aggiungi/<br>Rimuovi</html>",10, e->{
-						JDialog dial=new JDialog();
-						JTextArea area=new JTextArea();
-						if(exc instanceof EventiDiZona)((EventiDiZona) exc).getOtherUnits().stream().forEach(l->{
-							area.append(l);
-						});
-						else ((Gemellaggi)exc).getOtherUnits().stream().forEach(l->{
-							area.append(l);
-						});
-						MyJPanelImpl pan= new MyJPanelImpl(new BorderLayout());
-						MyJPanelImpl panN=new MyJPanelImpl(new GridLayout(2, 1));
-						MyJPanelImpl panS=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
-						panN.add(pan.createJLabel("<html><U>Aggiungi Reparti</U><html>", fontSize+2));
-						panN.add(pan.createJLabel("<html>Aggiungere i nomi dei reparti<br>"
-								+ "separando un reparto dall'altro con il tasto \"INVIO\"</html>", fontSize));
-						pan.add(panN,BorderLayout.NORTH);
-					
-						area.setPreferredSize(new Dimension(area.getWidth(),dial.getHeight()));
-						pan.add(area,BorderLayout.CENTER);
-						panS.add(pan.createButton("Annulla", r->{
-							dial.dispose();
-						}));
-						panS.add(pan.createButton("Aggiungi", r->{
-						   reparti =Arrays.asList(area.getText().split(System.lineSeparator())) ;
-						   try{
-							   if(exc instanceof EventiDiZona){
-								   ((EventiDiZona)exc).getOtherUnits().clear();
-								   
-								   reparti.stream().forEach(t->{
-									   try {
-										((EventiDiZona)exc).addOtherUnit(t);
-									} catch (ObjectAlreadyContainedException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
-								   });
-							   }
-								else{
-									((Gemellaggi) exc).getOtherUnits().stream().forEach(w->{
-										   try {
-											((Gemellaggi)exc).removeOtherUnit(w);
-										} catch (ObjectNotContainedException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
-									   });
-									   reparti.stream().forEach(t->{
-										   try {
-											((Gemellaggi)exc).addOtherUnit(t);
-										} catch (ObjectAlreadyContainedException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
-									   });
-								}
-						   }catch(Exception h){
-							   new WarningNotice(h.getMessage());
-						   }
-						   dial.dispose();
-						}));
-						pan.add(panS,BorderLayout.SOUTH);
-						dial.add(pan);
-						dial.pack();
-						dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
-						dial.setVisible(true);
-						
+					panelEdit.add(panelEdit.createButton("<html>Aggiungi/<br>Rimuovi</html>",10,e->{
+						new OtherUnitJDialog(exc,true);
 					}));
 					
 				}

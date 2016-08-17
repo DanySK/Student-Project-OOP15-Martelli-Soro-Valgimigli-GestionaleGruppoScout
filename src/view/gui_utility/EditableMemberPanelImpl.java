@@ -135,6 +135,9 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				if(type.equals(Type.GestioneSquadriglia)){
 					new SearchElementJDialog<>(SearchType.EditMember, squadName.get(), MyOptional.empty(), this);
 				}
+				if(type.equals(Type.OverviewReparto)){
+					new SearchElementJDialog<>(SearchType.EditMemberRep, MyOptional.empty(), MyOptional.empty(), this);
+				}
 			}));
 		}
 		Arrays.asList(sortPanel.getComponents()).stream().forEach(e->e.setFont(new Font("Aria", Font.ITALIC,fontSize)));
@@ -223,10 +226,6 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				memList.stream().forEach(f->{
 					panelMember.add(instanceJButton((E)f));
 				});
-			/*	if(panelMember.getComponents().length==0){
-					panelMember.add(createJLabel("noMember", "<html>Al momento non ci sono membri nella squadriglia<br>"
-							+ "Visita la sezione di gestione della squadriglia per aggiungerne</html>", fontSizeLabel-7));
-				}*/
 				panelMember.validate();
 				panelMember.repaint();
 				scroll.revalidate();
