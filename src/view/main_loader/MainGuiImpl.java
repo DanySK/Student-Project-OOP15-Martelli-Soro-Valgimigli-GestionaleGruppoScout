@@ -103,6 +103,7 @@ public class MainGuiImpl extends MyJPanelImpl{
 					});
 					text=text+"</html>";
 					info.add(createJLabel( text, fontSize));
+					text = "<html>";
 				});
 				
 				pane.add(info,BorderLayout.CENTER);

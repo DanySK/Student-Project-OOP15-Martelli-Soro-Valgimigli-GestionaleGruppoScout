@@ -62,7 +62,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 		panelButton=new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 		
 		if(t.equals(SearchType.AssignCharge)||t.equals(SearchType.ShowMember) || t.equals(SearchType.EditMember) 
-				||type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)){
+				||type.equals(SearchType.addMemberExc)|| type.equals(SearchType.EditMemberRep)){
 			this.parent=parent;
 			this.charge=charge.orElse("");
 			panel.add(panel.createJLabel( "Inserire almeno uno dei campi richiesti", fontSizeLabel+2),BorderLayout.NORTH);
@@ -145,23 +145,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			else{
 				tooItemAndExecute();
 			}
-		}/*
-		else if(type.equals(SearchType.EditMemberRep)){
-			matches=(List<K>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMembers().stream()
-					.filter(g->g.getName().equals(first.getText()) && g.getSurname().equals(second.getText())).collect(Collectors.toList())
-					:(!first.getText().isEmpty())?
-							MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
-							.filter(g->g.getName().equals(first.getText())).collect(Collectors.toList())
-							:MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
-							.filter(g->g.getSurname().equals(second.getText())).collect(Collectors.toList()));
-			if(matches.isEmpty()){
-				new WarningNotice("Nessuna escursione trovata con quel nome."+System.lineSeparator()
-						+ "Controllare i dati inseriti e riprovare");
-			}
-			else{
-				tooItemAndExecute();
-			}
-		}*/
+		}
 		
 	}
 	
@@ -193,7 +177,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			matches.stream().forEach(e->{
 				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
 				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());
-				area.append("Nascita: "+((Member)e).getBirthday().toString());
+				area.append("Nascita: "+((Member)e).getBirthday().toString() + System.lineSeparator());
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("Scegli", o->{
 					dialInternal.dispose();
@@ -236,7 +220,7 @@ public class SearchElementJDialog<E,K> extends JDialog {
 			matches.stream().forEach(e->{
 				area.append("Nome: "+((Member)e).getName()+System.lineSeparator());
 				area.append("Cognome: "+((Member)e).getSurname()+System.lineSeparator());
-				area.append("Nascita: "+((Member)e).getBirthday().toString());
+				area.append("Nascita: "+((Member)e).getBirthday().toString()+ System.lineSeparator()) ;
 				panMember.add(area);
 				if(type.equals(SearchType.addMemberExc)){
 					paneSelect.add(paneSelect.createButton("Partecipa", o->{

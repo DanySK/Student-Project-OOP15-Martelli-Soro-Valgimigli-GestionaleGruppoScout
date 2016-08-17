@@ -42,15 +42,15 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public List<Member> findMember(final String name) throws IllegalArgumentException {
+		System.out.println(name);
 		return this.unit.stream()
-						.filter(e -> e.getName().equals(name))
+						.filter(e -> e.getName().equalsIgnoreCase(name))
 						.collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Member> membersIncomplete() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.unit.stream().filter(e -> e.isComplete()).collect(Collectors.toList());
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class ContainerImpl implements Container, Serializable {
 	public Squadron findSquadron(final String name) {
 		return this.squadronActive.stream()
 							.filter(e -> e.getNome()
-							.equals(name)).findFirst().get();
+							.equalsIgnoreCase(name)).findFirst().get();
 	}
 
 	@Override
@@ -118,14 +118,14 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public Excursion getExcursionNamed(final String name) {
-		return this.excs.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+		return this.excs.stream().filter(e -> e.getName().equalsIgnoreCase(name)).findFirst().get();
 	}
 
 
 
 	@Override
 	public Member getMember(final String name,final  String surname) {
-		return this.unit.stream().filter(e -> e.getName().equals(name) && e.getSurname().equals(surname))
+		return this.unit.stream().filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname))
 								 .findFirst()
 								 .get();
 	}
@@ -135,7 +135,7 @@ public class ContainerImpl implements Container, Serializable {
 	public Uscita getExit(final String name) {
 		Uscita tmp = null;
 		for(final Excursion exc : this.excs){
-			if(exc.getName().equals(name) && exc instanceof Uscita){
+			if(exc.getName().equalsIgnoreCase(name) && exc instanceof Uscita){
 					tmp = (Uscita)exc;
 			}
 		}
@@ -146,7 +146,7 @@ public class ContainerImpl implements Container, Serializable {
 	public UscitaSquadriglia getExcursionSq(final String name) {
 		UscitaSquadriglia tmp = null;
 		for(final Excursion exc : this.excs){
-			if(exc.getName().equals(name) && exc instanceof UscitaSquadriglia){
+			if(exc.getName().equalsIgnoreCase(name) && exc instanceof UscitaSquadriglia){
 					tmp = (UscitaSquadriglia)exc;
 			}
 		}
@@ -157,7 +157,7 @@ public class ContainerImpl implements Container, Serializable {
 	public Gemellaggi getTwoUnitEvent(final String name) {
 		Gemellaggi tmp = null;
 		for(final Excursion exc : this.excs){
-			if(exc.getName().equals(name) && exc instanceof Gemellaggi){
+			if(exc.getName().equalsIgnoreCase(name) && exc instanceof Gemellaggi){
 					tmp = (Gemellaggi)exc;
 			}
 		}
@@ -168,7 +168,7 @@ public class ContainerImpl implements Container, Serializable {
 	public EventiDiZona getLocalEvent(final String name) {
 		EventiDiZona tmp = null;
 		for(final Excursion exc : this.excs){
-			if(exc.getName().equals(name) && exc instanceof EventiDiZona){
+			if(exc.getName().equalsIgnoreCase(name) && exc instanceof EventiDiZona){
 					tmp = (EventiDiZona)exc;
 			}
 		}
@@ -179,7 +179,7 @@ public class ContainerImpl implements Container, Serializable {
 	public Campo getCamp(final String name) {
 		Campo tmp = null;
 		for(final Excursion exc : this.excs){
-			if(exc.getName().equals(name) && exc instanceof Campo){
+			if(exc.getName().equalsIgnoreCase(name) && exc instanceof Campo){
 					tmp = (Campo)exc;
 			}
 		}
@@ -188,7 +188,6 @@ public class ContainerImpl implements Container, Serializable {
 	}
 
 	
-
 	
 
 	

@@ -95,8 +95,12 @@ public class UnitImpl implements Unit, Serializable {
 	}
 	
 	@Override
-	public void removeSq(final Squadron sq) throws ObjectNotContainedException {
-			this.rep.removeSquadron(sq);
+	public void removeSq(final Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException {
+			
+		this.rep.removeSquadron(sq);
+		for(Member member : sq.getMembri().keySet()){
+			this.rep.addMembroSenzaSquadriglia(member);
+		}	
 	}
 	
 	@Override
@@ -140,7 +144,7 @@ public class UnitImpl implements Unit, Serializable {
 	
 	@Override
 	public void removeExcursion(final String name) {
-		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equals(name))
+		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equalsIgnoreCase(name))
 													  .collect(Collectors.toList());
 		if(Integer.valueOf(exc.size()).equals(0)){
 			new WarningNotice("Nessuna escursione corrisponde al nome: " + name);
@@ -157,6 +161,13 @@ public class UnitImpl implements Unit, Serializable {
 			new WarningNotice("Nessuna escursione corrisponde al nome: " + exc.getName());
 		}
 		
+	}
+	
+	public Member getMember(final String name, final String surname){
+		return this.rep.getAllMember()
+				.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name) 
+						&& e.getSurname().equalsIgnoreCase(surname)).findFirst().get();
 	}
 	
 

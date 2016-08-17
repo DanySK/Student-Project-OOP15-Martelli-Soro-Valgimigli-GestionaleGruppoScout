@@ -52,8 +52,9 @@ import model.exception.ObjectNotContainedException;
 	 * 
 	 * @param sq
 	 * @throws ObjectNotContainedException 
+	 * @throws ObjectAlreadyContainedException 
 	 */
-	  void removeSq(Squadron sq) throws ObjectNotContainedException;
+	  void removeSq(Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException;
 	/**
 	 * 
 	 * @param m
@@ -119,5 +120,11 @@ import model.exception.ObjectNotContainedException;
 	 * @param exc
 	 */
 	  void removeExcursion (Excursion exc);
-	
+	  /**
+	   * 
+	   * @param name
+	   * @param surname
+	   * @return
+	   */
+	  public Member getMember(final String name, final String surname);
 }

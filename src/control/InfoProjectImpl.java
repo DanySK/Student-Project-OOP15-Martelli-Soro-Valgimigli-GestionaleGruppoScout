@@ -77,7 +77,7 @@ public class InfoProjectImpl implements InfoProject {
 		info.add(new Pair<>("Nome", member.getName()));
 		info.add(new Pair<>("Cognome", member.getSurname()));
 		info.add(new Pair<>("Sesso", (member.getSex() ? "Maschio":"Femmina")));
-		info.add(new Pair<>("Eta", member.getHowIsHold().toString()));
+		info.add(new Pair<>("Eta", Integer.toString(member.getHowIsHold().getYears())));
 		info.add(new Pair<>("Promessa", (member.getPromise()? "Fatta":"Da fare")));
 		if(! member.hasTotem()){
 			info.add(new Pair<>("Totem", "-"));

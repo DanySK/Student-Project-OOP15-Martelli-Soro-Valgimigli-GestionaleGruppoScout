@@ -132,7 +132,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				if(type.equals(Type.OverviewSquadriglia)){
 					new SearchElementJDialog<>(SearchType.ShowMember, squadName.get(), MyOptional.empty(), this);
 				}
-				if(type.equals(Type.GestioneSquadriglia) ){
+				if(type.equals(Type.GestioneSquadriglia)){
 					new SearchElementJDialog<>(SearchType.EditMember, squadName.get(), MyOptional.empty(), this);
 				}
 				if(type.equals(Type.OverviewReparto)){
@@ -147,13 +147,13 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public final void updateMember(){
+	public void updateMember(){
 		if(type.equals(Type.GestioneSquadriglia)||type.equals(Type.OverviewSquadriglia)){
 			this.memList=(List<E>) squadImpl.getMembri().keySet().stream().collect(Collectors.toList());
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.OverviewReparto)){
-			this.memList=(List<E>)rep.getMembriSenzaSquadriglia();
+			this.memList=(List<E>)rep.getAllMember();
 			updateMemberBotton();
 		}
 		else if(type.equals(Type.TasseReparto)){
@@ -226,10 +226,6 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				memList.stream().forEach(f->{
 					panelMember.add(instanceJButton((E)f));
 				});
-			/*	if(panelMember.getComponents().length==0){
-					panelMember.add(createJLabel("noMember", "<html>Al momento non ci sono membri nella squadriglia<br>"
-							+ "Visita la sezione di gestione della squadriglia per aggiungerne</html>", fontSizeLabel-7));
-				}*/
 				panelMember.validate();
 				panelMember.repaint();
 				scroll.revalidate();
@@ -250,7 +246,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		}
 		else if(type.equals(Type.OverviewSquadriglia)){
 			return createButton("<html>"+((Member)mem).getName()+"<br>"+((Member)mem).getSurname()+"</html>",  16,  e->{
-				(new ShowMemberInfoJDialog(((Member)mem), true)).setVisible(true); 
+				(new ShowMemberInfoJDialog(((Member)mem))).setVisible(true); 
 			});
 		}
 		else if(type.equals(Type.TasseSquadrigliaEscursioni)){

@@ -21,7 +21,7 @@ public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadr
 	public UscitaSquadrigliaImpl(final LocalDate dateStart,final int durata,final Squadron squadriglia,final String name) throws IllegalDateException {
 		super(name, dateStart, new ArrayList<>(squadriglia.getMembri().keySet()));
 		this.squadriglia = squadriglia;
-		this.setDateEnd(dateStart.plusDays(durata));
+		this.setDateEnd(dateStart.plusDays(durata-1));
 	}
 
 	public Squadron getSquadriglia() {

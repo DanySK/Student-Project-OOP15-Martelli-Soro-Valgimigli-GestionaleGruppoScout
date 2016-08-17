@@ -1,6 +1,7 @@
 package view.gestioneEventi.utility;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
@@ -13,8 +14,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import control.ProjectFactoryImpl;
 import control.Unit;
+import control.ProjectFactoryImpl;
 import control.myUtil.MyOptional;
 import model.Excursion;
 import view.general_utility.WarningNotice;
@@ -124,16 +125,16 @@ public class AddExcursionJDialog extends JDialog {
 			panelInter.add(panel.createJLabel("Altri reparti", fontSize));
 			panelInter.add(panel.createButton("Aggiungi",12, o->{
 				JDialog dial=new JDialog();
-				MyJPanelImpl container=new MyJPanelImpl(new GridLayout(2, 1));
 				MyJPanelImpl pan= new MyJPanelImpl(new BorderLayout());
 				MyJPanelImpl panN=new MyJPanelImpl(new GridLayout(2, 1));
 				MyJPanelImpl panS=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
 				panN.add(pan.createJLabel("<html><U>Aggiungi Reparti</U><html>", fontSize+2));
 				panN.add(pan.createJLabel("<html>Aggiungere i nomi dei reparti<br>"
 						+ "separando un reparto dall'altro con il tasto \"INVIO\"</html>", fontSize));
-				container.add(panN);
-				container.add(area);
-				pan.add(container,BorderLayout.CENTER);
+				pan.add(panN,BorderLayout.NORTH);
+			
+				area.setPreferredSize(new Dimension(area.getWidth(),this.getHeight()));
+				pan.add(area,BorderLayout.CENTER);
 				panS.add(pan.createButton("Annulla", r->{
 					dial.dispose();
 				}));

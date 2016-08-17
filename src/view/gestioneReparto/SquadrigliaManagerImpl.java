@@ -38,7 +38,7 @@ public class SquadrigliaManagerImpl extends MyJPanelImpl {
 			T.add(panelCenter);
 			T.add(panelBottom);
 			this.add(T, BorderLayout.CENTER);
-			panelCenter.addButtonToPanelBottom(createButton("Specialità", e->{}));
+			
 		}
 		
 	}
