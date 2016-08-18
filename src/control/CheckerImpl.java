@@ -75,11 +75,12 @@ public class CheckerImpl implements Checker, Serializable {
 
 		final Map<String, List<String>> map = new HashMap<>();
 		final List<Excursion> exc = this.excursionInProgram(DAYTOCHECK, excursions);
+		final boolean mail = this.checkMail(unit);
 		for (final Excursion e : exc) {
 			map.put("Evento del " + e.getDateStart() + ": " + e.getName(),
 					e.getNotPaied().stream().map(m -> m.getName() + " " + m.getSurname()).collect(Collectors.toList()));
 			if (this.checkDateIsBetween(LocalDate.now(), LocalDate.now().plus(DAYTOCHECK, ChronoUnit.DAYS),
-					e.getDateStart()) && this.checkMail(unit)) {
+					e.getDateStart()) && mail) {
 				try {
 					ControlMail.sendMailForPaymentExcursion(e);
 				} catch (MessagingException err) {
@@ -91,7 +92,7 @@ public class CheckerImpl implements Checker, Serializable {
 				birthday.stream()
 						.map(m -> m.getName() + " " + m.getSurname() + "[ " + m.getBirthday().toString() + " ]")
 						.collect(Collectors.toList()));
-		if (this.checkMail(unit)) {
+		if (mail) {
 			try {
 				ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
 			} catch (MessagingException err) {
@@ -101,7 +102,7 @@ public class CheckerImpl implements Checker, Serializable {
 				unit.getLimitDateToPay().plus(-DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())) {
 			map.put("Ragazzi che non hanno ancora pagato l'anno", unit.getMemberDidntPay().stream()
 					.map(m -> m.getName() + " " + m.getSurname()).collect(Collectors.toList()));
-			if (this.checkMail(unit)) {
+			if (mail) {
 				try {
 					ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
 				} catch (MessagingException err) {

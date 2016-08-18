@@ -39,7 +39,7 @@ public class testTest {
 			//caricamento avvenuto con sucesso
 			
 			fenice.addMember(ProjectFactoryImpl.getSimpleMember("Andrea", "Rossi", LocalDate.of(2002, 12, 11), true));
-			fenice.addMember(ProjectFactoryImpl.getSimpleMember("Lollo", "Verdi", LocalDate.of(2002, 8, 19), true));
+			fenice.addMember(ProjectFactoryImpl.getSimpleMember("Lollo", "Verdi", LocalDate.of(2002, 8, 18), true));
 			fenice.addMember(ProjectFactoryImpl.getSimpleMember("Riki", "Blu", LocalDate.of(2002, 8, 22), true));
 			fenice.addMember(ProjectFactoryImpl.getSimpleMember("Mario", "Rasi", LocalDate.of(2003, 12, 11), true));
 			fenice.addMember(ProjectFactoryImpl.getSimpleMember("Anna", "Proti", LocalDate.of(2002, 12, 11), false));
@@ -53,8 +53,8 @@ public class testTest {
 			assertTrue(ct.getMember("Andrea", "Rossi").getName().equals("Andrea"));
 			
 			
-			fenice.getMember("Gio", "Prati").setTutorMail("lorenzo.valgimigli@libero.it");
-			
+			fenice.getMember("Lollo", "Verdi").setTutorMail("lorenzo.valgimigli@libero.it");
+
 			assertTrue(new SortMemberImpl().sortByAge(ct.getMembers()).get(0).getName().equals("Maria"));
 			Uscita usc = ProjectFactoryImpl.getStdExcursion(LocalDate.now().plus(5, ChronoUnit.DAYS), fenice.getReparto() , "Yuuuppi");
 			assertTrue(usc.getNotPaied().size() == 8);
@@ -63,6 +63,7 @@ public class testTest {
 			fenice.addExcursion(usc);
 			Checker ch = new CheckerImpl();
 			ch.stdRouting(fenice).entrySet().forEach(e -> System.out.println(e.getKey() +" " +e.getValue()));
+			ch.stdRouting(fenice);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
