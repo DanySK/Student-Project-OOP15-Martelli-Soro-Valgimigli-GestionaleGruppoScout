@@ -83,6 +83,11 @@ public class ShowEditExcursion extends JDialog{
 				panelCenter.add(panelCenter.createJLabel(info.get("Prezzo").get(0), FONTSIZE));
 				
 				if(! (exc instanceof ExcursionOnline)){
+					panelEdit.add(getJButton("Nome"));
+					panelEdit.add(getJButton("Dove"));
+					panelEdit.add(getJButton("Quando"));
+					panelEdit.add(getJButton("Fine"));
+					panelEdit.add(getJButton("Prezzo"));
 					panelCenter.add(panelCenter.createJLabel("Partecipanti", FONTSIZE));
 					panelCenter.add(panelCenter.createButton("vedi", FONTSIZEBUTTON, e->{
 						final JDialog dial = new JDialog();
@@ -110,11 +115,7 @@ public class ShowEditExcursion extends JDialog{
 						}));
 						
 					}
-					panelEdit.add(getJButton("Nome"));
-					panelEdit.add(getJButton("Dove"));
-					panelEdit.add(getJButton("Quando"));
-					panelEdit.add(getJButton("Fine"));
-					panelEdit.add(getJButton("Prezzo"));
+					
 				}
 				else{
 					panelEdit.add(panelEdit.createJLabel("", FONTSIZEBUTTON));
