@@ -6,21 +6,24 @@ import control.UnitImpl;
 
 public interface MyJFrameSingleton {
 
-	
-	
-	/**It set the ContentPane of MyFrameSingleton
+	/**
+	 * It set the ContentPane of MyFrameSingleton
 	 * 
-	 * @param panel The main panel you want to set in this frame
+	 * @param panel
+	 *            The main panel you want to set in this frame
 	 */
 	void setPanel(JPanel panel);
 
-	/**It returns the ContentPane already setted in MyFrameSingleton
+	/**
+	 * It returns the ContentPane already setted in MyFrameSingleton
 	 * 
-	 * @return JPanel	The main panel setted in this frame
+	 * @return JPanel The main panel setted in this frame
 	 */
 	JPanel getContenentPane();
 
-	/**it return the UnitImpl working on
+	/**
+	 * it return the UnitImpl working on
+	 * 
 	 * @return UnitImpl UnitImpl working on
 	 */
 	UnitImpl getUnit();

@@ -21,99 +21,104 @@ import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
 public class JTextAreaDialog<E> extends JDialog {
-	public enum TextAreaType{
-		SPCVIEW,
-		SPEDIT,
-		OBBVIEW,
-		OBBEDIT;
+	public enum TextAreaType {
+		SPCVIEW, SPEDIT, OBBVIEW, OBBEDIT;
 	}
-	public enum OB{
-		SCL,
-		FD,
-		FM,
-		RLZN;
+
+	public enum OB {
+		SCL, FD, FM, RLZN;
 	}
+
 	private static final long serialVersionUID = -8715597288634279098L;
-	private final static int FONTSIZE=19;
-	private final static int FONTSIZEAREA=17;
+	private final static int FONTSIZE = 19;
+	private final static int FONTSIZEAREA = 17;
 	private final TextAreaType type;
 	private JTextArea area;
 	private final E elem;
 	private OB ob;
-	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
-	public JTextAreaDialog(final TextAreaType type,final E m,final MyOptional<OB> obt){
-		super();	
-		this.type=type;
-		this.elem=m;
-		final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
-		final MyJPanelImpl inPanel=new MyJPanelImpl(new GridLayout(2, 1));
-		final MyJPanelImpl panelBot=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
-		if(obt.isPresent()){
-			ob=obt.get();
+	private final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
+
+	public JTextAreaDialog(final TextAreaType type, final E m, final MyOptional<OB> obt) {
+		super();
+		this.type = type;
+		this.elem = m;
+		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
+		final MyJPanelImpl inPanel = new MyJPanelImpl(new GridLayout(2, 1));
+		final MyJPanelImpl panelBot = new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
+		if (obt.isPresent()) {
+			ob = obt.get();
 		}
 		getArea();
-		final JScrollPane scroll=new JScrollPane(area);
+		final JScrollPane scroll = new JScrollPane(area);
 		inPanel.add(this.getLabelTop());
 		inPanel.add(scroll);
-		
-		if(getAnnullaButton().isPresent()){
+
+		if (getAnnullaButton().isPresent()) {
 			panelBot.add(getAnnullaButton().get());
 		}
 		panelBot.add(panel.createButton("Ok", getOkActionListJButton()));
-		panel.add(inPanel,BorderLayout.CENTER);
-		panel.add(panelBot,BorderLayout.SOUTH);
+		panel.add(inPanel, BorderLayout.CENTER);
+		panel.add(panelBot, BorderLayout.SOUTH);
 		this.add(panel);
 		this.pack();
 		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
 		this.setVisible(true);
-			
+
 	}
 
-	private JLabel getLabelTop(){
-		if(type.equals(TextAreaType.SPCVIEW)){return panel.createJLabel("Specialità del Membro", FONTSIZE);}
-		else if(type.equals(TextAreaType.SPEDIT)){return panel.createJLabel("<html><U>Specialità del Membro</U><br>"
-					+ "Aggiungere specialità, separandole dalle altre con il tasto \"INVIO\"</html>", FONTSIZE);}
-		else if(type.equals(TextAreaType.OBBEDIT)){return panel.createJLabel("Modifica Obbiettivo",FONTSIZE);}
-		else {return panel.createJLabel("Obbiettivo",FONTSIZE);}
+	private JLabel getLabelTop() {
+		if (type.equals(TextAreaType.SPCVIEW)) {
+			return panel.createJLabel("Specialità del Membro", FONTSIZE);
+		} else if (type.equals(TextAreaType.SPEDIT)) {
+			return panel.createJLabel("<html><U>Specialità del Membro</U><br>"
+					+ "Aggiungere specialità, separandole dalle altre con il tasto \"INVIO\"</html>", FONTSIZE);
+		} else if (type.equals(TextAreaType.OBBEDIT)) {
+			return panel.createJLabel("Modifica Obbiettivo", FONTSIZE);
+		} else {
+			return panel.createJLabel("Obbiettivo", FONTSIZE);
+		}
 	}
-	private void getArea(){
-		area=panel.createJTextArea("", false,FONTSIZEAREA);
-		if(type.equals(TextAreaType.SPCVIEW )|| type.equals(TextAreaType.SPEDIT)){
-			((Member)elem).getSpecialities().stream().forEach(e->{
+
+	private void getArea() {
+		area = panel.createJTextArea("", false, FONTSIZEAREA);
+		if (type.equals(TextAreaType.SPCVIEW) || type.equals(TextAreaType.SPEDIT)) {
+			((Member) elem).getSpecialities().stream().forEach(e -> {
 				area.append(e);
 			});
+		} else {
+			if (ob.equals(OB.FD)) {
+				area.setText((((Member) elem).getPath().getFaith()));
+			} else if (ob.equals(OB.SCL)) {
+				area.setText(((Member) elem).getPath().getSchool());
+			} else if (ob.equals(OB.FM)) {
+				area.setText(((Member) elem).getPath().getFamily());
+			} else {
+				area.setText(((Member) elem).getPath().getRelations());
+			}
 		}
-		else{
-			if(ob.equals(OB.FD)){area.setText((((Member)elem).getPath().getFaith()));}
-			else if(ob.equals(OB.SCL)){area.setText(((Member)elem).getPath().getSchool());}
-			else if(ob.equals(OB.FM)){area.setText(((Member)elem).getPath().getFamily());}
-			else {area.setText(((Member)elem).getPath().getRelations());}
-		}
-		if(type.equals(TextAreaType.SPEDIT)|| type.equals(TextAreaType.OBBEDIT)){
+		if (type.equals(TextAreaType.SPEDIT) || type.equals(TextAreaType.OBBEDIT)) {
 			area.setEditable(true);
 		}
-		
-		
+
 	}
-	private ActionListener getOkActionListJButton(){
-		if(type.equals(TextAreaType.SPCVIEW )|| type.equals(TextAreaType.OBBVIEW)){
-			return e->dispose();
-		}
-		else if(type.equals(TextAreaType.SPEDIT)){
-			return e->{
-				((Member)elem).getSpecialities().stream().forEach(j->{
+
+	private ActionListener getOkActionListJButton() {
+		if (type.equals(TextAreaType.SPCVIEW) || type.equals(TextAreaType.OBBVIEW)) {
+			return e -> dispose();
+		} else if (type.equals(TextAreaType.SPEDIT)) {
+			return e -> {
+				((Member) elem).getSpecialities().stream().forEach(j -> {
 					try {
-						((Member)elem).removeSpecialities(j);
+						((Member) elem).removeSpecialities(j);
 					} catch (ObjectNotContainedException e1) {
 						new WarningNotice(e1.getMessage());
 					}
-					
+
 				});
-				if(!area.getText().isEmpty()){
-					Arrays.asList(area.getText().split(System.lineSeparator())).stream()
-					.forEach(t->{
+				if (!area.getText().isEmpty()) {
+					Arrays.asList(area.getText().split(System.lineSeparator())).stream().forEach(t -> {
 						try {
-							((Member)elem).addSpecialities(t);
+							((Member) elem).addSpecialities(t);
 						} catch (ObjectAlreadyContainedException e1) {
 							new WarningNotice(e1.getMessage());
 						}
@@ -122,23 +127,27 @@ public class JTextAreaDialog<E> extends JDialog {
 				}
 				dispose();
 			};
-		}
-		else{
-			return e->{
-				if(ob.equals(OB.FD)){ ((Member)elem).getPath().setFaith(area.getText()); } 
-				else if(ob.equals(OB.FM)){ ((Member)elem).getPath().setFamily(area.getText()); }
-				else if(ob.equals(OB.SCL)){ ((Member)elem).getPath().setSchool(area.getText()); }
-				else { ((Member)elem).getPath().setRelations(area.getText()); }
+		} else {
+			return e -> {
+				if (ob.equals(OB.FD)) {
+					((Member) elem).getPath().setFaith(area.getText());
+				} else if (ob.equals(OB.FM)) {
+					((Member) elem).getPath().setFamily(area.getText());
+				} else if (ob.equals(OB.SCL)) {
+					((Member) elem).getPath().setSchool(area.getText());
+				} else {
+					((Member) elem).getPath().setRelations(area.getText());
+				}
 				MyJFrameSingletonImpl.getInstance().setNeedToSave();
 				dispose();
 			};
 		}
 	}
-	private MyOptional<JButton> getAnnullaButton(){
-		if(type.equals(TextAreaType.SPEDIT) || type.equals(TextAreaType.OBBEDIT)){
-			return MyOptional.of(panel.createButton("Annulla", e->dispose()));
-		}
-		else{
+
+	private MyOptional<JButton> getAnnullaButton() {
+		if (type.equals(TextAreaType.SPEDIT) || type.equals(TextAreaType.OBBEDIT)) {
+			return MyOptional.of(panel.createButton("Annulla", e -> dispose()));
+		} else {
 			return MyOptional.empty();
 		}
 	}
