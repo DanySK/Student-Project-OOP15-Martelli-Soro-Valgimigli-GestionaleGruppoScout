@@ -12,6 +12,7 @@ public interface MyJPanel {
 
 	/**
 	 * create a JBUtton with title and actionListener
+	 * 
 	 * @param title
 	 * @param e
 	 * @return
@@ -20,6 +21,7 @@ public interface MyJPanel {
 
 	/**
 	 * create a JButton with title,color and actionListener
+	 * 
 	 * @param title
 	 * @param c
 	 * @param e
@@ -29,6 +31,7 @@ public interface MyJPanel {
 
 	/**
 	 * creare a JButton with title, color, font and actionListener
+	 * 
 	 * @param title
 	 * @param c
 	 * @param f
@@ -40,6 +43,7 @@ public interface MyJPanel {
 
 	/**
 	 * create a JButton with title,fontSize and actionlistener
+	 * 
 	 * @param title
 	 * @param fontSize
 	 * @param e
@@ -50,19 +54,28 @@ public interface MyJPanel {
 
 	/**
 	 * return a TextArea with text, fontsize
-	 * @param text area initial text
-	 * @param editable true if areaText has to be editable
-	 * @param fontSize font size dimensin
+	 * 
+	 * @param text
+	 *            area initial text
+	 * @param editable
+	 *            true if areaText has to be editable
+	 * @param fontSize
+	 *            font size dimensin
 	 * @return
 	 */
 	JTextArea createJTextArea(String text, boolean editable, int fontSize);
 
-	/**return a JLabel with text and fontSize
+	/**
+	 * return a JLabel with text and fontSize
 	 * 
-	 * @param text Label text
-	 * @param fontSize font size dimension
+	 * @param text
+	 *            Label text
+	 * @param fontSize
+	 *            font size dimension
 	 * @return
 	 */
 	JLabel createJLabel(String text, int fontSize);
+	
+	
 
 }

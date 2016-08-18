@@ -49,9 +49,9 @@ public class OnlineMainImpl extends MySplittedPanelWithTree {
 		});
 	
 		/*Setto i JToolTip dell'albero*/
-		getTree().setCellRenderer(new TooltipTreeRenderer());
+		/*getTree().setCellRenderer(new TooltipTreeRenderer());
 		javax.swing.ToolTipManager.sharedInstance().registerComponent(getTree());
-		getTree().setVisibleRowCount(1);
+		getTree().setVisibleRowCount(1);*/
 	
 		/*
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
@@ -61,7 +61,7 @@ public class OnlineMainImpl extends MySplittedPanelWithTree {
 	
 		
 	}
-	
+	/*
 	public class TooltipTreeRenderer  extends DefaultTreeCellRenderer  {	
 		private static final long serialVersionUID = -2924024721151248795L;
 		@Override
@@ -81,6 +81,6 @@ public class OnlineMainImpl extends MySplittedPanelWithTree {
 			}
 			return this;
 		}	 
-	}
+	}*/
 }	
 
