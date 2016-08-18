@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import model.escursioni.Excursion;
+import model.Excursion;
 
 public interface SortExcursion {
 	/**

@@ -10,9 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import model.escursioni.Excursion;
+import model.Excursion;
+import model.Member;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Member;
 import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;

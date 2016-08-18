@@ -12,13 +12,13 @@ import javax.mail.MessagingException;
 import control.exception.MemberSexException;
 import control.myUtil.Pair;
 import extra.mail.ControlMail;
-import model.escursioni.Excursion;
+import model.Excursion;
+import model.Member;
+import model.Reparto;
+import model.Roles;
+import model.Squadron;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Member;
-import model.reparto.Reparto;
-import model.reparto.Roles;
-import model.reparto.Squadron;
 import view.general_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {

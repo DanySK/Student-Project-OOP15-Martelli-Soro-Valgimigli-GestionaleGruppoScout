@@ -1,11 +1,11 @@
-package model.reparto;
+package model;
 
 import java.io.Serializable;
 
 import control.myUtil.MyOptional;
 import model.exception.IllegalOperationException;
 
-public class PathImpl implements Serializable, model.reparto.Path {
+public class PathImpl implements Serializable, model.Path {
 
 	private static final String DEFAULT_VOID_OPTIONAL = "Non settato";
 	private static final int SCOPERTA = 1;

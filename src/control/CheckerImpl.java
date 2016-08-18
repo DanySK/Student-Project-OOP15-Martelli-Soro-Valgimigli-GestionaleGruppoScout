@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 import javax.mail.MessagingException;
 
 import extra.mail.ControlMail;
-import model.escursioni.Excursion;
-import model.reparto.Member;
-import model.reparto.Reparto;
+import model.Excursion;
+import model.Member;
+import model.Reparto;
 
 /**
  * 

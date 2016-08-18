@@ -5,15 +5,15 @@ import java.util.function.Predicate;
 
 import control.exception.MemberNotExistException;
 import control.exception.SquadronNotExistException;
-import model.escursioni.Campo;
-import model.escursioni.EventiDiZona;
-import model.escursioni.Excursion;
-import model.escursioni.Gemellaggi;
-import model.escursioni.Uscita;
-import model.escursioni.UscitaSquadriglia;
+import model.Campo;
+import model.EventiDiZona;
+import model.Excursion;
+import model.Gemellaggi;
+import model.Member;
+import model.Squadron;
+import model.Uscita;
+import model.UscitaSquadriglia;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Member;
-import model.reparto.Squadron;
 
 /**
  * Class that contains infos, entities and relations. This class implements

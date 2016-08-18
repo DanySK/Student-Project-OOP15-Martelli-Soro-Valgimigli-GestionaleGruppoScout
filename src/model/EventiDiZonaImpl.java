@@ -1,4 +1,4 @@
-package model.escursioni;
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,7 +8,6 @@ import java.util.List;
 import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Reparto;
 
 public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 

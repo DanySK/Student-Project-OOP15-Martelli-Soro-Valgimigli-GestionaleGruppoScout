@@ -1,4 +1,4 @@
-package model.escursioni;
+package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.List;
 import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Reparto;
 
 public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package model.reparto;
+package model;
 
 import model.exception.IllegalOperationException;
 

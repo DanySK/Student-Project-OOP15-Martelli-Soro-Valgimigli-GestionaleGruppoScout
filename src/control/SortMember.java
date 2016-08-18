@@ -2,7 +2,7 @@ package control;
 
 import java.util.List;
 
-import model.reparto.Member;
+import model.Member;
 
 public interface SortMember {
 	/**

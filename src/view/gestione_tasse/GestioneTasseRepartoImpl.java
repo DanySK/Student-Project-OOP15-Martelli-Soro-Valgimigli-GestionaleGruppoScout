@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
 
 import control.Unit;
 import control.myUtil.MyOptional;
-import model.reparto.Member;
+import model.Member;
 import view.Main.MyColor;
 import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;

@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import control.myUtil.Pair;
-import model.escursioni.Excursion;
-import model.reparto.Member;
+import model.Excursion;
+import model.Member;
 
 /**
  * Class with all tool to get informations about squadron, member, unit

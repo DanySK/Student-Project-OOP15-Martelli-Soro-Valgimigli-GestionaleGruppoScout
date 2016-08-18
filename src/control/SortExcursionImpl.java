@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import model.escursioni.CampoImpl;
-import model.escursioni.Excursion;
-import model.escursioni.UscitaImpl;
+import model.CampoImpl;
+import model.Excursion;
+import model.UscitaImpl;
 
 public class SortExcursionImpl implements SortExcursion {
 

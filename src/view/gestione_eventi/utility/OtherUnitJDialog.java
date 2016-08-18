@@ -9,9 +9,9 @@ import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import model.escursioni.EventiDiZona;
-import model.escursioni.Excursion;
-import model.escursioni.Gemellaggi;
+import model.EventiDiZona;
+import model.Excursion;
+import model.Gemellaggi;
 import model.exception.ObjectAlreadyContainedException;
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;

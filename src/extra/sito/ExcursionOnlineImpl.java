@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 
-import model.escursioni.ExcursionImpl;
+import model.ExcursionImpl;
 import model.exception.IllegalDateException;
 
 public class ExcursionOnlineImpl extends ExcursionImpl implements ExcursionOnline {

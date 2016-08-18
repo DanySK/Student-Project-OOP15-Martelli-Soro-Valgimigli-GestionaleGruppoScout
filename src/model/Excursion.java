@@ -1,4 +1,4 @@
-package model.escursioni;
+package model;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Member;
 
 /**
  * @author Riccardo Soro class to model an excursion

@@ -3,7 +3,7 @@ package control;
 import java.util.Comparator;
 import java.util.List;
 
-import model.reparto.Member;
+import model.Member;
 
 public class SortMemberImpl implements SortMember {
 

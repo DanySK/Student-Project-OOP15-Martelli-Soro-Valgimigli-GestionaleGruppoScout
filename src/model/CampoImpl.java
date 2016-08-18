@@ -1,9 +1,8 @@
-package model.escursioni;
+package model;
 
 import java.time.LocalDate;
 
 import model.exception.IllegalDateException;
-import model.reparto.Reparto;
 
 public class CampoImpl extends ExcursionImpl implements Campo {
 

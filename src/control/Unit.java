@@ -5,13 +5,13 @@ import java.util.List;
 
 import control.exception.MemberSexException;
 import control.myUtil.Pair;
-import model.escursioni.Excursion;
+import model.Excursion;
+import model.Member;
+import model.Reparto;
+import model.Roles;
+import model.Squadron;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
-import model.reparto.Member;
-import model.reparto.Reparto;
-import model.reparto.Roles;
-import model.reparto.Squadron;
 
 public interface Unit {
 	/**

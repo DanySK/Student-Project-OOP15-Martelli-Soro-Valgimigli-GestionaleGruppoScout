@@ -1,4 +1,4 @@
-package model.reparto;
+package model;
 /**
  * 
  * @author Riccardo Soro

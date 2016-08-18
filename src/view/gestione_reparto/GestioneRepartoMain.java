@@ -11,7 +11,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
-import model.reparto.Squadron;
+import model.Squadron;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 

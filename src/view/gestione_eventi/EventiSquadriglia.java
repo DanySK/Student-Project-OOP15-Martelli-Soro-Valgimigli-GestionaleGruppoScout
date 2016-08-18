@@ -9,9 +9,9 @@ import javax.swing.SwingUtilities;
 
 import control.SortExcursionImpl;
 import control.myUtil.MyOptional;
-import model.escursioni.Excursion;
-import model.escursioni.UscitaSquadriglia;
-import model.reparto.Squadron;
+import model.Excursion;
+import model.Squadron;
+import model.UscitaSquadriglia;
 import view.gestione_eventi.utility.AddExcursionJDialog;
 import view.gestione_eventi.utility.AddExcursionJDialog.TypeExcursion;
 import view.gui_utility.EditableMemberPanelImpl;
