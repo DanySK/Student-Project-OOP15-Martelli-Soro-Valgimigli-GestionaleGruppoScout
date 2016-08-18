@@ -46,4 +46,10 @@ public interface MasterProject {
 	 * @param unit
 	 */
 	void save(Unit unit) throws IOException, ProjectFilesCreationException;
+	/**
+	 * 
+	 * @param unitName
+	 * @throws IllegalArgumentException
+	 */
+	void removeUnit(String unitName) throws IllegalArgumentException;
 }

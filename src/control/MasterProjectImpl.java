@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 
 import control.exception.DefaultDirectoryException;
 import control.exception.ProjectFilesCreationException;
-import view.general_utility.WarningNotice;
 
 public class MasterProjectImpl implements MasterProject {
 
@@ -104,13 +103,16 @@ public class MasterProjectImpl implements MasterProject {
 		saver.close();
 		JOptionPane.showMessageDialog(null, "Salvataggio avvenuto con successo");
 	}
-	public void removeUnit(final String unitName){
+	@Override
+	public void removeUnit(final String unitName) throws IllegalArgumentException{
 		final File worker = new File(this.directoryToSave + System.getProperty(FILESEPARATOR)
 			+ unitName + PROJECT_EXTENSION);
 		if(worker.exists()){
-			if(worker.delete()){
-				
+			if(! worker.delete()){
+				throw new IllegalArgumentException();
 			}
+		}else{
+			throw new IllegalArgumentException();
 		}
 	}
 
