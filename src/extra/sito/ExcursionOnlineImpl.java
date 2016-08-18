@@ -35,7 +35,7 @@ public class ExcursionOnlineImpl extends ExcursionImpl implements ExcursionOnlin
 
 	@Override
 	public URL getMapLink() throws MalformedURLException {
-		return new URL("https://www.google.it/maps/place/" + this.getPlace());
+		return new URL("https://www.google.it/maps/place/" +(this.getPlace().replace(" ", "+")));
 	}
 
 	@Override
