@@ -4,9 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 import control.myUtil.MyOptional;
 import model.Member;
+import model.exception.IllegalOperationException;
+import view.general_utility.WarningNotice;
 import view.gestione_reparto.utility.JTextAreaDialog.OB;
 import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -43,6 +47,58 @@ public class PathJDialog extends JDialog {
 			}));
 		}
 		else{
+			internal.add(panel.createJLabel("Livello", FONTSIZE));
+			right.add(panel.createButton(EDIT, FONTSIZE,e->{
+				final JDialog dial=new JDialog();
+				final MyJPanelImpl pan =new MyJPanelImpl(new BorderLayout());
+				final MyJPanelImpl center= new MyJPanelImpl(new GridLayout(1, 2));
+				final MyJPanelImpl botIn=new MyJPanelImpl();
+				final JLabel label=pan.createJLabel("Livello: "+mem.getPath().getLevel(), FONTSIZE);
+				botIn.add(bot.createButton("OK", k->{
+					dial.dispose();
+				}));
+				center.add(center.createButton("Level UP", f->{
+					try {
+						mem.getPath().livUp();
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								label.setText("Livello: "+mem.getPath().getLevel());
+								pan.validate();
+								pan.repaint();
+							}
+						});
+						MyJFrameSingletonImpl.getInstance().setNeedToSave();
+					} catch (IllegalOperationException e1) {
+						new WarningNotice(e1.getMessage());
+					}
+					
+				}));
+				center.add(center.createButton("Level DOWN", f->{
+					try {
+						mem.getPath().livDown();
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								label.setText("Livello: "+mem.getPath().getLevel());
+								pan.validate();
+								pan.repaint();
+							}
+						});
+						MyJFrameSingletonImpl.getInstance().setNeedToSave();
+					} catch (IllegalOperationException e1) {
+						new WarningNotice(e1.getMessage());
+					}
+					
+				}));
+				pan.add(label,BorderLayout.NORTH);
+				pan.add(center,BorderLayout.CENTER);
+				pan.add(botIn,BorderLayout.SOUTH);
+				dial.add(pan);
+				dial.pack();
+				dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+				dial.setVisible(true);
+				
+				
+			}));
 			right.add(panel.createButton(EDIT, FONTSIZE, e->{
 				new JTextAreaDialog<>(TextAreaType.OBBEDIT, mem, MyOptional.of(OB.FM));
 			}));
