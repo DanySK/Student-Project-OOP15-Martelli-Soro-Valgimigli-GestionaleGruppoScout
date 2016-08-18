@@ -52,7 +52,6 @@ public final class ExcursionOnlineGetterImpl implements ExcursionOnlineGetter{
 			dataInizio = LocalDate.of(Integer.parseInt(vet[2]), Integer.parseInt(vet[1]), Integer.parseInt(vet[0]));
 			final List<String> tmp3 = Arrays.asList((tmp.get(a).split(tmp2.get(3).replaceAll("/tdtd style=", ""),2)));
 			tmp3.forEach(e->{
-				System.out.println(tmp2.get(3).replaceAll("/tdtd style=", ""));
 			});
 			vet = tmp3.get(1).substring(29, 39).split("/");
 			dataFine = LocalDate.of(Integer.parseInt(vet[2]), Integer.parseInt(vet[1]), Integer.parseInt(vet[0]));
