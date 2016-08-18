@@ -33,25 +33,34 @@ import model.exception.IllegalPhoneNumberException;
 import model.exception.IllegalYearsException;
 
 public final class ProjectFactoryImpl implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6423409525615896639L;
-	private ProjectFactoryImpl(){};
+
+	private ProjectFactoryImpl() {
+	};
+
 	/**
-	 * Returns a Instance of class Member. This method wants only basic parameters
+	 * Returns a Instance of class Member. This method wants only basic
+	 * parameters
+	 * 
 	 * @param nome
 	 * @param cognome
 	 * @param dataNascita
 	 * @return
-	 * @throws IllegalYearsException 
+	 * @throws IllegalYearsException
 	 */
-	public static Member getSimpleMember(final String nome,final String cognome,final LocalDate dataNascita,final  boolean sex) throws IllegalYearsException{
+	public static Member getSimpleMember(final String nome, final String cognome, final LocalDate dataNascita,
+			final boolean sex) throws IllegalYearsException {
 		return new MemberImpl(nome, cognome, dataNascita, sex);
 	}
+
 	/**
-	 *  Returns a instance of class Member. This method can accept each possible parameter 
+	 * Returns a instance of class Member. This method can accept each possible
+	 * parameter
+	 * 
 	 * @param name
 	 * @param surname
 	 * @param birthday
@@ -60,25 +69,27 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param mailTutor
 	 * @param phoneTutor
 	 * @return
-	 * @throws IllegalYearsException 
+	 * @throws IllegalYearsException
 	 */
-	public static Member getMember(final String name, final String surname, final LocalDate birthday,final  boolean sex,
-			final MyOptional<String> nameTutor, final MyOptional<String> mailTutor,final  MyOptional<Long> phoneTutor) throws IllegalYearsException{
+	public static Member getMember(final String name, final String surname, final LocalDate birthday, final boolean sex,
+			final MyOptional<String> nameTutor, final MyOptional<String> mailTutor, final MyOptional<Long> phoneTutor)
+			throws IllegalYearsException {
 		Member prjMember = null;
 		Tutor prjTutor = null;
 		prjTutor = new TutorImpl();
-		if(mailTutor.isPresent()){
+		if (mailTutor.isPresent()) {
 			prjTutor.setEmail(mailTutor.get());
 		}
-		if(nameTutor.isPresent()){
+		if (nameTutor.isPresent()) {
 			prjTutor.setName(nameTutor.get());
 		}
-		if(phoneTutor.isPresent()){
+		if (phoneTutor.isPresent()) {
 			prjTutor.setPhone(phoneTutor.get());
 		}
 		prjMember = new MemberImpl(name, surname, birthday, sex, prjTutor);
 		return prjMember;
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -86,11 +97,12 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param place
 	 * @return
 	 */
-	public static ExcursionImpl getGeneralExcursion(final LocalDate dateStart,final  MyOptional<LocalDate> dateEnd,
+	public static ExcursionImpl getGeneralExcursion(final LocalDate dateStart, final MyOptional<LocalDate> dateEnd,
 			final MyOptional<String> place) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	/**
 	 * 
 	 * @param name
@@ -100,17 +112,19 @@ public final class ProjectFactoryImpl implements Serializable {
 	public static Squadron getSquadron(final String name, final Boolean sex) {
 		return new SquadronImpl(name, sex);
 	}
+
 	/**
 	 * 
 	 * @param capoMaschio
 	 * @param capoFemmina
 	 * @param name
 	 * @return
-	 * @throws MemberSexException 
+	 * @throws MemberSexException
 	 */
 
-	public static Reparto getReparto(final Capo leaderM, final Capo leaderF, final String name) throws MemberSexException{
-			return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
+	public static Reparto getReparto(final Capo leaderM, final Capo leaderF, final String name)
+			throws MemberSexException {
+		return new RepartoImpl(leaderM, leaderF, new ArrayList<>(), name);
 	}
 
 	/**
@@ -120,12 +134,14 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param aiutanti
 	 * @param name
 	 * @return
-	 * @throws MemberSexException 
+	 * @throws MemberSexException
 	 */
 
-	public static Reparto getReparto(final Capo leaderM, final Capo leaderF, final List<Capo> helper,final String name) throws MemberSexException{
-			return new RepartoImpl(leaderM, leaderF, helper, name);
+	public static Reparto getReparto(final Capo leaderM, final Capo leaderF, final List<Capo> helper, final String name)
+			throws MemberSexException {
+		return new RepartoImpl(leaderM, leaderF, helper, name);
 	}
+
 	/**
 	 * 
 	 * @param name
@@ -133,11 +149,13 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param birthDay
 	 * @param number
 	 * @return
-	 * @throws IllegalPhoneNumberException 
+	 * @throws IllegalPhoneNumberException
 	 */
-	public static Capo getLeaderM(final String name, final String surname, final LocalDate birthDay, final String number) throws IllegalPhoneNumberException{
-			return new CapoImpl(name, surname, birthDay, true, number);
-		}
+	public static Capo getLeaderM(final String name, final String surname, final LocalDate birthDay,
+			final String number) throws IllegalPhoneNumberException {
+		return new CapoImpl(name, surname, birthDay, true, number);
+	}
+
 	/**
 	 * 
 	 * @param name
@@ -145,39 +163,42 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param birthDay
 	 * @param number
 	 * @return
-	 * @throws IllegalPhoneNumberException 
+	 * @throws IllegalPhoneNumberException
 	 */
-	public static Capo getLeaderF(final String name, final String surname,final  LocalDate birthDay,
-			final String number) throws IllegalPhoneNumberException{
-			return new CapoImpl(name, surname, birthDay, false, number);
+	public static Capo getLeaderF(final String name, final String surname, final LocalDate birthDay,
+			final String number) throws IllegalPhoneNumberException {
+		return new CapoImpl(name, surname, birthDay, false, number);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
 	 * @param reparto
 	 * @param name
 	 * @return
-	 * @throws IllegalDateException 
-	 * @throws Exception 
+	 * @throws IllegalDateException
+	 * @throws Exception
 	 */
-	public static Uscita getStdExcursion(final LocalDate dateStart,final Reparto reparto,
+	public static Uscita getStdExcursion(final LocalDate dateStart, final Reparto reparto, final String name)
+			throws IllegalDateException {
+		return new UscitaImpl(dateStart, reparto, name);
+	}
+
+	/**
+	 * 
+	 * @param dateStart
+	 * @param duration
+	 * @param sq
+	 * @param name
+	 * @return
+	 * @throws IllegalDateException
+	 * @throws Exception
+	 */
+	public static UscitaSquadriglia getSqExcursion(final LocalDate dateStart, final int duration, final Squadron sq,
 			final String name) throws IllegalDateException {
-			return new UscitaImpl(dateStart, reparto, name);
+		return new UscitaSquadrigliaImpl(dateStart, duration, sq, name);
 	}
-	/**
-	 * 
-	 * @param dateStart
-	 * @param duration
-	 * @param sq
-	 * @param name
-	 * @return
-	 * @throws IllegalDateException 
-	 * @throws Exception 
-	 */
-	public static UscitaSquadriglia getSqExcursion(final LocalDate dateStart,final int duration,
-			final Squadron sq,final String name) throws IllegalDateException {
-			return new UscitaSquadrigliaImpl(dateStart, duration, sq, name);
-	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -185,13 +206,14 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param sq
 	 * @param name
 	 * @return
-	 * @throws IllegalDateException 
-	 * @throws Exception 
+	 * @throws IllegalDateException
+	 * @throws Exception
 	 */
-	public static UscitaSquadriglia getSqExcursion(final LocalDate dateStart,final LocalDate dateEnd,
-			final Squadron sq,final String name) throws IllegalDateException {
-			return new UscitaSquadrigliaImpl(dateStart, dateEnd, sq, name);
+	public static UscitaSquadriglia getSqExcursion(final LocalDate dateStart, final LocalDate dateEnd,
+			final Squadron sq, final String name) throws IllegalDateException {
+		return new UscitaSquadrigliaImpl(dateStart, dateEnd, sq, name);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -199,13 +221,14 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param rp
 	 * @param name
 	 * @return
-	 * @throws IllegalDateException 
-	 * @throws Exception 
+	 * @throws IllegalDateException
+	 * @throws Exception
 	 */
-	public static Campo getCamp(final LocalDate dateStart,final LocalDate dateEnd,
-			final Reparto rp,final String name) throws IllegalDateException {
-			return new CampoImpl(dateStart, dateEnd, rp, name);
+	public static Campo getCamp(final LocalDate dateStart, final LocalDate dateEnd, final Reparto rp, final String name)
+			throws IllegalDateException {
+		return new CampoImpl(dateStart, dateEnd, rp, name);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -213,21 +236,23 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param rp
 	 * @param name
 	 * @return
-	 * @throws IllegalDateException 
-	 * @throws Exception 
+	 * @throws IllegalDateException
+	 * @throws Exception
 	 */
-	public static Campo getCamp(final LocalDate dateStart,final int duration,final Reparto rp,
-			final String name) throws IllegalDateException{
-			return new CampoImpl(dateStart, duration, rp, name);
+	public static Campo getCamp(final LocalDate dateStart, final int duration, final Reparto rp, final String name)
+			throws IllegalDateException {
+		return new CampoImpl(dateStart, duration, rp, name);
 	}
+
 	/**
 	 * 
 	 * @param rp
 	 * @return
 	 */
-	public static Unit getUnit(final Reparto rp){
+	public static Unit getUnit(final Reparto rp) {
 		return new UnitImpl(rp);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -236,13 +261,13 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param name
 	 * @param altriReparti
 	 * @return
-	 * @throws IllegalDateException 
+	 * @throws IllegalDateException
 	 */
-	public static EventiDiZona getLocalEvent(final LocalDate dateStart, final LocalDate dateEnd,
-			final  Reparto reparto, final String name,final List<String> others)
-					throws IllegalDateException{
+	public static EventiDiZona getLocalEvent(final LocalDate dateStart, final LocalDate dateEnd, final Reparto reparto,
+			final String name, final List<String> others) throws IllegalDateException {
 		return new EventiDiZonaImpl(dateStart, dateEnd, reparto, name, others);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -251,12 +276,13 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param name
 	 * @param others
 	 * @return
-	 * @throws IllegalDateException 
+	 * @throws IllegalDateException
 	 */
-	public static EventiDiZona getLocalEvent(final LocalDate dateStart,final  int duration,final  Reparto reparto,
-			final String name,final List<String> others) throws IllegalDateException{
+	public static EventiDiZona getLocalEvent(final LocalDate dateStart, final int duration, final Reparto reparto,
+			final String name, final List<String> others) throws IllegalDateException {
 		return new EventiDiZonaImpl(dateStart, duration, reparto, name, others);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -265,12 +291,13 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param name
 	 * @param others
 	 * @return
-	 * @throws IllegalDateException 
+	 * @throws IllegalDateException
 	 */
-	public static Gemellaggi getEventTwoUnit(final LocalDate dateStart,final LocalDate dateEnd,final Reparto reparto,
-			final String name,final List<String> others) throws IllegalDateException{
+	public static Gemellaggi getEventTwoUnit(final LocalDate dateStart, final LocalDate dateEnd, final Reparto reparto,
+			final String name, final List<String> others) throws IllegalDateException {
 		return new GemellaggiImpl(dateStart, dateEnd, reparto, name, others);
 	}
+
 	/**
 	 * 
 	 * @param dateStart
@@ -279,11 +306,11 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param name
 	 * @param others
 	 * @return
-	 * @throws IllegalDateException 
+	 * @throws IllegalDateException
 	 */
-	public static Gemellaggi getEventMoreUnit(final LocalDate dateStart,final int duration,final Reparto reparto,
-			final String name,final List<String> others) throws IllegalDateException{
+	public static Gemellaggi getEventMoreUnit(final LocalDate dateStart, final int duration, final Reparto reparto,
+			final String name, final List<String> others) throws IllegalDateException {
 		return new GemellaggiImpl(dateStart, duration, reparto, name, others);
-		
+
 	}
 }

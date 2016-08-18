@@ -13,18 +13,21 @@ public interface SortExcursion {
 	 * @return
 	 */
 	List<Excursion> sortByDateOfStart(List<Excursion> exc);
+
 	/**
 	 * 
 	 * @param exc
 	 * @return
 	 */
 	List<Excursion> sortByPrice(List<Excursion> exc);
+
 	/**
 	 * 
 	 * @param exc
 	 * @return
 	 */
 	Map<String, List<Excursion>> mapExcursion(List<Excursion> exc);
+
 	/**
 	 * 
 	 * @param exc

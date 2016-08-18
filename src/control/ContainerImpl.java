@@ -20,7 +20,7 @@ import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
 
 public class ContainerImpl implements Container, Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -29,30 +29,26 @@ public class ContainerImpl implements Container, Serializable {
 	final private List<Member> freeMember;
 	final private List<Squadron> squadronActive;
 	final private List<Excursion> excs;
-	
-	public ContainerImpl(final List<Squadron> sq, final List<Member> freeMember, final List<Excursion> exc){
+
+	public ContainerImpl(final List<Squadron> sq, final List<Member> freeMember, final List<Excursion> exc) {
 		this.unit = new ArrayList<>(freeMember);
 		sq.forEach(e -> this.unit.addAll(e.getMembri().keySet()));
 		this.freeMember = freeMember;
 		this.squadronActive = sq;
 		this.excs = exc;
 	}
-	
-	
 
 	@Override
 	public List<Member> findMember(final String name) throws IllegalArgumentException {
 		System.out.println(name);
-		return this.unit.stream()
-						.filter(e -> e.getName().equalsIgnoreCase(name))
-						.collect(Collectors.toList());
+		return this.unit.stream().filter(e -> e.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Member> membersIncomplete() {
 		return this.unit.stream().filter(e -> e.isComplete()).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public List<Member> getMembers() {
 		return this.unit;
@@ -60,24 +56,19 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public Squadron findSquadron(final String name) {
-		return this.squadronActive.stream()
-							.filter(e -> e.getNome()
-							.equalsIgnoreCase(name)).findFirst().get();
+		return this.squadronActive.stream().filter(e -> e.getNome().equalsIgnoreCase(name)).findFirst().get();
 	}
 
 	@Override
 	public List<Member> members(final Predicate<? super Member> p) {
-		return this.unit.stream()
-						.filter(p)
-						.collect(Collectors.toList());
+		return this.unit.stream().filter(p).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public List<Squadron> getSquadrons() {
 		return this.squadronActive;
 	}
-	
-	
+
 	@Override
 	public List<Member> getFreeMember() {
 		return this.freeMember;
@@ -86,13 +77,13 @@ public class ContainerImpl implements Container, Serializable {
 	@Override
 	public void removeMeberFromSquadron(final Member member, final Squadron sq)
 			throws SquadronNotExistException, MemberNotExistException, ObjectNotContainedException {
-		if(!this.squadronActive.contains(sq)){
+		if (!this.squadronActive.contains(sq)) {
 			throw new SquadronNotExistException();
 		}
-		if(!this.unit.contains(member) || ! sq.containMember(member)){
+		if (!this.unit.contains(member) || !sq.containMember(member)) {
 			throw new MemberNotExistException();
 		}
-		
+
 		try {
 			this.squadronActive.get(this.squadronActive.indexOf(sq)).removeMembro(member);
 			this.freeMember.add(member);
@@ -101,96 +92,86 @@ public class ContainerImpl implements Container, Serializable {
 		}
 	}
 
-
-
 	@Override
 	public List<Excursion> getExcursion() {
 		return this.excs;
 	}
-
-
 
 	@Override
 	public List<Excursion> excursions(final Predicate<? super Excursion> p) {
 		return this.excs.stream().filter(p).collect(Collectors.toList());
 	}
 
-
-
 	@Override
 	public Excursion getExcursionNamed(final String name) {
 		return this.excs.stream().filter(e -> e.getName().equalsIgnoreCase(name)).findFirst().get();
 	}
 
-
-
 	@Override
-	public Member getMember(final String name,final  String surname) {
-		return this.unit.stream().filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname))
-								 .findFirst()
-								 .get();
+	public Member getMember(final String name, final String surname) {
+		return this.unit.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname)).findFirst()
+				.get();
 	}
-	
-	
+
 	@Override
 	public Uscita getExit(final String name) {
 		Uscita tmp = null;
-		for(final Excursion exc : this.excs){
-			if(exc.getName().equalsIgnoreCase(name) && exc instanceof Uscita){
-					tmp = (Uscita)exc;
+		for (final Excursion exc : this.excs) {
+			if (exc.getName().equalsIgnoreCase(name) && exc instanceof Uscita) {
+				tmp = (Uscita) exc;
 			}
 		}
-		
+
 		return tmp;
 	}
+
 	@Override
 	public UscitaSquadriglia getExcursionSq(final String name) {
 		UscitaSquadriglia tmp = null;
-		for(final Excursion exc : this.excs){
-			if(exc.getName().equalsIgnoreCase(name) && exc instanceof UscitaSquadriglia){
-					tmp = (UscitaSquadriglia)exc;
+		for (final Excursion exc : this.excs) {
+			if (exc.getName().equalsIgnoreCase(name) && exc instanceof UscitaSquadriglia) {
+				tmp = (UscitaSquadriglia) exc;
 			}
 		}
-		
+
 		return tmp;
 	}
+
 	@Override
 	public Gemellaggi getTwoUnitEvent(final String name) {
 		Gemellaggi tmp = null;
-		for(final Excursion exc : this.excs){
-			if(exc.getName().equalsIgnoreCase(name) && exc instanceof Gemellaggi){
-					tmp = (Gemellaggi)exc;
+		for (final Excursion exc : this.excs) {
+			if (exc.getName().equalsIgnoreCase(name) && exc instanceof Gemellaggi) {
+				tmp = (Gemellaggi) exc;
 			}
 		}
-		
+
 		return tmp;
 	}
+
 	@Override
 	public EventiDiZona getLocalEvent(final String name) {
 		EventiDiZona tmp = null;
-		for(final Excursion exc : this.excs){
-			if(exc.getName().equalsIgnoreCase(name) && exc instanceof EventiDiZona){
-					tmp = (EventiDiZona)exc;
+		for (final Excursion exc : this.excs) {
+			if (exc.getName().equalsIgnoreCase(name) && exc instanceof EventiDiZona) {
+				tmp = (EventiDiZona) exc;
 			}
 		}
-		
+
 		return tmp;
 	}
+
 	@Override
 	public Campo getCamp(final String name) {
 		Campo tmp = null;
-		for(final Excursion exc : this.excs){
-			if(exc.getName().equalsIgnoreCase(name) && exc instanceof Campo){
-					tmp = (Campo)exc;
+		for (final Excursion exc : this.excs) {
+			if (exc.getName().equalsIgnoreCase(name) && exc instanceof Campo) {
+				tmp = (Campo) exc;
 			}
 		}
-		
+
 		return tmp;
 	}
 
-	
-	
-
-	
-	
 }

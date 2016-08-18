@@ -117,8 +117,8 @@ public class CheckerImpl implements Checker, Serializable {
 		return tmp.compareTo(start) >= 0 && tmp.compareTo(end) <= 0;
 	}
 
-	private boolean checkMail(final Unit unit){
-		if(unit.getLastMailSend().equals(LocalDate.now())){
+	private boolean checkMail(final Unit unit) {
+		if (unit.getLastMailSend().equals(LocalDate.now())) {
 			unit.setLastMailSend(LocalDate.now().plus(1, ChronoUnit.DAYS));
 			return true;
 		}
