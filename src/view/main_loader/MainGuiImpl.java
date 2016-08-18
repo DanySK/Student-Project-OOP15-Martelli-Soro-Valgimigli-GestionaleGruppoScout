@@ -15,12 +15,12 @@ import javax.swing.SwingUtilities;
 
 import control.CheckerImpl;
 import view.Main;
-import view.general_utility.WarningNotice;
-import view.gestioneTasse.GestioneTasseMain;
 import view.gestione_eventi.GestioneEventiMain;
 import view.gestione_reparto.GestioneRepartoMain;
+import view.gestione_tasse.GestioneTasseMain;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
+import view.online.OnlineMainImpl;
 /**
  * Class that create a MyJPanel for the Main page of this app, and it sets this MyJPanel like the
  * contentPane of MyFrameSingleton
@@ -69,9 +69,12 @@ public class MainGuiImpl extends MyJPanelImpl{
 			new GestioneEventiMain();
 		}));
 		
-		this.south.add(createButton("Altro", e->{
-			new WarningNotice("Al momento non sono presenti espansioni,"+System.lineSeparator()
-					+ "quando saranno presenti verrano mostrate qui");
+		this.south.add(createButton("Online", e->{
+			try{
+				new OnlineMainImpl();
+			}catch(Exception k){
+				k.printStackTrace();
+			}
 		}));
 		
 		/* Prepare JButton Opzioni, ActionListener-->open JPopupMenu */

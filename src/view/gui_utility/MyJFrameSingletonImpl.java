@@ -20,7 +20,7 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 	
 	
 	private static final long serialVersionUID = -5285934581393069862L;
-	private static MyJFrameSingletonImpl myframe=null;
+	private static MyJFrameSingletonImpl myframe;
 	public final static int HEIGTH;
 	public final static int WIDTH;
 	private boolean needSave=false;

@@ -14,6 +14,7 @@ import control.UnitImpl;
 import model.Squadron;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
+
 /**
  * Class that create a MyJPanel for the page of Reparto Management and it sets this MyJPanel like the
  * contentPane of MyFrameSingleton
@@ -65,6 +66,7 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 		javax.swing.ToolTipManager.sharedInstance().registerComponent(getTree());
 		getTree().setVisibleRowCount(1);
 	
+	
 		/*
 		 * popolo il JTree con le varie entrate(al momento è solamente simulato)
 		 */
@@ -108,8 +110,14 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree{
 				setToolTipText("<html>In questa sezione è possibile modificare la squadriglia;<br>"
 						+ "aggiungendo membri, assegnando incarichi, etc...");
 			}
+			else if(((DefaultMutableTreeNode)value).getUserObject() instanceof RepartoOverviewImpl){
+				setToolTipText("<html>In questa sezione è possibile modificare il reparto;<br>"
+						+ "aggiungendo membri(senza squadriglia), assegnando incarichi,<br>"
+						+ "creando squadriglie, etc...");
+			}
 			return this;
 		}	 
 	}
+	
 }	
 

@@ -74,10 +74,10 @@ public class ShowEditExcursion extends JDialog{
 				panelCenter.add(panelCenter.createJLabel("Inizio: ", FONTSIZE));
 				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), FONTSIZE));
 				
-				
-				panelCenter.add(panelCenter.createJLabel("Fine: ", FONTSIZE));
-				panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), FONTSIZE));
-				
+				if(!(exc instanceof ExcursionOnline)){
+					panelCenter.add(panelCenter.createJLabel("Fine: ", FONTSIZE));
+					panelCenter.add(panelCenter.createJLabel(info.get("Data").get(0), FONTSIZE));
+				}
 				
 				panelCenter.add(panelCenter.createJLabel("Prezzo: ", FONTSIZE));
 				panelCenter.add(panelCenter.createJLabel(info.get("Prezzo").get(0), FONTSIZE));
@@ -122,13 +122,57 @@ public class ShowEditExcursion extends JDialog{
 					panelEdit.add(panelEdit.createJLabel("", FONTSIZEBUTTON));
 					panelEdit.add(panelEdit.createJLabel("", FONTSIZEBUTTON));
 					panelEdit.add(panelEdit.createJLabel("", FONTSIZEBUTTON));
-					panelEdit.add(panelEdit.createJLabel("", FONTSIZEBUTTON));
-					panelCenter.add(panelCenter.createJLabel("Link",FONTSIZE ));
-					panelEdit.add(panelEdit.createButton("Vedi",FONTSIZEBUTTON, e->{
-						final JDialog dial=new JDialog();
-						final MyJPanelImpl pan = new MyJPanelImpl();
-						final MyJPanelImpl panbot=new MyJPanelImpl();
+					panelCenter.add(panelCenter.createJLabel("Link Evento",FONTSIZE ));
+					panelCenter.add(panelEdit.createButton("Vedi",FONTSIZEBUTTON, e->{
+						final JDialog dial =new JDialog();
+						final MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
+						final MyJPanelImpl flow=new MyJPanelImpl();
+						pan.add(pan.createJTextArea(((ExcursionOnline)exc).getPiccoleOrmeUrl().toString(), false, FONTSIZE),BorderLayout.CENTER);
+						flow.add(flow.createButton("OK", t->{
+							dial.dispose();
+						}));
+						dial.add(pan);
+						pan.add(flow,BorderLayout.SOUTH);
+						dial.pack();
+						dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+						dial.setTitle("ERRORE");
+						dial.setVisible(true);
 						
+					}));
+					panelEdit.add(panelCenter.createButton("<html>Apri nel<br>Browse</html>", FONTSIZEBUTTON,e->{
+						try {
+							((ExcursionOnline)exc).openPiccoleOrmeUrl();
+						} catch (Exception e1) {
+							new WarningNotice(e1.getMessage());
+						}
+					}));
+					panelCenter.add(panelCenter.createJLabel("Link Google Maps",FONTSIZE ));
+					panelCenter.add(panelEdit.createButton("Vedi",FONTSIZEBUTTON, e->{
+						try{
+						final JDialog dial =new JDialog();
+						final MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
+						final MyJPanelImpl flow=new MyJPanelImpl();
+						pan.add(pan.createJTextArea(((ExcursionOnline)exc).getMapLink().toString(), false, FONTSIZE),BorderLayout.CENTER);
+						
+						flow.add(flow.createButton("OK", t->{
+							dial.dispose();
+						}));
+						dial.add(pan);
+						pan.add(flow,BorderLayout.SOUTH);
+						dial.pack();
+						dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+						dial.setTitle("ERRORE");
+						dial.setVisible(true);
+						}catch(Exception y){
+							new WarningNotice(y.getMessage());
+						}
+					}));
+					panelEdit.add(panelCenter.createButton("<html>Apri nel<br>Browse</html>", FONTSIZEBUTTON,e->{
+						try {
+							((ExcursionOnline)exc).openMapLink();
+						} catch (Exception e1) {
+							new WarningNotice(e1.getMessage());
+						}
 					}));
 				}
 				
