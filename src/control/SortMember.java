@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Member;
 
-public interface SortMember extends SorterList {
+public interface SortMember{
 	/**
 	 * Sort the list according to the name
 	 * @param members

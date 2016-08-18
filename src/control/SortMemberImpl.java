@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Member;
 
-public class SortMemberImpl extends SorterListImpl implements SortMember {
+public class SortMemberImpl implements SortMember {
 
 	/**
 	 * 
@@ -26,24 +26,25 @@ public class SortMemberImpl extends SorterListImpl implements SortMember {
 												1 :
 												e1.getSpecialities().size() < e2.getSpecialities().size() ?
 												-1 : 0;
+	private final SorterList sl = new SorterListImpl();
 	@Override
 	public List<Member> sortByName(final List<Member> members) {
-		return this.sortList(members, CMPBYNAME);
+		return this.sl.sortList(members, CMPBYNAME);
 	}
 
 	@Override
 	public List<Member> sortByAge(final List<Member> members) {
-		return this.sortList(members, CMPBYAGE);
+		return this.sl.sortList(members, CMPBYAGE);
 	}
 
 	@Override
 	public List<Member> sortBySurname(final List<Member> members) {
-		return this.sortList(members, CMPBYSURNAME);
+		return this.sl.sortList(members, CMPBYSURNAME);
 	}
 
 	@Override
 	public List<Member> sortByNOfSpecialties(final List<Member> members) {
-		return this.sortList(members, CMPBYNUMBOFSPEC);
+		return this.sl.sortList(members, CMPBYNUMBOFSPEC);
 	}
 
 

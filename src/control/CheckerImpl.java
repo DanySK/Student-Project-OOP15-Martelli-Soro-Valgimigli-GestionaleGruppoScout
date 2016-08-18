@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
 import extra.mail.ControlMail;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
+import view.general_utility.WarningNotice;
 
 /**
  * 
@@ -28,6 +31,7 @@ public class CheckerImpl implements Checker, Serializable {
 	private static final long serialVersionUID = -2321120264672768555L;
 	private static final Integer DAYTOCHECK = 7;
 	private static final Integer TODAY = 1;
+	private static final String ERRMSG = "Errore invio mail in automatico. Controllare connesione";
 	private LocalDate lastMail;
 	
 
@@ -66,7 +70,6 @@ public class CheckerImpl implements Checker, Serializable {
 
 	@Override
 	public Map<String, List<String>> stdRouting(final Unit unit) {
-		
 		final List<Member> people = unit.getContainers().getMembers();
 		final List<Excursion> excursions = unit.getContainers().getExcursion();
 		final List<Excursion> toRemove = excursions.stream()
@@ -83,14 +86,22 @@ public class CheckerImpl implements Checker, Serializable {
 													.collect(Collectors.toList()));
 			if(this.checkDateIsBetween(LocalDate.now(), LocalDate.now().plus(DAYTOCHECK, ChronoUnit.DAYS),
 					e.getDateStart()) && this.checkMail()){
-				ControlMail.sendMailForPaymentExcursion(e);
+				try{
+					ControlMail.sendMailForPaymentExcursion(e);
+				}catch(MessagingException err){
+					new WarningNotice(ERRMSG);
+				}
 			}
 		}
 		final List<Member> birthday = this.birthday(DAYTOCHECK, people);
 		map.put("Compleanni a breve", birthday.stream().map(m-> m.getName() + " " + m.getSurname()+ "[ "
 				+ m.getBirthday().toString() + " ]").collect(Collectors.toList()));
 		if(this.checkMail()){
-			ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
+			try{
+				ControlMail.sendMailForBirthday(this.birthday(TODAY, people));
+			}catch(MessagingException err){
+				new WarningNotice(ERRMSG);
+			}
 		}
 		if(this.checkDateIsBetween(unit.getLimitDateToPay(), unit.getLimitDateToPay()
 									.plus(- DAYTOCHECK, ChronoUnit.DAYS), LocalDate.now())){
@@ -98,7 +109,11 @@ public class CheckerImpl implements Checker, Serializable {
 					.map(m-> m.getName() + " " + m.getSurname())
 					.collect(Collectors.toList()));
 			if(this.checkMail()){
-				ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
+				try{
+					ControlMail.sendMailForTaxPayment(unit.getMemberDidntPay(), unit.getLimitDateToPay());
+				}catch(MessagingException err){
+					new WarningNotice(ERRMSG);
+				}
 			}
 		}
 		this.lastMail = LocalDate.now();

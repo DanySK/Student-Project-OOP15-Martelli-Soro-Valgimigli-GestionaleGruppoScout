@@ -3,6 +3,8 @@ package control;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+
 import model.Excursion;
 import model.Member;
 import model.Reparto;
@@ -48,6 +50,7 @@ import model.Reparto;
 	 * A map that has for Keys "Excursion" and "Birthday" and for values 
 	 * all members which have the birthday
 	 * within Default Numb of days and all members which haven't payed the excursion
+	 * @throws MessagingException 
 	 */
-	  Map<String, List<String>> stdRouting(Unit unit);
+	  Map<String, List<String>> stdRouting(Unit unit) throws MessagingException;
 }

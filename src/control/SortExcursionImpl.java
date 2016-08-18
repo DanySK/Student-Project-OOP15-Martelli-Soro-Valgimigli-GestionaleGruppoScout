@@ -10,7 +10,7 @@ import model.CampoImpl;
 import model.Excursion;
 import model.UscitaImpl;
 
-public class SortExcursionImpl extends SorterListImpl implements SortExcursion {
+public class SortExcursionImpl implements SortExcursion {
 
 	/**
 	 * 
@@ -21,15 +21,15 @@ public class SortExcursionImpl extends SorterListImpl implements SortExcursion {
 	private static final Comparator<Excursion> BYPRICE = ((Excursion e1, Excursion e2) ->
 														e1.getPrize().compareTo(e2.getPrize()));
 	
-
+	private final SorterList sl = new SorterListImpl();
 	@Override
 	public List<Excursion> sortByDateOfStart(final List<Excursion> exc) {
-		return this.sortList(exc, BYDATE);
+		return this.sl.sortList(exc, BYDATE);
 	}
 
 	@Override
 	public List<Excursion> sortByPrice(final List<Excursion> exc) {
-		return this.sortList(exc, BYPRICE);
+		return this.sl.sortList(exc, BYPRICE);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class SortExcursionImpl extends SorterListImpl implements SortExcursion {
 
 	@Override
 	public List<Excursion> sortBy(final List<Excursion> exc,final  Comparator<Excursion> c) {
-		return this.sortList(exc, c);
+		return this.sl.sortList(exc, c);
 	}
 
 }
