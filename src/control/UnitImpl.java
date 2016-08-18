@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
 import control.exception.MemberSexException;
 import control.myUtil.Pair;
 import extra.mail.ControlMail;
@@ -142,7 +144,11 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public void addExcursion(final Excursion exc) {
 		this.excursions.add(exc);
-		ControlMail.sendMailForExcursion(exc);
+		try {
+			ControlMail.sendMailForExcursion(exc);
+		} catch (MessagingException e) {
+			new WarningNotice("Invio automatico delle email fallito. Controllare la connessione");
+		}
 	}
 	
 	@Override

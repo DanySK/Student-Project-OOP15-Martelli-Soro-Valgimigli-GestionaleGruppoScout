@@ -18,6 +18,7 @@ public final class ExcursionOnlineGetterImpl implements ExcursionOnlineGetter{
 	private ExcursionOnlineGetterImpl(){
 		
 	}
+	
 	public static List<ExcursionOnline> getExcursion(final Regioni regione) throws IllegalDateException, IOException,MalformedURLException {
 		final List<ExcursionOnline> result = new ArrayList<>();
 		final URL url = regione.getUrl();
