@@ -1,4 +1,4 @@
-package model;
+package model.reparto;
 
 import java.time.LocalDate;
 import java.util.List;

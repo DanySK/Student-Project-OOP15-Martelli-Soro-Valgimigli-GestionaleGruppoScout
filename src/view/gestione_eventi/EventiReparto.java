@@ -9,11 +9,11 @@ import javax.swing.SwingUtilities;
 
 import control.SortExcursionImpl;
 import control.myUtil.MyOptional;
-import model.Campo;
-import model.EventiDiZona;
-import model.Excursion;
-import model.Gemellaggi;
-import model.Uscita;
+import model.escursioni.Campo;
+import model.escursioni.EventiDiZona;
+import model.escursioni.Excursion;
+import model.escursioni.Gemellaggi;
+import model.escursioni.Uscita;
 import view.gestione_eventi.utility.AddExcursionJDialog;
 import view.gestione_eventi.utility.AddExcursionJDialog.TypeExcursion;
 import view.gui_utility.EditableMemberPanelImpl;

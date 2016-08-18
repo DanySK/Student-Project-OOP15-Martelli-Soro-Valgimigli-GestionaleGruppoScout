@@ -19,8 +19,8 @@ import javax.swing.UIManager;
 import control.InfoProjectImpl;
 import control.Unit;
 import control.myUtil.Pair;
+import model.reparto.Squadron;
 import control.myUtil.MyOptional;
-import model.Squadron;
 import view.general_utility.WarningNotice;
 import view.gui_utility.SearchElementJDialog.SearchType;
 /**

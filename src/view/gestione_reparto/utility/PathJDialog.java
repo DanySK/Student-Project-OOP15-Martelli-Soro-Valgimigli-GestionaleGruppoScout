@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import control.myUtil.MyOptional;
-import model.Member;
 import model.exception.IllegalOperationException;
+import model.reparto.Member;
 import view.general_utility.WarningNotice;
 import view.gestione_reparto.utility.JTextAreaDialog.OB;
 import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;

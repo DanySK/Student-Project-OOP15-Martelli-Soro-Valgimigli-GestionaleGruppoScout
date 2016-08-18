@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import model.Excursion;
+import model.escursioni.Excursion;
 
 public interface ExcursionOnline extends Excursion {
 	/**

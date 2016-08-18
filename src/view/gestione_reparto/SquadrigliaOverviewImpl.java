@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import control.myUtil.MyOptional;
-import model.Member;
+import model.reparto.Member;
 import view.gui_utility.EditableInfoPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;

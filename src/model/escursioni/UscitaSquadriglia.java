@@ -1,4 +1,6 @@
-package model;
+package model.escursioni;
+
+import model.reparto.Squadron;
 
 public interface UscitaSquadriglia extends Excursion {
 

@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import control.myUtil.MyOptional;
-import model.Member;
+import model.reparto.Member;
 import view.gui_utility.EditableInfoPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;

@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.File;
 
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;

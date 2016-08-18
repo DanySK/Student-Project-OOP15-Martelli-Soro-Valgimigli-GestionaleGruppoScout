@@ -15,12 +15,12 @@ import javax.swing.JTextField;
 
 import control.InfoProjectImpl;
 import control.myUtil.MyOptional;
-import model.Excursion;
-import model.Member;
-import model.MemberImpl;
-import model.Roles;
-import model.Squadron;
+import model.escursioni.Excursion;
 import model.exception.ObjectAlreadyContainedException;
+import model.reparto.Member;
+import model.reparto.MemberImpl;
+import model.reparto.Roles;
+import model.reparto.Squadron;
 import view.general_utility.WarningNotice;
 import view.gestione_eventi.EventiReparto.EventiRepartoPane;
 import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPanel;

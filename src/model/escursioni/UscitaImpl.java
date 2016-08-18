@@ -1,9 +1,10 @@
-package model;
+package model.escursioni;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 import model.exception.IllegalDateException;
+import model.reparto.Reparto;
 
 public class UscitaImpl extends ExcursionImpl implements Uscita, Serializable {
 

@@ -9,7 +9,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.Member;
+
+import model.reparto.Member;
 
 public final class MailSender {
 	

@@ -1,10 +1,11 @@
-package model;
+package model.escursioni;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.exception.IllegalDateException;
+import model.reparto.Squadron;
 
 public class UscitaSquadrigliaImpl extends ExcursionImpl implements UscitaSquadriglia, Serializable {
 

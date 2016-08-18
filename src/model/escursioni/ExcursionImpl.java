@@ -1,4 +1,4 @@
-package model;
+package model.escursioni;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,6 +11,7 @@ import control.myUtil.MyOptional;
 import model.exception.IllegalDateException;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
+import model.reparto.Member;
 
 public abstract class ExcursionImpl implements Excursion, Serializable {
 	/**

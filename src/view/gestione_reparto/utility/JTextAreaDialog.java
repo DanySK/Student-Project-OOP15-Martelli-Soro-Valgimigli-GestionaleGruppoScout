@@ -13,9 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import control.myUtil.MyOptional;
-import model.Member;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
+import model.reparto.Member;
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;

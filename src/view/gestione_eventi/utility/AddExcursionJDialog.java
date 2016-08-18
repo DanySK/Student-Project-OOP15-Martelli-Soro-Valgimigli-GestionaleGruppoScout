@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
 import control.Unit;
 import control.ProjectFactoryImpl;
 import control.myUtil.MyOptional;
-import model.Excursion;
+import model.escursioni.Excursion;
 import model.exception.IllegalDateException;
 import view.general_utility.WarningNotice;
 import view.gestione_eventi.EventiReparto.EventiRepartoPane;
