@@ -16,7 +16,6 @@ import extra.mail.ControlMail;
 import model.Excursion;
 import model.Member;
 import model.Reparto;
-import view.general_utility.WarningNotice;
 
 /**
  * 
@@ -109,7 +108,6 @@ public class CheckerImpl implements Checker, Serializable {
 				}
 			}
 		}
-		this.lastMail = LocalDate.now();
 		return map;
 	}
 
