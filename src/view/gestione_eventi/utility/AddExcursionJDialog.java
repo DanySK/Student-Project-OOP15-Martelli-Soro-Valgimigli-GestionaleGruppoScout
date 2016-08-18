@@ -24,7 +24,7 @@ import view.gestione_eventi.EventiReparto.EventiRepartoPane;
 import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanel;
-import view.gui_utility.MyJPanelImpl;;
+import view.gui_utility.MyJPanelImpl;
 
 public class AddExcursionJDialog extends JDialog {
 	public enum TypeExcursion{
