@@ -18,7 +18,7 @@ import view.gui_utility.MyJPanelImpl;
 public class AiutantiJDialog extends JDialog {
 	
 	private static final long serialVersionUID = -3089581238215852232L;
-	private final static int fontSize=18;
+	private final static int FONTSIZE=18;
 	private final MyJPanelImpl inPanel=new MyJPanelImpl(new BorderLayout());
 	private final MyJPanelImpl panelLeft = new MyJPanelImpl(new GridLayout(0, 2));
 	private final MyJPanelImpl panelRight=new MyJPanelImpl(new GridLayout(0,1));
@@ -28,10 +28,10 @@ public class AiutantiJDialog extends JDialog {
 		super();
 		final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl bot=new MyJPanelImpl();
-		bot.add(bot.createButton("Ok", fontSize, e->{
+		bot.add(bot.createButton("Ok", FONTSIZE, e->{
 			this.dispose();
 		}));
-		bot.add(bot.createButton("Aggiungi staff", fontSize, y->{
+		bot.add(bot.createButton("Aggiungi staff", FONTSIZE, y->{
 			final JDialog dial= new JDialog();
 			final MyJPanelImpl outerPanel=new MyJPanelImpl(new BorderLayout());
 			final MyJPanelImpl panelBot=new MyJPanelImpl();
@@ -39,7 +39,7 @@ public class AiutantiJDialog extends JDialog {
 			panCapo.addSexChoose();
 				panelBot.add(panelBot.createButton("OK", e->{
 				try{
-					if(panCapo.getSex()){
+					if(panCapo.isSex()){
 						MyJFrameSingletonImpl.getInstance().getUnit().getReparto().addAiutante(ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
 								panCapo.getDate(),panCapo.getPhone()));
 					}
@@ -81,14 +81,14 @@ public class AiutantiJDialog extends JDialog {
 				panelLeft.removeAll();
 				panelRight.removeAll();
 				/*popolo Left e Right*/
-				MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getStaff().stream().forEach(e->{
+				MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAiutanti().stream().forEach(e->{
 					
-					panelLeft.add(panelLeft.createJLabel("Aiutante:", fontSize));
-					panelLeft.add(panelLeft.createJLabel(e.getName()+ " "+e.getSurname(), fontSize));
-					panelLeft.add(panelLeft.createJLabel("", fontSize));
-					panelLeft.add(panelLeft.createJLabel("Tel. "+e.getPhoneNumber(), fontSize));
+					panelLeft.add(panelLeft.createJLabel("Aiutante:", FONTSIZE));
+					panelLeft.add(panelLeft.createJLabel(e.getName()+ " "+e.getSurname(), FONTSIZE));
+					panelLeft.add(panelLeft.createJLabel("", FONTSIZE));
+					panelLeft.add(panelLeft.createJLabel("Tel. "+e.getPhoneNumber(), FONTSIZE));
 					
-					panelRight.add(panelRight.createButton("Rimuovi", fontSize,i->{
+					panelRight.add(panelRight.createButton("Rimuovi", FONTSIZE,i->{
 						try {
 							MyJFrameSingletonImpl.getInstance().getUnit().getReparto().removeAiutante(e);
 							MyJFrameSingletonImpl.getInstance().setNeedToSave();
@@ -98,12 +98,12 @@ public class AiutantiJDialog extends JDialog {
 							
 						}
 					}));
-					panelRight.add(panelRight.createButton("edit",fontSize, i->{
+					panelRight.add(panelRight.createButton("edit",FONTSIZE, i->{
 						final JDialog dial = new JDialog();
 						final MyJPanelImpl panel=new MyJPanelImpl(new GridLayout(2,1));
 						final MyJPanelImpl outer=new MyJPanelImpl(new BorderLayout());
 						final MyJPanelImpl bot=new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));
-						panel.add(bot.createJLabel("<html><U>Nuovo numero di telefono</U></html>", fontSize));
+						panel.add(bot.createJLabel("<html><U>Nuovo numero di telefono</U></html>", FONTSIZE));
 						final JTextField field= new JTextField();
 						panel.add(field);
 						bot.add(bot.createButton("Salva", p->{

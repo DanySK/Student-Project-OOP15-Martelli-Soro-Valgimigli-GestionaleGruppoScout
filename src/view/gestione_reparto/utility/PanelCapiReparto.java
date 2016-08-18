@@ -94,7 +94,7 @@ public class PanelCapiReparto extends MyJPanelImpl {
 			}
 		});
 	}
-	public boolean getSex(){
+	public boolean isSex(){
 		return sexM.isSelected();
 	}
 	

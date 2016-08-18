@@ -178,7 +178,7 @@ public class RepartoOverviewImpl  {
 					panelLeft.add(createJLabel("Tel: "+unit.getReparto().getCapoF().getPhoneNumber(), FONTSIZE));
 					
 					panelLeft.add(createJLabel("Staff: ",FONTSIZE));
-					panelLeft.add(createJLabel(unit.getReparto().getStaff().size()+" aiutanti", FONTSIZE));
+					panelLeft.add(createJLabel(unit.getReparto().getAiutanti().size()+" aiutanti", FONTSIZE));
 					panelRight.add(createButton("edit", FONTSIZEBUTTON,e->{
 						new AiutantiJDialog();
 					}));
