@@ -134,7 +134,6 @@ public class EditMemberInfoJDialog extends JDialog {
 		 * pulsante salva
 		 */
 		panelBottom.add(panel.createButton("Salva", g->{
-				System.out.println("CIAO");
 				mem.setPromise(((String)promessa.getSelectedItem()).equals("fatta")?true:false);
 				//controllo promessa ed eventualmente setto il totem
 				if(mem.getPromise()){mem.setTotem(totem.getText());}

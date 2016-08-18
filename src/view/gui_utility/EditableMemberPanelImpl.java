@@ -24,8 +24,7 @@ import control.SortExcursion;
 import control.SortExcursionImpl;
 import control.SortMemberImpl;
 import control.myUtil.MyOptional;
-import extra.sito.ExcursionOnline;
-import extra.sito.ExcursionOnlineGetter;
+import extra.sito.ExcursionOnlineGetterImpl;
 import extra.sito.Regioni;
 import model.Campo;
 import model.EventiDiZona;
@@ -38,12 +37,12 @@ import model.Squadron;
 import model.UscitaSquadriglia;
 import model.exception.ObjectNotContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
-import view.gestioneTasse.utility.MemberTasseJDialog;
 import view.gestione_eventi.utility.ShowEditExcursion;
 import view.gestione_reparto.utility.AddMemberJDialog;
 import view.gestione_reparto.utility.EditMemberInfoJDialog;
 import view.gestione_reparto.utility.ShowMemberInfoJDialog;
+import view.gestione_tasse.utility.MemberTasseExcursionJDialog;
+import view.gestione_tasse.utility.MemberTasseJDialog;
 import view.gui_utility.SearchElementJDialog.SearchType;
 
 
@@ -57,7 +56,8 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		EXCREP,
 		EXCSQUAD,
 		RETTASQUAD,
-		EXCPARTECIPANTI;
+		EXCPARTECIPANTI,
+		EXCONLINE;
 	}
 	private static final long serialVersionUID = 9037769890822002300L;
 	private List<E> memList;
@@ -97,7 +97,6 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		scroll.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(192,192,192)));
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		//this.panelMember.setPreferredSize(scroll.getSize());
 		this.panelMember.setPreferredSize(new Dimension(
 	           scroll.getWidth(),
 	           2000
@@ -177,7 +176,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 				final List<Excursion> tmp= new ArrayList<>();
 				MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 				.forEach(e->{
-					System.out.println(e.getNotPaied());
+				
 					if(e.getNotPaied().contains(i)){tmp.add(e);};
 				});
 				if(tmp.size()>0){
@@ -190,14 +189,18 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		else if(type.equals(Type.EXCREP)){
 			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
 					.stream().filter(e->!(e instanceof UscitaSquadriglia)).collect(Collectors.toList());
-			try{/*
-				ExcursionOnlineGetter.getExcursion(Regioni.NAZIONALE).stream().forEach(e->{
-					memList.add((E)e);
-				});*/
-			}catch(Exception e){
-				new WarningNotice(e.getMessage());
-			}
 			updateMemberBotton();
+		}
+		else if(type.equals(Type.EXCONLINE)){
+			try{
+				memList=new ArrayList<>();
+				ExcursionOnlineGetterImpl.getExcursion(Regioni.valueOf(squadName)).stream().forEach(e->{
+					memList.add((E)e);
+				});
+				updateMemberBotton();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		else if(type.equals(Type.EXCSQUAD)){
 			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
@@ -280,13 +283,6 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 			});
 		}
 		else if(type.equals(Type.EXCREP)){
-			if(mem instanceof ExcursionOnline){
-				return createButton("<html>"+((Excursion)mem).getName()+"<br>"+"(PiccoleOrme)"+"<br>"+
-									((Excursion)mem).getDateStart().toString()+"</html>",FONTSIZEBUTTON, e->{
-										new ShowEditExcursion((Excursion)mem, (EditableMemberPanelImpl<Excursion>) me);
-				
-			});
-			}
 			String str="("+((mem instanceof Campo)?"Campo"
 					:(mem instanceof EventiDiZona)?"Evento di zona"
 							:(mem instanceof Gemellaggi)?"Gemellaggio"
@@ -295,6 +291,13 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 									((Excursion)mem).getDateStart().toString()+"</html>",FONTSIZEBUTTON, e->{
 										new ShowEditExcursion((Excursion)mem, (EditableMemberPanelImpl<Excursion>) me);
 				
+			});
+		}
+		else if(type.equals(Type.EXCONLINE)){
+			return createButton("<html>"+((Excursion)mem).getName()+"<br>"+"(PiccoleOrme)"+"<br>"+
+					((Excursion)mem).getDateStart().toString()+"</html>",FONTSIZEBUTTON, e->{
+						new ShowEditExcursion((Excursion)mem, (EditableMemberPanelImpl<Excursion>) me);
+
 			});
 		}
 		else if(type.equals(Type.EXCSQUAD)){
@@ -332,6 +335,11 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 	}
 	public List<E> getList(){
 		return memList.stream().collect(Collectors.toList());
+	}
+	public void forceUpdate(String newParam){
+		this.squadName=newParam;
+		this.updateMember();
+		
 	}
 
 	

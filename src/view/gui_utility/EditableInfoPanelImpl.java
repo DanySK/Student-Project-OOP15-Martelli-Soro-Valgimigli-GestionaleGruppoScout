@@ -63,7 +63,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 	private final MyJPanelImpl panelDx;
 	private final MyJPanelImpl panelBot;
 	private final Unit unit;
-	private final Squadron squadImpl;
+	
 	/**Creates a JPanel for info 
 	 * 
 	 * @param squad
@@ -82,7 +82,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		panelDx = new MyJPanelImpl(new GridLayout(0, 1));
 		panelBot = new MyJPanelImpl(new GridLayout(0, 3));
 		this.squadName = squad;
-		this.squadImpl=unit.getContainers().findSquadron(squadName);
+		final Squadron squadImpl=unit.getContainers().findSquadron(squadName);
 		
 		/*
 		 * Aggiungo il panello con tutte le info
@@ -97,20 +97,20 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		list.add(new Pair<>("Cassa", squadImpl.getNoteCassa()));
 		list.stream().forEach(e-> {
 			panelBot.add(createButton("Note " + e.getX().toLowerCase(), k-> {
-				JDialog dial = new JDialog();
-				JPanel panel = new JPanel(new BorderLayout());
-				JPanel bot = new JPanel();
-				JTextArea area = createJTextArea( "", isManager, fontLabel);
+				final JDialog dial = new JDialog();
+				final JPanel panel = new JPanel(new BorderLayout());
+				final JPanel bot = new JPanel();
+				final JTextArea area = createJTextArea( "", isManager, fontLabel);
 				if(!isManager){
 					area.setText(e.getY());
 				}
 				panel.add(area);
 				if( editable ) {
 					bot.add(createButton("Ok", t->{
-						String oldText=e.getY();
+						final String oldText=e.getY();
 						try { /*Utilizzo la reflection*/
 							if(!area.getText().equals(oldText) && !area.getText().isEmpty()){
-								Method m = squadImpl.getClass().getDeclaredMethod("setNote" + e.getX(), String.class);
+								final Method m = squadImpl.getClass().getDeclaredMethod("setNote" + e.getX(), String.class);
 								m.invoke(squadImpl, area.getText());/*chiamata al metodo trovato*/
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
 							}
@@ -137,17 +137,17 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 				dial.setVisible(true);
 			}));
 		});
-		for(Component i: panelBot.getComponents()){
+		for(final Component i: panelBot.getComponents()){
 			i.setFont( new Font("Aria", Font.ITALIC,fontButton+3));
 		}
 		
 	}
 	
-	private boolean isUsefull(String param){
+	private boolean isUsefull(final String param){
 		/*controllo se è "utile" il campo richiesto*/
 		if(!editable){//false per Overview-->solo Nome
-			if(param.equals("Nome: ")){return false;}
-			return true;
+			
+			return !param.equals("Nome: ");
 		}
 		else{//false per Manager-->Nome,Numero di membri e sesso
 			if(param.equals("Nome: ") || param.equals("Numero di membri: ") || param.equals("Sesso: ")){return false;}
@@ -155,19 +155,19 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		return true;
 	}
 	
-	private JButton instanceJButton(Pair<String,String> i){
+	private JButton instanceJButton(final Pair<String,String> i){
 		/*
 		 * nel caso di pannello per mostrare solo informazioni
 		 */
 		if(!editable){
-			JButton ret= createButton("info",this.getBackground(), new Font("Aria", Font.ITALIC,fontSizeButton),e->{
-				JDialog dial = new JDialog();
-				JPanel panel=new JPanel(new BorderLayout());
-				JPanel bot= new JPanel();
-				JTextArea area= createJTextArea( "", false, 18);
-				String k = i.getY();
-				List<Pair<String,String>> areaText= (new InfoProjectImpl()).getMemberSpecificalInfo(unit.getContainers()
-						.getMember(k.substring(0, k.indexOf(" ")), k.substring(k.indexOf(" ")+1)));
+			final JButton ret= createButton("info",this.getBackground(), new Font("Aria", Font.ITALIC,fontSizeButton),e->{
+				final JDialog dial = new JDialog();
+				final JPanel panel=new JPanel(new BorderLayout());
+				final JPanel bot= new JPanel();
+				final JTextArea area= createJTextArea( "", false, 18);
+				final String k = i.getY();
+				final List<Pair<String,String>> areaText= (new InfoProjectImpl()).getMemberSpecificalInfo(unit.getContainers()
+						.getMember(k.substring(0, k.indexOf(32)), k.substring(k.indexOf(32)+1)));
 												
 				areaText.forEach(t->{
 					area.append(t.getX()+": "+t.getY()+System.lineSeparator());//per ogni info aggiungo una riga alla areaText
@@ -188,7 +188,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 		/*
 		 * nel caso di pannello per modificare informazioni
 		 */
-		else return createButton("edit", UIManager.getColor(new JButton()), new Font("Aria", Font.ITALIC,fontSizeButton), e->{
+		return createButton("edit", UIManager.getColor(new JButton()), new Font("Aria", Font.ITALIC,fontSizeButton), e->{
 			if(!i.getY().equals("non settato")){
 				/*
 				 * Se diverso da "non settato" avviso l'utente che potrebbe perdere dei dati
@@ -199,6 +199,7 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 			new SearchElementJDialog<>(SearchType.AssignCharge,squadName, MyOptional.of(i.getX()), this);
 		
 		});
+		
 	}
 	public final void updateInfo(){
 		SwingUtilities.invokeLater(new Runnable() {

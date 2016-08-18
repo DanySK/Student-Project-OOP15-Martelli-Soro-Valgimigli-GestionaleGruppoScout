@@ -22,12 +22,12 @@ import model.Roles;
 import model.Squadron;
 import model.exception.ObjectAlreadyContainedException;
 import view.general_utility.WarningNotice;
-import view.gestioneTasse.utility.MemberTasseExcursionJDialog;
-import view.gestioneTasse.utility.MemberTasseJDialog;
 import view.gestione_eventi.EventiReparto.EventiRepartoPane;
 import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPanel;
 import view.gestione_reparto.utility.EditMemberInfoJDialog;
 import view.gestione_reparto.utility.ShowMemberInfoJDialog;
+import view.gestione_tasse.utility.MemberTasseExcursionJDialog;
+import view.gestione_tasse.utility.MemberTasseJDialog;
 
 public class SearchElementJDialog<E,K> extends JDialog {
 	
