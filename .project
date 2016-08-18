@@ -20,4 +20,10 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sourceforge.pmd.eclipse.plugin.pmdNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>immagini</name>
+			<value>file:/C:/Users/Valgio/workspace/oop-project-ScoutApp/res</value>
+		</variable>
+	</variableList>
 </projectDescription>

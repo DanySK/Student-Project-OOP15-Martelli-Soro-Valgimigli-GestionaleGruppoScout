@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
 import control.exception.DefaultDirectoryException;
 import control.exception.ProjectFilesCreationException;
 import view.general_utility.WarningNotice;
@@ -41,6 +43,10 @@ public class MasterProjectImpl implements MasterProject {
 				throw new ProjectFilesCreationException();
 			}
 			this.directoryToSave = DEFAULT_DIR_TOSAVE;
+			final BufferedWriter writer = new BufferedWriter(new FileWriter(IMPFILE));
+			writer.write(this.directoryToSave);
+			writer.newLine();
+			writer.close();
 			worker = new File(DEFAULT_DIR_TOSAVE);
 			if (!worker.mkdir()) {
 				throw new ProjectFilesCreationException();
@@ -96,7 +102,16 @@ public class MasterProjectImpl implements MasterProject {
 		final ObjectOutputStream saver = new ObjectOutputStream(new FileOutputStream(files));
 		saver.writeObject(unit);
 		saver.close();
-		new WarningNotice("Salvataggio avvenuto con successo");
+		JOptionPane.showMessageDialog(null, "Salvataggio avvenuto con successo");
+	}
+	public void removeUnit(final String unitName){
+		final File worker = new File(this.directoryToSave + System.getProperty(FILESEPARATOR)
+			+ unitName + PROJECT_EXTENSION);
+		if(worker.exists()){
+			if(worker.delete()){
+				
+			}
+		}
 	}
 
 }
