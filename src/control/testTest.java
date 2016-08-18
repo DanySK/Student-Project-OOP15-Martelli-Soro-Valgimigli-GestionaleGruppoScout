@@ -7,9 +7,9 @@ import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
-import model.Capo;
-import model.Reparto;
-import model.Uscita;
+import model.escursioni.Uscita;
+import model.reparto.Capo;
+import model.reparto.Reparto;
 
 public class testTest {
 

@@ -1,10 +1,11 @@
-package model;
+package model.escursioni;
 
 import java.time.LocalTime;
 import java.util.List;
 
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
+import model.reparto.Reparto;
 /**
  * 
  * @author Riccardo Soro

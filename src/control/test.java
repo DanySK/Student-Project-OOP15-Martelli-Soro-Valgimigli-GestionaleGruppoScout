@@ -1,12 +1,5 @@
 package control;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.temporal.ChronoUnit;
-
-import control.exception.MoreLeadersNotPermitException;
-import model.*;
-
 public class test{
 
 	public static void main(String[] args) {

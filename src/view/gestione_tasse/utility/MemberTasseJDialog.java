@@ -5,7 +5,7 @@ import java.time.Year;
 
 import javax.swing.JDialog;
 
-import model.Member;
+import model.reparto.Member;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;

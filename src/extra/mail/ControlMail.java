@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
-import model.Excursion;
-import model.Member;
+import model.escursioni.Excursion;
+import model.reparto.Member;
 
 public final class ControlMail {
 	

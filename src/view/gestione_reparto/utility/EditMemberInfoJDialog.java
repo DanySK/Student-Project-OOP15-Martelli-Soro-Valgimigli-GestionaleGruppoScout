@@ -9,11 +9,11 @@ import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 import control.myUtil.MyOptional;
-import model.Member;
-import model.MemberImpl;
-import model.Roles;
-import model.Squadron;
 import model.exception.ObjectNotContainedException;
+import model.reparto.Member;
+import model.reparto.MemberImpl;
+import model.reparto.Roles;
+import model.reparto.Squadron;
 import view.general_utility.WarningNotice;
 import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.EditableMemberPanelImpl;

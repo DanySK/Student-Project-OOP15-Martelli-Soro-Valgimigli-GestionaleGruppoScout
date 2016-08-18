@@ -5,9 +5,9 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 
-import model.Excursion;
-import model.Member;
-import model.Reparto;
+import model.escursioni.Excursion;
+import model.reparto.Member;
+import model.reparto.Reparto;
 
 /**
  * Class that check birthday and payment

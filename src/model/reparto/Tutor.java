@@ -1,4 +1,4 @@
-package model;
+package model.reparto;
 
 import control.myUtil.MyOptional;
 

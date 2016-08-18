@@ -1,4 +1,4 @@
-package model;
+package model.escursioni;
 
 import java.time.LocalTime;
 

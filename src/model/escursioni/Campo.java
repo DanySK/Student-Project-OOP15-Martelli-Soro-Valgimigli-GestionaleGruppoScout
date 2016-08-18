@@ -1,4 +1,6 @@
-package model;
+package model.escursioni;
+
+import model.reparto.Reparto;
 
 public interface Campo extends Excursion {
 	/**
