@@ -32,12 +32,13 @@ import model.exception.IllegalDateException;
 import model.exception.IllegalPhoneNumberException;
 import model.exception.IllegalYearsException;
 
-public class ProjectFactoryImpl implements Serializable {
+public final class ProjectFactoryImpl implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6423409525615896639L;
+	private ProjectFactoryImpl(){};
 	/**
 	 * Returns a Instance of class Member. This method wants only basic parameters
 	 * @param nome

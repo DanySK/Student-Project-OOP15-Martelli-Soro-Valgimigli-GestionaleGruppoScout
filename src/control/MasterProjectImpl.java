@@ -20,12 +20,13 @@ import view.general_utility.WarningNotice;
 
 public class MasterProjectImpl implements MasterProject {
 	
+	private final static String FILESEPARATOR = "file.separator";
 	private final static String DEFAULT_DIRECTORY = System.getProperty("user.home")
-													+System.getProperty("file.separator")
+													+System.getProperty(FILESEPARATOR)
 													+"ScoutApp";
-	private final static String DEFAULT_DIR_TOSAVE = DEFAULT_DIRECTORY + System.getProperty("file.separator")
+	private final static String DEFAULT_DIR_TOSAVE = DEFAULT_DIRECTORY + System.getProperty(FILESEPARATOR)
 													+ "SaveProject";
-	private final static String IMPFILE = DEFAULT_DIRECTORY + System.getProperty("file.separator") + "ImpScout.txt";
+	private final static String IMPFILE = DEFAULT_DIRECTORY + System.getProperty(FILESEPARATOR) + "ImpScout.txt";
 	private final static String PROJECT_EXTENSION = ".sct";
 	
 	private String directoryToSave;
@@ -79,7 +80,7 @@ public class MasterProjectImpl implements MasterProject {
 	@Override
 	public Unit loadUnit(final String unitName) throws IOException, ClassNotFoundException {
 		this.directoryToSave = this.getDirectoryToSave();
-		final String files = this.directoryToSave + System.getProperty("file.separator") + unitName + PROJECT_EXTENSION;
+		final String files = this.directoryToSave + System.getProperty(FILESEPARATOR) + unitName + PROJECT_EXTENSION;
 		final ObjectInputStream loader = new ObjectInputStream(new FileInputStream(files));
 		final Unit unit = (Unit) loader.readObject();
 		loader.close();
@@ -89,7 +90,7 @@ public class MasterProjectImpl implements MasterProject {
 	@Override
 	public void save(final Unit unit) throws IOException, ProjectFilesCreationException {
 		this.directoryToSave = this.getDirectoryToSave();
-		final String files = this.directoryToSave + System.getProperty("file.separator") + unit.getName() + PROJECT_EXTENSION;
+		final String files = this.directoryToSave + System.getProperty(FILESEPARATOR) + unit.getName() + PROJECT_EXTENSION;
 		final File worker = new File(files);
 		if(! worker.exists() && ! worker.createNewFile()){
 				throw new ProjectFilesCreationException();

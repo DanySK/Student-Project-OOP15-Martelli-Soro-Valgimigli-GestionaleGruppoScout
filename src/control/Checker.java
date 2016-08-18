@@ -47,9 +47,7 @@ import model.Reparto;
 	 * List of controls which this method to each time the program is launched
 	 * @param u
 	 * @return
-	 * A map that has for Keys "Excursion" and "Birthday" and for values 
-	 * all members which have the birthday
-	 * within Default Numb of days and all members which haven't payed the excursion
+	 * Info about birthday and Excursion in program
 	 * @throws MessagingException 
 	 */
 	  Map<String, List<String>> stdRouting(Unit unit) throws MessagingException;
