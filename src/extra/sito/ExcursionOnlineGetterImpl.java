@@ -44,8 +44,8 @@ public final class ExcursionOnlineGetterImpl implements ExcursionOnlineGetter{
 		for (int a = 1; a < tmp.size(); a++) {
 			
 			final List<String> tmp2 = Arrays.asList(tmp.get(a).substring(6).replaceAll("<([^<]*)>", "$1")
-					.replaceAll("/a/tdtd style=\"width:([0-9]*)px;\" span id=\"MainContent_EventsGridView_Type_([0-9]*)", " ").replaceAll("PO", "")
-					.split("\""));
+					.replaceAll("/a/tdtd style=\"width:([0-9]*)px;\" span id=\"MainContent_EventsGridView_Type_([0-9]*)", " ")
+					.replaceAll("PO", "").split("\""));
 			nome = tmp2.get(0);
 			link=new URL("http://buonacaccia.net/event.aspx?e="+tmp.get(a).substring(0,4));
 			String[] vet = tmp2.get(3).replaceAll("/tdtd style=", "").split("/");

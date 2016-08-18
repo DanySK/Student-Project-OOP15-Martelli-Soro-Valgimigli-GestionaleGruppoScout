@@ -12,8 +12,10 @@ public interface ExcursionOnline extends Excursion {
 	 * 
 	 * @return the google map link to the place of the event
 	 * @throws MalformedURLException 
+	 * @throws URISyntaxException 
+	 * @throws IOException 
 	 */
-	URL getMapLink() throws MalformedURLException;
+	URL getMapLink() throws MalformedURLException, IOException, URISyntaxException;
 
 	/**
 	 * 
@@ -27,5 +29,12 @@ public interface ExcursionOnline extends Excursion {
 	 * 
 	 */
 	void openPiccoleOrmeUrl() throws IOException, URISyntaxException;
+/**
+ * @throws URISyntaxException 
+ * @throws IOException 
+ * @throws MalformedURLException 
+ * 
+ */
+	void openMapLink() throws MalformedURLException, IOException, URISyntaxException;
 
 }

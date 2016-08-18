@@ -16,7 +16,7 @@ public class ExcursionOnlineImpl extends ExcursionImpl implements ExcursionOnlin
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private  final URL link;
+	private final URL link;
 
 	public ExcursionOnlineImpl(final LocalDate dateStart, final String name, final LocalDate dateEnd,
 			final Double prize, final String place, final URL link) throws IllegalDateException {
@@ -39,19 +39,27 @@ public class ExcursionOnlineImpl extends ExcursionImpl implements ExcursionOnlin
 	}
 
 	@Override
+	public void openMapLink() throws MalformedURLException, IOException, URISyntaxException {
+		this.openLink(this.getMapLink());
+	}
+
+	@Override
 	public URL getPiccoleOrmeUrl() {
 		return this.link;
 	}
 
 	@Override
 	public void openPiccoleOrmeUrl() throws IOException, URISyntaxException {
+		this.openLink(this.link);
+	}
+
+	private void openLink(final URL link) throws IOException, URISyntaxException {
 		if (Desktop.isDesktopSupported()) {
 			final Desktop desktop = Desktop.getDesktop();
-			desktop.browse(this.link.toURI());
+			desktop.browse(link.toURI());
 		} else {
 			final Runtime runtime = Runtime.getRuntime();
-			runtime.exec("xdg-open " + this.link);
-
+			runtime.exec("xdg-open " + link);
 		}
 	}
 }
