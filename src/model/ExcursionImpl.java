@@ -184,10 +184,10 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 
 	@Override
 	public void setDateEnd(final LocalDate dateEnd) throws IllegalDateException {
-		if (!dateEnd.isAfter(LocalDate.now())) {
+		if (dateEnd.isBefore(LocalDate.now())) {
 			throw new IllegalDateException();
 		}
-		if (!dateEnd.isAfter(this.dateStart)) {
+		if (dateEnd.isBefore(this.dateStart)) {
 			throw new IllegalDateException();
 		}
 		this.dateEnd = MyOptional.of(dateEnd);

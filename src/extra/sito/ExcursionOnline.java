@@ -10,14 +10,14 @@ import model.Excursion;
 public interface ExcursionOnline extends Excursion {
 	/**
 	 * 
-	 * @return
-	 * @throws MalformedURLException
+	 * @return the google map link to the place of the event
+	 * @throws MalformedURLException 
 	 */
 	URL getMapLink() throws MalformedURLException;
 
 	/**
 	 * 
-	 * @return
+	 * @return the link to the single event of the categori piccoleorme
 	 */
 	URL getPiccoleOrmeUrl();
 

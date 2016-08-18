@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.exception.IllegalDateException;
@@ -11,7 +12,7 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 
 	private static final long serialVersionUID = 1L;
 	private Reparto reparto;
-	private final List<String> altriReparti;
+	private List<String> altriReparti;
 
 	public GemellaggiImpl(final LocalDate dateStart, final LocalDate dateEnd, final Reparto reparto, final String name,
 			final List<String> altriReparti) throws IllegalDateException {
@@ -75,6 +76,6 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 
 	@Override
 	public void clearUnitsList() {
-		this.altriReparti.removeAll(this.altriReparti);
+		this.altriReparti=new ArrayList<>();
 	}
 }
