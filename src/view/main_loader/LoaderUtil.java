@@ -66,58 +66,100 @@ public class LoaderUtil extends MyJPanelImpl {
 			 */
 			try {
 				
-					this.add(createJLabel( "Scegli quale reparto caricare", 22),BorderLayout.NORTH);
+				this.add(createJLabel( "Scegli quale reparto caricare", 22),BorderLayout.NORTH);
 					/*
 					 * Aggiungo i bottoni per ogni reparto, quando uno viene cliccato tutti gli altri vengono disattivati
 					 * e viene attivato il tasto carica/rimuovi
 					 */
-					if(project.getListOfUnit().isEmpty()){
-						this.removeAll();
-						this.add(createJLabel("<html>Al momento non ci sono reparti salvati!<br>"
-								+ "Torna indietro per crearne uno(utilizzando il tasto \"Crea\"</html>", 18),BorderLayout.NORTH);
-			
-						this.add(getBackButtonPrivate(),BorderLayout.SOUTH);
-						this.validate();
-					}
+				if(project.getListOfUnit().isEmpty()){
+					this.removeAll();
+					this.add(
+							createJLabel(
+									"<html>Al momento non ci sono reparti salvati!<br>"
+											+ "Torna indietro per crearne uno(utilizzando il tasto \"Crea\"</html>",
+									18),
+							BorderLayout.NORTH);
+
+					this.add(getBackButtonPrivate(), BorderLayout.SOUTH);
+					this.validate();
+				}
 					
-					else{
-									
-						for(String i: project.getListOfUnit()){
-							panelCenter.add(createButton(i, e->{
-								((JButton)panelBottom.getComponent(0)).setEnabled(true);
-								selected=((JButton)e.getSource()).getName();
-							
-								SwingUtilities.invokeLater(new Runnable(){
-										@Override
-										public void run() {
-											for(Component k : Arrays.asList(panelCenter.getComponents())){
-												k.setEnabled(false);
-											}
-										}
-								});
-							}));
-						
+				else{
+
+					for (String i : project.getListOfUnit()) {
+						panelCenter.add(createButton(i, e -> {
+							((JButton) panelBottom.getComponent(0)).setEnabled(true);
+							selected = ((JButton) e.getSource()).getName();
+
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									for (Component k : Arrays.asList(panelCenter.getComponents())) {
+										k.setEnabled(false);
+									}
+								}
+							});
+						}));
+
 					}
 					Arrays.asList((panelCenter.getComponents())).stream()
-						.forEach(k->k.setFont(new Font("Aria", Font.ITALIC, 15)));
+							.forEach(k -> k.setFont(new Font("Aria", Font.ITALIC, 15)));
 					/*
-					 * Quando viene cliccato il tasto Carica viene caricato il reparto e parte il programma vero e proprio
+					 * Quando viene cliccato il tasto Carica viene caricato il
+					 * reparto e parte il programma vero e proprio
 					 */
-					panelBottom.add(createButton("Carica", e->{
-						try{
+					panelBottom.add(createButton("Carica", e -> {
+						try {
 							MyJFrameSingletonImpl.getInstance(project.loadUnit(selected));
-							
+
 							new MainGuiImpl();
-							
+
 							frame.dispose();
-						} catch (Exception k){
+						} catch (Exception k) {
 							new WarningNotice(k.getMessage());
 						}
-					}),BorderLayout.LINE_END);
+					}), BorderLayout.LINE_END);
+					panelBottom.add(createButton("Elimina", u -> {
+						project.removeUnit(selected);
+						
+						SwingUtilities.invokeLater(new Runnable() {
+							
+							@Override
+							public void run() {
+								panelCenter.removeAll();
+								try{
+								for (String i : project.getListOfUnit()) {
+									panelCenter.add(createButton(i, e -> {
+										((JButton) panelBottom.getComponent(0)).setEnabled(true);
+										selected = ((JButton) e.getSource()).getName();
+
+										SwingUtilities.invokeLater(new Runnable() {
+											@Override
+											public void run() {
+												for (Component k : Arrays.asList(panelCenter.getComponents())) {
+													k.setEnabled(false);
+												}
+											}
+										});
+									}));
+
+								}
+								}catch(Exception e){
+									new WarningNotice(e.getMessage());
+								}
+								panelCenter.validate();
+								panelCenter.repaint();
+							}
+						});
+						
+						
+						
+						
+					}));
 					panelBottom.getComponent(0).setEnabled(false);
 					panelBottom.add(getBackButtonPrivate(), BorderLayout.LINE_START);
 					this.add(panelCenter, BorderLayout.CENTER);
-					this.add(panelBottom,BorderLayout.SOUTH);
+					this.add(panelBottom, BorderLayout.SOUTH);
 					this.validate();
 					}
 			} catch (IOException e) {

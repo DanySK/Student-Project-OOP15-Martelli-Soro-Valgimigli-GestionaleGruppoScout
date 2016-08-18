@@ -127,7 +127,7 @@ public class ShowEditExcursion extends JDialog{
 						final JDialog dial =new JDialog();
 						final MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
 						final MyJPanelImpl flow=new MyJPanelImpl();
-						pan.add(pan.createJTextArea(((ExcursionOnline)exc).getPiccoleOrmeUrl().toString(), false, FONTSIZE),BorderLayout.CENTER);
+						pan.add(pan.createJTextArea(((ExcursionOnline)exc).getPiccoleOrmeUrl().toExternalForm(), false, FONTSIZE),BorderLayout.CENTER);
 						flow.add(flow.createButton("OK", t->{
 							dial.dispose();
 						}));
@@ -135,7 +135,6 @@ public class ShowEditExcursion extends JDialog{
 						pan.add(flow,BorderLayout.SOUTH);
 						dial.pack();
 						dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
-						dial.setTitle("ERRORE");
 						dial.setVisible(true);
 						
 					}));
@@ -152,8 +151,7 @@ public class ShowEditExcursion extends JDialog{
 						final JDialog dial =new JDialog();
 						final MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());
 						final MyJPanelImpl flow=new MyJPanelImpl();
-						pan.add(pan.createJTextArea(((ExcursionOnline)exc).getMapLink().toString(), false, FONTSIZE),BorderLayout.CENTER);
-						
+						pan.add(pan.createJTextArea(((ExcursionOnline)exc).getMapLink().toExternalForm(), false, FONTSIZE),BorderLayout.CENTER);
 						flow.add(flow.createButton("OK", t->{
 							dial.dispose();
 						}));
@@ -161,7 +159,6 @@ public class ShowEditExcursion extends JDialog{
 						pan.add(flow,BorderLayout.SOUTH);
 						dial.pack();
 						dial.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
-						dial.setTitle("ERRORE");
 						dial.setVisible(true);
 						}catch(Exception y){
 							new WarningNotice(y.getMessage());

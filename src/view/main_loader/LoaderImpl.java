@@ -46,7 +46,7 @@ public class LoaderImpl extends MyJPanelImpl {
 			
 			//tasto load
 		LoaderUtil loader=new LoaderUtil(project);	
-		panelBotton.add(this.createButton("Carica", e->{loader. new LoadUnit();this.frame.dispose();}));
+		panelBotton.add(this.createButton("Salvataggi", e->{loader. new LoadUnit();this.frame.dispose();}));
 		
 			//tasto crea
 		panelBotton.add(this.createButton("Crea", e->{loader. new CreateUnit(); this.frame.dispose();}));
