@@ -190,10 +190,10 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl{
 		else if(type.equals(Type.EXCREP)){
 			this.memList=(List<E>)MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
 					.stream().filter(e->!(e instanceof UscitaSquadriglia)).collect(Collectors.toList());
-			try{
+			try{/*
 				ExcursionOnlineGetter.getExcursion(Regioni.NAZIONALE).stream().forEach(e->{
 					memList.add((E)e);
-				});
+				});*/
 			}catch(Exception e){
 				new WarningNotice(e.getMessage());
 			}

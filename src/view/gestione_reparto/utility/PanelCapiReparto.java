@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.time.LocalDate;
 
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJPanelImpl;
@@ -65,6 +66,17 @@ public class PanelCapiReparto extends MyJPanelImpl {
 	}
 	public String getPhone(){
 		return phone.getText();
+	}
+	
+	public void addSexChoose(){
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 }
