@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 import control.ProjectFactoryImpl;
 import control.Unit;
 import control.myUtil.MyOptional;
-import model.Member;
+import model.reparto.Member;
 import view.general_utility.WarningNotice;
 import view.gestione_reparto.utility.AiutantiJDialog;
 import view.gestione_reparto.utility.PanelCapiReparto;
