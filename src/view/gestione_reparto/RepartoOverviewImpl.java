@@ -15,6 +15,7 @@ import control.ProjectFactoryImpl;
 import control.Unit;
 import control.myUtil.MyOptional;
 import view.general_utility.WarningNotice;
+import view.gestione_reparto.utility.AiutantiJDialog;
 import view.gestione_reparto.utility.PanelCapiReparto;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
@@ -175,6 +176,14 @@ public class RepartoOverviewImpl  {
 					}));
 					panelLeft.add(createJLabel("", FONTSIZE));
 					panelLeft.add(createJLabel("Tel: "+unit.getReparto().getCapoF().getPhoneNumber(), FONTSIZE));
+					
+					panelLeft.add(createJLabel("Staff: ",FONTSIZE));
+					panelLeft.add(createJLabel(unit.getReparto().getStaff().size()+" aiutanti", FONTSIZE));
+					panelRight.add(createButton("edit", FONTSIZEBUTTON,e->{
+						new AiutantiJDialog();
+					}));
+					
+					
 					panelBot.add(createButton("<html>Crea<br>Squadriglia</html>",FONTSIZEBUTTON, e->{
 						final JDialog dial = new JDialog();
 						final MyJPanelImpl pan=new MyJPanelImpl(new BorderLayout());

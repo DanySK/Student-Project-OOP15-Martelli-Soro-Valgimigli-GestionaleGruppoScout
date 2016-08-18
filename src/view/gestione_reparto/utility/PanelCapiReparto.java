@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -20,11 +22,14 @@ public class PanelCapiReparto extends MyJPanelImpl {
 	private final JTextField gg= new JTextField();
 	private final JTextField aa= new JTextField();
 	private final JTextField phone=new JTextField();
-
+	private final JRadioButton sexM=new JRadioButton("Maschio");
+	private final JRadioButton sexF=new JRadioButton("Femmina");
+	private final ButtonGroup sexC= new ButtonGroup();
+	private final MyJPanelImpl fields=new MyJPanelImpl(new GridLayout(0,2));
 	public PanelCapiReparto(final String top){
 		super(new BorderLayout());
 		this.add(createJLabel("<html><U>"+top+"</U></html>", FONTSIZE),BorderLayout.NORTH);
-		final MyJPanelImpl fields=new MyJPanelImpl(new GridLayout(0,2));
+		
 		
 		fields.add(createJLabel( "Nome: ", FONTSIZE));
 		fields.add(name);
@@ -73,10 +78,24 @@ public class PanelCapiReparto extends MyJPanelImpl {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				
+				final MyJPanelImpl sex = new MyJPanelImpl();
+				sexC.add(sexM);
+				sexC.add(sexF);
+				sex.add(sexM);
+				sex.add(sexF);
+				fields.add(fields.createJLabel("Sesso", FONTSIZE));
+				fields.add(sex);
+				fields.validate();
+				fields.repaint();
+				validate();
+				repaint();
+				System.out.println("WHY?????");
 			}
 		});
+	}
+	public boolean getSex(){
+		return sexM.isSelected();
 	}
 	
 }

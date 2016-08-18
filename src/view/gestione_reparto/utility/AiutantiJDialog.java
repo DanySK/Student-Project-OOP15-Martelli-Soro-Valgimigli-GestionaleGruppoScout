@@ -22,6 +22,7 @@ public class AiutantiJDialog extends JDialog {
 	private final MyJPanelImpl inPanel=new MyJPanelImpl(new BorderLayout());
 	private final MyJPanelImpl panelLeft = new MyJPanelImpl(new GridLayout(0, 2));
 	private final MyJPanelImpl panelRight=new MyJPanelImpl(new GridLayout(0,1));
+	private final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
 	private final JScrollPane scroll=new JScrollPane(inPanel);
 	public AiutantiJDialog(){
 		super();
@@ -34,27 +35,29 @@ public class AiutantiJDialog extends JDialog {
 			final JDialog dial= new JDialog();
 			final MyJPanelImpl outerPanel=new MyJPanelImpl(new BorderLayout());
 			final MyJPanelImpl panelBot=new MyJPanelImpl();
-			final PanelCapiReparto panCapo= new PanelCapiReparto("Nuovo Capo Reparto");
-			outerPanel.add(panCapo,BorderLayout.CENTER);
-			panelBot.add(panelBot.createButton("OK", e->{
+			final PanelCapiReparto panCapo= new PanelCapiReparto("Nuovo aiutante");
+			panCapo.addSexChoose();
+				panelBot.add(panelBot.createButton("OK", e->{
 				try{
-					if(sex){
-						unit.getReparto().setCapoM( ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
+					if(panCapo.getSex()){
+						MyJFrameSingletonImpl.getInstance().getUnit().getReparto().addAiutante(ProjectFactoryImpl.getLeaderM(panCapo.getNome(), panCapo.getSurname(), 
 								panCapo.getDate(),panCapo.getPhone()));
 					}
 					else{
-						unit.getReparto().setCapoF( ProjectFactoryImpl.getLeaderF(panCapo.getNome(), panCapo.getSurname(), 
+						MyJFrameSingletonImpl.getInstance().getUnit().getReparto().addAiutante( ProjectFactoryImpl.getLeaderF(panCapo.getNome(), panCapo.getSurname(), 
 								panCapo.getDate(),panCapo.getPhone()));
 					}
+					MyJFrameSingletonImpl.getInstance().setNeedToSave();
 					dial.dispose();
-					updateAll();
+					populate();
 				}catch(Exception f){
 					new WarningNotice(f.getMessage());
 				}
 			}));
-			panelBot.add(createButton("Annulla", e->{
+			panelBot.add(panelBot.createButton("Annulla", e->{
 				dial.dispose();
 			}));
+			outerPanel.add(panCapo,BorderLayout.CENTER);
 			outerPanel.add(panelBot, BorderLayout.SOUTH);
 			dial.add(outerPanel);
 			dial.pack();
@@ -62,12 +65,19 @@ public class AiutantiJDialog extends JDialog {
 			dial.setVisible(true);
 		}));
 		this.populate();
+		panel.add(scroll,BorderLayout.CENTER);
+		panel.add(bot,BorderLayout.SOUTH);
+		this.add(panel);
+		this.pack();
+		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
+		this.setVisible(true);
 	}
 	
 	private void populate(){
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			public void run() {
+				inPanel.removeAll();
 				panelLeft.removeAll();
 				panelRight.removeAll();
 				/*popolo Left e Right*/
@@ -81,9 +91,11 @@ public class AiutantiJDialog extends JDialog {
 					panelRight.add(panelRight.createButton("Rimuovi", fontSize,i->{
 						try {
 							MyJFrameSingletonImpl.getInstance().getUnit().getReparto().removeAiutante(e);
+							MyJFrameSingletonImpl.getInstance().setNeedToSave();
+							populate();
 						} catch (ObjectNotContainedException e1) {
 							new WarningNotice(e1.getMessage());
-							populate();
+							
 						}
 					}));
 					panelRight.add(panelRight.createButton("edit",fontSize, i->{
@@ -121,7 +133,19 @@ public class AiutantiJDialog extends JDialog {
 					
 					
 				});
-				
+				panelLeft.validate();
+				panelLeft.repaint();
+				panelRight.validate();
+				panelRight.repaint();
+				inPanel.add(panelLeft,BorderLayout.CENTER);
+				inPanel.add(panelRight,BorderLayout.EAST);
+				inPanel.validate();
+				inPanel.repaint();
+				scroll.revalidate();
+				scroll.repaint();
+				panel.validate();
+				panel.repaint();
+				pack();
 			}
 		});
 	}
