@@ -189,6 +189,7 @@ public class UnitImpl implements Unit, Serializable {
 	public LocalDate getLastMailSend() {
 		return this.lastMailSend;
 	}
+
 	@Override
 	public void setLastMailSend(final LocalDate lastMailSend) {
 		this.lastMailSend = lastMailSend;

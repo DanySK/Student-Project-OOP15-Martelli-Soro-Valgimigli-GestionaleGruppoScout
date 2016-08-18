@@ -1,8 +1,10 @@
 package control.myUtil;
 
 import java.io.Serializable;
+
 /**
  * Classic Pair class
+ * 
  * @author Valgio
  *
  * @param <X>
@@ -17,25 +19,25 @@ public class Pair<X, Y> implements Serializable {
 	private static final long serialVersionUID = 2192122196852934451L;
 	private X x;
 	private Y y;
-	
-	public Pair(final X x, final Y y){
+
+	public Pair(final X x, final Y y) {
 		this.x = x;
 		this.y = y;
 	}
-	
-	public void setX(final X x){
+
+	public void setX(final X x) {
 		this.x = x;
 	}
-	
-	public void setY(final Y y){
+
+	public void setY(final Y y) {
 		this.y = y;
 	}
-	
-	public X getX(){
+
+	public X getX() {
 		return this.x;
 	}
-	
-	public Y getY(){
+
+	public Y getY() {
 		return this.y;
 	}
 }
