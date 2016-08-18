@@ -12,10 +12,6 @@ import model.UscitaImpl;
 
 public class SortExcursionImpl implements SortExcursion {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3951862914381896791L;
 	private static final Comparator<Excursion> BYDATE = ((Excursion e1, Excursion e2) -> e1.getDateStart()
 			.compareTo(e2.getDateStart()));
 	private static final Comparator<Excursion> BYPRICE = ((Excursion e1, Excursion e2) -> e1.getPrize()

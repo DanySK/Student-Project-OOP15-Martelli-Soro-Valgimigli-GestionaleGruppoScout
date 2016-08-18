@@ -7,11 +7,6 @@ import model.Member;
 
 public class SortMemberImpl implements SortMember {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8587887104818565221L;
-
 	private static final Comparator<Member> CMPBYNAME = (Member e1, Member e2) -> e1.getName().compareTo(e2.getName());
 
 	private static final Comparator<Member> CMPBYAGE = (Member e1, Member e2) -> e1.getBirthday()
