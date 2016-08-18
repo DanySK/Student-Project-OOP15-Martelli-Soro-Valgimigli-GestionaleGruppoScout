@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import control.exception.MemberSexException;
-import control.exception.MoreLeadersNotPermitException;
 import control.myUtil.MyOptional;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
@@ -56,164 +55,119 @@ public class SquadronImpl implements Serializable, Squadron {
 
 	}
 
+	@Override
 	public void setNome(final String nome) {
 		this.nomeSq = nome;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public String getNome() {
 		return this.nomeSq;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public Boolean getSesso() {
 		return this.sessoSq;
 	}
 
-	/**
-	 * 
-	 * @param sex
-	 */
+	@Override
 	public void setSesso(final Boolean sex) {
 		this.sessoSq = sex;
 	}
 
-	/**
-	 * 
-	 * @param capo
-	 * @throws MoreLeadersNotPermitException
-	 */
+	@Override
 	public void setCapoSq(final Member capo) throws IllegalArgumentException {
 		this.controlLeader(capo);
 		this.capoSq = MyOptional.of(capo);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public Member getCapo() {
 		return this.capoSq.get();
 	}
 
-	/**
-	 * 
-	 * @param vicecapo
-	 * @throws MoreLeadersNotPermitException
-	 */
+	@Override
 	public void setVicecapoSq(final Member vicecapo) throws IllegalArgumentException {
 		this.controlLeader(vicecapo);
 		this.viceSq = MyOptional.of(vicecapo);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public Member getVice() {
 		return this.viceSq.get();
 	}
 
+	@Override
 	public boolean isCapoPresent() {
 		return this.capoSq.isPresent();
 	}
 
+	@Override
 	public boolean isVicecapoPresent() {
 		return this.viceSq.isPresent();
 	}
 
+	@Override
 	public boolean isTricecapoPresent() {
 		return this.triceSq.isPresent();
 	}
 
+	@Override
 	public void setTriceSq(final Member trice) throws IllegalArgumentException {
 		this.controlLeader(trice);
 		this.triceSq = MyOptional.of(trice);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public Member getTrice() {
 		return this.triceSq.get();
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public String getNoteCassa() {
 		return this.noteCassa.orElse("Non ci sono note di cassa presenti." + System.lineSeparator()
 				+ "Recarsi nella sezione di gestione della squadriglia per aggiungerle");
 	}
 
-	/**
-	 * 
-	 * @param note
-	 */
+	@Override
 	public void setNoteCassa(final String note) {
 		this.noteCassa = MyOptional.of(note);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public String getNoteBatteria() {
 		return this.noteBatteria.orElse("Non ci sono note di batteria presenti." + System.lineSeparator()
 				+ "Recarsi nella sezione di gestione della squadriglia per aggiungerle");
 	}
 
-	/**
-	 * 
-	 * @param note
-	 */
+	@Override
 	public void setNoteBatteria(final String note) {
 		this.noteBatteria = MyOptional.of(note);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public String getNoteCancelleria() {
 		return this.noteCancelleria.orElse("Non ci sono note di cancelleria presenti." + System.lineSeparator()
 				+ "Recarsi nella sezione di gestione della squadriglia per aggiungerle");
 	}
 
-	/**
-	 * 
-	 * @param note
-	 */
+	@Override
 	public void setNoteCancelleria(final String note) {
-	
+
 		this.noteCancelleria = MyOptional.of(note);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
 	public Map<Member, Roles> getMembri() {
 		return this.map;
 	}
 
-	/**
-	 * 
-	 * @param membro
-	 * @param ruolo
-	 */
+	@Override
 	public boolean containMember(final Member membro) {
 		return this.map.containsKey(membro);
 	}
 
+	@Override
 	public void addMembro(final Member membro, final Roles ruolo)
 			throws MemberSexException, ObjectAlreadyContainedException {
 		if (!membro.getSex().equals(this.sessoSq)) {
@@ -225,22 +179,24 @@ public class SquadronImpl implements Serializable, Squadron {
 		map.put(membro, ruolo);
 	}
 
+	@Override
 	public void setCash(final Float cash) {
-		if (cash < 0){
+		if (cash < 0) {
 			throw new IllegalArgumentException();
 		}
 		this.cash = cash;
 	}
 
+	@Override
 	public float getCash() {
 		return cash;
 	}
 
 	@Override
 	public void removeMembro(final Member membro) throws ObjectNotContainedException {
-		if (map.containsKey(membro)){
-				map.remove(membro);
-		}else{
+		if (map.containsKey(membro)) {
+			map.remove(membro);
+		} else {
 			throw new ObjectNotContainedException();
 		}
 	}
@@ -273,26 +229,27 @@ public class SquadronImpl implements Serializable, Squadron {
 	public List<Member> getMemberCelebretingBirthday() {
 		final List<Member> tmp = new ArrayList<>();
 		this.map.keySet().forEach(e -> {
-			if (e.isBirthday()){
+			if (e.isBirthday()) {
 				tmp.add(e);
 			}
 		});
 		return tmp;
 	}
-	private void controlLeader(final Member member){
-		if (this.capoSq.isPresent()){
-			if (this.capoSq.get().equals(member)){
-				throw new IllegalArgumentException ("membro gia presente tra i capi");
+
+	private void controlLeader(final Member member) {
+		if (this.capoSq.isPresent()) {
+			if (this.capoSq.get().equals(member)) {
+				throw new IllegalArgumentException("membro gia presente tra i capi");
 			}
 		}
-		if (this.viceSq.isPresent()){
-			if (this.viceSq.get().equals(member)){
-				throw new IllegalArgumentException ("membro gia presente tra i capi");
+		if (this.viceSq.isPresent()) {
+			if (this.viceSq.get().equals(member)) {
+				throw new IllegalArgumentException("membro gia presente tra i capi");
 			}
 		}
-		if (this.triceSq.isPresent()){
-			if (this.triceSq.get().equals(member)){
-				throw new IllegalArgumentException ("membro gia presente tra i capi");
+		if (this.triceSq.isPresent()) {
+			if (this.triceSq.get().equals(member)) {
+				throw new IllegalArgumentException("membro gia presente tra i capi");
 			}
 		}
 	}
