@@ -1,5 +1,5 @@
 
-package view.gestioneTasse;
+package view.gestione_tasse;
 
 import java.awt.BorderLayout;
 
@@ -29,7 +29,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 		/*aggiung il SelectionListener al JTree*/
 		setTreeSelectionListener(new TreeSelectionListener() {
 			@Override
-			public void valueChanged(TreeSelectionEvent e) {
+			public void valueChanged(final TreeSelectionEvent e) {
 				final  DefaultMutableTreeNode node = (DefaultMutableTreeNode)getTree().getLastSelectedPathComponent();
 				 SwingUtilities.invokeLater(new Runnable(){
 					 @Override
@@ -53,7 +53,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree{
 		});
 		this.getRoot().add(new DefaultMutableTreeNode(new GestioneTasseRepartoImpl(unit.getReparto().getName())));
 		unit.getContainers().getSquadrons().forEach(e->{
-			DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
+			final DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new GestioneTasseSquadrigliaImpl(e.getNome())));
 			addNode(t);
 		});

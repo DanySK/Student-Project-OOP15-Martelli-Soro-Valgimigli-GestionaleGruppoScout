@@ -1,4 +1,4 @@
-package view.gestioneTasse;
+package view.gestione_tasse;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

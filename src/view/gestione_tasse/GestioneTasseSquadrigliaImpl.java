@@ -1,4 +1,4 @@
-package view.gestioneTasse;
+package view.gestione_tasse;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -14,7 +14,7 @@ public class GestioneTasseSquadrigliaImpl  {
 	
 	
 	private final String squadName;
-	public GestioneTasseSquadrigliaImpl(String squadName){
+	public GestioneTasseSquadrigliaImpl(final String squadName){
 		
 		this.squadName=squadName;
 	}

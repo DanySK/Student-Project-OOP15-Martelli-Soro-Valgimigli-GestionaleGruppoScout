@@ -1,4 +1,4 @@
-package view.gestioneTasse.utility;
+package view.gestione_tasse.utility;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -26,12 +26,13 @@ public class MemberTasseExcursionJDialog extends JDialog {
 	private final static int FONTSIZE=19;
 	private final List<Excursion> list;
 	private final Member me;
-	private final JTextArea area;
+	
 	private final MyJPanelImpl memPane;
 	private final JScrollPane scroll;
-	public MemberTasseExcursionJDialog(Member me, EditableMemberPanelImpl<Member> parent ){
+	public MemberTasseExcursionJDialog(final Member me, final EditableMemberPanelImpl<Member> parent ){
+		super();
 		this.me=me;
-	
+		final JTextArea area;
 		this.list=new ArrayList<>();	
 		memPane=new MyJPanelImpl();
 		
@@ -79,7 +80,7 @@ public class MemberTasseExcursionJDialog extends JDialog {
 		list.clear();
 		MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
 		.forEach(e->{
-			if(e.getNotPaied().contains(me)){list.add(e);};
+			if(e.getNotPaied().contains(me)){list.add(e);}
 		});
 		SwingUtilities.invokeLater(new Runnable() {
 			

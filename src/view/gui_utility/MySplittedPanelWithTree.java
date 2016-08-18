@@ -137,7 +137,7 @@ public class MySplittedPanelWithTree extends MyJPanelImpl {
 				mapNode.put((String)t.getUserObject(), t);
 				DefaultTreeModel model=(DefaultTreeModel) tree.getModel();				
 				model.insertNodeInto(t, root, root.getChildCount());
-				updatePanel();
+				//updatePanel();
 			}
 		});
 	}
