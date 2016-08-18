@@ -175,5 +175,10 @@ public interface Reparto {
 	 * @param name
 	 */
 	 void setName(String name);
+	 /**
+	  * 
+	  * @return
+	  */
+	List<Capo> getAiutanti();
 
 }

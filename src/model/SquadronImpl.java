@@ -279,7 +279,7 @@ public class SquadronImpl implements Serializable, Squadron {
 		});
 		return tmp;
 	}
-	private void controlLeader(Member member){
+	private void controlLeader(final Member member){
 		if (this.capoSq.isPresent()){
 			if (this.capoSq.get().equals(member)){
 				throw new IllegalArgumentException ("membro gia presente tra i capi");
