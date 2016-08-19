@@ -15,6 +15,7 @@ import control.ProjectFactoryImpl;
 import control.Unit;
 import control.exception.MemberSexException;
 import control.myUtil.MyOptional;
+import model.reparto.Member;
 import model.reparto.Roles;
 import view.gui_utility.EditableElementScrollPane;
 import view.gui_utility.MyJFrameSingletonImpl;
