@@ -208,7 +208,7 @@ public class LoaderUtil extends MyJPanelImpl {
 									capoF.getPhone()),
 							textField.getText())));
 
-					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText()));
+					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText().replaceAll(" ", "_")));
 
 					new MainGuiImpl();
 					frame.dispose();

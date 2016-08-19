@@ -27,20 +27,18 @@ public class UnitImpl implements Unit, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4391311361473527351L;
-	final private String nameToSave;
 	final private Reparto rep;
 	final private List<Excursion> excursions;
 	private LocalDate lastMailSend = LocalDate.now();
 
 	public UnitImpl(final Reparto rep) {
-		this.nameToSave = rep.getName().replace(' ', '_');
 		this.excursions = new ArrayList<>();
 		this.rep = rep;
 	}
 
 	@Override
 	public String getName() {
-		return this.nameToSave;
+		return this.rep.getName().replaceAll(" ", "_");
 	}
 
 	@Override

@@ -52,6 +52,7 @@ public class testTest {
 			Container ct = fenice.getContainers(); 
 			assertTrue(ct.getMember("Andrea", "Rossi").getName().equals("Andrea"));
 			
+			assertTrue(fenice.getName().equals("Fenice_viola"));
 			
 			fenice.getMember("Lollo", "Verdi").setTutorMail("lorenzo.valgimigli@libero.it");
 
