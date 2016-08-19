@@ -7,9 +7,9 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import view.gui_utility.MySplittedPanelWithTree;
+import view.gui_utility.MyJPanelWithJTree;
 
-public class OnlineMainImpl extends MySplittedPanelWithTree {
+public class OnlineMainImpl extends MyJPanelWithJTree {
 
 	private static final long serialVersionUID = 3771477369943096404L;
 	

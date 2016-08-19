@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,12 +17,12 @@ import javax.swing.SwingUtilities;
 
 import control.CheckerImpl;
 import view.Main;
-import view.gestione_eventi.ExcursionManagerMain;
-import view.gestione_reparto.GestioneRepartoMain;
-import view.gestione_tasse.GestioneTasseMain;
+import view.excursion_manager.ExcursionManagerMain;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.online.OnlineMainImpl;
+import view.tax_manager.FeeManager;
+import view.unit_manager.UnitManagerMain;
 
 /**
  * Class that create a MyJPanel for the Main page of this app, and it sets this
@@ -58,11 +60,11 @@ public class MainGUI extends MyJPanelImpl {
 		 * GestioneEventi,GestioneTasse,Altro)
 		 */
 		south.add(createButton("GestioneReparto", e -> {
-			new GestioneRepartoMain();
+			new UnitManagerMain();
 		}));
 
 		south.add(createButton("Gestione Tasse", e -> {
-			new GestioneTasseMain();
+			new FeeManager();
 		}));
 
 		south.add(createButton("Gestione Eventi", e -> {
@@ -95,9 +97,11 @@ public class MainGUI extends MyJPanelImpl {
 				pane.add(createJLabel("<html><U>AVVISI REPARTO</U></html>", FONTSIZE + 8), BorderLayout.NORTH);
 				text = "<html>";
 				final MyJPanelImpl info = new MyJPanelImpl(new GridLayout(0, 2));
-				check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).keySet().stream().forEach(k -> {
+				
+				Map<String,List<String>> mapAvvisi=check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit());
+				mapAvvisi.keySet().stream().forEach(k->{
 					info.add(createJLabel(k + ": ", FONTSIZE + 5));
-					check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).get(k).stream().forEach(t -> {
+					mapAvvisi.get(k).stream().forEach(t -> {
 						text = text + t + "<br>";
 
 					});

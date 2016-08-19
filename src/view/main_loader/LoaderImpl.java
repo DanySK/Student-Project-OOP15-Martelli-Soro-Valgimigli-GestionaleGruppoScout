@@ -7,8 +7,8 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import control.MasterProjectImpl;
-import view.general_utility.WarningNotice;
 import view.gui_utility.MyJPanelImpl;
+import view.gui_utility.WarningNotice;
 
 /**
  * Class tha create the App Loader. SCOUTAPP will start from this

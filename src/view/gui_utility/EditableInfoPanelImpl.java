@@ -21,7 +21,6 @@ import control.Unit;
 import control.myUtil.Pair;
 import model.reparto.Squadron;
 import control.myUtil.MyOptional;
-import view.general_utility.WarningNotice;
 import view.gui_utility.SearchElementJDialog.SearchType;
 
 /**

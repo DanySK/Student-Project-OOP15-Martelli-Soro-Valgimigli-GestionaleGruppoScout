@@ -21,18 +21,17 @@ import model.reparto.Member;
 import model.reparto.MemberImpl;
 import model.reparto.Roles;
 import model.reparto.Squadron;
-import view.general_utility.WarningNotice;
-import view.gestione_eventi.SquadronExcursionPane;
-import view.gestione_eventi.UnitExcursionPane;
-import view.gestione_reparto.utility.EditMemberInfoJDialog;
-import view.gestione_reparto.utility.ShowMemberInfoJDialog;
-import view.gestione_tasse.utility.MemberTasseExcursionJDialog;
-import view.gestione_tasse.utility.MemberTasseJDialog;
+import view.excursion_manager.SquadronExcursionPane;
+import view.excursion_manager.UnitExcursionPane;
+import view.tax_manager.utility.MemberExcursionFeeJDialog;
+import view.tax_manager.utility.MemberFeeJDialog;
+import view.unit_manager.utility.EditMemberInfoJDialog;
+import view.unit_manager.utility.ShowMemberInfoJDialog;
 
 public class SearchElementJDialog<E, K> extends JDialog {
 
 	public enum SearchType {
-		AssignCharge, ShowMember, EditMember, EditMemberRep, addMemberExc, removeExcursion, Excursion, tasseRep, tasseSquad, tasseSquadExc;
+		MemberInExc,AssignCharge, ShowMember, EditMember, EditMemberRep, addMemberExc, removeExcursion, Excursion, tasseRep, tasseSquad, tasseSquadExc;
 	}
 
 	/**
@@ -63,7 +62,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 		if (t.equals(SearchType.AssignCharge) || t.equals(SearchType.ShowMember) || t.equals(SearchType.EditMember)
 				|| type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)
 				|| type.equals(SearchType.tasseRep) || type.equals(SearchType.tasseSquad)
-				|| type.equals(SearchType.tasseSquadExc)) {
+				|| type.equals(SearchType.tasseSquadExc) || type.equals(SearchType.MemberInExc)) {
 			this.parent = parent;
 			this.charge = charge.orElse("");
 			panel.add(panel.createJLabel("Inserire almeno uno dei campi richiesti", fontSizeLabel + 2),
@@ -105,15 +104,14 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				|| type.equals(SearchType.EditMember)) {
 			final Map<Member, Roles> memberSquad = MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 					.findSquadron((String) elem).getMembri();
-			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())
-					? memberSquad.keySet().stream()
-							.filter(t -> t.getName().equals(first.getText()) && t.getSurname().equals(second.getText()))
-							.collect(Collectors.toList())
-					: (!first.getText().isEmpty())
-							? memberSquad.keySet().stream().filter(t -> t.getName().equals(first.getText()))
-									.collect(Collectors.toList())
-							: memberSquad.keySet().stream().filter(l -> l.getSurname().equals(second.getText()))
-									.collect(Collectors.toList()));
+			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())?
+					MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamedFromList(first.getText()
+							,second.getText(), memberSquad.keySet().stream().collect(Collectors.toList()))
+					: (!first.getText().isEmpty())?
+							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithNameFromList(first.getText(), memberSquad.keySet()
+									.stream().collect(Collectors.toList()))
+							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurnameFromList(second.getText(), memberSquad.keySet()
+									.stream().collect(Collectors.toList())));
 			if (matches.isEmpty()) {
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
 						+ "Controllare i dati inseriti e riprovare");
@@ -121,16 +119,17 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				tooItemAndExecute();
 			}
 		} else if (type.equals(SearchType.tasseSquad) || type.equals(SearchType.tasseRep)
-				|| type.equals(SearchType.tasseSquadExc)) {
-			List<Member> tmp = ((EditableMemberPanelImpl<Member>) parent).getList();
+				|| type.equals(SearchType.tasseSquadExc) || type.equals(SearchType.MemberInExc)) {
 			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())
-					? tmp.stream()
-							.filter(t -> t.getName().equals(first.getText()) && t.getSurname().equals(second.getText()))
-							.collect(Collectors.toList())
+					?	MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamedFromList(first.getText()
+							,second.getText(), ((EditableElementScrollPanelImpl<Member>) parent).getList())
+							
+							
 					: (!first.getText().isEmpty())
-							? tmp.stream().filter(t -> t.getName().equals(first.getText())).collect(Collectors.toList())
-							: tmp.stream().filter(l -> l.getSurname().equals(second.getText()))
-									.collect(Collectors.toList()));
+							? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithNameFromList(first.getText(),
+									((EditableElementScrollPanelImpl<Member>) parent).getList())
+							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurnameFromList(second.getText(),
+									((EditableElementScrollPanelImpl<Member>) parent).getList()));
 
 			if (matches.isEmpty()) {
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
@@ -138,24 +137,23 @@ public class SearchElementJDialog<E, K> extends JDialog {
 			} else {
 				tooItemAndExecute();
 			}
-		}
+		}/*else if(type.equals(SearchType.MemberInExc)){
+			matches=(List<K>)
+		}*/
 
 		else if (type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)
 				|| type.equals(SearchType.tasseRep)) {
 			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())
-					? MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember()
-							.stream()
-							.filter(g -> g.getName().equals(first.getText()) && g.getSurname().equals(second.getText()))
-							.collect(Collectors.toList())
+					? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamed(first.getText(), second.getText())
 					: (!first.getText().isEmpty())
-							? MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
-									.filter(g -> g.getName().equals(first.getText())).collect(Collectors.toList())
-							: MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getAllMember().stream()
-									.filter(g -> g.getSurname().equals(second.getText())).collect(Collectors.toList()));
+							? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithName(first.getText())
+							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurname(second.getText()));
 			if (matches.isEmpty()) {
+				
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
 						+ "Controllare i dati inseriti e riprovare");
 			} else {
+				
 				tooItemAndExecute();
 			}
 		} else if (type.equals(SearchType.removeExcursion)) {
@@ -240,21 +238,22 @@ public class SearchElementJDialog<E, K> extends JDialog {
 			});
 
 		} else if (type.equals(SearchType.ShowMember) || type.equals(SearchType.EditMember)
-				|| type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)) {
+				|| type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)|| type.equals(SearchType.MemberInExc)) {
 			area = new JTextArea();
 			matches.stream().forEach(e -> {
 				area.append("Nome: " + ((Member) e).getName() + System.lineSeparator());
 				area.append("Cognome: " + ((Member) e).getSurname() + System.lineSeparator());
 				area.append("Nascita: " + ((Member) e).getBirthday().toString() + System.lineSeparator());
 				panMember.add(area);
-				if (type.equals(SearchType.addMemberExc)) {
+				if (type.equals(SearchType.addMemberExc)|| type.equals(SearchType.MemberInExc)) {
 					if (MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursionNamed((String) elem)
 							.containMember((Member) e)) {
-						paneSelect.add(paneSelect.createButton("Remove", o -> {
+						paneSelect.add(paneSelect.createButton("Non partecipare", o -> {
 							try {
 								MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 										.getExcursionNamed((String) elem).removePartecipant((Member) e);
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
+								((EditableElementScrollPanelImpl<Member>)parent).updateMember();
 								dialInternal.dispose();
 								this.dispose();
 							} catch (Exception e1) {
@@ -282,7 +281,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 						if (type.equals(SearchType.ShowMember)) {
 							new ShowMemberInfoJDialog((Member) e).setVisible(true);
 						} else {
-							new EditMemberInfoJDialog((MemberImpl) e, (EditableMemberPanelImpl<Member>) parent)
+							new EditMemberInfoJDialog((MemberImpl) e, (EditableElementScrollPanelImpl<Member>) parent)
 									.setVisible(true);
 						}
 					}));
@@ -317,9 +316,9 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("paga", o -> {
 					if (type.equals(SearchType.tasseRep) || type.equals(SearchType.tasseSquad)) {
-						new MemberTasseJDialog((Member) e, (EditableMemberPanelImpl<Member>) parent).setVisible(true);
+						new MemberFeeJDialog((Member) e, (EditableElementScrollPanelImpl<Member>) parent).setVisible(true);
 					} else {
-						new MemberTasseExcursionJDialog((Member) e, (EditableMemberPanelImpl<Member>) parent)
+						new MemberExcursionFeeJDialog((Member) e, (EditableElementScrollPanelImpl<Member>) parent)
 								.setVisible(true);
 					}
 					dialInternal.dispose();

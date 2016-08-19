@@ -20,7 +20,7 @@ import model.reparto.Member;
 import model.reparto.Reparto;
 import model.reparto.Roles;
 import model.reparto.Squadron;
-import view.general_utility.WarningNotice;
+import view.gui_utility.WarningNotice;
 
 public class UnitImpl implements Unit, Serializable {
 
@@ -130,6 +130,7 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public void putMemberInSq(final Member m, final Squadron sq, final Roles rl)
 			throws MemberSexException, ObjectNotContainedException, ObjectAlreadyContainedException {
+		this.rep.spostaMembroInSquadriglia(m, rl, sq);
 		this.excursions.forEach(e -> {
 			if(e instanceof UscitaSquadrigliaImpl){
 				if(((UscitaSquadrigliaImpl) e).getSquadriglia().equals(sq)){
@@ -141,7 +142,7 @@ public class UnitImpl implements Unit, Serializable {
 				}
 			}
 		});
-		this.rep.spostaMembroInSquadriglia(m, rl, sq);
+		
 	}
 
 	@Override
