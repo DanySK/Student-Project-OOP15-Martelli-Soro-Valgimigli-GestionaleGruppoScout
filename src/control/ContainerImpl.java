@@ -17,7 +17,7 @@ import model.escursioni.UscitaSquadriglia;
 import model.exception.ObjectNotContainedException;
 import model.reparto.Member;
 import model.reparto.Squadron;
-import view.general_utility.WarningNotice;
+import view.gui_utility.WarningNotice;
 
 public class ContainerImpl implements Container, Serializable {
 
@@ -40,7 +40,6 @@ public class ContainerImpl implements Container, Serializable {
 
 	@Override
 	public List<Member> findMember(final String name) throws IllegalArgumentException {
-		System.out.println(name);
 		return this.unit.stream().filter(e -> e.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
 	}
 

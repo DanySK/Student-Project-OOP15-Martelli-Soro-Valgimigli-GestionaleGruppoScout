@@ -9,8 +9,8 @@ import javax.swing.SwingUtilities;
 import control.myUtil.MyOptional;
 import extra.sito.ExcursionOnline;
 import extra.sito.Regioni;
-import view.gui_utility.EditableMemberPanelImpl;
-import view.gui_utility.EditableMemberPanelImpl.Type;
+import view.gui_utility.EditableElementScrollPanelImpl;
+import view.gui_utility.EditableElementScrollPanelImpl.Type;
 import view.gui_utility.MyJPanelImpl;
 
 public class EventiBuonaCaccia extends MyJPanelImpl {
@@ -20,7 +20,7 @@ public class EventiBuonaCaccia extends MyJPanelImpl {
 	 */
 	private final static int FONTSIZE=19;
 	private static final long serialVersionUID = -4317317394245136248L;
-	private final EditableMemberPanelImpl<ExcursionOnline> paneEx;
+	private final EditableElementScrollPanelImpl<ExcursionOnline> paneEx;
 	public EventiBuonaCaccia(){
 		super(new BorderLayout());
 		final MyJPanelImpl panelIn=new MyJPanelImpl(new BorderLayout());
@@ -34,14 +34,16 @@ public class EventiBuonaCaccia extends MyJPanelImpl {
 		Arrays.asList(Regioni.values()).stream().forEach(e->{
 			if(!e.equals(Regioni.NAZIONALE)){chooser.addItem(e);}
 		});
-		paneEx=new EditableMemberPanelImpl<>(Type.EXCONLINE, MyOptional.of(Regioni.NAZIONALE.toString()));
+		paneEx=new EditableElementScrollPanelImpl<>(Type.EXCONLINE, MyOptional.of(Regioni.NAZIONALE.toString()));
 		panelIn.add(paneEx,BorderLayout.CENTER);
 		chooser.addItemListener(e->{
 			SwingUtilities.invokeLater(new Runnable() {
 				
 				@Override
 				public void run() {
+					
 					paneEx.forceUpdate(((Regioni)chooser.getSelectedItem()).toString());
+					
 					validate();
 					repaint();
 				}

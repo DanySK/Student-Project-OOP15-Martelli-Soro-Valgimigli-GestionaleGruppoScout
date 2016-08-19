@@ -19,10 +19,10 @@ import javax.swing.SwingUtilities;
 import control.MasterProjectImpl;
 import control.UnitImpl;
 import control.ProjectFactoryImpl;
-import view.general_utility.WarningNotice;
-import view.gestione_reparto.utility.PanelCapiReparto;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
+import view.gui_utility.WarningNotice;
+import view.unit_manager.utility.UnitLeaderJPanel;
 
 /**
  * Outer class for class LoadUnit, CreateUnit and LoaderOptions. These 3 classes
@@ -93,6 +93,7 @@ public class LoaderUtil extends MyJPanelImpl {
 					for (String i : project.getListOfUnit()) {
 						panelCenter.add(createButton(i, e -> {
 							((JButton) panelBottom.getComponent(0)).setEnabled(true);
+							((JButton) panelBottom.getComponent(1)).setEnabled(true);
 							selected = ((JButton) e.getSource()).getName();
 
 							SwingUtilities.invokeLater(new Runnable() {
@@ -160,6 +161,7 @@ public class LoaderUtil extends MyJPanelImpl {
 
 					}));
 					panelBottom.getComponent(0).setEnabled(false);
+					panelBottom.getComponent(1).setEnabled(false);
 					panelBottom.add(getBackButtonPrivate(), BorderLayout.LINE_START);
 					this.add(panelCenter, BorderLayout.CENTER);
 					this.add(panelBottom, BorderLayout.SOUTH);
@@ -193,8 +195,8 @@ public class LoaderUtil extends MyJPanelImpl {
 			MyJPanelImpl nome = new MyJPanelImpl(new GridLayout(0, 2));
 			nome.add(createJLabel("Nome Reparto: ", 20));
 			nome.add(textField);
-			PanelCapiReparto capoM = new PanelCapiReparto("Capo Maschio");
-			PanelCapiReparto capoF = new PanelCapiReparto("Capo Femmina");
+			UnitLeaderJPanel capoM = new UnitLeaderJPanel("Capo Maschio");
+			UnitLeaderJPanel capoF = new UnitLeaderJPanel("Capo Femmina");
 			capi.add(capoM);
 			capi.add(capoF);
 			this.add(nome, BorderLayout.NORTH);
