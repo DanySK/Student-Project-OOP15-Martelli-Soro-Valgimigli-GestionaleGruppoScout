@@ -23,7 +23,7 @@ public class LoaderImpl extends MyJPanelImpl {
 	private MasterProjectImpl project;
 	private final JFrame frame;
 	private final MyJPanelImpl panelBotton = new MyJPanelImpl();
-	private String northString;
+	private final String northString;
 
 	public LoaderImpl() {
 
@@ -44,12 +44,12 @@ public class LoaderImpl extends MyJPanelImpl {
 		northString = "Benvenuto nella schermata iniziale di SCOUTAPP!" + System.lineSeparator()
 				+ "Qui potrai caricare un reparto o crearne di nuovi." + System.lineSeparator()
 				+ "Il tasto Opzioni ti permette di modificare le impostazioni del programma";
-		JTextArea areaNorth = createJTextArea(northString, false, 18);
+		final JTextArea areaNorth = createJTextArea(northString, false, 18);
 		this.add(areaNorth, BorderLayout.NORTH);
 		areaNorth.setBackground(this.getBackground());
 
 		// tasto load
-		LoaderUtil loader = new LoaderUtil(project);
+		final LoaderUtil loader = new LoaderUtil(project);
 		panelBotton.add(this.createButton("Salvataggi", e -> {
 			loader.new LoadUnit();
 			this.frame.dispose();
@@ -63,7 +63,7 @@ public class LoaderImpl extends MyJPanelImpl {
 
 		// tasto opzioni
 		panelBotton.add(this.createButton("Opzioni", e -> {
-			LoaderUtil.LoaderOptions optPanel = loader.new LoaderOptions();
+			final LoaderUtil.LoaderOptions optPanel = loader.new LoaderOptions();
 			optPanel.getPanelBottom().add(this.createButton("ok", f -> {
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override

@@ -31,7 +31,7 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * 
 	 */
 	public MyJPanelImpl() {
-
+		super();
 	}
 
 	/**
@@ -40,7 +40,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @param layout
 	 *            JPanel layout
 	 */
-	public MyJPanelImpl(LayoutManager layout) {
+	public MyJPanelImpl(final LayoutManager layout) {
+		super();
 		this.setLayout(layout);
 	}
 
@@ -52,7 +53,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @param callerPanel
 	 *            JPanel who called/contains this panel
 	 */
-	public MyJPanelImpl(String title, JPanel callerPanel) {
+	public MyJPanelImpl(final String title, final JPanel callerPanel) {
+		super();
 		this.setName(title);
 		this.callerPanel = callerPanel;
 		this.setBackground(new Color(42, 218, 77));
@@ -70,7 +72,7 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 *            JPanel's Layout
 	 */
 
-	public MyJPanelImpl(String title, JPanel callerPanel, LayoutManager layout) {
+	public MyJPanelImpl(final String title, final JPanel callerPanel, final LayoutManager layout) {
 		this(title, callerPanel);
 		this.setLayout(layout);
 	}
@@ -83,8 +85,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @return
 	 */
 	@Override
-	public JButton createButton(String title, ActionListener e) {
-		JButton button = new JButton(title);
+	public JButton createButton(final String title, final ActionListener e) {
+		final JButton button = new JButton(title);
 		button.setName(title);
 		button.addActionListener(e);
 		return button;
@@ -99,8 +101,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @return
 	 */
 	@Override
-	public JButton createButton(String title, Color c, ActionListener e) {
-		JButton button = this.createButton(title, e);
+	public JButton createButton(final String title,final  Color c,final  ActionListener e) {
+		final JButton button = this.createButton(title, e);
 		button.setBackground(c);
 		return button;
 	}
@@ -116,8 +118,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 */
 
 	@Override
-	public JButton createButton(String title, Color c, Font f, ActionListener e) {
-		JButton button = this.createButton(title, c, e);
+	public JButton createButton(final String title, final Color c, final Font f, final ActionListener e) {
+		final JButton button = this.createButton(title, c, e);
 		button.setFont(f);
 		return button;
 	}
@@ -132,8 +134,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 */
 
 	@Override
-	public JButton createButton(String title, int fontSize, ActionListener e) {
-		JButton button = new JButton(title);
+	public JButton createButton(final String title, final int fontSize,final  ActionListener e) {
+		final JButton button = new JButton(title);
 		button.setName(title);
 		button.addActionListener(e);
 		button.setFont(new Font("Aria", Font.ITALIC, fontSize));
@@ -152,8 +154,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @return
 	 */
 	@Override
-	public JTextArea createJTextArea(String text, boolean editable, int fontSize) {
-		JTextArea area = new JTextArea(text);
+	public JTextArea createJTextArea(final String text,final  boolean editable,final  int fontSize) {
+		final JTextArea area = new JTextArea(text);
 		area.setEditable(editable);
 		area.setFont(new Font("Aria", Font.ITALIC, fontSize));
 		area.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -170,8 +172,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @return
 	 */
 	@Override
-	public JLabel createJLabel(String text, int fontSize) {
-		JLabel label = new JLabel(text, SwingConstants.CENTER);
+	public JLabel createJLabel(final String text,final  int fontSize) {
+		final JLabel label = new JLabel(text, SwingConstants.CENTER);
 		label.setFont(new Font("Aria", Font.ITALIC, fontSize));
 		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		return label;
@@ -184,8 +186,8 @@ public class MyJPanelImpl extends JPanel implements MyJPanel {
 	 * @return JButton created
 	 */
 	protected JButton getBackButton() {
-		ImageIcon img = new ImageIcon(Main.class.getResource("/backIconSmall.png"));
-		JButton t = new JButton();
+		final ImageIcon img = new ImageIcon(Main.class.getResource("/backIconSmall.png"));
+		final JButton t = new JButton();
 		t.addActionListener(e -> {
 
 			try {

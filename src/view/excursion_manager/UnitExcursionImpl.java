@@ -1,7 +1,6 @@
 package view.excursion_manager;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.stream.Collectors;
 
@@ -48,7 +47,7 @@ public class UnitExcursionImpl {
 			this.panelCenter = new MyJPanelImpl(new GridLayout(2, 1));
 			this.panelTopInfo = new MyJPanelImpl(new GridLayout(0, 2));
 			this.updatePaneInfo();
-			this.panelTopButton = new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
+			this.panelTopButton = new MyJPanelImpl();
 			this.panelTopContainer = new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			

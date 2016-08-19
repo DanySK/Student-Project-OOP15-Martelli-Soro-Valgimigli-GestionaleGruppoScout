@@ -18,7 +18,7 @@ import extra.sito.ExcursionOnline;
 import model.escursioni.EventiDiZona;
 import model.escursioni.Excursion;
 import model.escursioni.GemellaggiImpl;
-import view.gui_utility.EditableElementScrollPane;
+import view.gui_utility.EditableElementScrollPanel;
 import view.gui_utility.EditableElementScrollPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -43,7 +43,7 @@ public class ShowEditExcursion extends JDialog {
 	 * @param exc
 	 * @param parent EditableMemberPanelImpl that called this JDialog
 	 */
-	public ShowEditExcursion(final Excursion exc, final EditableElementScrollPane<Excursion> parent) {
+	public ShowEditExcursion(final Excursion exc, final EditableElementScrollPanel<Excursion> parent) {
 		super();
 		this.exc = exc;
 		panel.add(panelCenterOuter, BorderLayout.CENTER);

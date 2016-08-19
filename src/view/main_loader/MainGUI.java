@@ -98,7 +98,7 @@ public class MainGUI extends MyJPanelImpl {
 				text = "<html>";
 				final MyJPanelImpl info = new MyJPanelImpl(new GridLayout(0, 2));
 				
-				Map<String,List<String>> mapAvvisi=check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit());
+				final Map<String,List<String>> mapAvvisi=check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit());
 				mapAvvisi.keySet().stream().forEach(k->{
 					info.add(createJLabel(k + ": ", FONTSIZE + 5));
 					mapAvvisi.get(k).stream().forEach(t -> {
@@ -141,7 +141,7 @@ public class MainGUI extends MyJPanelImpl {
 	 */
 
 	@Override
-	public void paintComponent(Graphics g) {
+	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		try {
 			if (image != null) {

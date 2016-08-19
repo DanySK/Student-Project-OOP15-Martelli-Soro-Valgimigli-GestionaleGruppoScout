@@ -11,10 +11,9 @@ import javax.swing.JTextField;
 import control.myUtil.MyOptional;
 import model.exception.ObjectNotContainedException;
 import model.reparto.Member;
-import model.reparto.MemberImpl;
 import model.reparto.Roles;
 import model.reparto.Squadron;
-import view.gui_utility.EditableElementScrollPane;
+import view.gui_utility.EditableElementScrollPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.WarningNotice;
@@ -37,7 +36,7 @@ public class EditMemberInfoJDialog extends JDialog {
  * @param mem Member to be modified
  * @param parent panel wich contains JButton who called this JDialog
  */
-	public EditMemberInfoJDialog(final MemberImpl mem, final EditableElementScrollPane<Member> parent) {
+	public EditMemberInfoJDialog(final Member mem, final EditableElementScrollPanel<Member> parent) {
 		super();
 		this.mem = mem;
 		/* Se il membro appartiene ad una squadriglia la recupero */
@@ -183,8 +182,7 @@ public class EditMemberInfoJDialog extends JDialog {
 				}
 				if (memberHasSquadron() && ((String) squad.getSelectedItem()).equals("nessuna squadriglia")) {
 					
-						MyJFrameSingletonImpl.getInstance().getUnit().getContainers().removeMeberFromSquadron(mem,
-								MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squadName));
+						MyJFrameSingletonImpl.getInstance().getUnit().removeMemberFromSq(mem);
 						parent.updateMember();
 						this.dispose();
 					

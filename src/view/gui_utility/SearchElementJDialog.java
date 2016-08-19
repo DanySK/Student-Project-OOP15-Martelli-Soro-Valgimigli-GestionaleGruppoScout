@@ -13,14 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import control.Container;
 import control.InfoProjectImpl;
+import control.Unit;
 import control.myUtil.MyOptional;
 import model.escursioni.Excursion;
 import model.exception.ObjectAlreadyContainedException;
 import model.reparto.Member;
-import model.reparto.MemberImpl;
 import model.reparto.Roles;
-import model.reparto.Squadron;
 import view.excursion_manager.SquadronExcursionPane;
 import view.excursion_manager.UnitExcursionPane;
 import view.fee_manager.utility.MemberExcursionFeeJDialog;
@@ -55,13 +55,16 @@ public class SearchElementJDialog<E, K> extends JDialog {
 	private List<K> matches;
 	private String charge;
 	private JPanel parent;
-	private Squadron squadImpl;
+	//private Squadron squadImpl;
 	private JTextArea area = new JTextArea();
-
-	public SearchElementJDialog(SearchType t, E param, MyOptional<String> charge, JPanel parent) {
+	private final Container cnt;
+	private final Unit unit;
+	public SearchElementJDialog(final SearchType t, final E param, final MyOptional<String> stringParam, final JPanel parent) {
 		super();
 		this.elem = param;
 		this.type = t;
+		this.unit=MyJFrameSingletonImpl.getInstance().getUnit();
+		this.cnt=unit.getContainers();
 		panel = new MyJPanelImpl(new BorderLayout());
 		panelButton = new MyJPanelImpl(new FlowLayout(FlowLayout.LEFT));
 
@@ -70,7 +73,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				|| type.equals(SearchType.tasseRep) || type.equals(SearchType.tasseSquad)
 				|| type.equals(SearchType.tasseSquadExc) || type.equals(SearchType.MemberInExc)) {
 			this.parent = parent;
-			this.charge = charge.orElse("");
+			this.charge = stringParam.orElse("");
 			panel.add(panel.createJLabel("Inserire almeno uno dei campi richiesti", fontSizeLabel + 2),
 					BorderLayout.NORTH);
 			panelCenter = new MyJPanelImpl(new GridLayout(2, 2));
@@ -108,15 +111,14 @@ public class SearchElementJDialog<E, K> extends JDialog {
 
 		if (type.equals(SearchType.AssignCharge) || type.equals(SearchType.ShowMember)
 				|| type.equals(SearchType.EditMember)) {
-			final Map<Member, Roles> memberSquad = MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
-					.findSquadron((String) elem).getMembri();
+			final Map<Member, Roles> memberSquad = cnt.findSquadron((String) elem).getMembri();
 			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())?
-					MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamedFromList(first.getText()
+				cnt.getMemberNamedFromList(first.getText()
 							,second.getText(), memberSquad.keySet().stream().collect(Collectors.toList()))
 					: (!first.getText().isEmpty())?
-							MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithNameFromList(first.getText(), memberSquad.keySet()
+							cnt.getMemberWithNameFromList(first.getText(), memberSquad.keySet()
 									.stream().collect(Collectors.toList()))
-							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurnameFromList(second.getText(), memberSquad.keySet()
+							: cnt.getMemberWithSurnameFromList(second.getText(), memberSquad.keySet()
 									.stream().collect(Collectors.toList())));
 			if (matches.isEmpty()) {
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
@@ -127,15 +129,15 @@ public class SearchElementJDialog<E, K> extends JDialog {
 		} else if (type.equals(SearchType.tasseSquad) || type.equals(SearchType.tasseRep)
 				|| type.equals(SearchType.tasseSquadExc) || type.equals(SearchType.MemberInExc)) {
 			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())
-					?	MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamedFromList(first.getText()
-							,second.getText(), ((EditableElementScrollPane<Member>) parent).getList())
+					?	cnt.getMemberNamedFromList(first.getText()
+							,second.getText(), ((EditableElementScrollPanel<Member>) parent).getList())
 							
 							
 					: (!first.getText().isEmpty())
-							? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithNameFromList(first.getText(),
-									((EditableElementScrollPane<Member>) parent).getList())
-							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurnameFromList(second.getText(),
-									((EditableElementScrollPane<Member>) parent).getList()));
+							? cnt.getMemberWithNameFromList(first.getText(),
+									((EditableElementScrollPanel<Member>) parent).getList())
+							: cnt.getMemberWithSurnameFromList(second.getText(),
+									((EditableElementScrollPanel<Member>) parent).getList()));
 
 			if (matches.isEmpty()) {
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
@@ -150,10 +152,10 @@ public class SearchElementJDialog<E, K> extends JDialog {
 		else if (type.equals(SearchType.addMemberExc) || type.equals(SearchType.EditMemberRep)
 				|| type.equals(SearchType.tasseRep)) {
 			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())
-					? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamed(first.getText(), second.getText())
+					?cnt.getMemberNamed(first.getText(), second.getText())
 					: (!first.getText().isEmpty())
-							? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithName(first.getText())
-							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurname(second.getText()));
+							? cnt.getMemberWithName(first.getText())
+							:cnt.getMemberWithSurname(second.getText()));
 			if (matches.isEmpty()) {
 				
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
@@ -163,7 +165,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				tooItemAndExecute();
 			}
 		} else if (type.equals(SearchType.removeExcursion)) {
-			matches = (List<K>) MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream()
+			matches = (List<K>) cnt.getExcursion().stream()
 					.filter(d -> d.getName().equals(first.getText())).collect(Collectors.toList());
 			if (matches.isEmpty()) {
 				new WarningNotice("Nessuna escursione trovata con quel nome." + System.lineSeparator()
@@ -177,22 +179,16 @@ public class SearchElementJDialog<E, K> extends JDialog {
 
 	@SuppressWarnings("unchecked")
 	private void tooItemAndExecute() {
-		JDialog dialInternal = new JDialog();
+		final JDialog dialInternal = new JDialog();
 		// squadImpl=new SquadronImpl("a", false);
-		try {
-			squadImpl = MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron((String) elem);
-		} catch (Exception e) {/*
-								 * e.printStackTrace(); new
-								 * WarningNotice(e.getMessage());
-								 */
-		}
+		
 
-		MyJPanelImpl panInternal = new MyJPanelImpl(new BorderLayout());
+		final MyJPanelImpl panInternal = new MyJPanelImpl(new BorderLayout());
 		panInternal.add(panInternal.createJLabel("Scegliere la corrispondenza desiderata", fontSizeLabel),
 				BorderLayout.NORTH);
-		MyJPanelImpl panMember = new MyJPanelImpl(new GridLayout(0, 1));
-		MyJPanelImpl paneSelect = new MyJPanelImpl(new GridLayout(0, 1));
-		MyJPanelImpl panBot = new MyJPanelImpl(new BorderLayout());
+		final MyJPanelImpl panMember = new MyJPanelImpl(new GridLayout(0, 1));
+		final MyJPanelImpl paneSelect = new MyJPanelImpl(new GridLayout(0, 1));
+		final MyJPanelImpl panBot = new MyJPanelImpl(new BorderLayout());
 
 		area.setEditable(false);
 		panBot.add(panBot.createButton("Annulla", u -> {
@@ -210,21 +206,22 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("Scegli", o -> {
 					dialInternal.dispose();
-					String method = "set" + charge.substring(0, charge.length() - 2)
+					final String method = "set" + charge.substring(0, charge.length() - 2)
 							+ ((charge.equals("Vice: ")) ? "capoSq" : "Sq");
 					try {
-						if (charge.equals("Capo: ") && squadImpl.isCapoPresent()) {
-							squadImpl.removeCapo();
-						} else if (charge.equals("Vice: ") && squadImpl.isVicecapoPresent()) {
-							squadImpl.removeVice();
+						if (charge.equals("Capo: ") && cnt.findSquadron((String)elem).isCapoPresent()) {
+							cnt.findSquadron((String)elem).removeCapo();
+						} else if (charge.equals("Vice: ") && cnt.findSquadron((String)elem).isVicecapoPresent()) {
+							cnt.findSquadron((String)elem).removeVice();
 						} else {
-							if (squadImpl.isTricecapoPresent())
-								squadImpl.removeTrice();
+							if (cnt.findSquadron((String)elem).isTricecapoPresent()){
+								cnt.findSquadron((String)elem).removeTrice();
+							}
 						}
-						Method mt = MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
+						final Method mt = cnt
 								.findSquadron((String) elem).getClass().getDeclaredMethod(method, Member.class);
 						// lancio metodo
-						mt.invoke(squadImpl, (Member) e);
+						mt.invoke(cnt.findSquadron((String)elem), (Member) e);
 						MyJFrameSingletonImpl.getInstance().setNeedToSave();// setto
 																			// che
 																			// sono
@@ -252,14 +249,14 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				area.append("Nascita: " + ((Member) e).getBirthday().toString() + System.lineSeparator());
 				panMember.add(area);
 				if (type.equals(SearchType.addMemberExc)|| type.equals(SearchType.MemberInExc)) {
-					if (MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursionNamed((String) elem)
+					if (cnt.getExcursionNamed((String) elem)
 							.containMember((Member) e)) {
-						paneSelect.add(paneSelect.createButton("Non partecipare", o -> {
+						paneSelect.add(paneSelect.createButton("Disdici", o -> {
 							try {
-								MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
+								cnt
 										.getExcursionNamed((String) elem).removePartecipant((Member) e);
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
-								((EditableElementScrollPane<Member>)parent).updateMember();
+								((EditableElementScrollPanel<Member>)parent).updateMember();
 								dialInternal.dispose();
 								this.dispose();
 							} catch (Exception e1) {
@@ -270,8 +267,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 					} else {
 						paneSelect.add(paneSelect.createButton("Partecipa", o -> {
 							try {
-								MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
-										.getExcursionNamed((String) elem).addPartecipant((Member) e, false);
+								cnt.getExcursionNamed((String) elem).addPartecipant((Member) e, false);
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
 								dialInternal.dispose();
 								this.dispose();
@@ -287,7 +283,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 						if (type.equals(SearchType.ShowMember)) {
 							new ShowMemberInfoJDialogImpl((Member) e).setVisible(true);
 						} else {
-							new EditMemberInfoJDialog((MemberImpl) e, (EditableElementScrollPane<Member>) parent)
+							new EditMemberInfoJDialog((Member) e, (EditableElementScrollPanel<Member>) parent)
 									.setVisible(true);
 						}
 					}));
@@ -296,12 +292,11 @@ public class SearchElementJDialog<E, K> extends JDialog {
 
 		} else if (type.equals(SearchType.removeExcursion)) {
 			matches.stream().forEach(e -> {
-				;
 				area.append((new InfoProjectImpl()).getExcursionInfo((Excursion) e));
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("Rimuovi", o -> {
 					dialInternal.dispose();
-					MyJFrameSingletonImpl.getInstance().getUnit().removeExcursion((Excursion) e);
+					unit.removeExcursion((Excursion) e);
 					if (parent instanceof UnitExcursionPane) {
 						((UnitExcursionPane) parent).updatePaneInfo();
 						((UnitExcursionPane) parent).updateExcursion();
@@ -322,9 +317,9 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("paga", o -> {
 					if (type.equals(SearchType.tasseRep) || type.equals(SearchType.tasseSquad)) {
-						new MemberFeeJDialog((Member) e, (EditableElementScrollPane<Member>) parent).setVisible(true);
+						new MemberFeeJDialog((Member) e, (EditableElementScrollPanel<Member>) parent).setVisible(true);
 					} else {
-						new MemberExcursionFeeJDialog((Member) e, (EditableElementScrollPane<Member>) parent)
+						new MemberExcursionFeeJDialog((Member) e, (EditableElementScrollPanel<Member>) parent)
 								.setVisible(true);
 					}
 					dialInternal.dispose();
