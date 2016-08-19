@@ -13,6 +13,7 @@ import control.exception.MemberSexException;
 import control.myUtil.Pair;
 import extra.mail.ControlMail;
 import model.escursioni.Excursion;
+import model.escursioni.UscitaSquadriglia;
 import model.escursioni.UscitaSquadrigliaImpl;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
@@ -96,6 +97,27 @@ public class UnitImpl implements Unit, Serializable {
 	public void createSq(final Squadron sq) throws ObjectAlreadyContainedException {
 		this.rep.addSquadron(sq);
 	}
+	@Override
+	public void removeMemberFromSq(Member m) throws ObjectAlreadyContainedException {
+		this.rep.getAllSquadron().stream().filter(e -> e.containMember(m)).forEach(e -> {
+			try {
+				e.removeMembro(m);
+				this.excursions.stream().filter(exc -> exc instanceof UscitaSquadriglia).forEach(exc -> {
+					if (((UscitaSquadrigliaImpl) exc).getSquadriglia().equals(e)
+							&& ((UscitaSquadrigliaImpl) exc).containMember(m)) {
+						try {
+							exc.removePartecipant(m);
+						} catch (Exception e1) {
+						}
+					}
+				});
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		this.rep.addMembroSenzaSquadriglia(m);
+
+	}
 
 	@Override
 	public void removeMember(final Member m) throws ObjectNotContainedException {
@@ -112,9 +134,10 @@ public class UnitImpl implements Unit, Serializable {
 		}
 		this.excursions.forEach(e -> {
 			try {
-				e.removePartecipant(m);
+				if (e.containMember(m)) {
+					e.removePartecipant(m);
+				}
 			} catch (Exception exc) {
-				new WarningNotice("Errore rimozione in evento: " + e.getName());
 			}
 		});
 	}
@@ -132,12 +155,11 @@ public class UnitImpl implements Unit, Serializable {
 			throws MemberSexException, ObjectNotContainedException, ObjectAlreadyContainedException {
 		this.rep.spostaMembroInSquadriglia(m, rl, sq);
 		this.excursions.forEach(e -> {
-			if(e instanceof UscitaSquadrigliaImpl){
-				if(((UscitaSquadrigliaImpl) e).getSquadriglia().equals(sq)){
-					try{
-					e.addPartecipant(m, false);
-					}catch(Exception exc){
-						new WarningNotice("Errore inserimento in evento di sq: " + e.getName());
+			if (e instanceof UscitaSquadrigliaImpl) {
+				if (((UscitaSquadrigliaImpl) e).getSquadriglia().equals(sq)) {
+					try {
+						e.addPartecipant(m, false);
+					} catch (Exception exc) {
 					}
 				}
 			}
@@ -154,11 +176,11 @@ public class UnitImpl implements Unit, Serializable {
 		} else {
 			this.rep.removeMemberFromSquadron(m);
 			this.excursions.forEach(e -> {
-				if(e instanceof UscitaSquadrigliaImpl){
-					if(((UscitaSquadrigliaImpl) e).containMember(m)){
-						try{
-						e.removePartecipant(m);
-						}catch(Exception exc){
+				if (e instanceof UscitaSquadrigliaImpl) {
+					if (((UscitaSquadrigliaImpl) e).containMember(m)) {
+						try {
+							e.removePartecipant(m);
+						} catch (Exception exc) {
 							new WarningNotice("Errore rimozione dagli eventi della squadriglia");
 						}
 					}
@@ -231,16 +253,16 @@ public class UnitImpl implements Unit, Serializable {
 	public void setLastMailSend(final LocalDate lastMailSend) {
 		this.lastMailSend = lastMailSend;
 	}
+
 	@Override
-	public List<Member> getMemberWithName(final String name){
-		return this.rep.getAllMember().stream()
-				.filter(e -> e.getName().equalsIgnoreCase(name))
+	public List<Member> getMemberWithName(final String name) {
+		return this.rep.getAllMember().stream().filter(e -> e.getName().equalsIgnoreCase(name))
 				.collect(Collectors.toList());
 	}
+
 	@Override
-	public List<Member> getMemberWithSurname(final String Surname){
-		return this.rep.getAllMember().stream()
-				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
+	public List<Member> getMemberWithSurname(final String Surname) {
+		return this.rep.getAllMember().stream().filter(e -> e.getSurname().equalsIgnoreCase(Surname))
 				.collect(Collectors.toList());
 	}
 }
