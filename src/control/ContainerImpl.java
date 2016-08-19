@@ -210,6 +210,12 @@ public class ContainerImpl implements Container, Serializable {
 				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
 				.collect(Collectors.toList());
 	}
+	@Override
+	public List<Member> getMemberNamedFromList(final String name, final String surname,  final List<Member> list) {
+		return list.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname))
+				.collect(Collectors.toList());
+	}
 }
 
 
