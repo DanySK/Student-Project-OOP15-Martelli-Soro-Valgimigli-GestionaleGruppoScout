@@ -13,6 +13,7 @@ import control.exception.MemberSexException;
 import control.myUtil.Pair;
 import extra.mail.ControlMail;
 import model.escursioni.Excursion;
+import model.escursioni.UscitaSquadrigliaImpl;
 import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 import model.reparto.Member;
@@ -80,6 +81,15 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public void addMember(final Member m) throws ObjectAlreadyContainedException {
 		this.rep.addMembroSenzaSquadriglia(m);
+		this.excursions.forEach(e -> {
+			if (!(e instanceof UscitaSquadrigliaImpl)) {
+				try {
+					e.addPartecipant(m, false);
+				} catch (Exception e1) {
+					new WarningNotice("Errore aggiunta in evento: " + e.getName());
+				}
+			}
+		});
 	}
 
 	@Override
@@ -100,11 +110,17 @@ public class UnitImpl implements Unit, Serializable {
 				}
 			}
 		}
+		this.excursions.forEach(e -> {
+			try {
+				e.removePartecipant(m);
+			} catch (Exception exc) {
+				new WarningNotice("Errore rimozione in evento: " + e.getName());
+			}
+		});
 	}
 
 	@Override
 	public void removeSq(final Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException {
-
 		this.rep.removeSquadron(sq);
 		for (final Member member : sq.getMembri().keySet()) {
 			this.rep.addMembroSenzaSquadriglia(member);
@@ -114,6 +130,17 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public void putMemberInSq(final Member m, final Squadron sq, final Roles rl)
 			throws MemberSexException, ObjectNotContainedException, ObjectAlreadyContainedException {
+		this.excursions.forEach(e -> {
+			if(e instanceof UscitaSquadrigliaImpl){
+				if(((UscitaSquadrigliaImpl) e).getSquadriglia().equals(sq)){
+					try{
+					e.addPartecipant(m, false);
+					}catch(Exception exc){
+						new WarningNotice("Errore inserimento in evento di sq: " + e.getName());
+					}
+				}
+			}
+		});
 		this.rep.spostaMembroInSquadriglia(m, rl, sq);
 	}
 
@@ -125,6 +152,17 @@ public class UnitImpl implements Unit, Serializable {
 			new WarningNotice("Il ragazzo non appartiene a nessuna squadriglia \n verrà comunque assegnato");
 		} else {
 			this.rep.removeMemberFromSquadron(m);
+			this.excursions.forEach(e -> {
+				if(e instanceof UscitaSquadrigliaImpl){
+					if(((UscitaSquadrigliaImpl) e).containMember(m)){
+						try{
+						e.removePartecipant(m);
+						}catch(Exception exc){
+							new WarningNotice("Errore rimozione dagli eventi della squadriglia");
+						}
+					}
+				}
+			});
 		}
 
 		this.putMemberInSq(m, sqNew, rl);

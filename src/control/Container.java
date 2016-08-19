@@ -149,4 +149,11 @@ public interface Container {
 	 */
 	Campo getCamp(String name);
 
+	/**
+	 * 
+	 * @param sq
+	 * @return
+	 */
+	List<UscitaSquadriglia> getExcursionOfSquadron(Squadron sq);
+
 }

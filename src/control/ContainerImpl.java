@@ -174,4 +174,10 @@ public class ContainerImpl implements Container, Serializable {
 		return tmp;
 	}
 
+	@Override
+	public List<UscitaSquadriglia> getExcursionOfSquadron(final Squadron sq) {
+		return this.excs.stream().filter(e -> e instanceof UscitaSquadriglia).map(e -> ((UscitaSquadriglia) e))
+				.filter(e -> ((UscitaSquadriglia) e).getSquadriglia().equals(sq)).collect(Collectors.toList());
+	}
+
 }
