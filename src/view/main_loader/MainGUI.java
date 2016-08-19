@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 
 import control.CheckerImpl;
 import view.Main;
-import view.gestione_eventi.GestioneEventiMain;
+import view.gestione_eventi.ExcursionManagerMain;
 import view.gestione_reparto.GestioneRepartoMain;
 import view.gestione_tasse.GestioneTasseMain;
 import view.gui_utility.MyJFrameSingletonImpl;
@@ -29,56 +29,49 @@ import view.online.OnlineMainImpl;
  * @author giovanni
  *
  */
-public class MainGuiImpl extends MyJPanelImpl {
+public class MainGUI extends MyJPanelImpl {
 	private static final long serialVersionUID = 5093988269737955314L;
 	/*
 	 * Two Panel Are used: -South for JButton(GestioneReparto,
 	 * GestioneTasse,GestioneEventi, Altro) -Nort for JButton(Options) and
 	 * background Image
 	 */
-	private final JPanel south;
-	private final JPanel north;
-	private final int fontSize = 15;
-	private Image image; // background image
-	private ImageIcon img;// options icon
-
+	private final CheckerImpl check = new CheckerImpl();
+	private final Image image = Toolkit.getDefaultToolkit().createImage(Main.class.getResource("/agesci.png"));
+	private final ImageIcon img = new ImageIcon(Main.class.getResource("/alertIcon.png"));
+	private final static int FONTSIZE = 15;
 	private String text = "";
 	private final JButton opzioni;
-	private CheckerImpl check;
 	private boolean warning = false;
 
-	public MainGuiImpl() {
+	public MainGUI() {
 		super("SCOUTAPP", MyJFrameSingletonImpl.getInstance().getContenentPane(), new BorderLayout());
-		image = Toolkit.getDefaultToolkit().createImage(Main.class.getResource("/agesci.png"));
-		img = new ImageIcon(Main.class.getResource("/alertIcon.png"));
+		
 
-		south = new MyJPanelImpl("south", this.callerPanel, new GridLayout(2, 2));
-		north = new MyJPanelImpl("nortg", this.callerPanel, new BorderLayout());
+		final JPanel south = new MyJPanelImpl("south", this.callerPanel, new GridLayout(2, 2));
+		final JPanel north = new MyJPanelImpl("nortg", this.callerPanel, new BorderLayout());
 
-		check = new CheckerImpl();
+		
 
 		/*
 		 * Add JButton in south panel(GestioneReparto,
 		 * GestioneEventi,GestioneTasse,Altro)
 		 */
-		this.south.add(createButton("GestioneReparto", e -> {
+		south.add(createButton("GestioneReparto", e -> {
 			new GestioneRepartoMain();
 		}));
 
-		this.south.add(createButton("Gestione Tasse", e -> {
+		south.add(createButton("Gestione Tasse", e -> {
 			new GestioneTasseMain();
 		}));
 
-		this.south.add(createButton("Gestione Eventi", e -> {
-			new GestioneEventiMain();
+		south.add(createButton("Gestione Eventi", e -> {
+			new ExcursionManagerMain();
 		}));
 
-		this.south.add(createButton("Online", e -> {
-			try {
-				new OnlineMainImpl();
-			} catch (Exception k) {
-				k.printStackTrace();
-			}
+		south.add(createButton("Online", e -> {
+			new OnlineMainImpl();
+			
 		}));
 
 		/* Prepare JButton Opzioni, ActionListener-->open JPopupMenu */
@@ -97,24 +90,24 @@ public class MainGuiImpl extends MyJPanelImpl {
 			opzioni.setEnabled(true);
 			opzioni.setBackground(new Color(252, 168, 23));
 			opzioni.addActionListener(e -> {
-				JDialog dial = new JDialog();
-				MyJPanelImpl pane = new MyJPanelImpl(new BorderLayout());
-				pane.add(createJLabel("<html><U>AVVISI REPARTO</U></html>", fontSize + 8), BorderLayout.NORTH);
+				final JDialog dial = new JDialog();
+				final MyJPanelImpl pane = new MyJPanelImpl(new BorderLayout());
+				pane.add(createJLabel("<html><U>AVVISI REPARTO</U></html>", FONTSIZE + 8), BorderLayout.NORTH);
 				text = "<html>";
-				MyJPanelImpl info = new MyJPanelImpl(new GridLayout(0, 2));
+				final MyJPanelImpl info = new MyJPanelImpl(new GridLayout(0, 2));
 				check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).keySet().stream().forEach(k -> {
-					info.add(createJLabel(k + ": ", fontSize + 5));
+					info.add(createJLabel(k + ": ", FONTSIZE + 5));
 					check.stdRouting(MyJFrameSingletonImpl.getInstance().getUnit()).get(k).stream().forEach(t -> {
 						text = text + t + "<br>";
 
 					});
 					text = text + "</html>";
-					info.add(createJLabel(text, fontSize));
+					info.add(createJLabel(text, FONTSIZE));
 					text = "<html>";
 				});
 
 				pane.add(info, BorderLayout.CENTER);
-				MyJPanelImpl tmp = new MyJPanelImpl();
+				final MyJPanelImpl tmp = new MyJPanelImpl();
 				tmp.add(createButton("OK", t -> {
 					dial.dispose();
 				}));
@@ -127,7 +120,7 @@ public class MainGuiImpl extends MyJPanelImpl {
 
 			});
 		}
-		this.north.add(opzioni, BorderLayout.LINE_END);
+		north.add(opzioni, BorderLayout.LINE_END);
 
 		/* Add South panel and North panel to main panel */
 		this.add(south, BorderLayout.SOUTH);
@@ -150,8 +143,8 @@ public class MainGuiImpl extends MyJPanelImpl {
 			if (image != null) {
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (final Exception e) {
+			System.err.println("");
 		}
 	}
 

@@ -15,7 +15,7 @@ import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
-public class AiutantiJDialog extends JDialog {
+public class StaffJDialog extends JDialog {
 
 	private static final long serialVersionUID = -3089581238215852232L;
 	private final static int FONTSIZE = 18;
@@ -25,7 +25,7 @@ public class AiutantiJDialog extends JDialog {
 	private final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 	private final JScrollPane scroll = new JScrollPane(inPanel);
 
-	public AiutantiJDialog() {
+	public StaffJDialog() {
 		super();
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl bot = new MyJPanelImpl();

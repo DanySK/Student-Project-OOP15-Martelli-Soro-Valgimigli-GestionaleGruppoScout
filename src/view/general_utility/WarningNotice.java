@@ -8,7 +8,8 @@ import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
 /** 
- * Semplicissima classe  utilizzata per mostrare a video un messaggio d'errore
+ * Simple class used to display Errors
+
  */
 
 /**

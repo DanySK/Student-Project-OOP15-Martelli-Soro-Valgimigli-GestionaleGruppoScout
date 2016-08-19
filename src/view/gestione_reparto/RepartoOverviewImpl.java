@@ -16,7 +16,7 @@ import control.Unit;
 import control.myUtil.MyOptional;
 import model.reparto.Member;
 import view.general_utility.WarningNotice;
-import view.gestione_reparto.utility.AiutantiJDialog;
+import view.gestione_reparto.utility.StaffJDialog;
 import view.gestione_reparto.utility.PanelCapiReparto;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.EditableMemberPanelImpl.Type;
@@ -181,7 +181,7 @@ public class RepartoOverviewImpl {
 					panelLeft.add(createJLabel("Staff: ", FONTSIZE));
 					panelLeft.add(createJLabel(unit.getReparto().getAiutanti().size() + " aiutanti", FONTSIZE));
 					panelRight.add(createButton("edit", FONTSIZEBUTTON, e -> {
-						new AiutantiJDialog();
+						new StaffJDialog();
 					}));
 
 					panelBot.add(createButton("<html>Crea<br>Squadriglia</html>", FONTSIZEBUTTON, e -> {

@@ -13,7 +13,6 @@ import control.myUtil.MyOptional;
 import control.myUtil.Pair;
 import model.exception.ObjectNotContainedException;
 import model.reparto.Member;
-import view.general_utility.WarningNotice;
 import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -46,7 +45,7 @@ public class ShowMemberInfoJDialog extends JDialog {
 		}));
 		panelIn.add(panelIn.createJLabel("Cammino", FONTSIZE));
 		panelIn.add(panelIn.createButton("Vedi", FONTSIZE, e -> {
-			new PathJDialog(mem, false);
+			new MemberPathJDialog(mem, false);
 		}));
 		panel.add(panelIn, BorderLayout.CENTER);
 		bot.add(panel.createButton("Ok", g -> {

@@ -16,14 +16,14 @@ import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
-public class PathJDialog extends JDialog {
+public class MemberPathJDialog extends JDialog {
 
 	private static final long serialVersionUID = 2106257742400385767L;
 	private final static int FONTSIZE = 18;
 	private final static String VEDI = "Vedi";
 	private final static String EDIT = "Edit";
 
-	public PathJDialog(final Member mem, final boolean editable) {
+	public MemberPathJDialog(final Member mem, final boolean editable) {
 		super();
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl internal = new MyJPanelImpl(new GridLayout(0, 1));

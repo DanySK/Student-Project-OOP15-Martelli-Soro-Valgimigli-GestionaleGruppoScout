@@ -2,13 +2,17 @@
 package view.gestione_tasse;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
+import view.gestione_reparto.RepartoOverviewImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 
@@ -57,6 +61,12 @@ public class GestioneTasseMain extends MySplittedPanelWithTree {
 				});
 			}
 		});
+		/* Setto i JToolTip dell'albero */
+		getTree().setCellRenderer(new TooltipTreeRenderer());
+		javax.swing.ToolTipManager.sharedInstance().registerComponent(getTree());
+		getTree().setVisibleRowCount(1);
+		
+		/*Popolo il JTree*/
 		this.getRoot().add(new DefaultMutableTreeNode(new GestioneTasseRepartoImpl(unit.getReparto().getName())));
 		this.getRoot().add(new DefaultMutableTreeNode(new GestioneTasseExcursionRepartoImpl()));
 		unit.getContainers().getSquadrons().forEach(e -> {
@@ -66,5 +76,23 @@ public class GestioneTasseMain extends MySplittedPanelWithTree {
 		});
 
 	}
+	public class TooltipTreeRenderer extends DefaultTreeCellRenderer {
+		private static final long serialVersionUID = -2924024721151248795L;
 
+		@Override
+		public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean sel,
+				final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
+			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+			if (((DefaultMutableTreeNode) value).getUserObject() instanceof GestioneTasseExcursionRepartoImpl) {
+				setToolTipText("<html>In questa sezione è possibile gestire i pagamenti delle escursioni<br>"
+						+ "per i membri che non appartengono a nessuna squadriglia.</html>");
+			} else if (((DefaultMutableTreeNode) value).getUserObject() instanceof GestioneTasseRepartoImpl) {
+				setToolTipText("<html>In questa sezione è possibile gestire i pagamenti della quona annuale</html>");
+			} else if (((DefaultMutableTreeNode) value).getUserObject() instanceof RepartoOverviewImpl) {
+				setToolTipText("<html>In questa sezione è è possibile gestire i pagamenti della quota annuale<br>"
+						+ "e delle escursioni per i membri presenti nella squadriglia</html>");
+			}
+			return this;
+		}
+	}
 }

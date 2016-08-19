@@ -20,7 +20,7 @@ public class EventiBuonaCaccia extends MyJPanelImpl {
 	 */
 	private final static int FONTSIZE=19;
 	private static final long serialVersionUID = -4317317394245136248L;
-	private EditableMemberPanelImpl<ExcursionOnline> paneEx;
+	private final EditableMemberPanelImpl<ExcursionOnline> paneEx;
 	public EventiBuonaCaccia(){
 		super(new BorderLayout());
 		final MyJPanelImpl panelIn=new MyJPanelImpl(new BorderLayout());

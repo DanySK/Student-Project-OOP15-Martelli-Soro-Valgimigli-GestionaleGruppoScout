@@ -23,9 +23,12 @@ import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.SearchElementJDialog;
 import view.gui_utility.SearchElementJDialog.SearchType;
 
-public class EventiReparto {
-
-	public class EventiRepartoPane extends MyJPanelImpl {
+public class UnitExcursionImpl {
+	/**
+	 * Class that allows to see and edit information about Unit's Excursions
+	 * @author Giovanni Martelli
+	 */
+	public class UnitExcursionPaneImpl extends MyJPanelImpl implements UnitExcursionPane {
 
 		private static final long serialVersionUID = 5205825583794848349L;
 		private final static int FONTSIZELABEL = 19;
@@ -38,7 +41,7 @@ public class EventiReparto {
 		private final EditableMemberPanelImpl<Excursion> panelBot;
 		private final static String NOTHING = "Niente in programma";
 
-		public EventiRepartoPane() {
+		public UnitExcursionPaneImpl() {
 			super(new BorderLayout());
 			this.add(createJLabel("<html><U>Gestione eventi reparto</U></html> ", FONTSIZELABELBIG),
 					BorderLayout.NORTH);
@@ -71,7 +74,11 @@ public class EventiReparto {
 			this.panelCenter.add(panelBot);
 			this.add(panelCenter, BorderLayout.CENTER);
 		}
+		/* (non-Javadoc)
+		 * @see view.gestione_eventi.UnitExcursion#updatePaneInfo()
+		 */
 
+		@Override
 		public final void updatePaneInfo() {
 			SwingUtilities.invokeLater(new Runnable() {
 
@@ -121,12 +128,14 @@ public class EventiReparto {
 			});
 
 		}
-
-		public void updateEventi() {
+		
+		@Override
+		public void updateExcursion() {
 			panelBot.updateMember();
 		}
 
 	}
+	@Override
 	public String toString() {
 		return "Uscite Reparto";
 	}

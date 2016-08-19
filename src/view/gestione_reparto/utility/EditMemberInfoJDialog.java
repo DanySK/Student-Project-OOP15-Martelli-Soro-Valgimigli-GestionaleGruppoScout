@@ -19,7 +19,11 @@ import view.gestione_reparto.utility.JTextAreaDialog.TextAreaType;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
-
+/**
+ * JDialog that allows to edit Member information
+ * @author Giovanni Martelli
+ *
+ */
 public class EditMemberInfoJDialog extends JDialog {
 
 	private static final long serialVersionUID = -7599555866898270972L;
@@ -28,7 +32,11 @@ public class EditMemberInfoJDialog extends JDialog {
 	private String squadName;
 	private Squadron squadImpl;
 	private final Member mem;
-
+/**
+ * 
+ * @param mem Member to be modified
+ * @param parent panel wich contains JButton who called this JDialog
+ */
 	public EditMemberInfoJDialog(final MemberImpl mem, final EditableMemberPanelImpl<Member> parent) {
 		super();
 		this.mem = mem;
@@ -121,7 +129,7 @@ public class EditMemberInfoJDialog extends JDialog {
 		}));
 		panelCenter.add(panel.createJLabel("Cammino", FONTSIZE));
 		panelCenter.add(panel.createButton("Edit", FONTSIZE, e -> {
-			new PathJDialog(mem, true);
+			new MemberPathJDialog(mem, true);
 		}));
 		// se il tutor è già presente lo setto in modo che l'utente ne sia a
 		// conoscenza

@@ -11,18 +11,20 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import control.UnitImpl;
-import view.gestione_reparto.SquadrigliaManagerImpl;
-import view.gestione_reparto.SquadrigliaOverviewImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MySplittedPanelWithTree;
-
-public class GestioneEventiMain extends MySplittedPanelWithTree {
+/**
+ * Class that display Excursion Management main page
+ * @author Giovanni Martelli
+ *
+ */
+public class ExcursionManagerMain extends MySplittedPanelWithTree {
 
 	private static final long serialVersionUID = -6671105472838081521L;
 	private final UnitImpl unit = MyJFrameSingletonImpl.getInstance().getUnit();
 	private final MySplittedPanelWithTree me;
-
-	public GestioneEventiMain() {
+	
+	public ExcursionManagerMain() {
 		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali un
 		 * pannello a sx(JScrollPane) e uno a dx(JPanel)
@@ -39,12 +41,12 @@ public class GestioneEventiMain extends MySplittedPanelWithTree {
 					@Override
 					public void run() {
 						me.getPanelRight().remove(getPanelCenter());
-						if (node.getUserObject() instanceof EventiReparto) {
-							setPanelCenter(((EventiReparto) node.getUserObject()).new EventiRepartoPane());
+						if (node.getUserObject() instanceof UnitExcursionImpl) {
+							setPanelCenter(((UnitExcursionImpl) node.getUserObject()).new UnitExcursionPaneImpl());
 
 						}
-						if (node.getUserObject() instanceof EventiSquadriglia) {
-							me.setPanelCenter(((EventiSquadriglia) node.getUserObject()).new EventiSquadrigliaPane());
+						if (node.getUserObject() instanceof SquadronExcursion) {
+							me.setPanelCenter(((SquadronExcursion) node.getUserObject()).new SquadronExcursionPaneImpl());
 
 						}
 						getPanelCenter().repaint();
@@ -63,10 +65,10 @@ public class GestioneEventiMain extends MySplittedPanelWithTree {
 		/*
 		 * popolo il JTree con le varie entrate
 		 */
-		me.getRoot().add(new DefaultMutableTreeNode(new EventiReparto()));
+		me.getRoot().add(new DefaultMutableTreeNode(new UnitExcursionImpl()));
 		unit.getContainers().getSquadrons().forEach(e -> {
 			final DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
-			t.add(new DefaultMutableTreeNode(new EventiSquadriglia(e.getNome())));
+			t.add(new DefaultMutableTreeNode(new SquadronExcursion(e.getNome())));
 			me.addNode(t);
 		});
 		/* inserisco il panelBottom e i relativi JButton in panelRight */
@@ -80,12 +82,10 @@ public class GestioneEventiMain extends MySplittedPanelWithTree {
 		public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean sel,
 				final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
 			super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
-			if (((DefaultMutableTreeNode) value).getUserObject() instanceof SquadrigliaOverviewImpl) {
-				setToolTipText("<html>In questa sezione viene mostrata un'anteprima della squadriglia,<br>"
-						+ "comprendente l'elenco degli incarichi assegnati e l'elenco dei componenti.</html>");
-			} else if (((DefaultMutableTreeNode) value).getUserObject() instanceof SquadrigliaManagerImpl) {
-				setToolTipText("<html>In questa sezione è possibile modificare la squadriglia;<br>"
-						+ "aggiungendo membri, assegnando incarichi, etc...");
+			if (((DefaultMutableTreeNode) value).getUserObject() instanceof UnitExcursionImpl) {
+				setToolTipText("<html>In questa sezione è possibile gestire tutti gli eventi, del reparto</html>");
+			} else if (((DefaultMutableTreeNode) value).getUserObject() instanceof SquadronExcursion) {
+				setToolTipText("<html>In questa sezione è possibile gestire le uscite di squadriglia</html>");
 			}
 			return this;
 		}

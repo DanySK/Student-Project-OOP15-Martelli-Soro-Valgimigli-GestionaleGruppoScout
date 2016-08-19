@@ -1,18 +1,12 @@
 package view.online;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 
-import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 
-import view.gestione_reparto.RepartoOverviewImpl;
-import view.gestione_reparto.SquadrigliaManagerImpl;
-import view.gestione_reparto.SquadrigliaOverviewImpl;
 import view.gui_utility.MySplittedPanelWithTree;
 
 public class OnlineMainImpl extends MySplittedPanelWithTree {

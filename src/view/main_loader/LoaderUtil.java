@@ -116,7 +116,7 @@ public class LoaderUtil extends MyJPanelImpl {
 						try {
 							MyJFrameSingletonImpl.getInstance(project.loadUnit(selected));
 
-							new MainGuiImpl();
+							new MainGUI();
 
 							frame.dispose();
 						} catch (Exception k) {
@@ -212,7 +212,7 @@ public class LoaderUtil extends MyJPanelImpl {
 
 					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText().replaceAll(" ", "_")));
 
-					new MainGuiImpl();
+					new MainGUI();
 					frame.dispose();
 
 				} catch (Exception k) {
