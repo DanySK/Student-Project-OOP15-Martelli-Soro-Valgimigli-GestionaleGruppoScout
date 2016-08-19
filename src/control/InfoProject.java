@@ -40,7 +40,7 @@ public interface InfoProject {
 	List<Member> getMemberOfSquadron(String nameOfSquadron, Container cnt);
 
 	/**
-	 * Method that provide all info about a mameber in input
+	 * Method that provide all info about a member in input
 	 * 
 	 * @param member
 	 * @return A list of array. In each cell there is a specifically information
@@ -49,16 +49,24 @@ public interface InfoProject {
 	List<Pair<String, String>> getMemberSpecificalInfo(Member member);
 
 	/**
-	 * 
+	 * Method that provide all info about a Excursion in input
 	 * @param e
 	 * @return
 	 */
 	String getExcursionInfo(Excursion e);
 
 	/**
-	 * 
+	 * Method that provide all info about a mameber in input
 	 * @param e
 	 * @return
+	 * 0 Name
+	 * 1 Where
+	 * 2 price
+	 * 3 Date start
+	 * 4 date end
+	 * 5 Participants
+	 * 6 No paied
+	 * 7 Type
 	 */
 	Map<String, List<String>> getExcursionSpacificalInfo(Excursion e);
 }

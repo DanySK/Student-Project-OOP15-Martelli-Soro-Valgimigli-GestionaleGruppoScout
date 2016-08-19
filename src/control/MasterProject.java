@@ -23,6 +23,7 @@ public interface MasterProject {
 	/**
 	 * 
 	 * @return
+	 * the directory where the program save
 	 */
 	String getDirectoryToSave() throws IOException;
 
@@ -34,20 +35,20 @@ public interface MasterProject {
 	List<String> getListOfUnit() throws IOException;
 
 	/**
-	 * 
+	 * Method that takes a unit from directory to save and load the information ina Unit
 	 * @param unitName
-	 * @return
+	 * @return A unit selected
 	 * @throws NoUnitFoundException
 	 */
 	Unit loadUnit(String unitName) throws IOException, ClassNotFoundException;
 
 	/**
-	 * 
+	 * Method that writes the unit information in a .sct file 
 	 * @param unit
 	 */
 	void save(Unit unit) throws IOException, ProjectFilesCreationException;
 	/**
-	 * 
+	 * Method that removes saving file of a Specific unit
 	 * @param unitName
 	 * @throws IllegalArgumentException
 	 */

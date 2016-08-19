@@ -13,49 +13,58 @@ import model.reparto.Reparto;
 import model.reparto.Roles;
 import model.reparto.Squadron;
 
+/**
+ * The main class of the control section. This class has inside a Reaparto, a list 
+ * of excursions. This class fills the gap between modell and View providing all
+ * useful method for the View to work.
+ * @author Valgio
+ *
+ */
 public interface Unit {
 	/**
-	 * 
+	 * Return the name for save the unit
 	 * @return
+	 * A name where all " " are replaced with "_"
 	 */
 	String getName();
 
 	/**
 	 * 
 	 * @return
+	 * A container of the Reparto
 	 */
 
 	Container getContainers();
 
 	/**
-	 * 
+	 * Add excursion in the Excursion List
 	 * @param exc
 	 */
 	void addExcursion(Excursion exc);
 
 	/**
-	 * 
+	 * Add member in the FreeMember list, and put the member in the event of the entire unit
 	 * @param m
 	 * @throws ObjectAlreadyContainedException
 	 */
 	void addMember(Member m) throws ObjectAlreadyContainedException;
 
 	/**
-	 * 
+	 * Add new Squadron in the Reparto
 	 * @param sq
 	 * @throws ObjectAlreadyContainedException
 	 */
 	void createSq(Squadron sq) throws ObjectAlreadyContainedException;
 
 	/**
-	 * 
+	 * Remove member from freemember list or from a squadron and from all events
 	 * @param m
 	 * @throws ObjectNotContainedException
 	 */
 	void removeMember(Member m) throws ObjectNotContainedException;
 
 	/**
-	 * 
+	 *  Remove Sq from the reparto and replace all member in the freemember List
 	 * @param sq
 	 * @throws ObjectNotContainedException
 	 * @throws ObjectAlreadyContainedException
@@ -63,7 +72,7 @@ public interface Unit {
 	void removeSq(Squadron sq) throws ObjectNotContainedException, ObjectAlreadyContainedException;
 
 	/**
-	 * 
+	 * Search the member in the freemember List and puts him in a squadron sq
 	 * @param m
 	 * @param sq
 	 * @throws ObjectAlreadyContainedException
@@ -87,7 +96,7 @@ public interface Unit {
 			throws ObjectNotContainedException, MemberSexException, ObjectAlreadyContainedException;
 
 	/**
-	 * 
+	 * Change the name of reparto
 	 * @param name
 	 */
 	void setName(String name);
@@ -109,7 +118,7 @@ public interface Unit {
 	List<Pair<String, String>> getUnitSpecificInfo();
 
 	/**
-	 * 
+	 * Provide the last day for pay the annual tax
 	 * @return
 	 */
 	LocalDate getLimitDateToPay();
@@ -117,29 +126,31 @@ public interface Unit {
 	/**
 	 * 
 	 * @return
+	 * List of member which hasn't paid yet
 	 */
 	List<Member> getMemberDidntPay();
 
 	/**
 	 * 
 	 * @return
+	 * Reparto
 	 */
 	Reparto getReparto();
 
 	/**
-	 * 
+	 * Remove excursion Named name from excursion List
 	 * @param name
 	 */
 	void removeExcursion(String name);
 
 	/**
-	 * 
+	 * Remove specific excursion ( exc ) from excursion List
 	 * @param exc
 	 */
 	void removeExcursion(Excursion exc);
 
 	/**
-	 * 
+	 * Return member called name and Surname. No defensive copy
 	 * @param name
 	 * @param surname
 	 * @return
@@ -149,12 +160,14 @@ public interface Unit {
 	/**
 	 * 
 	 * @return
+	 * the date of last mail send
 	 */
 	LocalDate getLastMailSend();
 
 	/**
-	 * 
+	 * Set the date of last mail send
 	 * @param lastMailSend
+	 * 
 	 */
 	void setLastMailSend(LocalDate lastMailSend);
 }

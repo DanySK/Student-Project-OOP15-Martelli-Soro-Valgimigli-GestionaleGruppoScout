@@ -95,7 +95,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param dateStart
 	 * @param dateEnd
 	 * @param place
-	 * @return
+	 * @return A general excurision
 	 */
 	public static ExcursionImpl getGeneralExcursion(final LocalDate dateStart, final MyOptional<LocalDate> dateEnd,
 			final MyOptional<String> place) {
@@ -107,7 +107,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * 
 	 * @param name
 	 * @param sex
-	 * @return
+	 * @return a empty Squadron 
 	 */
 	public static Squadron getSquadron(final String name, final Boolean sex) {
 		return new SquadronImpl(name, sex);
@@ -118,7 +118,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param capoMaschio
 	 * @param capoFemmina
 	 * @param name
-	 * @return
+	 * @return A reparto with leaders setted
 	 * @throws MemberSexException
 	 */
 
@@ -133,7 +133,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param capoFemmina
 	 * @param aiutanti
 	 * @param name
-	 * @return
+	 * @return A reparto with leaders and halpers setted
 	 * @throws MemberSexException
 	 */
 
@@ -148,7 +148,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param surname
 	 * @param birthDay
 	 * @param number
-	 * @return
+	 * @return A leader male setted 
 	 * @throws IllegalPhoneNumberException
 	 */
 	public static Capo getLeaderM(final String name, final String surname, final LocalDate birthDay,
@@ -162,7 +162,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param surname
 	 * @param birthDay
 	 * @param number
-	 * @return
+	 * @return A leader Female setted
 	 * @throws IllegalPhoneNumberException
 	 */
 	public static Capo getLeaderF(final String name, final String surname, final LocalDate birthDay,
@@ -175,7 +175,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param dateStart
 	 * @param reparto
 	 * @param name
-	 * @return
+	 * @return A Exit
 	 * @throws IllegalDateException
 	 * @throws Exception
 	 */
@@ -190,7 +190,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param duration
 	 * @param sq
 	 * @param name
-	 * @return
+	 * @return Exit of a Squadron
 	 * @throws IllegalDateException
 	 * @throws Exception
 	 */
@@ -205,7 +205,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param dateEnd
 	 * @param sq
 	 * @param name
-	 * @return
+	 * @return Exit of a squadron
 	 * @throws IllegalDateException
 	 * @throws Exception
 	 */
@@ -220,7 +220,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param dateEnd
 	 * @param rp
 	 * @param name
-	 * @return
+	 * @return Camp
 	 * @throws IllegalDateException
 	 * @throws Exception
 	 */
@@ -235,7 +235,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param duration
 	 * @param rp
 	 * @param name
-	 * @return
+	 * @return Camp
 	 * @throws IllegalDateException
 	 * @throws Exception
 	 */
@@ -247,7 +247,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	/**
 	 * 
 	 * @param rp
-	 * @return
+	 * @return Unit
 	 */
 	public static Unit getUnit(final Reparto rp) {
 		return new UnitImpl(rp);
@@ -260,7 +260,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param reparto
 	 * @param name
 	 * @param altriReparti
-	 * @return
+	 * @return Local Event
 	 * @throws IllegalDateException
 	 */
 	public static EventiDiZona getLocalEvent(final LocalDate dateStart, final LocalDate dateEnd, final Reparto reparto,
@@ -275,7 +275,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param reparto
 	 * @param name
 	 * @param others
-	 * @return
+	 * @return Local Event
 	 * @throws IllegalDateException
 	 */
 	public static EventiDiZona getLocalEvent(final LocalDate dateStart, final int duration, final Reparto reparto,
@@ -290,7 +290,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param reparto
 	 * @param name
 	 * @param others
-	 * @return
+	 * @return Two (or more) unit event
 	 * @throws IllegalDateException
 	 */
 	public static Gemellaggi getEventTwoUnit(final LocalDate dateStart, final LocalDate dateEnd, final Reparto reparto,
@@ -305,7 +305,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 * @param reparto
 	 * @param name
 	 * @param others
-	 * @return
+	 * @return Two (or more) unit event
 	 * @throws IllegalDateException
 	 */
 	public static Gemellaggi getEventMoreUnit(final LocalDate dateStart, final int duration, final Reparto reparto,
