@@ -14,7 +14,7 @@ import model.reparto.Member;
 import model.reparto.MemberImpl;
 import model.reparto.Roles;
 import model.reparto.Squadron;
-import view.gui_utility.EditableElementScrollPanelImpl;
+import view.gui_utility.EditableElementScrollPane;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.WarningNotice;
@@ -37,7 +37,7 @@ public class EditMemberInfoJDialog extends JDialog {
  * @param mem Member to be modified
  * @param parent panel wich contains JButton who called this JDialog
  */
-	public EditMemberInfoJDialog(final MemberImpl mem, final EditableElementScrollPanelImpl<Member> parent) {
+	public EditMemberInfoJDialog(final MemberImpl mem, final EditableElementScrollPane<Member> parent) {
 		super();
 		this.mem = mem;
 		/* Se il membro appartiene ad una squadriglia la recupero */

@@ -18,6 +18,7 @@ import extra.sito.ExcursionOnline;
 import model.escursioni.EventiDiZona;
 import model.escursioni.Excursion;
 import model.escursioni.GemellaggiImpl;
+import view.gui_utility.EditableElementScrollPane;
 import view.gui_utility.EditableElementScrollPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -42,7 +43,7 @@ public class ShowEditExcursion extends JDialog {
 	 * @param exc
 	 * @param parent EditableMemberPanelImpl that called this JDialog
 	 */
-	public ShowEditExcursion(final Excursion exc, final EditableElementScrollPanelImpl<Excursion> parent) {
+	public ShowEditExcursion(final Excursion exc, final EditableElementScrollPane<Excursion> parent) {
 		super();
 		this.exc = exc;
 		panel.add(panelCenterOuter, BorderLayout.CENTER);
@@ -97,7 +98,7 @@ public class ShowEditExcursion extends JDialog {
 						final JDialog dial = new JDialog();
 						final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 						final EditableElementScrollPanelImpl<Excursion> panCenter = new EditableElementScrollPanelImpl<Excursion>(
-								EditableElementScrollPanelImpl.Type.EXCPARTECIPANTI, MyOptional.of(exc.getName()));
+								EditableElementScrollPane.Type.EXCPARTECIPANTI, MyOptional.of(exc.getName()));
 						panel.add(panCenter);
 						dial.add(panel);
 						dial.setPreferredSize(MyJFrameSingletonImpl.getInstance().getContenentPane().getSize());

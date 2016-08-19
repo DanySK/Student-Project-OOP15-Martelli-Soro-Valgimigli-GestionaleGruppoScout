@@ -14,9 +14,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import control.UnitImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelWithJTree;
+import view.gui_utility.MyJPanelWithJTreeImpl;
 import view.unit_manager.UnitOverview;
 
-public class FeeManager extends MyJPanelWithJTree {
+public class FeeManager extends MyJPanelWithJTreeImpl {
 	private static final long serialVersionUID = -3022959242441377373L;
 	private final MyJPanelWithJTree me;
 	private final UnitImpl unit = MyJFrameSingletonImpl.getInstance().getUnit();

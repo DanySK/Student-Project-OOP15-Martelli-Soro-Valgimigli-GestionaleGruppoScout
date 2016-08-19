@@ -36,7 +36,7 @@ public class StaffJDialog extends JDialog {
 			final JDialog dial = new JDialog();
 			final MyJPanelImpl outerPanel = new MyJPanelImpl(new BorderLayout());
 			final MyJPanelImpl panelBot = new MyJPanelImpl();
-			final UnitLeaderJPanel panCapo = new UnitLeaderJPanel("Nuovo aiutante");
+			final UnitLeaderJPanelImpl panCapo = new UnitLeaderJPanelImpl("Nuovo aiutante");
 			panCapo.addSexChoose();
 			panelBot.add(panelBot.createButton("OK", e -> {
 				try {

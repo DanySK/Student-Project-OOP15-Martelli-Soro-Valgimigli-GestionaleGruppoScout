@@ -13,12 +13,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import control.UnitImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelWithJTree;
+import view.gui_utility.MyJPanelWithJTreeImpl;
 /**
  * Class that display Excursion Management main page
  * @author Giovanni Martelli
  *
  */
-public class ExcursionManagerMain extends MyJPanelWithJTree {
+public class ExcursionManagerMain extends MyJPanelWithJTreeImpl {
 
 	private static final long serialVersionUID = -6671105472838081521L;
 	private final UnitImpl unit = MyJFrameSingletonImpl.getInstance().getUnit();

@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 import model.escursioni.Excursion;
 import model.exception.ObjectNotContainedException;
 import model.reparto.Member;
-import view.gui_utility.EditableElementScrollPanelImpl;
+import view.gui_utility.EditableElementScrollPane;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.WarningNotice;
@@ -30,7 +30,7 @@ public class MemberExcursionFeeJDialog extends JDialog {
 	private final MyJPanelImpl memPane;
 	private final JScrollPane scroll;
 
-	public MemberExcursionFeeJDialog(final Member me, final EditableElementScrollPanelImpl<Member> parent) {
+	public MemberExcursionFeeJDialog(final Member me, final EditableElementScrollPane<Member> parent) {
 		super();
 		this.me = me;
 		final JTextArea area;

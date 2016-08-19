@@ -28,7 +28,7 @@ import view.gui_utility.SearchElementJDialog.SearchType;
  * @author Giovanni Martelli
  *
  */
-public class EditableInfoPanelImpl extends MyJPanelImpl {
+public class EditableInfoPanelImpl extends MyJPanelImpl implements EditableInfoPanel {
 
 	private static final long serialVersionUID = 3525477272751960285L;
 
@@ -227,7 +227,10 @@ public class EditableInfoPanelImpl extends MyJPanelImpl {
 				});
 
 	}
-
+/* (non-Javadoc)
+ * @see view.gui_utility.EditableInfoPanel#updateInfo()
+ */
+	@Override
 	public final void updateInfo() {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
