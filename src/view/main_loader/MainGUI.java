@@ -18,10 +18,10 @@ import javax.swing.SwingUtilities;
 import control.CheckerImpl;
 import view.Main;
 import view.excursion_manager.ExcursionManagerMain;
+import view.fee_manager.FeeManager;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.online.OnlineMainImpl;
-import view.tax_manager.FeeManager;
 import view.unit_manager.UnitManagerMain;
 
 /**
