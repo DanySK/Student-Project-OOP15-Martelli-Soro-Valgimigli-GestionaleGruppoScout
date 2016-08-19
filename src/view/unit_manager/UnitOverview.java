@@ -17,7 +17,7 @@ import control.myUtil.MyOptional;
 import model.reparto.Member;
 import view.gui_utility.EditableElementScrollPanelImpl;
 import view.gui_utility.EditableElementScrollPanelImpl.Type;
-import view.unit_manager.utility.UnitLeaderJPanel;
+import view.unit_manager.utility.UnitLeaderJPanelImpl;
 import view.unit_manager.utility.StaffJDialog;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
@@ -60,7 +60,7 @@ public class UnitOverview {
 			final JDialog dial = new JDialog();
 			final MyJPanelImpl outerPanel = new MyJPanelImpl(new BorderLayout());
 			final MyJPanelImpl panelBot = new MyJPanelImpl();
-			final UnitLeaderJPanel panCapo = new UnitLeaderJPanel("Nuovo Capo Reparto");
+			final UnitLeaderJPanelImpl panCapo = new UnitLeaderJPanelImpl("Nuovo Capo Reparto");
 			outerPanel.add(panCapo, BorderLayout.CENTER);
 			panelBot.add(createButton("OK", e -> {
 				try {
@@ -209,7 +209,7 @@ public class UnitOverview {
 							try {
 								unit.createSq(ProjectFactoryImpl.getSquadron(nome.getText(), sexM.isSelected()));
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
-								((UnitManagerMain) MyJFrameSingletonImpl.getInstance().getContenentPane())
+								((UnitManager) MyJFrameSingletonImpl.getInstance().getContenentPane())
 										.addSquadToJTree(MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 												.findSquadron(nome.getText()));
 								dial.dispose();
@@ -237,7 +237,7 @@ public class UnitOverview {
 						panelBot.add(createButton("Elimina", t -> {
 							try {
 								unit.removeSq(unit.getContainers().findSquadron((String) squad.getSelectedItem()));
-								((UnitManagerMain) MyJFrameSingletonImpl.getInstance().getContenentPane())
+								((UnitManager) MyJFrameSingletonImpl.getInstance().getContenentPane())
 										.removeSquadToJTree((String) squad.getSelectedItem());
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
 								dial.dispose();

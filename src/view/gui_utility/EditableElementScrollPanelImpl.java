@@ -42,9 +42,9 @@ import view.fee_manager.utility.MemberFeeJDialog;
 import view.gui_utility.SearchElementJDialog.SearchType;
 import view.unit_manager.utility.AddMemberJDialog;
 import view.unit_manager.utility.EditMemberInfoJDialog;
-import view.unit_manager.utility.ShowMemberInfoJDialog;
+import view.unit_manager.utility.ShowMemberInfoJDialogImpl;
 
-public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl {
+public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements EditableElementScrollPane<E> {
 	public enum Type {
 		RETTAREP, EXCREPTASSE, GESTIONESQUADRIGLIA, OVERVIEWSQUAD, TASSEEXCSQUAD, OVERVIEWREP, EXCREP, EXCSQUAD, RETTASQUAD, EXCPARTECIPANTI, EXCONLINE;
 	}
@@ -58,7 +58,7 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl {
 	private final static int FONTSIZEBUTTON = 16;
 	private final SortMemberImpl sort;
 	private final SortExcursion sortExc;
-	private final EditableElementScrollPanelImpl<E> me;
+	private final EditableElementScrollPane<E> me;
 	private final Type type;
 	private Squadron squadImpl;
 	private String squadName;
@@ -145,7 +145,10 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl {
 		this.add(scroll, BorderLayout.CENTER);
 		this.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0, 0, 0)));
 	}
-
+	/* (non-Javadoc)
+	 * @see view.gui_utility.EditableElementScrollPane#updateMember()
+	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public final void updateMember() {
 		if (type.equals(Type.GESTIONESQUADRIGLIA) || type.equals(Type.OVERVIEWSQUAD)) {
@@ -266,26 +269,26 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl {
 				return createButton(
 						"<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname() + "</html>",
 						Color.ORANGE, new Font("Aria", Font.ITALIC, FONTSIZEBUTTON), e -> {
-							(new EditMemberInfoJDialog((MemberImpl) mem, (EditableElementScrollPanelImpl<Member>) me))
+							(new EditMemberInfoJDialog((MemberImpl) mem, (EditableElementScrollPane<Member>) me))
 									.setVisible(true);
 						});
 			} else {
 				return createButton(
 						"<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname() + "</html>",
 						FONTSIZEBUTTON, e -> {
-							(new EditMemberInfoJDialog((MemberImpl) mem, (EditableElementScrollPanelImpl<Member>) me))
+							(new EditMemberInfoJDialog((MemberImpl) mem, (EditableElementScrollPane<Member>) me))
 									.setVisible(true);
 						});
 			}
 		} else if (type.equals(Type.OVERVIEWSQUAD)) {
 			return createButton("<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname() + "</html>",
 					FONTSIZEBUTTON, e -> {
-						(new ShowMemberInfoJDialog(((Member) mem))).setVisible(true);
+						(new ShowMemberInfoJDialogImpl(((Member) mem))).setVisible(true);
 					});
 		} else if (type.equals(Type.TASSEEXCSQUAD) || type.equals(Type.EXCREPTASSE)) {
 			return createButton("<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname() + "</html>",
 					FONTSIZEBUTTON, e -> {
-						(new MemberExcursionFeeJDialog(((Member) mem), (EditableElementScrollPanelImpl<Member>) me))
+						(new MemberExcursionFeeJDialog(((Member) mem), (EditableElementScrollPane<Member>) me))
 								.setVisible(true);
 						;
 					});
@@ -296,24 +299,24 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl {
 					+ ")";
 			return createButton("<html>" + ((Excursion) mem).getName() + "<br>" + str + "<br>"
 					+ ((Excursion) mem).getDateStart().toString() + "</html>", FONTSIZEBUTTON, e -> {
-						new ShowEditExcursion((Excursion) mem, (EditableElementScrollPanelImpl<Excursion>) me);
+						new ShowEditExcursion((Excursion) mem, (EditableElementScrollPane<Excursion>) me);
 
 					});
 		} else if (type.equals(Type.EXCONLINE)) {
 			return createButton("<html>" + ((Excursion) mem).getName() + "<br>" + "(PiccoleOrme)" + "<br>"
 					+ ((Excursion) mem).getDateStart().toString() + "</html>", FONTSIZEBUTTON, e -> {
-						new ShowEditExcursion((Excursion) mem, (EditableElementScrollPanelImpl<Excursion>) me);
+						new ShowEditExcursion((Excursion) mem, (EditableElementScrollPane<Excursion>) me);
 
 					});
 		} else if (type.equals(Type.EXCSQUAD)) {
 			return createButton("<html>" + ((Excursion) mem).getName() + "<br>" + "(Uscita Squadriglia)" + "<br>"
 					+ ((Excursion) mem).getDateStart().toString() + "</html>", 16, e -> {
-						new ShowEditExcursion((Excursion) mem, (EditableElementScrollPanelImpl<Excursion>) me);
+						new ShowEditExcursion((Excursion) mem, (EditableElementScrollPane<Excursion>) me);
 					});
 		} else if (type.equals(Type.EXCPARTECIPANTI)) {
 			return createButton("<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname(),
 					FONTSIZEBUTTON, e -> {
-						ShowMemberInfoJDialog dial = new ShowMemberInfoJDialog((Member) mem);
+						ShowMemberInfoJDialogImpl dial = new ShowMemberInfoJDialogImpl((Member) mem);
 						dial.addButtonToBot("<html>Non<br>Partecipare</html>", u -> {
 							try {
 								MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
@@ -333,18 +336,24 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl {
 		} else {
 			return createButton("<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname(),
 					FONTSIZEBUTTON, e -> {
-						(new MemberFeeJDialog((MemberImpl) mem, (EditableElementScrollPanelImpl<Member>) this))
+						(new MemberFeeJDialog((MemberImpl) mem, (EditableElementScrollPane<Member>) this))
 								.setVisible(true);
 
 					});
 		}
 
 	}
-	
+	/* (non-Javadoc)
+	 * @see view.gui_utility.EditableElementScrollPane#getList()
+	 */
+	@Override
 	public List<E> getList() {
 		return memList.stream().collect(Collectors.toList());
 	}
-
+	/* (non-Javadoc)
+	 * @see view.gui_utility.EditableElementScrollPane#forceUpdate(java.lang.String)
+	 */
+	@Override
 	public void forceUpdate(String newParam) {
 		this.squadName = newParam;
 		this.updateMember();

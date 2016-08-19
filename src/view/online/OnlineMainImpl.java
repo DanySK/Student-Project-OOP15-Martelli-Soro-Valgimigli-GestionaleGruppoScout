@@ -7,9 +7,9 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import view.gui_utility.MyJPanelWithJTree;
+import view.gui_utility.MyJPanelWithJTreeImpl;
 
-public class OnlineMainImpl extends MyJPanelWithJTree {
+public class OnlineMainImpl extends MyJPanelWithJTreeImpl {
 
 	private static final long serialVersionUID = 3771477369943096404L;
 	

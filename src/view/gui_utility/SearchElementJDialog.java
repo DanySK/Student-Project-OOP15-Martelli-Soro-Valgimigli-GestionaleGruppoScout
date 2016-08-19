@@ -26,8 +26,14 @@ import view.excursion_manager.UnitExcursionPane;
 import view.fee_manager.utility.MemberExcursionFeeJDialog;
 import view.fee_manager.utility.MemberFeeJDialog;
 import view.unit_manager.utility.EditMemberInfoJDialog;
-import view.unit_manager.utility.ShowMemberInfoJDialog;
-
+import view.unit_manager.utility.ShowMemberInfoJDialogImpl;
+/**
+ * 
+ * @author Giovanni Martelli
+ *
+ * @param <E>
+ * @param <K>
+ */
 public class SearchElementJDialog<E, K> extends JDialog {
 
 	public enum SearchType {
@@ -122,14 +128,14 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				|| type.equals(SearchType.tasseSquadExc) || type.equals(SearchType.MemberInExc)) {
 			matches = (List<K>) ((!first.getText().isEmpty() && !second.getText().isEmpty())
 					?	MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberNamedFromList(first.getText()
-							,second.getText(), ((EditableElementScrollPanelImpl<Member>) parent).getList())
+							,second.getText(), ((EditableElementScrollPane<Member>) parent).getList())
 							
 							
 					: (!first.getText().isEmpty())
 							? MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithNameFromList(first.getText(),
-									((EditableElementScrollPanelImpl<Member>) parent).getList())
+									((EditableElementScrollPane<Member>) parent).getList())
 							: MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getMemberWithSurnameFromList(second.getText(),
-									((EditableElementScrollPanelImpl<Member>) parent).getList()));
+									((EditableElementScrollPane<Member>) parent).getList()));
 
 			if (matches.isEmpty()) {
 				new WarningNotice("Nessun membro trovato con quel nome." + System.lineSeparator()
@@ -227,7 +233,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 																			// cambiamenti
 						new WarningNotice("Membro trovato e settato come " + charge.toLowerCase()
 								+ System.lineSeparator() + "Ricordati di salvare o perderai le modifiche");
-						((EditableInfoPanelImpl) parent).updateInfo();
+						((EditableInfoPanel) parent).updateInfo();
 
 					} catch (Exception w) {
 
@@ -253,7 +259,7 @@ public class SearchElementJDialog<E, K> extends JDialog {
 								MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 										.getExcursionNamed((String) elem).removePartecipant((Member) e);
 								MyJFrameSingletonImpl.getInstance().setNeedToSave();
-								((EditableElementScrollPanelImpl<Member>)parent).updateMember();
+								((EditableElementScrollPane<Member>)parent).updateMember();
 								dialInternal.dispose();
 								this.dispose();
 							} catch (Exception e1) {
@@ -279,9 +285,9 @@ public class SearchElementJDialog<E, K> extends JDialog {
 					paneSelect.add(paneSelect.createButton("Vedi", o -> {
 						dialInternal.dispose();
 						if (type.equals(SearchType.ShowMember)) {
-							new ShowMemberInfoJDialog((Member) e).setVisible(true);
+							new ShowMemberInfoJDialogImpl((Member) e).setVisible(true);
 						} else {
-							new EditMemberInfoJDialog((MemberImpl) e, (EditableElementScrollPanelImpl<Member>) parent)
+							new EditMemberInfoJDialog((MemberImpl) e, (EditableElementScrollPane<Member>) parent)
 									.setVisible(true);
 						}
 					}));
@@ -316,9 +322,9 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				panMember.add(area);
 				paneSelect.add(paneSelect.createButton("paga", o -> {
 					if (type.equals(SearchType.tasseRep) || type.equals(SearchType.tasseSquad)) {
-						new MemberFeeJDialog((Member) e, (EditableElementScrollPanelImpl<Member>) parent).setVisible(true);
+						new MemberFeeJDialog((Member) e, (EditableElementScrollPane<Member>) parent).setVisible(true);
 					} else {
-						new MemberExcursionFeeJDialog((Member) e, (EditableElementScrollPanelImpl<Member>) parent)
+						new MemberExcursionFeeJDialog((Member) e, (EditableElementScrollPane<Member>) parent)
 								.setVisible(true);
 					}
 					dialInternal.dispose();

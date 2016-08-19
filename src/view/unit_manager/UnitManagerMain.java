@@ -13,7 +13,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import control.UnitImpl;
 import model.reparto.Squadron;
 import view.gui_utility.MyJFrameSingletonImpl;
-import view.gui_utility.MyJPanelWithJTree;
+import view.gui_utility.MyJPanelWithJTreeImpl;
 
 /**
  * Class that create a MyJPanel for the page of Reparto Management and it sets
@@ -22,7 +22,7 @@ import view.gui_utility.MyJPanelWithJTree;
  * @author giovanni
  *
  */
-public class UnitManagerMain extends MyJPanelWithJTree {
+public class UnitManagerMain extends MyJPanelWithJTreeImpl implements UnitManager {
 	private static final long serialVersionUID = -1348459245821012590L;
 	private final UnitImpl unit = MyJFrameSingletonImpl.getInstance().getUnit();
 
@@ -84,19 +84,20 @@ public class UnitManagerMain extends MyJPanelWithJTree {
 
 	}
 
-	/**
-	 * Insert a squadron's Jtree entry in the Jtree
-	 * 
-	 * @param squad
-	 *            new squadron to insert
+	/* (non-Javadoc)
+	 * @see view.unit_manager.UnitManager#addSquadToJTree(model.reparto.Squadron)
 	 */
+	@Override
 	public void addSquadToJTree(final Squadron squad) {
 		final DefaultMutableTreeNode t = new DefaultMutableTreeNode(squad.getNome());
 		t.add(new DefaultMutableTreeNode(new SquadronOverview(squad.getNome())));
 		t.add(new DefaultMutableTreeNode(new SquadronManager(squad.getNome())));
 		addNode(t);
 	}
-
+	/* (non-Javadoc)
+	 * @see view.unit_manager.UnitManager#removeSquadToJTree(java.lang.String)
+	 */
+	@Override
 	public void removeSquadToJTree(final String squadToRemove) {
 		this.removeNode(squadToRemove);
 	}

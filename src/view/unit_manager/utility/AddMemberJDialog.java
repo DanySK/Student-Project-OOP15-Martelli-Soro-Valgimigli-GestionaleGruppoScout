@@ -15,9 +15,8 @@ import control.ProjectFactoryImpl;
 import control.Unit;
 import control.exception.MemberSexException;
 import control.myUtil.MyOptional;
-import model.reparto.Member;
 import model.reparto.Roles;
-import view.gui_utility.EditableElementScrollPanelImpl;
+import view.gui_utility.EditableElementScrollPane;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.WarningNotice;
@@ -37,10 +36,10 @@ public class AddMemberJDialog extends JDialog {
 	 * @param parent JPanel in wich is present the JBUtton who called this JDialog
 	 * @param squadName Optional Squadron name
 	 */
-	public AddMemberJDialog(final Unit unit, final EditableElementScrollPanelImpl<Member> parent,
+	public AddMemberJDialog(final Unit unit, final EditableElementScrollPane<Member> parent,
 			final MyOptional<String> squadName) {
 		super();
-		final EditableElementScrollPanelImpl<Member>panelParent = parent;
+		final EditableElementScrollPane<Member>panelParent = parent;
 		final MyJPanelImpl bottom = new MyJPanelImpl();
 		final JPanel pan = new JPanel(new BorderLayout());
 		final JPanel center = new JPanel(new GridLayout(0, 2));

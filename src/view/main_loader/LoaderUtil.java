@@ -22,7 +22,7 @@ import control.ProjectFactoryImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.WarningNotice;
-import view.unit_manager.utility.UnitLeaderJPanel;
+import view.unit_manager.utility.UnitLeaderJPanelImpl;
 
 /**
  * Outer class for class LoadUnit, CreateUnit and LoaderOptions. These 3 classes
@@ -195,8 +195,8 @@ public class LoaderUtil extends MyJPanelImpl {
 			MyJPanelImpl nome = new MyJPanelImpl(new GridLayout(0, 2));
 			nome.add(createJLabel("Nome Reparto: ", 20));
 			nome.add(textField);
-			UnitLeaderJPanel capoM = new UnitLeaderJPanel("Capo Maschio");
-			UnitLeaderJPanel capoF = new UnitLeaderJPanel("Capo Femmina");
+			UnitLeaderJPanelImpl capoM = new UnitLeaderJPanelImpl("Capo Maschio");
+			UnitLeaderJPanelImpl capoF = new UnitLeaderJPanelImpl("Capo Femmina");
 			capi.add(capoM);
 			capi.add(capoF);
 			this.add(nome, BorderLayout.NORTH);
