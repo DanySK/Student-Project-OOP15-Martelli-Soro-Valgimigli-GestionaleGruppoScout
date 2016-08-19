@@ -215,10 +215,10 @@ public class UnitImpl implements Unit, Serializable {
 	}
 
 	@Override
-	public Member getMember(final String name, final String surname) {
+	public List<Member> getMember(final String name, final String surname) {
 		return this.rep.getAllMember().stream()
-				.filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname)).findFirst()
-				.get();
+				.filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -229,6 +229,30 @@ public class UnitImpl implements Unit, Serializable {
 	@Override
 	public void setLastMailSend(final LocalDate lastMailSend) {
 		this.lastMailSend = lastMailSend;
+	}
+	@Override
+	public List<Member> getMemberWithName(final String name){
+		return this.rep.getAllMember().stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithSurname(final String Surname){
+		return this.rep.getAllMember().stream()
+				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithNameFromList(final String name, final List<Member> list){
+		return list.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithSurnameFromList(final String Surname,  final List<Member> list){
+		return list.stream()
+				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
+				.collect(Collectors.toList());
 	}
 
 }

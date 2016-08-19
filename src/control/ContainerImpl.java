@@ -179,5 +179,38 @@ public class ContainerImpl implements Container, Serializable {
 		return this.excs.stream().filter(e -> e instanceof UscitaSquadriglia).map(e -> ((UscitaSquadriglia) e))
 				.filter(e -> ((UscitaSquadriglia) e).getSquadriglia().equals(sq)).collect(Collectors.toList());
 	}
-
+	
+	@Override
+	public List<Member> getMemberNamed(final String name, final String surname) {
+		return this.unit.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name) && e.getSurname().equalsIgnoreCase(surname))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithName(final String name){
+		return this.unit.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithSurname(final String Surname){
+		return this.unit.stream()
+				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithNameFromList(final String name, final List<Member> list){
+		return list.stream()
+				.filter(e -> e.getName().equalsIgnoreCase(name))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public List<Member> getMemberWithSurnameFromList(final String Surname,  final List<Member> list){
+		return list.stream()
+				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
+				.collect(Collectors.toList());
+	}
 }
+
+
+

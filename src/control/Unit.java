@@ -155,7 +155,7 @@ public interface Unit {
 	 * @param surname
 	 * @return
 	 */
-	Member getMember(final String name, final String surname);
+	List<Member> getMember(final String name, final String surname);
 
 	/**
 	 * 
@@ -170,4 +170,12 @@ public interface Unit {
 	 * 
 	 */
 	void setLastMailSend(LocalDate lastMailSend);
+
+	List<Member> getMemberWithName(String name);
+
+	List<Member> getMemberWithSurname(String Surname);
+
+	List<Member> getMemberWithNameFromList(String name, List<Member> list);
+
+	List<Member> getMemberWithSurnameFromList(String Surname, List<Member> list);
 }
