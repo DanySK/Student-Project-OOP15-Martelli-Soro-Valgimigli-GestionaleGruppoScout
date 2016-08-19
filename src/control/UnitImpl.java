@@ -242,17 +242,4 @@ public class UnitImpl implements Unit, Serializable {
 				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
 				.collect(Collectors.toList());
 	}
-	@Override
-	public List<Member> getMemberWithNameFromList(final String name, final List<Member> list){
-		return list.stream()
-				.filter(e -> e.getName().equalsIgnoreCase(name))
-				.collect(Collectors.toList());
-	}
-	@Override
-	public List<Member> getMemberWithSurnameFromList(final String Surname,  final List<Member> list){
-		return list.stream()
-				.filter(e -> e.getSurname().equalsIgnoreCase(Surname))
-				.collect(Collectors.toList());
-	}
-
 }

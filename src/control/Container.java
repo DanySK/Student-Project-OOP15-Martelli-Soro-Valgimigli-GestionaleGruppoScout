@@ -197,5 +197,13 @@ public interface Container {
 	 * @return
 	 */
 	List<Member> getMemberWithSurnameFromList(String Surname, List<Member> list);
+	/**
+	 * 
+	 * @param name
+	 * @param surname
+	 * @param list
+	 * @return
+	 */
+	List<Member> getMemberNamedFromList(String name, String surname, List<Member> list);
 
 }
