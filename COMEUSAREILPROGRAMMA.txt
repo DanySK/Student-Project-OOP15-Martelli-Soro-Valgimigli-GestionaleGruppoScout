@@ -1,0 +1,47 @@
+1) Scaricare il .jar e lanciare
+2) Creare un nuovo reparto ricordando che i numeri di telefono hanno 10 cifre
+3) Si aprira la Main Page del programma con tutte le opzioni 
+4) Utilizzare come meglio si crede. (Per info e testing seguira dal punto 15)
+5) Salvare e chiudere il programma
+6) Copiare il file Fenice_Argento.sct presente nel repository, spostarsi poi nella home dell'user -->ScoutApp
+		--> SaveProject. Copiare il file qui dentro 
+7) Lanciare il programma 
+8) Caricare Fenice_argento.sct
+9) Testare il programma
+
+
+
+
+BREVE TESTING NUOVO REPARTO
+15) Andare in gestione reparto
+16) Cliccare in alto a sinistra sul reparto e poi sul file di gestione
+17) Cliccare poi in Aggiungi membero in reparto e compilare. Il programma supporta anche l'omissio 
+	dei dati del Tutor (Nome, tel, mail)
+18) Cliccare sul regazzo appena creato. Settare promessa e totem.
+19) Cliccare su specialità e aggiungere Cantante
+20) Tornare al pannello di gestione reparto Creare una squadriglia
+21) Cliccare poi sul membro e assegnarlo alla squadriglia, notare il cambiamento di colore Ragazzo
+	che indica che è stato assegnato ad una squadriglia
+22) In alto a sinistra andare sulla sezione della squadriglia cliccare, -> gestione
+23) Andare nel pannello in alto e vicino alla voce capo cliccare edit.
+24) Si apre il pannello di ricerca, inserire il nome ( o il cognome o entrambi) e aggiungere
+25) Tornare alla main page
+26) Selezionare Gestione eventi
+27) Selezionare il reparto in alto a sinistra
+28) creare un nuovo evento ( tipo nuova uscita)
+29)tornare nella Main page, selezionare Online
+30) Selezionare funzioni online -> buona caccia
+31) Verranno mostrati gli eventi presi dal sito BuonaCaccia.org
+32) Cliccare su un evento e poi sui pulssanti Apri nel browser e apri nel browser
+33) salvare tutto 
+34) chiudere il programma e rivviarlo
+35) Nella sezione caricamenti selezionare il proprio reparto
+36) Controllare che tutte le modifiche salvate siano ancora valide
+
+TEST MAIL
+
+40)Creare un nuovo membro e settare nella mail del tuttor la propria mail
+41)Creare un nuovo evento
+42)Controllare la propria mail
+
+
