@@ -21,7 +21,7 @@ import model.reparto.Member;
 import model.reparto.Reparto;
 import model.reparto.Roles;
 import model.reparto.Squadron;
-import view.gui_utility.WarningNotice;
+
 
 public class UnitImpl implements Unit, Serializable {
 
@@ -87,7 +87,6 @@ public class UnitImpl implements Unit, Serializable {
 				try {
 					e.addPartecipant(m, false);
 				} catch (Exception e1) {
-					new WarningNotice("Errore aggiunta in evento: " + e.getName());
 				}
 			}
 		});
@@ -172,7 +171,6 @@ public class UnitImpl implements Unit, Serializable {
 			throws ObjectNotContainedException, MemberSexException, ObjectAlreadyContainedException {
 
 		if (this.rep.getMembriSenzaSquadriglia().contains(m)) {
-			new WarningNotice("Il ragazzo non appartiene a nessuna squadriglia \n verrà comunque assegnato");
 		} else {
 			this.rep.removeMemberFromSquadron(m);
 			this.excursions.forEach(e -> {
@@ -181,7 +179,6 @@ public class UnitImpl implements Unit, Serializable {
 						try {
 							e.removePartecipant(m);
 						} catch (Exception exc) {
-							new WarningNotice("Errore rimozione dagli eventi della squadriglia");
 						}
 					}
 				}
@@ -207,7 +204,6 @@ public class UnitImpl implements Unit, Serializable {
 		try {
 			ControlMail.sendMailForExcursion(exc);
 		} catch (MessagingException e) {
-			new WarningNotice("Invio automatico delle email fallito. Controllare la connessione");
 		}
 	}
 
@@ -221,7 +217,6 @@ public class UnitImpl implements Unit, Serializable {
 		final List<Excursion> exc = this.excursions.stream().filter(e -> e.getName().equalsIgnoreCase(name))
 				.collect(Collectors.toList());
 		if (Integer.valueOf(exc.size()).equals(0)) {
-			new WarningNotice("Nessuna escursione corrisponde al nome: " + name);
 			return;
 		}
 		this.excursions.removeAll(exc);
@@ -232,7 +227,6 @@ public class UnitImpl implements Unit, Serializable {
 		if (this.excursions.contains(exc)) {
 			this.excursions.remove(exc);
 		} else {
-			new WarningNotice("Nessuna escursione corrisponde al nome: " + exc.getName());
 		}
 
 	}
