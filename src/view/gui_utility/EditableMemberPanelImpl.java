@@ -47,7 +47,7 @@ import view.gui_utility.SearchElementJDialog.SearchType;
 
 public class EditableMemberPanelImpl<E> extends MyJPanelImpl {
 	public enum Type {
-		RETTAREP, GESTIONESQUADRIGLIA, OVERVIEWSQUAD, TASSEEXCSQUAD, OVERVIEWREP, EXCREP, EXCSQUAD, RETTASQUAD, EXCPARTECIPANTI, EXCONLINE;
+		RETTAREP, EXCREPTASSE, GESTIONESQUADRIGLIA, OVERVIEWSQUAD, TASSEEXCSQUAD, OVERVIEWREP, EXCREP, EXCSQUAD, RETTASQUAD, EXCPARTECIPANTI, EXCONLINE;
 	}
 
 	private static final long serialVersionUID = 9037769890822002300L;
@@ -204,6 +204,23 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl {
 			this.memList = (List<E>) MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 					.getExcursionNamed(squadName).getAllPartecipants();
 			updateMemberBotton();
+		}else if(type.equals(Type.EXCREPTASSE)){
+			mapPagamenti = new HashMap<>();
+			for (Member i : MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getFreeMember()) {
+				final List<Excursion> tmp = new ArrayList<>();
+				MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion().stream().forEach(e -> {
+
+					if (e.getNotPaied().contains(i)) {
+						tmp.add(e);
+					}
+					;
+				});
+				if (tmp.size() > 0) {
+					mapPagamenti.put(i, tmp.stream().collect(Collectors.toList()));
+				}
+			}
+			this.memList = (List<E>) mapPagamenti.keySet().stream().collect(Collectors.toList());
+			updateMemberBotton();
 		}
 	}
 
@@ -264,7 +281,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl {
 					FONTSIZEBUTTON, e -> {
 						(new ShowMemberInfoJDialog(((Member) mem))).setVisible(true);
 					});
-		} else if (type.equals(Type.TASSEEXCSQUAD)) {
+		} else if (type.equals(Type.TASSEEXCSQUAD) || type.equals(Type.EXCREPTASSE)) {
 			return createButton("<html>" + ((Member) mem).getName() + "<br>" + ((Member) mem).getSurname() + "</html>",
 					FONTSIZEBUTTON, e -> {
 						(new MemberTasseExcursionJDialog(((Member) mem), (EditableMemberPanelImpl<Member>) me))

@@ -126,8 +126,8 @@ public class EventiReparto {
 			panelBot.updateMember();
 		}
 
-		public String toString() {
-			return "Uscite Reparto";
-		}
+	}
+	public String toString() {
+		return "Uscite Reparto";
 	}
 }

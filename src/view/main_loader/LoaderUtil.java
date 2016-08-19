@@ -124,7 +124,9 @@ public class LoaderUtil extends MyJPanelImpl {
 						}
 					}), BorderLayout.LINE_END);
 					panelBottom.add(createButton("Elimina", u -> {
-						project.removeUnit(selected);
+						
+							project.removeUnit(selected);
+						
 
 						SwingUtilities.invokeLater(new Runnable() {
 
@@ -163,7 +165,7 @@ public class LoaderUtil extends MyJPanelImpl {
 					this.add(panelBottom, BorderLayout.SOUTH);
 					this.validate();
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				new WarningNotice(e.getMessage());
 			}
 

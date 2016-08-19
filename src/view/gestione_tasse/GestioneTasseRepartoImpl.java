@@ -120,7 +120,7 @@ public class GestioneTasseRepartoImpl {
 	}
 
 	public String toString() {
-		return this.repName;
+		return "Quota Annuale";
 	}
 
 }
