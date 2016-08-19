@@ -164,5 +164,38 @@ public interface Container {
 	 * A list of Exit of Squadron sq
 	 */
 	List<UscitaSquadriglia> getExcursionOfSquadron(Squadron sq);
+	/**
+	 * 
+	 * @param name
+	 * @param surname
+	 * @return
+	 */
+	List<Member> getMemberNamed(String name, String surname);
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	List<Member> getMemberWithName(String name);
+	/**
+	 * 
+	 * @param Surname
+	 * @return
+	 */
+	List<Member> getMemberWithSurname(String Surname);
+	/**
+	 * 
+	 * @param name
+	 * @param list
+	 * @return
+	 */
+	List<Member> getMemberWithNameFromList(String name, List<Member> list);
+	/**
+	 * 
+	 * @param Surname
+	 * @param list
+	 * @return
+	 */
+	List<Member> getMemberWithSurnameFromList(String Surname, List<Member> list);
 
 }
