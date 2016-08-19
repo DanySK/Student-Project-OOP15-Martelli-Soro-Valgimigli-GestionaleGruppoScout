@@ -68,7 +68,7 @@ public interface Container {
 	List<Squadron> getSquadrons();
 
 	/**
-	 * 
+	 * Provides all member which aren't in a Squadron
 	 * @param m
 	 */
 
@@ -89,25 +89,28 @@ public interface Container {
 	/**
 	 * 
 	 * @return
+	 * the whole collection of Excursion
 	 */
 	List<Excursion> getExcursion();
 
 	/**
-	 * 
+	 * Method useful to search specific Excursion using a predicate
 	 * @param p
 	 * @return
+	 * A list of excursion which matches to the predicate
 	 */
 	List<Excursion> excursions(Predicate<? super Excursion> p);
 
 	/**
-	 * 
+	 * Method to research an Excursion
 	 * @param name
 	 * @return
+	 * Excursion  name
 	 */
 	Excursion getExcursionNamed(String name);
 
 	/**
-	 * 
+	 * Method to search a member using name and surname
 	 * @param name
 	 * @param surname
 	 * @return
@@ -115,44 +118,50 @@ public interface Container {
 	Member getMember(String name, String surname);
 
 	/**
-	 * 
+	 * Method to search specific excursion 
 	 * @param name
 	 * @return
+	 * A Exit called name
 	 */
 	Uscita getExit(String name);
 
 	/**
-	 * 
+	 *  Method to search specific excursion
 	 * @param name
 	 * @return
+	 * A Squadron exit called name
 	 */
 	UscitaSquadriglia getExcursionSq(String name);
 
 	/**
-	 * 
+	 *  Method to search specific excursion
 	 * @param name
 	 * @return
+	 * A event with two unit called name
 	 */
 	Gemellaggi getTwoUnitEvent(String name);
 
 	/**
-	 * 
+	 *  Method to search specific excursion
 	 * @param name
 	 * @return
+	 * A local Event called name
 	 */
 	EventiDiZona getLocalEvent(String name);
 
 	/**
-	 * 
+	 *  Method to search specific excursion
 	 * @param name
 	 * @return
+	 * A camp called name
 	 */
 	Campo getCamp(String name);
 
 	/**
-	 * 
+	 *  Method to search specific excursion
 	 * @param sq
 	 * @return
+	 * A list of Exit of Squadron sq
 	 */
 	List<UscitaSquadriglia> getExcursionOfSquadron(Squadron sq);
 
