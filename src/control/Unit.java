@@ -194,4 +194,10 @@ public interface Unit {
 	 * @return
 	 */
 	List<Member> getMemberWithSurname(String Surname);
+	/**
+	 * 
+	 * @param m
+	 * @throws ObjectAlreadyContainedException
+	 */
+	void removeMemberFromSq(Member m) throws ObjectAlreadyContainedException;
 }
