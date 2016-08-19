@@ -113,11 +113,11 @@ public class GestioneRepartoMain extends MySplittedPanelWithTree {
 						+ "comprendente l'elenco degli incarichi assegnati e l'elenco dei componenti.</html>");
 			} else if (((DefaultMutableTreeNode) value).getUserObject() instanceof SquadrigliaManagerImpl) {
 				setToolTipText("<html>In questa sezione è possibile modificare la squadriglia;<br>"
-						+ "aggiungendo membri, assegnando incarichi, etc...");
+						+ "aggiungendo membri, assegnando incarichi, etc...</html>");
 			} else if (((DefaultMutableTreeNode) value).getUserObject() instanceof RepartoOverviewImpl) {
 				setToolTipText("<html>In questa sezione è possibile modificare il reparto;<br>"
 						+ "aggiungendo membri(senza squadriglia), assegnando incarichi,<br>"
-						+ "creando squadriglie, etc...");
+						+ "creando squadriglie, etc...</html>");
 			}
 			return this;
 		}

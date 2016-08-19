@@ -21,7 +21,12 @@ public class OtherUnitJDialog extends JDialog {
 
 	private static final long serialVersionUID = 1710237645233014036L;
 	private final static int FONTSIZE = 15;
-
+/**
+ * Class that allows to see or add other unit to an excursion of type Gemellaggi or EventiDiZona
+ * @param exc excursion to be modified
+ * @param editable false if only to see, true if also to add
+ * 
+ */
 	public OtherUnitJDialog(final Excursion exc, final boolean editable) {
 		super();
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());

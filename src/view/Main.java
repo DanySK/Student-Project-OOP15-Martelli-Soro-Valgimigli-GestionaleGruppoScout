@@ -9,7 +9,11 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import view.main_loader.LoaderImpl;
 
-public class Main {
+public final class Main {
+	
+	private Main(){
+		
+	}
 	/**
 	 * This class is the App laucher and contains: -Main method -Static code
 	 * that sets L&F of the entire application
@@ -19,10 +23,10 @@ public class Main {
 	/* static part that sets look&fell of the entire application */
 	static {
 		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			for (final LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					UIManager.setLookAndFeel(info.getClassName());
-					UIDefaults ui = UIManager.getLookAndFeelDefaults();
+					final UIDefaults ui = UIManager.getLookAndFeelDefaults();
 					ui.put("Panel.background", MyColor.BACKGROUND.get());
 					ui.put("OptionPane.background", MyColor.BACKGROUND.get());
 					ui.put("Button.background", MyColor.JBUTTON.get());
@@ -35,8 +39,9 @@ public class Main {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("");
 		}
+
 	}
 
 	public static enum MyColor {
@@ -50,14 +55,14 @@ public class Main {
 			return new Color(a, b, c);
 		}
 
-		private MyColor(int a, int b, int c) {
+		private MyColor(final int a, final int b, final int c) {
 			this.a = a;
 			this.b = b;
 			this.c = c;
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		new LoaderImpl();
 	}
 

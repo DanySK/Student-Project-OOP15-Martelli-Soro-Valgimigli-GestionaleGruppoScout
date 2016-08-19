@@ -22,8 +22,8 @@ import model.reparto.MemberImpl;
 import model.reparto.Roles;
 import model.reparto.Squadron;
 import view.general_utility.WarningNotice;
-import view.gestione_eventi.EventiReparto.EventiRepartoPane;
-import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPane;
+import view.gestione_eventi.SquadronExcursionPane;
+import view.gestione_eventi.UnitExcursionPane;
 import view.gestione_reparto.utility.EditMemberInfoJDialog;
 import view.gestione_reparto.utility.ShowMemberInfoJDialog;
 import view.gestione_tasse.utility.MemberTasseExcursionJDialog;
@@ -297,12 +297,12 @@ public class SearchElementJDialog<E, K> extends JDialog {
 				paneSelect.add(paneSelect.createButton("Rimuovi", o -> {
 					dialInternal.dispose();
 					MyJFrameSingletonImpl.getInstance().getUnit().removeExcursion((Excursion) e);
-					if (parent instanceof EventiRepartoPane) {
-						((EventiRepartoPane) parent).updatePaneInfo();
-						((EventiRepartoPane) parent).updateEventi();
+					if (parent instanceof UnitExcursionPane) {
+						((UnitExcursionPane) parent).updatePaneInfo();
+						((UnitExcursionPane) parent).updateExcursion();
 					} else {
-						((EventiSquadrigliaPane) parent).updatePaneInfo();
-						((EventiSquadrigliaPane) parent).updateEventi();
+						((SquadronExcursionPane) parent).updatePaneInfo();
+						((SquadronExcursionPane) parent).updateExcursion();
 					}
 
 				}));

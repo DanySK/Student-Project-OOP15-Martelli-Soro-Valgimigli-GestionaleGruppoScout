@@ -188,8 +188,7 @@ public class EditableMemberPanelImpl<E> extends MyJPanelImpl {
 				e.printStackTrace();
 			}
 		} else if (type.equals(Type.EXCSQUAD)) {
-			this.memList = (List<E>) MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursion()
-					.stream().filter(e -> e instanceof UscitaSquadriglia).collect(Collectors.toList());
+			this.memList = (List<E>) MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getExcursionOfSquadron(squadImpl);
 			updateMemberBotton();
 		} else if (type.equals(Type.RETTASQUAD)) {
 			this.memList = new ArrayList<>();

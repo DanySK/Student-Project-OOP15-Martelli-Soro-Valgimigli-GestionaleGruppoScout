@@ -21,18 +21,26 @@ import view.general_utility.WarningNotice;
 import view.gui_utility.EditableMemberPanelImpl;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
-
+/**
+ * JDialog that allows user to add a Member in Unit(or Squadron)
+ * @author Giovanni Martelli
+ *
+ */
 public class AddMemberJDialog extends JDialog {
 
 	private static final long serialVersionUID = 3066382359932767590L;
 	private final static int FONTSIZELABEL = 19;
 	private final static int FONTSIZE = 15;
-	private final EditableMemberPanelImpl<Member> panelParent;
-
+	/**
+	 * 
+	 * @param unit Unit in use
+	 * @param parent JPanel in wich is present the JBUtton who called this JDialog
+	 * @param squadName Optional Squadron name
+	 */
 	public AddMemberJDialog(final Unit unit, final EditableMemberPanelImpl<Member> parent,
 			final MyOptional<String> squadName) {
 		super();
-		this.panelParent = parent;
+		final EditableMemberPanelImpl<Member>panelParent = parent;
 		final MyJPanelImpl bottom = new MyJPanelImpl();
 		final JPanel pan = new JPanel(new BorderLayout());
 		final JPanel center = new JPanel(new GridLayout(0, 2));

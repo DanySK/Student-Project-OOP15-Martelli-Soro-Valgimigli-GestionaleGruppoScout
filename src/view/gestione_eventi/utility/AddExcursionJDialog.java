@@ -1,6 +1,7 @@
 package view.gestione_eventi.utility;
 
 import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -24,9 +25,13 @@ import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanel;
 import view.gui_utility.MyJPanelImpl;
-import view.gestione_eventi.EventiReparto.EventiRepartoPane;
-import view.gestione_eventi.EventiSquadriglia.EventiSquadrigliaPane;;
-
+import view.gestione_eventi.SquadronExcursionPane;
+import view.gestione_eventi.UnitExcursionPane;;
+/**
+ * Class used to display a JDialog where user can add an excursion
+ * @author Giovanni Martelli
+ *
+ */
 public class AddExcursionJDialog extends JDialog {
 	public enum TypeExcursion {
 		Campo, Gemellaggio, Evento_di_Zona, Uscita, Uscita_Squadriglia;
@@ -60,14 +65,16 @@ public class AddExcursionJDialog extends JDialog {
 
 	public AddExcursionJDialog(final TypeExcursion type, final MyOptional<String> squadName, final MyJPanel caller) {
 		super();
-
+		/*Se la squadriglia è presente la utilizzo*/
 		if (squadName.isPresent()) {
 			this.squadName = squadName.get();
 		}
 		this.type = type;
 		this.unit = MyJFrameSingletonImpl.getInstance().getUnit();
 		panel.add(panel.createJLabel("Nuovo/a" + type.toString(), FONTSIZE + 2), BorderLayout.NORTH);
-		// casi base
+		/*Casi comuni a tutte le escursioni
+		 * Viene aggiunta una JLabel a sx e un JTextField a destra
+		 */
 		panelInter.add(panel.createJLabel("Nome: ", FONTSIZE));
 		panelInter.add(nome);
 		panelInter.add(panel.createJLabel("Prezzo: ", FONTSIZE));
@@ -75,7 +82,6 @@ public class AddExcursionJDialog extends JDialog {
 		panelInter.add(panel.createJLabel("Luogo: ", FONTSIZE));
 		panelInter.add(location);
 		panelInter.add(panel.createJLabel("Data Inizio: ", FONTSIZE));
-
 		data.add(panel.createJLabel("giorno", FONTSIZE));
 		data.add(gg);
 		data.add(panel.createJLabel("mese", FONTSIZE));
@@ -83,6 +89,10 @@ public class AddExcursionJDialog extends JDialog {
 		data.add(panel.createJLabel("anno", FONTSIZE));
 		data.add(aa);
 		panelInter.add(data);
+		/*
+		 * Tutte le escursioni hanno una data di fine, tranne Uscita
+		 * Inserisco un JPanel che permette di scegliere tra l'inserimento della data, oppure quello della durata
+		 */
 		if (!type.equals(TypeExcursion.Uscita)) {
 			panelInter.add(panel.createJLabel("Fine: ", FONTSIZE));
 			dataFine = new MyJPanelImpl();
@@ -157,12 +167,12 @@ public class AddExcursionJDialog extends JDialog {
 		}));
 		panelBot.add(panelBot.createButton("Aggiungi", 15, e -> {
 			try {
-				final Excursion ex = getMethod();
+				final Excursion ex = getExcursion();
 				unit.addExcursion(ex);
 				if (type.equals(TypeExcursion.Uscita_Squadriglia)) {
-					((EventiSquadrigliaPane) caller).updateEventi();
+					((SquadronExcursionPane) caller).updateExcursion();
 				} else {
-					((EventiRepartoPane) caller).updateEventi();
+					((UnitExcursionPane) caller).updateExcursion();
 				}
 				MyJFrameSingletonImpl.getInstance().setNeedToSave();
 				this.dispose();
@@ -182,16 +192,16 @@ public class AddExcursionJDialog extends JDialog {
 		this.setVisible(true);
 
 	}
-
-	public final Excursion getMethod() throws IllegalDateException {
+	
+	private final Excursion getExcursion() throws IllegalDateException {
 
 		Excursion exc;
 		final LocalDate start = LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()),
 				Integer.parseInt(gg.getText()));
 
-		if (type.equals(TypeExcursion.Uscita)) {
+		if (type.equals(TypeExcursion.Uscita)) {//caso Uscita
 			exc = ProjectFactoryImpl.getStdExcursion(start, unit.getReparto(), nome.getText());
-		} else if (perData) {
+		} else if (perData) {//se è stato scelto di utilizzare la data
 
 			end = LocalDate.of(Integer.parseInt(aaF.getText()), Integer.parseInt(mmF.getText()),
 					Integer.parseInt(ggF.getText()));
@@ -209,7 +219,7 @@ public class AddExcursionJDialog extends JDialog {
 
 		}
 
-		else {
+		else {//se è stato scelto di utilizzare la durata
 			if (type.equals(TypeExcursion.Campo)) {
 				exc = ProjectFactoryImpl.getCamp(start, Integer.parseInt(durata.getText()), unit.getReparto(),
 						nome.getText());

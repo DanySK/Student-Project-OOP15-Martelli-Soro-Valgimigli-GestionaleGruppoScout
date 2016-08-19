@@ -37,7 +37,11 @@ public class ShowEditExcursion extends JDialog {
 	private final static int FONTBUTTONBIG = 13;
 	private final static int FONTSIZEBUTTON = 10;
 	private final Excursion exc;
-
+	/**
+	 * Class that allow to see and edit an excursion
+	 * @param exc
+	 * @param parent EditableMemberPanelImpl that called this JDialog
+	 */
 	public ShowEditExcursion(final Excursion exc, final EditableMemberPanelImpl<Excursion> parent) {
 		super();
 		this.exc = exc;
@@ -185,7 +189,6 @@ public class ShowEditExcursion extends JDialog {
 
 		});
 
-		// if(exc instanceof )
 	}
 
 	private JButton getJButton(final String type) {

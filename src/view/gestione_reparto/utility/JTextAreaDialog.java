@@ -19,14 +19,26 @@ import model.reparto.Member;
 import view.general_utility.WarningNotice;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
-
+/**
+ * Class tha create a JTextArea for "Specialità" and "Obbiettivi del cammino
+ * based on TextAreaType and OB it allows user to see or modify this entrys
+ * @author Giovanni Martelli
+ *
+ * @param <E>
+ */
 public class JTextAreaDialog<E> extends JDialog {
 	public enum TextAreaType {
-		SPCVIEW, SPEDIT, OBBVIEW, OBBEDIT;
+		SPCVIEW,//vedi specialità
+		SPEDIT,//modifica specialità
+		OBBVIEW,//vedi obbiettivo
+		OBBEDIT;//modifica obbiettivo
 	}
 
 	public enum OB {
-		SCL, FD, FM, RLZN;
+		SCL,//scuola
+		FD, //fede
+		FM,//famiglia
+		RLZN;//relazioni
 	}
 
 	private static final long serialVersionUID = -8715597288634279098L;
@@ -34,14 +46,19 @@ public class JTextAreaDialog<E> extends JDialog {
 	private final static int FONTSIZEAREA = 17;
 	private final TextAreaType type;
 	private JTextArea area;
-	private final E elem;
+	private final Member elem;
 	private OB ob;
 	private final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
-
+	/**
+	 * 
+	 * @param type Type
+	 * @param m element
+	 * @param obt
+	 */
 	public JTextAreaDialog(final TextAreaType type, final E m, final MyOptional<OB> obt) {
 		super();
 		this.type = type;
-		this.elem = m;
+		this.elem = (Member)m;
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl inPanel = new MyJPanelImpl(new GridLayout(2, 1));
 		final MyJPanelImpl panelBot = new MyJPanelImpl(new FlowLayout(FlowLayout.RIGHT));

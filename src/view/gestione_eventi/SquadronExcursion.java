@@ -21,14 +21,18 @@ import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.SearchElementJDialog;
 import view.gui_utility.SearchElementJDialog.SearchType;
 
-public class EventiSquadriglia {
+public class SquadronExcursion {
 	private final Squadron squadImpl;
 
-	public EventiSquadriglia(final String squad) {
+	public SquadronExcursion(final String squad) {
 		squadImpl = MyJFrameSingletonImpl.getInstance().getUnit().getContainers().findSquadron(squad);
 	}
-
-	public class EventiSquadrigliaPane extends MyJPanelImpl {
+/**
+ * Class that allow to see and edit Squadron's Excursions
+ * @author Giovanni Martelli
+ *
+ */
+	public class SquadronExcursionPaneImpl extends MyJPanelImpl implements SquadronExcursionPane {
 
 		private static final long serialVersionUID = 5205825583794848349L;
 		private final static int FONTSIZELABEL = 19;
@@ -39,7 +43,7 @@ public class EventiSquadriglia {
 		private final MyJPanelImpl panelTopButton;
 		private final EditableMemberPanelImpl<Excursion> panelBot;
 
-		public EventiSquadrigliaPane() {
+		public SquadronExcursionPaneImpl() {
 			super(new BorderLayout());
 
 			this.add(createJLabel("<html><U>Gestione eventi " + squadImpl.getNome() + "</U></html> ", FONTSIZELABELBIG),
@@ -51,7 +55,7 @@ public class EventiSquadriglia {
 			this.panelTopContainer = new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			this.panelCenter.add(panelTopContainer);
-			this.panelBot = new EditableMemberPanelImpl<Excursion>(Type.EXCSQUAD, MyOptional.empty());
+			this.panelBot = new EditableMemberPanelImpl<Excursion>(Type.EXCSQUAD, MyOptional.of(squadImpl.getNome()));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Uscita</html>", 12, e -> {
 				new AddExcursionJDialog(TypeExcursion.Uscita_Squadriglia, MyOptional.of(squadImpl.getNome()), this);
 			}));
@@ -65,7 +69,11 @@ public class EventiSquadriglia {
 			this.panelCenter.add(panelBot);
 			this.add(panelCenter, BorderLayout.CENTER);
 		}
-
+		
+		/* (non-Javadoc)
+		 * @see view.gestione_eventi.SquadronExcursionPane#updatePaneInfo()
+		 */
+		@Override
 		public final void updatePaneInfo() {
 			SwingUtilities.invokeLater(new Runnable() {
 
@@ -87,14 +95,18 @@ public class EventiSquadriglia {
 			});
 
 		}
+		/* (non-Javadoc)
+		 * @see view.gestione_eventi.SquadronExcursionPane#updateExcursion()
+		 */
 
-		public void updateEventi() {
+		@Override
+		public void updateExcursion() {
 			panelBot.updateMember();
 		}
 	}
 
 	public String toString() {
-		return "Uscite " + squadImpl.getNome();
+		return "Uscite Squadriglia";
 	}
 
 }
