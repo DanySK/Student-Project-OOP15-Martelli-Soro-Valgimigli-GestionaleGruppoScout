@@ -43,6 +43,10 @@ public class GestioneTasseMain extends MySplittedPanelWithTree {
 							setPanelCenter(((GestioneTasseSquadrigliaImpl) node
 									.getUserObject()).new GestioneTasseSquadrigliaImplPane());
 						}
+						if(node.getUserObject() instanceof GestioneTasseExcursionRepartoImpl){
+							setPanelCenter(((GestioneTasseExcursionRepartoImpl) node
+									.getUserObject()).new GestioneTasseExcursionRepartoImplPane());
+						}
 
 						getPanelCenter().repaint();
 						getPanelCenter().validate();
@@ -54,6 +58,7 @@ public class GestioneTasseMain extends MySplittedPanelWithTree {
 			}
 		});
 		this.getRoot().add(new DefaultMutableTreeNode(new GestioneTasseRepartoImpl(unit.getReparto().getName())));
+		this.getRoot().add(new DefaultMutableTreeNode(new GestioneTasseExcursionRepartoImpl()));
 		unit.getContainers().getSquadrons().forEach(e -> {
 			final DefaultMutableTreeNode t = new DefaultMutableTreeNode(e.getNome());
 			t.add(new DefaultMutableTreeNode(new GestioneTasseSquadrigliaImpl(e.getNome())));

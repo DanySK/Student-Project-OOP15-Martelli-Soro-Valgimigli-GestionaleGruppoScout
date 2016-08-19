@@ -146,7 +146,6 @@ public class AddMemberJDialog extends JDialog {
 				 * una squadriglia inserisco il membro in tale squadriglia
 				 */
 				else if (!squadName.isPresent() && !((String) squad.getSelectedItem()).equals("nessuna squadriglia")) {
-					System.out.println("WQWWW");
 					unit.putMemberInSq(
 							unit.getContainers().getFreeMember().stream()
 									.filter(t -> (t.getName().equals(name.getText())
