@@ -32,7 +32,9 @@ public class ShowMemberInfoJDialogImpl extends JDialog implements ShowMemberInfo
 			panelIn.add(panelIn.createJLabel(t.getX(), FONTSIZE));
 			panelIn.add(panelIn.createJLabel(t.getY(), FONTSIZE));
 		});
+		
 		try {
+			MyJFrameSingletonImpl.getInstance().getUnit().getReparto().getSquadronOfMember(mem);
 			panelIn.add(panelIn.createJLabel("RUOLO", FONTSIZE));
 			panelIn.add(panelIn.createJLabel(MyJFrameSingletonImpl.getInstance().getUnit().getReparto()
 					.getSquadronOfMember(mem).getMembri().get(mem).toString(), FONTSIZE));

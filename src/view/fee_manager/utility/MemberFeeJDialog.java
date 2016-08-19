@@ -6,7 +6,7 @@ import java.time.Year;
 import javax.swing.JDialog;
 
 import model.reparto.Member;
-import view.gui_utility.EditableElementScrollPane;
+import view.gui_utility.EditableElementScrollPanel;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 
@@ -15,7 +15,7 @@ public class MemberFeeJDialog extends JDialog {
 	private static final long serialVersionUID = -3887913606041748337L;
 	private final static int FONTSIZE = 19;
 
-	public MemberFeeJDialog(final Member mem, final EditableElementScrollPane<Member> parent) {
+	public MemberFeeJDialog(final Member mem, final EditableElementScrollPanel<Member> parent) {
 		super();
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl panBot = new MyJPanelImpl();

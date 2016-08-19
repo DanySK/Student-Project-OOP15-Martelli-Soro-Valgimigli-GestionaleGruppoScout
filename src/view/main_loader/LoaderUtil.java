@@ -90,7 +90,7 @@ public class LoaderUtil extends MyJPanelImpl {
 
 				else {
 
-					for (String i : project.getListOfUnit()) {
+					for (final String i : project.getListOfUnit()) {
 						panelCenter.add(createButton(i, e -> {
 							((JButton) panelBottom.getComponent(0)).setEnabled(true);
 							((JButton) panelBottom.getComponent(1)).setEnabled(true);
@@ -99,7 +99,7 @@ public class LoaderUtil extends MyJPanelImpl {
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
-									for (Component k : Arrays.asList(panelCenter.getComponents())) {
+									for (final Component k : Arrays.asList(panelCenter.getComponents())) {
 										k.setEnabled(false);
 									}
 								}
@@ -135,7 +135,7 @@ public class LoaderUtil extends MyJPanelImpl {
 							public void run() {
 								panelCenter.removeAll();
 								try {
-									for (String i : project.getListOfUnit()) {
+									for (final String i : project.getListOfUnit()) {
 										panelCenter.add(createButton(i, e -> {
 											((JButton) panelBottom.getComponent(0)).setEnabled(true);
 											selected = ((JButton) e.getSource()).getName();
@@ -143,7 +143,7 @@ public class LoaderUtil extends MyJPanelImpl {
 											SwingUtilities.invokeLater(new Runnable() {
 												@Override
 												public void run() {
-													for (Component k : Arrays.asList(panelCenter.getComponents())) {
+													for (final Component k : Arrays.asList(panelCenter.getComponents())) {
 														k.setEnabled(false);
 													}
 												}
@@ -189,14 +189,14 @@ public class LoaderUtil extends MyJPanelImpl {
 			 * Creo e personalizzo i vari componenti
 			 */
 			super(new BorderLayout());
-			MyJPanelImpl capi = new MyJPanelImpl(new GridLayout(0, 1));
-			MyJPanelImpl buttons = new MyJPanelImpl();
+			final MyJPanelImpl capi = new MyJPanelImpl(new GridLayout(0, 1));
+			final MyJPanelImpl buttons = new MyJPanelImpl();
 			textField = new JTextField();
-			MyJPanelImpl nome = new MyJPanelImpl(new GridLayout(0, 2));
+			final MyJPanelImpl nome = new MyJPanelImpl(new GridLayout(0, 2));
 			nome.add(createJLabel("Nome Reparto: ", 20));
 			nome.add(textField);
-			UnitLeaderJPanelImpl capoM = new UnitLeaderJPanelImpl("Capo Maschio");
-			UnitLeaderJPanelImpl capoF = new UnitLeaderJPanelImpl("Capo Femmina");
+			final UnitLeaderJPanelImpl capoM = new UnitLeaderJPanelImpl("Capo Maschio");
+			final UnitLeaderJPanelImpl capoF = new UnitLeaderJPanelImpl("Capo Femmina");
 			capi.add(capoM);
 			capi.add(capoF);
 			this.add(nome, BorderLayout.NORTH);
@@ -244,6 +244,7 @@ public class LoaderUtil extends MyJPanelImpl {
 		private final MyJPanelImpl panelBottom;
 
 		public LoaderOptions() {
+			super();
 			/*
 			 * Instanzio e personalizzo tutti i componenti
 			 */
@@ -292,8 +293,8 @@ public class LoaderUtil extends MyJPanelImpl {
 	}
 
 	private JButton getBackButtonPrivate() {
-		ImageIcon img = new ImageIcon("res/back-icon-small.png");
-		JButton t = new JButton("Back");
+		final ImageIcon img = new ImageIcon("res/back-icon-small.png");
+		final JButton t = new JButton("Back");
 		t.setIcon(img);
 		t.addActionListener(e -> {
 			new LoaderImpl();

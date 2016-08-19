@@ -2,7 +2,7 @@ package view.gui_utility;
 
 import java.util.List;
 
-public interface EditableElementScrollPane<E> {
+public interface EditableElementScrollPanel<E> {
 
 	/**
 	 * update List of JButton and repaint

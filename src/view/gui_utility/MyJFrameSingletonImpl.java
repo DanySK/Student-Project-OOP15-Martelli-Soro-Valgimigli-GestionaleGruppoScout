@@ -49,7 +49,7 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				int confirmed = JOptionPane.YES_OPTION;
-				if (MyJFrameSingletonImpl.getInstance().getNeedToSave()) {
+				if (MyJFrameSingletonImpl.getInstance().isToBeSaved()) {
 					confirmed = JOptionPane.showConfirmDialog(null,
 							"<html>Ci sono modifiche non salvate!<br>"
 									+ "Sicuro di voler proseguire senza salvare?</html>",
@@ -85,7 +85,7 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 	 * @return
 	 */
 
-	public static MyJFrameSingleton getInstance(Unit u) {
+	public static MyJFrameSingleton getInstance(final Unit u) {
 		if (myframe == null) {
 			myframe = new MyJFrameSingletonImpl(u);
 		}
@@ -99,7 +99,7 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 	 * @see view.gui_utility.MyJFrameSingleton#setPanel(javax.swing.JPanel)
 	 */
 	@Override
-	public void setPanel(JPanel panel) {
+	public void setPanel(final JPanel panel) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -152,7 +152,7 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 		this.needSave = false;
 	}
 
-	private boolean getNeedToSave() {
+	private boolean isToBeSaved() {
 		return this.needSave;
 	}
 

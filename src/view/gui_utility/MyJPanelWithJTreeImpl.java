@@ -29,15 +29,15 @@ public class MyJPanelWithJTreeImpl extends MyJPanelImpl implements MyJPanelWithJ
 
 	private static final long serialVersionUID = -4922579214047113939L;
 	private JScrollPane panelLeft;
-	private MyJPanelImpl panelRight;
+	private final MyJPanelImpl panelRight;
 	private MyJPanelImpl panelCenter;
-	private MyJPanelImpl panelBottom;
-	private GridBagConstraints c = new GridBagConstraints();
-	private JTree tree;
-	private DefaultMutableTreeNode root;
-	private Map<String, DefaultMutableTreeNode> mapNode = new HashMap<>();
+	private final MyJPanelImpl panelBottom;
+	private final GridBagConstraints c = new GridBagConstraints();
+	private final JTree tree;
+	private final DefaultMutableTreeNode root;
+	private final Map<String, DefaultMutableTreeNode> mapNode = new HashMap<>();
 
-	public MyJPanelWithJTreeImpl(String name, Object rootNode) {
+	public MyJPanelWithJTreeImpl(final String name, final Object rootNode) {
 
 		/*
 		 * istanzio l'oggetto GestioneRepartoMain e i due pannelli principali un
@@ -47,9 +47,9 @@ public class MyJPanelWithJTreeImpl extends MyJPanelImpl implements MyJPanelWithJ
 		panelRight = new MyJPanelImpl(new BorderLayout());
 		panelCenter = new MyJPanelImpl();
 		panelBottom = new MyJPanelImpl(new BorderLayout());
-		panelLeft = new JScrollPane(tree);
 		root = new DefaultMutableTreeNode(rootNode);
 		tree = new JTree(root);
+		panelLeft = new JScrollPane(tree);
 		tree.setSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight(),
 				MyJFrameSingletonImpl.getInstance().getWidth() / 4));
 		tree.setBackground(panelRight.getBackground());
@@ -88,7 +88,7 @@ public class MyJPanelWithJTreeImpl extends MyJPanelImpl implements MyJPanelWithJ
 						(3 * MyJFrameSingletonImpl.getInstance().getWidth()) / 4));
 				add(panelRight, c);
 				panelBottom.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(0, 0, 0)));
-				JButton back = getBackButton();
+				final JButton back = getBackButton();
 				back.setSize(new Dimension(panelRight.getHeight() / 7, panelRight.getHeight() / 7));
 				panelBottom.add(back, BorderLayout.EAST);
 				panelBottom.add(createButton("Salva", e -> {
@@ -136,19 +136,19 @@ public class MyJPanelWithJTreeImpl extends MyJPanelImpl implements MyJPanelWithJ
 	 * @see view.gui_utility.MyJPanelWithJTree#setPanelCenter(view.gui_utility.MyJPanelImpl)
 	 */
 	@Override
-	public void setPanelCenter(MyJPanelImpl panelCenter) {
+	public void setPanelCenter(final MyJPanelImpl panelCenter) {
 		this.panelCenter = panelCenter;
 	}
 	/* (non-Javadoc)
 	 * @see view.gui_utility.MyJPanelWithJTree#addNode(javax.swing.tree.DefaultMutableTreeNode)
 	 */
 	@Override
-	public void addNode(DefaultMutableTreeNode t) {
+	public void addNode(final DefaultMutableTreeNode t) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				mapNode.put((String) t.getUserObject(), t);
-				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				final DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				model.insertNodeInto(t, root, root.getChildCount());
 				// updatePanel();
 			}
@@ -157,19 +157,19 @@ public class MyJPanelWithJTreeImpl extends MyJPanelImpl implements MyJPanelWithJ
 	/**
 	 * set TreeSelectionListener
 	 */
-	protected void setTreeSelectionListener(TreeSelectionListener sel) {
+	protected void setTreeSelectionListener(final TreeSelectionListener sel) {
 		this.tree.addTreeSelectionListener(sel);
 	}
 	/* (non-Javadoc)
 	 * @see view.gui_utility.MyJPanelWithJTree#removeNode(java.lang.String)
 	 */
 	@Override
-	public void removeNode(String nodeName) {
+	public void removeNode(final String nodeName) {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {
-				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				final DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				root.remove(mapNode.get(nodeName));
 				model.reload();
 				panelRight.revalidate();
