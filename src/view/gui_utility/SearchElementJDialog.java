@@ -23,8 +23,8 @@ import model.reparto.Roles;
 import model.reparto.Squadron;
 import view.excursion_manager.SquadronExcursionPane;
 import view.excursion_manager.UnitExcursionPane;
-import view.tax_manager.utility.MemberExcursionFeeJDialog;
-import view.tax_manager.utility.MemberFeeJDialog;
+import view.fee_manager.utility.MemberExcursionFeeJDialog;
+import view.fee_manager.utility.MemberFeeJDialog;
 import view.unit_manager.utility.EditMemberInfoJDialog;
 import view.unit_manager.utility.ShowMemberInfoJDialog;
 

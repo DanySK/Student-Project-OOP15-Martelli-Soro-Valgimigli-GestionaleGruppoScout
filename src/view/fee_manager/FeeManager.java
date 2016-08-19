@@ -1,5 +1,5 @@
 
-package view.tax_manager;
+package view.fee_manager;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

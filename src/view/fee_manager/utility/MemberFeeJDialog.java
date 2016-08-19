@@ -1,4 +1,4 @@
-package view.tax_manager.utility;
+package view.fee_manager.utility;
 
 import java.awt.BorderLayout;
 import java.time.Year;
