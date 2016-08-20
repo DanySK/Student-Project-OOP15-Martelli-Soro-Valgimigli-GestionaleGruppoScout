@@ -80,14 +80,26 @@ public class SquadronExcursion {
 					panelTopInfo.removeAll();
 					// Long i =1 ;
 					panelTopInfo.add(createJLabel("Prossimo Uscita: ", FONTSIZELABEL));
-
+					final String str;
+					if(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getNextExcursionForSquadron(squadImpl)==null){
+						str="Niente in programma";
+					}
+					else{
+						str=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getNextExcursionForSquadron(squadImpl).getName()+
+							"("+MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getNextExcursionForSquadron(squadImpl).getDateStart()+
+							")";
+					}
+					panelTopInfo.add(createJLabel(str, FONTSIZELABEL));
+					
+					/*
+ 
 					panelTopInfo.add(createJLabel((new SortExcursionImpl())
 							.sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 									.getExcursion().stream().filter(e -> e instanceof UscitaSquadriglia)
 									.collect(Collectors.toList()))
 							.stream().map(t -> new String(t.getName() + "(" + t.getDateStart() + ")")).findFirst()
 							.orElse("Niente in programma"), FONTSIZELABEL));
-					panelTopInfo.repaint();
+*/					panelTopInfo.repaint();
 					panelTopInfo.validate();
 
 				}

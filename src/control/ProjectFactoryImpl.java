@@ -153,6 +153,7 @@ public final class ProjectFactoryImpl implements Serializable {
 	 */
 	public static Capo getLeaderM(final String name, final String surname, final LocalDate birthDay,
 			final String number) throws IllegalPhoneNumberException {
+		
 		return new CapoImpl(name, surname, birthDay, true, number);
 	}
 
