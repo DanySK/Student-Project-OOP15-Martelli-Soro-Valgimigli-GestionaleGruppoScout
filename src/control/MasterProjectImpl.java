@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +20,11 @@ import javax.swing.JOptionPane;
 
 import control.exception.DefaultDirectoryException;
 import control.exception.ProjectFilesCreationException;
+import model.escursioni.Uscita;
+import model.reparto.Capo;
+import model.reparto.Reparto;
+import model.reparto.Roles;
+import model.reparto.Squadron;
 
 public class MasterProjectImpl implements MasterProject {
 
@@ -28,6 +35,7 @@ public class MasterProjectImpl implements MasterProject {
 			+ "SaveProject";
 	private final static String IMPFILE = DEFAULT_DIRECTORY + System.getProperty(FILESEPARATOR) + "ImpScout.txt";
 	private final static String PROJECT_EXTENSION = ".sct";
+	private final static String DEMO_PROJECT = "demoVersion.sct";
 
 	private String directoryToSave;
 
@@ -51,6 +59,8 @@ public class MasterProjectImpl implements MasterProject {
 				throw new ProjectFilesCreationException();
 			}
 		}
+		System.out.println("Creating Demo");
+		this.createDemoVersion();
 	}
 
 	@Override
@@ -114,6 +124,44 @@ public class MasterProjectImpl implements MasterProject {
 		}else{
 			throw new IllegalArgumentException();
 		}
+	}
+	/*
+	 * Method creates to get a demo version for testing
+	 */
+	private void createDemoVersion(){
+		String file;
+		try {
+			file = this.getDirectoryToSave();
+			
+			final File worker = new File(file);
+			final List<String> files = Arrays.asList(worker.list());
+			System.out.println(files);
+		
+			if(! files.contains(DEMO_PROJECT)){
+				Capo leaderM = ProjectFactoryImpl.getLeaderM("Marco", "Mitraglia", LocalDate.of(1993, 11, 9), "3454565678");
+				Capo leaderF = ProjectFactoryImpl.getLeaderF("Marcella", "Rossi", LocalDate.of(1993, 11, 9), "3985657890");
+				Reparto rp = ProjectFactoryImpl.getReparto(leaderM, leaderF, "demoVersion");
+				Unit demo = ProjectFactoryImpl.getUnit(rp);
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Andrea", "Rossi", LocalDate.of(2002, 8, 24), true));
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Lollo", "Verdi", LocalDate.of(2002, 8, 31), true));
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Riki", "Blu", LocalDate.of(2002, 9, 6), true));
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Mario", "Rasi", LocalDate.of(2003, 9, 13), true));
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Anna", "Proti", LocalDate.of(2002, 9, 19), false));
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Gio", "Prati", LocalDate.of(2002, 9, 25), false));
+				demo.addMember(ProjectFactoryImpl.getSimpleMember("Selly", "Sani", LocalDate.of(2003, 10, 1), false));
+				demo.createSq(ProjectFactoryImpl.getSquadron("Aquile", true));
+				Squadron tmp = demo.getContainers().findSquadron("Aquile");
+				demo.putMemberInSq(demo.getContainers().getMember("Andrea", "Rossi"), tmp , Roles.CUCINIERE);
+				demo.putMemberInSq(demo.getContainers().getMember("Lollo", "Verdi"), tmp , Roles.MAGAZZINIERE);
+				demo.putMemberInSq(demo.getContainers().getMember("Riki", "Blu"), tmp , Roles.GUARDIANO_ANGOLO);
+				Uscita uscita = ProjectFactoryImpl.getStdExcursion(LocalDate.now().plus(5, ChronoUnit.DAYS),
+						demo.getReparto(), "Uscita dei Passaggi");
+				demo.addExcursion(uscita);
+				
+				this.save(demo);
+			}
+			}catch(Exception e){ e.printStackTrace();};
+		
 	}
 
 }
