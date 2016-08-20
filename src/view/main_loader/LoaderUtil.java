@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -124,7 +125,7 @@ public class LoaderUtil extends MyJPanelImpl {
 
 							frame.dispose();
 						} catch (Exception k) {
-							new WarningNotice(k.getMessage());
+							JOptionPane.showConfirmDialog(null, k.getMessage());
 						}
 					}), BorderLayout.LINE_END);
 					panelBottom.add(createButton("Elimina", u -> {
@@ -155,7 +156,7 @@ public class LoaderUtil extends MyJPanelImpl {
 
 									}
 								} catch (Exception e) {
-									new WarningNotice(e.getMessage());
+									JOptionPane.showMessageDialog(null, e.getMessage());
 								}
 								panelCenter.validate();
 								panelCenter.repaint();
@@ -171,7 +172,7 @@ public class LoaderUtil extends MyJPanelImpl {
 					this.validate();
 				}
 			} catch (Exception e) {
-				new WarningNotice(e.getMessage());
+				JOptionPane.showConfirmDialog(null, e.getMessage());
 			}
 
 			frame.add(this);
@@ -206,34 +207,38 @@ public class LoaderUtil extends MyJPanelImpl {
 			this.add(capi, BorderLayout.CENTER);
 
 			buttons.add(createButton("Crea", e -> {
-				try {
-					LocalDate m=capoM.getDate();
-					LocalDate f=capoF.getDate();
+				
 					
+					String str;
 					if(textField.getText().isEmpty()){
-						textField.setText("nessun nome");
+						str="non settato";
 					}
-					System.out.println(textField.getText());
-					System.out.println(capoM.getNome()+"_"+capoF.getNome());
-					System.out.print(capoM.getSurname()+ "_"+capoF.getSurname());
-					System.out.println(capoM.getPhone()+ " "+capoF.getPhone());
-					System.out.println(capoM.getDate().toString()+" "+capoF.getDate().toString());
-					Unit trys=new UnitImpl(ProjectFactoryImpl.getReparto(
+					else{
+						str=textField.getText();
+					}
+					
+					try{
+						project.save(ProjectFactoryImpl.getUnit(ProjectFactoryImpl.getReparto(
+					
 							ProjectFactoryImpl.getLeaderM(capoM.getNome(), capoM.getSurname(), capoM.getDate(),
 									capoM.getPhone()),
 							ProjectFactoryImpl.getLeaderF(capoF.getNome(), capoF.getSurname(), capoF.getDate(),
 									capoF.getPhone()),
-							textField.getText()));
-							
+							str)));
+						MyJFrameSingletonImpl.getInstance(project.loadUnit(str.replaceAll(" ", "_")));
+						
+						frame.dispose();
+						new MainGUI();
+					}catch(Exception k){
+						JOptionPane.showMessageDialog(null, k.getMessage());
+					}
 					System.out.println("CACCA");
-					MyJFrameSingletonImpl.getInstance(project.loadUnit(textField.getText().replaceAll(" ", "_")));
+					
 
-					new MainGUI();
-					frame.dispose();
+					
+					
 
-				} catch (Exception k) {
-					new WarningNotice(k.getMessage());
-				}
+			
 			}));
 			buttons.add(getBackButtonPrivate());
 			this.add(buttons, BorderLayout.SOUTH);
@@ -271,7 +276,7 @@ public class LoaderUtil extends MyJPanelImpl {
 				panelOptions.add(createJLabel("Directory: " + project.getDirectoryToSave() + "    ", 12));
 				fileChooser = new JFileChooser(project.getDirectoryToSave());
 			} catch (IOException e) {
-				new WarningNotice(e.getMessage());
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			panelOptions.add(createButton("Cambia", e -> {
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -286,7 +291,7 @@ public class LoaderUtil extends MyJPanelImpl {
 							((JLabel) panelOptions.getComponent(0))
 									.setText("Directory: " + project.getDirectoryToSave() + "    ");
 						} catch (Exception k) {
-							new WarningNotice(k.getMessage());
+							JOptionPane.showMessageDialog(null, k.getMessage());
 						}
 					}
 				});
