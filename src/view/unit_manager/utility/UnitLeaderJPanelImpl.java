@@ -81,7 +81,7 @@ public class UnitLeaderJPanelImpl extends MyJPanelImpl implements UnitLeaderJPan
 	public LocalDate getDate() {
 		if(aa.getText().isEmpty() || mm.getText().isEmpty() || gg.getText().isEmpty()){
 			
-			return LocalDate.now();
+			return LocalDate.of(1994,05,26);
 		}
 		return LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()),
 					Integer.parseInt(gg.getText()));
@@ -94,7 +94,7 @@ public class UnitLeaderJPanelImpl extends MyJPanelImpl implements UnitLeaderJPan
 	@Override
 	public String getPhone() {
 		if(phone.getText().isEmpty()){
-			return Integer.toString(1);
+			return "1";
 		}
 		return phone.getText();
 	}

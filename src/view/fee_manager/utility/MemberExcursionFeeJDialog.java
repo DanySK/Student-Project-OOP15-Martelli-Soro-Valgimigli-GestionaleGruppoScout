@@ -1,10 +1,12 @@
 package view.fee_manager.utility;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,12 +38,13 @@ public class MemberExcursionFeeJDialog extends JDialog {
 		final JTextArea area;
 		this.list = new ArrayList<>();
 		memPane = new MyJPanelImpl();
-
 		scroll = new JScrollPane(memPane);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		memPane.setPreferredSize(scroll.getPreferredSize());
+		memPane.setLayout(new BoxLayout(memPane, BoxLayout.Y_AXIS));
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setPreferredSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight()/2, (int) (MyJFrameSingletonImpl.getInstance().getHeight()/2)));
+		//memPane.setPreferredSize(new Dimension(scroll.getWidth(), 0));
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
-		final MyJPanelImpl panelCentral = new MyJPanelImpl(new GridLayout(2, 1));
+		final MyJPanelImpl panelCentral = new MyJPanelImpl(new BorderLayout());
 
 		final MyJPanelImpl panBot = new MyJPanelImpl();
 		panel.add(panelCentral.createJLabel(
@@ -63,8 +66,8 @@ public class MemberExcursionFeeJDialog extends JDialog {
 			});
 			dispose();
 		}));
-		panelCentral.add(area);
-		panelCentral.add(scroll);
+		panelCentral.add(area,BorderLayout.NORTH);
+		panelCentral.add(scroll,BorderLayout.CENTER);
 		panBot.add(panelCentral.createButton("OK", u -> {
 			parent.updateMember();
 			this.dispose();
@@ -73,6 +76,7 @@ public class MemberExcursionFeeJDialog extends JDialog {
 		panel.add(panelCentral, BorderLayout.CENTER);
 		panel.add(panBot, BorderLayout.SOUTH);
 		this.add(panel);
+		//this.pack();
 		this.pack();
 		this.setLocationRelativeTo(MyJFrameSingletonImpl.getInstance());
 	}
@@ -91,7 +95,8 @@ public class MemberExcursionFeeJDialog extends JDialog {
 			public void run() {
 				memPane.removeAll();
 				list.stream().forEach(e -> {
-					memPane.add(memPane.createButton(e.getName(), k -> {
+					memPane.add(memPane.createButton("<html>"+e.getName()+"<br>("+e.getDateStart()
+					+")</html>", k -> {
 						try {
 							e.setPaied(me);
 							new WarningNotice("Pagamento registrato");
