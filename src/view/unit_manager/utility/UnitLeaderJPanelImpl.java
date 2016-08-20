@@ -9,6 +9,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import model.exception.IllegalDateException;
 import view.gui_utility.MyJPanelImpl;
 import view.gui_utility.WarningNotice;
 
@@ -56,6 +57,9 @@ public class UnitLeaderJPanelImpl extends MyJPanelImpl implements UnitLeaderJPan
 	 */
 	@Override
 	public String getNome() {
+		if(name.getText().isEmpty()){
+			return "senzaNome";
+		}
 		return this.name.getText();
 	}
 	/* (non-Javadoc)
@@ -64,6 +68,9 @@ public class UnitLeaderJPanelImpl extends MyJPanelImpl implements UnitLeaderJPan
 
 	@Override
 	public String getSurname() {
+		if(surname.getText().isEmpty()){
+			return "senzaNome";
+		}
 		return this.surname.getText();
 	}
 	/* (non-Javadoc)
@@ -72,19 +79,23 @@ public class UnitLeaderJPanelImpl extends MyJPanelImpl implements UnitLeaderJPan
 
 	@Override
 	public LocalDate getDate() {
-		try {
-			return LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()),
-					Integer.parseInt(gg.getText()));
-		} catch (Exception e) {
-			new WarningNotice(e.getMessage());
+		if(aa.getText().isEmpty() || mm.getText().isEmpty() || gg.getText().isEmpty()){
+			
+			return LocalDate.now();
 		}
-		return null;
+		return LocalDate.of(Integer.parseInt(aa.getText()), Integer.parseInt(mm.getText()),
+					Integer.parseInt(gg.getText()));
+	
+		
 	}
 	/* (non-Javadoc)
 	 * @see view.unit_manager.utility.UnitLeaderJPanel#getPhone()
 	 */
 	@Override
 	public String getPhone() {
+		if(phone.getText().isEmpty()){
+			return Integer.toString(1);
+		}
 		return phone.getText();
 	}
 	/* (non-Javadoc)
