@@ -3,6 +3,12 @@ package model.reparto;
 import java.time.LocalDate;
 import java.time.Period;
 
+/**
+ * simple class that allow to modeling a person
+ * 
+ * @author Riccardo Soro
+ *
+ */
 public interface Person {
 	/**
 	 * 

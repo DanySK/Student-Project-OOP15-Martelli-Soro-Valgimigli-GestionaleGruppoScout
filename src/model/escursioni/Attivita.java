@@ -1,45 +1,56 @@
 package model.escursioni;
 
 import java.time.LocalTime;
+
 /**
+ * a simple class that allow to model an activity
  * 
  * @author Riccardo Soro
- * a simple class that allow to model an activity
+ * 
  */
 public interface Attivita {
 	/**
 	 * 
-	 * @return the name
+	 * @return the name of the activity
 	 */
-	 String getName();
+	String getName();
+
 	/**
 	 * 
-	 * @param name to set
+	 * @param name
+	 *            to set
 	 */
-	 void setName(String name);
-	/**
-	 * 
-	 * @return the end time
-	 */
-	 LocalTime getOrarioInizio();
-	/**
-	 * 
-	 * @param startTime to set
-	 */
-	 void setOrarioInizio(LocalTime startTime);
+	void setName(String name);
+
 	/**
 	 * 
 	 * @return the start time
 	 */
-	 boolean haOrarioFine();
+	LocalTime getOrarioInizio();
+
+	/**
+	 * 
+	 * @param startTime
+	 *            to set
+	 */
+	void setOrarioInizio(LocalTime startTime);
+
+	/**
+	 * 
+	 * @return true if the end time is presente,else false
+	 */
+	boolean haOrarioFine();
+
 	/**
 	 * 
 	 * @return the end time
 	 */
-	 LocalTime getOrarioFine();
+	LocalTime getOrarioFine();
+
 	/**
 	 * 
-	 * @param endTime to set
+	 * @param end
+	 *            time to set
 	 */
-	 void setOrarioFine(LocalTime endTime);
+	void setOrarioFine(LocalTime endTime);
 }

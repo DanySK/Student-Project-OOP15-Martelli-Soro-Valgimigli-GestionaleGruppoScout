@@ -13,12 +13,30 @@ import java.util.List;
 
 import model.exception.IllegalDateException;
 
-public final class ExcursionOnlineGetterImpl implements ExcursionOnlineGetter{
+public final class ExcursionOnlineGetterImpl{
 	
+	/**
+	 * static class that allow to copy online excurion
+	 * 
+	 * @author Riccardo Soro
+	 *
+	 */
 	private ExcursionOnlineGetterImpl(){
 		
 	}
-	
+	/**
+	 * find online events
+	 * 
+	 * @param regione
+	 *            of the excursion to find
+	 * @return a list of excursion
+	 * @throws IllegalDateException
+	 *             if the online excursion date is incompatible
+	 * @throws IOException
+	 *             if the HTML code is impossible to read
+	 * @throws MalformedURLException
+	 *             if the link in not correct
+	 */
 	public static List<ExcursionOnline> getExcursion(final Regioni regione) throws IllegalDateException, IOException,MalformedURLException {
 		final List<ExcursionOnline> result = new ArrayList<>();
 		final URL url = regione.getUrl();

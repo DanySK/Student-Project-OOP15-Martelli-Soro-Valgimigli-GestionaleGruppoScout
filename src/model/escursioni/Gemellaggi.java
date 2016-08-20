@@ -7,6 +7,7 @@ import model.exception.ObjectNotContainedException;
 import model.reparto.Reparto;
 
 /**
+ * a class that allow to modeling a twining excursion
  * 
  * @author Riccardo Soro
  *
@@ -38,21 +39,26 @@ public interface Gemellaggi extends Excursion {
 
 	/**
 	 * 
-	 * @param name of the unit to add
-	 * @throws ObjectAlreadyContainedException if the unit's name is contained
+	 * @param name
+	 *            of the unit to add
+	 * @throws ObjectAlreadyContainedException
+	 *             if the unit's name is contained
 	 */
 	void addOtherUnit(String name) throws ObjectAlreadyContainedException;
 
 	/**
 	 * 
-	 * @param name of the unit to remove
-	 * @throws ObjectNotContainedException if the unit's name is not contained
+	 * @param name
+	 *            of the unit to remove
+	 * @throws ObjectNotContainedException
+	 *             if the unit's name is not contained
 	 */
 	void removeOtherUnit(String name) throws ObjectNotContainedException;
 
 	/**
 	 * 
-	 * @param name of the unit
+	 * @param name
+	 *            of the unit
 	 * @return true if the unit's name is contained, else false
 	 */
 	boolean containOtherUnit(String name);

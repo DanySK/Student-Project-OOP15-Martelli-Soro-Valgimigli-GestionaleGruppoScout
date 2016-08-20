@@ -11,7 +11,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import model.reparto.Member;
-
+/**
+ * a simple class that allow to send an email using a default gmail account
+ * @author Riccardo Soro
+ *
+ */
 public final class MailSender {
 	
 	private static final String EMAIL="apocalipsenowe@gmail.com";
@@ -21,7 +25,13 @@ public final class MailSender {
 		
 	}
 	
-	
+	/**
+	 * send a email to a list of member
+	 * @param text the text of the email
+	 * @param subject the subject of the email
+	 * @param members
+	 * @throws MessagingException if the account is wrong
+	 */
 	
 	public static void sendMail(final String text, final String subject, final List<Member> members) throws MessagingException {
 		final Properties props = new Properties();

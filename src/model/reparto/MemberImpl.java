@@ -16,10 +16,10 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	/**
 		 * 
 		 */
-	private static final int MAX_AGE=17;
-	private static final int MIN_AGE=12;
-	private static final int PHONE_NUMBERS=10;
-	
+	private static final int MAX_AGE = 17;
+	private static final int MIN_AGE = 12;
+	private static final int PHONE_NUMBERS = 10;
+
 	private static final long serialVersionUID = 1L;
 	private int identificatore;
 	private final List<String> specialities;
@@ -41,7 +41,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.totem = MyOptional.empty();
 		promise = false;
 		this.specialities = new ArrayList<>();
-		this.path=new PathImpl();
+		this.path = new PathImpl();
 	}
 
 	public MemberImpl(final String name, final String surname, final LocalDate birthday, final Boolean sex,
@@ -55,7 +55,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		this.totem = MyOptional.empty();
 		promise = false;
 		this.specialities = new ArrayList<>();
-		this.path=new PathImpl();
+		this.path = new PathImpl();
 	}
 
 	@Override
@@ -79,8 +79,6 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return false;
 	}
 
-	
-
 	@Override
 	public List<String> getSpecialities() {
 		return this.specialities;
@@ -93,7 +91,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	@Override
 	public void setTutorMail(final String mail) throws IllegalEmailException {
-		if (! mail.matches(emailPattern)){
+		if (!mail.matches(emailPattern)) {
 			throw new IllegalEmailException();
 		}
 		if (!this.tutor.isPresent()) {
@@ -133,7 +131,7 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 
 	@Override
 	public void setTutorPhone(final Long phone) throws IllegalPhoneNumberException {
-		
+
 		if (phone.toString().length() != PHONE_NUMBERS) {
 			throw new IllegalPhoneNumberException();
 		}
@@ -153,7 +151,8 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		}
 		return MyOptional.empty();
 	}
-@Override
+
+	@Override
 	public void removeSpecialities(final String specialities) throws ObjectNotContainedException {
 		if (!this.specialities.remove(specialities)) {
 			throw new ObjectNotContainedException();
@@ -173,8 +172,6 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 		return this.specialities.contains(specialities2);
 	}
 
-	
-	
 	@Override
 	public Boolean getPromise() {
 		return this.promise;
@@ -214,10 +211,12 @@ public class MemberImpl extends PersonImpl implements Serializable, Member, Pers
 	public boolean isComplete() {
 		return this.tutor.isPresent();
 	}
+
 	@Override
 	public Path getPath() {
 		return path;
 	}
+
 	@Override
 	public void setPath(final Path path) {
 		this.path = path;

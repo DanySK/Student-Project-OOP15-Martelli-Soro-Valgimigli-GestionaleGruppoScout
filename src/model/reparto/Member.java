@@ -10,13 +10,12 @@ import model.exception.ObjectAlreadyContainedException;
 import model.exception.ObjectNotContainedException;
 
 /**
+ * An interface modeling a member of the unit
+ * 
  * @author Riccardo Soro
  *
  */
-/**
- * An interface modeling a member of the unit
- *
- */
+
 public interface Member extends Person {
 	/**
 	 * 
@@ -25,6 +24,7 @@ public interface Member extends Person {
 	Boolean isBirthday();
 
 	/**
+	 * set the year of the last payment
 	 * 
 	 * @param year
 	 *            of the last payment to set
@@ -69,6 +69,7 @@ public interface Member extends Person {
 	 *            to remove
 	 * @return false if the specialties is not contained
 	 * @throws ObjectNotContainedException
+	 *             if the speciality is not present
 	 */
 	void removeSpecialities(String specialities) throws ObjectNotContainedException;
 
@@ -79,6 +80,7 @@ public interface Member extends Person {
 	 * @param specialities
 	 *            to add
 	 * @throws ObjectAlreadyContainedException
+	 *             if the speciality is present
 	 */
 
 	void addSpecialities(String specialities) throws ObjectAlreadyContainedException;
@@ -100,6 +102,7 @@ public interface Member extends Person {
 
 	/**
 	 * 
+	 * set the promise
 	 * 
 	 * @param promise
 	 *            to set
@@ -107,6 +110,7 @@ public interface Member extends Person {
 	void setPromise(boolean promise);
 
 	/**
+	 * set the totem
 	 * 
 	 * @return true if the member has a totem,else false
 	 */
@@ -114,7 +118,7 @@ public interface Member extends Person {
 
 	/**
 	 * 
-	 * @return the id of the member
+	 * @return the univocal id of the member
 	 */
 	int getId();
 
@@ -126,6 +130,7 @@ public interface Member extends Person {
 	void setId(int id);
 
 	/**
+	 * set the totem
 	 * 
 	 * @param totem
 	 *            to set
@@ -155,7 +160,8 @@ public interface Member extends Person {
 	 * 
 	 * @param phone
 	 *            number of the tutor to set
-	 * @throws IllegalPhoneNumberException if the number is not correct
+	 * @throws IllegalPhoneNumberException
+	 *             if the number is not correct
 	 */
 	void setTutorPhone(Long phone) throws IllegalPhoneNumberException;
 
@@ -166,6 +172,7 @@ public interface Member extends Person {
 	MyOptional<String> getTutorName();
 
 	/**
+	 * set the name of the tutor
 	 * 
 	 * @param name
 	 *            of the tutor
@@ -179,10 +186,12 @@ public interface Member extends Person {
 	MyOptional<Tutor> getTutor();
 
 	/**
+	 * set the mail of the tutor
 	 * 
 	 * @param mail
 	 *            of the tutor to set
-	 * @throws IllegalEmailException 
+	 * @throws IllegalEmailException
+	 *             if the email is not correct
 	 */
 	void setTutorMail(String mail) throws IllegalEmailException;
 
@@ -191,14 +200,18 @@ public interface Member extends Person {
 	 * @return the mail of the tutor
 	 */
 	MyOptional<String> getTutorMail();
+
 	/**
 	 * 
-	 * @return
+	 * @return the path of the member
 	 */
 	Path getPath();
+
 	/**
+	 * set the path of the meber
 	 * 
 	 * @param path
+	 *            to set
 	 */
 	void setPath(Path path);
 
