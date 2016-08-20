@@ -59,8 +59,7 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 	}
 
 	@Override
-	public void addPartecipant(final Member partecipant, final Boolean paied)
-			throws ObjectAlreadyContainedException {
+	public void addPartecipant(final Member partecipant, final Boolean paied) throws ObjectAlreadyContainedException {
 		if (this.containMember(partecipant)) {
 			throw new ObjectAlreadyContainedException();
 		}
@@ -72,8 +71,8 @@ public abstract class ExcursionImpl implements Excursion, Serializable {
 		if (!this.containMember(partecipante)) {
 			throw new ObjectNotContainedException();
 		}
-		this.partecipanti=this.partecipanti.stream().
-				filter(e->!(e.getX().equals(partecipante))).collect(Collectors.toList());
+		this.partecipanti = this.partecipanti.stream().filter(e -> !(e.getX().equals(partecipante)))
+				.collect(Collectors.toList());
 	}
 
 	@Override

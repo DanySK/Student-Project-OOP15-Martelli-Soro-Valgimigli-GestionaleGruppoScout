@@ -17,8 +17,8 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	private List<String> altriReparti;
 	private final List<Attivita> attivita = new ArrayList<>();
 
-	public EventiDiZonaImpl(final LocalDate dateStart, final LocalDate dateEnd, final Reparto unit, 
-			final String name, final List<String> otherUnits) throws IllegalDateException {
+	public EventiDiZonaImpl(final LocalDate dateStart, final LocalDate dateEnd, final Reparto unit, final String name,
+			final List<String> otherUnits) throws IllegalDateException {
 		super(name, dateStart, unit.getAllMember());
 		this.reparto = unit;
 		this.setDateEnd(dateEnd);
@@ -29,7 +29,7 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 			final List<String> otherUnits) throws IllegalDateException {
 		super(name, dateStart, unit.getAllMember());
 		this.reparto = unit;
-		this.setDateEnd(dateStart.plusDays(duration-1));
+		this.setDateEnd(dateStart.plusDays(duration - 1));
 		this.altriReparti = otherUnits;
 	}
 
@@ -69,9 +69,10 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	}
 
 	@Override
-	public void addActivity(final String nameActivity, final LocalTime startTime) throws ObjectAlreadyContainedException {
-		for (final Attivita e:this.attivita){
-			if (e.getName().equals(nameActivity)){
+	public void addActivity(final String nameActivity, final LocalTime startTime)
+			throws ObjectAlreadyContainedException {
+		for (final Attivita e : this.attivita) {
+			if (e.getName().equals(nameActivity)) {
 				throw new ObjectAlreadyContainedException();
 			}
 		}
@@ -79,9 +80,10 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	}
 
 	@Override
-	public void addActivity(final String nameActivity, final LocalTime startTime, final LocalTime endTime) throws ObjectAlreadyContainedException {
-		for (final Attivita e:this.attivita){
-			if (e.getName().equals(nameActivity)){
+	public void addActivity(final String nameActivity, final LocalTime startTime, final LocalTime endTime)
+			throws ObjectAlreadyContainedException {
+		for (final Attivita e : this.attivita) {
+			if (e.getName().equals(nameActivity)) {
 				throw new ObjectAlreadyContainedException();
 			}
 		}
@@ -89,8 +91,8 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 	}
 
 	@Override
-	public void removeActivity(final Attivita activity) throws ObjectNotContainedException  {
-		if (! this.attivita.contains(activity)){
+	public void removeActivity(final Attivita activity) throws ObjectNotContainedException {
+		if (!this.attivita.contains(activity)) {
 			throw new ObjectNotContainedException();
 		}
 		this.attivita.remove(activity);
@@ -127,6 +129,6 @@ public class EventiDiZonaImpl extends ExcursionImpl implements EventiDiZona {
 
 	@Override
 	public void clearUnitsList() {
-		this.altriReparti=new ArrayList<>();
+		this.altriReparti = new ArrayList<>();
 	}
 }

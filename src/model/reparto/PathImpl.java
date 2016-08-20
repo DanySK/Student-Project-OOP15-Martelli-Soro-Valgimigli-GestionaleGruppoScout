@@ -105,6 +105,7 @@ public class PathImpl implements Serializable, model.reparto.Path {
 		this.liv = this.liv - 1;
 		updateLevel();
 	}
+
 	private void updateLevel() {
 		if (this.liv == SCOPERTA) {
 			this.level = "scoperta";

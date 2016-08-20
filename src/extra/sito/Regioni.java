@@ -40,7 +40,7 @@ public enum Regioni {
 	/**
 	 * 
 	 * @return the URL to the page
-	 * @throws MalformedURLException 
+	 * @throws MalformedURLException if the link is not correct
 	 * if no protocol is specified, or an unknown protocol is found,or spec is null.
 	 */
 	public final URL getUrl() throws MalformedURLException{

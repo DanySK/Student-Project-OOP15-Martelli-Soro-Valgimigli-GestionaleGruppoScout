@@ -14,100 +14,97 @@ import model.exception.IllegalOperationException;
  *
  */
 public interface Path {
-	
+
 	/**
 	 * 
 	 * @return a Integer contained the level of the path (1-3)
 	 */
-	 Integer getLiv();
-	
-	
+	Integer getLiv();
+
 	/**
 	 * 
-	 * @return a String contained the level of the path ("scoperta","competenza","responsabilità")
+	 * @return a String contained the level of the path
+	 *         ("scoperta","competenza","responsabilità")
 	 */
-	
-	 String getLevel();
-	
+
+	String getLevel();
+
 	/**
 	 * 
-	 * @return  a String contained the school note
+	 * @return a String contained the school note
 	 */
-	
-	
-	 String getSchool();
-	
+
+	String getSchool();
+
 	/**
 	 * 
-	 * @param school note to set
+	 * @param school
+	 *            note to set
 	 */
-	
-	
-	 void setSchool (String school);
-	
+
+	void setSchool(String school);
+
 	/**
 	 * 
 	 * @return a String contained the family note
 	 */
-	
-	
-	 String getFamily();
-	
-	/**
-	  * 
-	 * @param family note to set
-	 */
-	
-	
-	 void setFamily (String family);
-	
-	 /**
-	  * 
-	  * @return a String contained the relations note
-	  */
-	
-	
-	 String getRelations();
-	
+
+	String getFamily();
+
 	/**
 	 * 
-	 * @param relations note to set
+	 * @param family
+	 *            note to set
 	 */
-	
-	
-	 void setRelations (String relations);
-	
+
+	void setFamily(String family);
+
+	/**
+	 * 
+	 * @return a String contained the relations note
+	 */
+
+	String getRelations();
+
+	/**
+	 * 
+	 * @param relations
+	 *            note to set
+	 */
+
+	void setRelations(String relations);
+
 	/**
 	 * 
 	 * @return a String contained the faith note
 	 */
-	
-	 String getFaith();
-	
+
+	String getFaith();
+
 	/**
 	 * 
-	 * @param faith note to set
+	 * @param faith
+	 *            note to set
 	 */
-	
-	 void setFaith (String faith);
-	
+
+	void setFaith(String faith);
+
 	/**
 	 * increase the level of the path
-	 * @throws IllegalOperationException if the level is 3
+	 * 
+	 * @throws IllegalOperationException
+	 *             if the level is 3
 	 */
-	
-	 void livUp() throws IllegalOperationException;
-	
+
+	void livUp() throws IllegalOperationException;
+
 	/**
 	 * decrease the level of the path
-	 * @throws IllegalOperationException if the level is 1
+	 * 
+	 * @throws IllegalOperationException
+	 *             if the level is 1
 	 */
-	
-	 void livDown() throws IllegalOperationException;
-	
-	
-	
-	
-	
+
+	void livDown() throws IllegalOperationException;
 
 }

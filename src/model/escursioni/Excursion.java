@@ -9,6 +9,8 @@ import model.exception.ObjectNotContainedException;
 import model.reparto.Member;
 
 /**
+ * an abstract class with standard methods for an excursion
+ * 
  * @author Riccardo Soro class to model an excursion
  */
 

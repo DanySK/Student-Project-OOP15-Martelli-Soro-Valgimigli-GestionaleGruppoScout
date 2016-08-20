@@ -29,7 +29,7 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 		super(name, dateStart, reparto.getAllMember());
 		this.check(dateStart, dateStart.plusDays(durata - 1));
 		this.reparto = reparto;
-		this.setDateEnd(dateStart.plusDays(durata-1));
+		this.setDateEnd(dateStart.plusDays(durata - 1));
 		this.altriReparti = altriReparti;
 	}
 
@@ -77,6 +77,6 @@ public class GemellaggiImpl extends ExcursionImpl implements Gemellaggi {
 
 	@Override
 	public void clearUnitsList() {
-		this.altriReparti=new ArrayList<>();
+		this.altriReparti = new ArrayList<>();
 	}
 }
