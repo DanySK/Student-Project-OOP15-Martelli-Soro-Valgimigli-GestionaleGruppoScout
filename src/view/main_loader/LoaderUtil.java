@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
@@ -19,13 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import control.MasterProjectImpl;
-import control.UnitImpl;
-import model.exception.IllegalDateException;
 import control.ProjectFactoryImpl;
-import control.Unit;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
-import view.gui_utility.WarningNotice;
 import view.unit_manager.utility.UnitLeaderJPanelImpl;
 
 /**

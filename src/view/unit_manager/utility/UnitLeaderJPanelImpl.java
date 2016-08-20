@@ -9,9 +9,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import model.exception.IllegalDateException;
 import view.gui_utility.MyJPanelImpl;
-import view.gui_utility.WarningNotice;
 
 public class UnitLeaderJPanelImpl extends MyJPanelImpl implements UnitLeaderJPanel {
 
