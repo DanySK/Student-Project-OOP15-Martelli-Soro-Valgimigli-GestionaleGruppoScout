@@ -40,7 +40,7 @@ public class MemberExcursionFeeJDialog extends JDialog {
 		scroll = new JScrollPane(memPane);
 		memPane.setLayout(new BoxLayout(memPane, BoxLayout.Y_AXIS));
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setPreferredSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight()/2, (int) (MyJFrameSingletonImpl.getInstance().getHeight()/2)));
+		scroll.setPreferredSize(new Dimension(MyJFrameSingletonImpl.getInstance().getHeight()/2, (int) (MyJFrameSingletonImpl.getInstance().getHeight()/1.7)));
 		//memPane.setPreferredSize(new Dimension(scroll.getWidth(), 0));
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl panelCentral = new MyJPanelImpl(new BorderLayout());
