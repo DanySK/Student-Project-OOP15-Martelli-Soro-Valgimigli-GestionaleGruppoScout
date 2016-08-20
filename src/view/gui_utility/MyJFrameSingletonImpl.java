@@ -40,6 +40,7 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 	 */
 	@SuppressWarnings("static-access")
 	private MyJFrameSingletonImpl(Unit u) {
+
 		this.unit = (UnitImpl) u;
 		this.setSize(WIDTH, HEIGTH);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -74,6 +75,9 @@ public final class MyJFrameSingletonImpl extends JFrame implements MyJFrameSingl
 	 */
 
 	public static MyJFrameSingletonImpl getInstance() {
+		if (myframe == null) {
+			new WarningNotice("Richiamare il metodo getInstance(Unit u)");
+		}
 		return myframe;
 	}
 

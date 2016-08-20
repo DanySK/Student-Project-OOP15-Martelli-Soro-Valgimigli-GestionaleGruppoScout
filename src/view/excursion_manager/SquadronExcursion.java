@@ -54,7 +54,7 @@ public class SquadronExcursion {
 			this.panelTopContainer = new MyJPanelImpl(new BorderLayout());
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			this.panelCenter.add(panelTopContainer);
-			this.panelBot = new EditableElementScrollPanelImpl<Excursion>(Type.EXCSQUAD, MyOptional.of(squadImpl.getNome()));
+			this.panelBot = new EditableElementScrollPanelImpl<Excursion>(Type.SQEXC, MyOptional.of(squadImpl.getNome()));
 			panelTopButton.add(createButton("<html>Aggiungi<br>Uscita</html>", 12, e -> {
 				new AddExcursionJDialog(TypeExcursion.Uscita_Squadriglia, MyOptional.of(squadImpl.getNome()), this);
 			}));

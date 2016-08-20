@@ -52,7 +52,7 @@ public class UnitExcursionImpl {
 			this.panelTopContainer.add(panelTopInfo, BorderLayout.CENTER);
 			
 			this.panelCenter.add(panelTopContainer);
-			this.panelBot = new EditableElementScrollPanelImpl<Excursion>(Type.EXCREP, MyOptional.empty());
+			this.panelBot = new EditableElementScrollPanelImpl<Excursion>(Type.UNITEXC, MyOptional.empty());
 			panelTopButton.add(createButton("<html>Aggiungi<br>Campo</html>", FONTSIZEBUTTON, e -> {
 				new AddExcursionJDialog(TypeExcursion.Campo, MyOptional.empty(), this);
 			}));
