@@ -2,14 +2,11 @@ package view.excursion_manager;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.stream.Collectors;
 
 import javax.swing.SwingUtilities;
 
-import control.SortExcursionImpl;
 import control.myUtil.MyOptional;
 import model.escursioni.Excursion;
-import model.escursioni.UscitaSquadriglia;
 import model.reparto.Squadron;
 import view.excursion_manager.utility.AddExcursionJDialog;
 import view.excursion_manager.utility.AddExcursionJDialog.TypeExcursion;
