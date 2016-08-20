@@ -166,7 +166,7 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 						tmp.add(e);
 					}
 				});
-				if (tmp.isEmpty()){
+				if (!tmp.isEmpty()){
 					mapPagamenti.put(i, tmp.stream().collect(Collectors.toList()));
 				}
 			}
@@ -210,7 +210,7 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 						tmp.add(e);
 					}
 				});
-				if (tmp.isEmpty()) {
+				if (!tmp.isEmpty()) {
 					mapPagamenti.put(i, tmp.stream().collect(Collectors.toList()));
 				}
 			}

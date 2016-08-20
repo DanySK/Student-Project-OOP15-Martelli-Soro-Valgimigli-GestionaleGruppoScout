@@ -38,6 +38,7 @@ public class MemberExcursionFeeJDialog extends JDialog {
 		memPane = new MyJPanelImpl();
 
 		scroll = new JScrollPane(memPane);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		memPane.setPreferredSize(scroll.getPreferredSize());
 		final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
 		final MyJPanelImpl panelCentral = new MyJPanelImpl(new GridLayout(2, 1));
@@ -63,7 +64,7 @@ public class MemberExcursionFeeJDialog extends JDialog {
 			dispose();
 		}));
 		panelCentral.add(area);
-		panelCentral.add(memPane);
+		panelCentral.add(scroll);
 		panBot.add(panelCentral.createButton("OK", u -> {
 			parent.updateMember();
 			this.dispose();
