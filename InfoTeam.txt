@@ -1,0 +1,62 @@
+Ogni volta che qualcuno ha bisogno di segnalare qualcosa a un altro la segna qui sotto il nome della persona a cui deve fare la segnalazione
+
+
+
+GIOVANNI
+
+
+Cosa serve: 
+2 interfacce per l'inserimento membro. Una simpleMemberInseriment che deve chiedere: nome cognome data di nascita e sesso
+Una memberInseriment che chiede: nome, cognome, data di nascita, nome tutor, mail tutor, telefono tutor (Ovviemente tutor puo essere un genitore)
+
+Un interfaccia TooItems. Questa interfaccia ha un costruttore pubblico che vuole una lista di Membri. Dovra visualizzare per ogni membro il nome il cognome
+l'età e altri info che ritieni opportune. poi l'utente potra selezionarne uno e cliccare ok. Questa interfaccia ritornerà un il membro selezionato
+PERCHE: quando l'utentead esempio vorrà inserire in una sq un capo e metterà il nome ' francesco ' il programma controllerà che ci sia un solo franceso.
+In caso contrario stamperà tutti i franceschi e ne fara selezionare uno.
+Io ti fornisco una classe che ricerca le persone per nome e restituisce una lista di Membri con quel nome. Tu dovrai solo controllare che la lista sia = 1
+se = 0, allora errore, altrimenti TooItems e selezioni quello corretto
+
+RICORDA:
+Ogni tua interfaccia chiamerà il mio oggetto projectFactory che per ogni entità ha uno o più metodi di creazione. Poi chiamerà il mio oggetto storeEntity 
+che salverà opportunamente l'entità nel programma
+
+ATTENZIONE: Non hai condiviso la cartella res con le immagini! E anche l'interfaccia MainGUI
+
+
+
+SORO
+A membro serve un costruttore con i seguenti campi:
+ String nome, String cognome, LocalDate dataNascita, myOptional<String> nomeTutor, myOptional<String> mailTutor, myOptional<String> telefonoTutor
+
+In membro il costruttore con il totem e promessa non serve. Il totem e la promessa la impostiamo in un secondo momento
+
+Devi fare inoltre le escursioni.
+
+Membro: - hasTotem non funziona
+		- Serve che quando crei un membro calcoli l'et� e la salvi in un campo
+		
+Squadriglia: RemoveMember io non controllo se � il capo o ilvice o il trice .. lo fai tu! Nel metodo io ti passo un membro e tu 
+controlli che ruolo ha e lo elimini anche da li! Poi lanci un eccezione se il membro � (capo, vice, trice) con scritto ad esempio
+Il ragazzo rimosso era il capo! Ora la squadriglia � momentaneamente senza un capo. IO Lo gestisco 
+		
+
+
+
+LORENZO
+Mi servirebbe una classe che contatta il model per recuperare il nome del reparto e una lista/mappa/quello_che_ti_pare contenente le informazioni di ogni squadriglia.
+con informazioni di ogni squadriglia intendo:
+-nome della squadriglia
+-vari capi
+-elenco completo dei componenti della squadriglia
+-altre info che secondo te potrebbe essere bello "vedere" subito
+Questo perchè sto implementando la classe GestioneRepartoMain(aperta cliccando sul tasto Gestione Reparto nel main) che ha una 
+struttura ad albero a sx(simile a quella che soro aveva proposto di fare).L'intestazione dell'albero sarebbe il nome del reparto.
+Tutti i nodi principali sarebbero i nomi delle squadriglie e i nodi secondari sarebbero:
+-Overview(non modificabile) della squadriglia, contenente il nome squadriglia, elenco capitani e altre info utili.
+-Gestione/visualizzazione dei componenti della squadriglia
+-altre cose che mi verranno in mente.
+
+DEBBO FARE: Aggiunger a container ricerca per nome e cognome e ricerca per codice univoco
+
+SortExcursion metter static il projectFactory Romovenelcontainer 
+Checker stdRouting ritorna la mappa
