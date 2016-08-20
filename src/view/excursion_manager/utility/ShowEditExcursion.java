@@ -37,6 +37,7 @@ public class ShowEditExcursion extends JDialog {
 	private final static int FONTSIZE = 15;
 	private final static int FONTBUTTONBIG = 13;
 	private final static int FONTSIZEBUTTON = 10;
+	private EditableElementScrollPanelImpl<Excursion> panCenter;
 	private final Excursion exc;
 	/**
 	 * Class that allow to see and edit an excursion
@@ -97,8 +98,8 @@ public class ShowEditExcursion extends JDialog {
 					panelCenter.add(panelCenter.createButton("vedi", FONTSIZEBUTTON, e -> {
 						final JDialog dial = new JDialog();
 						final MyJPanelImpl panel = new MyJPanelImpl(new BorderLayout());
-						final EditableElementScrollPanelImpl<Excursion> panCenter = new EditableElementScrollPanelImpl<Excursion>(
-								EditableElementScrollPanelImpl.Type.EXCPARTECIPANTI, MyOptional.of(exc.getName()));
+						panCenter = new EditableElementScrollPanelImpl<Excursion>(
+								EditableElementScrollPanelImpl.Type.EXCPARTECIPANT, MyOptional.of(exc.getName()));
 						panel.add(panCenter);
 						dial.add(panel);
 						dial.setPreferredSize(MyJFrameSingletonImpl.getInstance().getContenentPane().getSize());

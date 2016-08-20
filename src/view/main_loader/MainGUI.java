@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 import control.CheckerImpl;
 import view.Main;
 import view.excursion_manager.ExcursionManagerMain;
-import view.fee_manager.FeeManager;
+import view.fee_manager.FeeManagerMain;
 import view.gui_utility.MyJFrameSingletonImpl;
 import view.gui_utility.MyJPanelImpl;
 import view.online.OnlineMainImpl;
@@ -64,7 +64,7 @@ public class MainGUI extends MyJPanelImpl {
 		}));
 
 		south.add(createButton("Gestione Tasse", e -> {
-			new FeeManager();
+			new FeeManagerMain();
 		}));
 
 		south.add(createButton("Gestione Eventi", e -> {

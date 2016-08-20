@@ -20,7 +20,7 @@ public class GestioneTasseExcursionRepartoImplPane extends MyJPanelImpl {
 	public GestioneTasseExcursionRepartoImplPane(){
 		super(new BorderLayout());
 		final MyJPanelImpl panel=new MyJPanelImpl(new BorderLayout());
-		final EditableElementScrollPanelImpl<Member>mem= new EditableElementScrollPanelImpl<>(Type.EXCREPTASSE, MyOptional.empty());
+		final EditableElementScrollPanelImpl<Member>mem= new EditableElementScrollPanelImpl<>(Type.UNITEXCFEE, MyOptional.empty());
 		this.add(panel.createJLabel("<html><U>Gestione Tasse Escursioni</U></html>", FONTSIZE),BorderLayout.NORTH);
 		panel.add(panel.createJLabel("Membri senza squadriglia che non hanno pagato le escursioni", FONTSIZELABEL),BorderLayout.NORTH);
 		panel.add(mem,BorderLayout.CENTER);

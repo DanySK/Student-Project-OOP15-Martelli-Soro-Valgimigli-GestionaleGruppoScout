@@ -32,9 +32,9 @@ public class SquadronFeeManager {
 			this.panelSplitted = new MyJPanelImpl(new GridLayout(2, 1));
 			this.panelIscrizione = new MyJPanelImpl(new BorderLayout());
 			this.panelEscursioni = new MyJPanelImpl(new BorderLayout());
-			panelIscrizione.add(new EditableElementScrollPanelImpl<Member>(Type.RETTASQUAD, MyOptional.of(squadName)),
+			panelIscrizione.add(new EditableElementScrollPanelImpl<Member>(Type.SQFEE, MyOptional.of(squadName)),
 					BorderLayout.CENTER);
-			panelEscursioni.add(new EditableElementScrollPanelImpl<Member>(Type.TASSEEXCSQUAD, MyOptional.of(squadName)),
+			panelEscursioni.add(new EditableElementScrollPanelImpl<Member>(Type.SQEXCFEE, MyOptional.of(squadName)),
 					BorderLayout.CENTER);
 			panelSplitted.add(panelIscrizione);
 			panelSplitted.add(panelEscursioni);

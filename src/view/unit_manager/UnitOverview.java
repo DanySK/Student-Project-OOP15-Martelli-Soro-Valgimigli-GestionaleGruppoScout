@@ -41,7 +41,7 @@ public class UnitOverview {
 		private final static int FONTSIZE = 19;
 		private final static int FONTSIZELABEL = 18;
 		private final static int FONTSIZEBUTTON = 12;
-		private final EditableElementScrollPanelImpl<Member> pnMem = new EditableElementScrollPanelImpl<>(Type.OVERVIEWREP,
+		private final EditableElementScrollPanelImpl<Member> pnMem = new EditableElementScrollPanelImpl<>(Type.OVERVIEWUNIT,
 				MyOptional.empty());
 
 		public RepartoOverviewImplPane() {
