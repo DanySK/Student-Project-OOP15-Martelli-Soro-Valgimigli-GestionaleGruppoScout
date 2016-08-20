@@ -58,8 +58,7 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 	private final EditableElementScrollPanel<E> me;
 	private final Type type;
 	private String squadName;
-	private final Container cnt;
-	private final Unit unit;
+	
 	//private final RepartoImpl rep;
 	private Map<Member, List<Excursion>> mapPagamenti = new HashMap<>();
 
@@ -68,8 +67,7 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 		super(new BorderLayout());
 		final SortMemberImpl sort=new SortMemberImpl(); 
 		final SortExcursion sortExc=new SortExcursionImpl();
-		unit=MyJFrameSingletonImpl.getInstance().getUnit();
-		cnt=unit.getContainers();
+		
 		this.type = typeParam;
 		this.me = this;
 		//this.rep = (RepartoImpl) MyJFrameSingletonImpl.getInstance().getUnit().getReparto();
@@ -148,6 +146,8 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 	@Override
 	@SuppressWarnings("unchecked")
 	public final void updateMember() {
+		Unit unit=MyJFrameSingletonImpl.getInstance().getUnit();
+		Container cnt=unit.getContainers();
 		if (type.equals(Type.MANAGERSQUAD) || type.equals(Type.OVERVIEWSQUAD)) {
 			this.memList = (List<E>) cnt.findSquadron(squadName).getMembri().keySet().stream().collect(Collectors.toList());
 			updateMemberBotton();
@@ -220,6 +220,8 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 	}
 
 	private void updateMemberBotton() {
+		Unit unit=MyJFrameSingletonImpl.getInstance().getUnit();
+	
 		SwingUtilities.invokeLater(new Runnable() {
 			@SuppressWarnings("unchecked")
 			public void run() {
@@ -253,6 +255,8 @@ public class EditableElementScrollPanelImpl<E> extends MyJPanelImpl implements E
 
 	@SuppressWarnings("unchecked")
 	private JButton instanceJButton(final E mem) {
+		Unit unit=MyJFrameSingletonImpl.getInstance().getUnit();
+		Container cnt=unit.getContainers();
 
 		if (type.equals(Type.MANAGERSQUAD) || type.equals(Type.OVERVIEWUNIT)) {
 			if (cnt.getFreeMember().contains(((Member) mem))) {
