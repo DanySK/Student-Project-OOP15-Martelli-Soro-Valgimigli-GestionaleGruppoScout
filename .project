@@ -23,7 +23,7 @@
 	<variableList>
 		<variable>
 			<name>immagini</name>
-			<value>file:/C:/Users/Valgio/workspace/oop-project-ScoutApp/res</value>
+			<value>res</value>
 		</variable>
 	</variableList>
 </projectDescription>
