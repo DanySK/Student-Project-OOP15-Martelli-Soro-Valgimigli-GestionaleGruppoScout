@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/WorkSpaceProject/SCOUTSPERIAMOBENE/res/externalJAR/javax.mail-1.5.6.jar" sourcepath="res/externalJAR/javax.mail-1.5.6.jar"/>
+	<classpathentry kind="lib" path="/res/externalJAR/javax.mail-1.5.6.jar" sourcepath="res/externalJAR/javax.mail-1.5.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
