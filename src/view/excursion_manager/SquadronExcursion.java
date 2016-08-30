@@ -2,14 +2,11 @@ package view.excursion_manager;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.stream.Collectors;
 
 import javax.swing.SwingUtilities;
 
-import control.SortExcursionImpl;
 import control.myUtil.MyOptional;
 import model.escursioni.Excursion;
-import model.escursioni.UscitaSquadriglia;
 import model.reparto.Squadron;
 import view.excursion_manager.utility.AddExcursionJDialog;
 import view.excursion_manager.utility.AddExcursionJDialog.TypeExcursion;
@@ -80,14 +77,26 @@ public class SquadronExcursion {
 					panelTopInfo.removeAll();
 					// Long i =1 ;
 					panelTopInfo.add(createJLabel("Prossimo Uscita: ", FONTSIZELABEL));
-
+					final String str;
+					if(MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getNextExcursionForSquadron(squadImpl)==null){
+						str="Niente in programma";
+					}
+					else{
+						str=MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getNextExcursionForSquadron(squadImpl).getName()+
+							"("+MyJFrameSingletonImpl.getInstance().getUnit().getContainers().getNextExcursionForSquadron(squadImpl).getDateStart()+
+							")";
+					}
+					panelTopInfo.add(createJLabel(str, FONTSIZELABEL));
+					
+					/*
+ 
 					panelTopInfo.add(createJLabel((new SortExcursionImpl())
 							.sortByDateOfStart(MyJFrameSingletonImpl.getInstance().getUnit().getContainers()
 									.getExcursion().stream().filter(e -> e instanceof UscitaSquadriglia)
 									.collect(Collectors.toList()))
 							.stream().map(t -> new String(t.getName() + "(" + t.getDateStart() + ")")).findFirst()
 							.orElse("Niente in programma"), FONTSIZELABEL));
-					panelTopInfo.repaint();
+*/					panelTopInfo.repaint();
 					panelTopInfo.validate();
 
 				}

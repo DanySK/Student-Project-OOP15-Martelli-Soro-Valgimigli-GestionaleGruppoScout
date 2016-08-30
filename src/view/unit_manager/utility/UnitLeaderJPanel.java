@@ -2,6 +2,8 @@ package view.unit_manager.utility;
 
 import java.time.LocalDate;
 
+import model.exception.IllegalDateException;
+
 public interface UnitLeaderJPanel {
 
 	/**
@@ -20,9 +22,10 @@ public interface UnitLeaderJPanel {
 	/**
 	 * Return a localDate generated on user input
 	 * @return
+	 * 
 	 */
 
-	LocalDate getDate();
+	LocalDate getDate() throws IllegalDateException;
 
 	/**
 	 * return phone JtextFiled's Text
