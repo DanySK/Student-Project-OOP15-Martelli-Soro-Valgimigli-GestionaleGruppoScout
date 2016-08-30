@@ -205,5 +205,11 @@ public interface Container {
 	 * @return
 	 */
 	List<Member> getMemberNamedFromList(String name, String surname, List<Member> list);
+	/**
+	 * 
+	 * @param sq
+	 * @return
+	 */
+	Excursion getNextExcursionForSquadron(Squadron sq);
 
 }

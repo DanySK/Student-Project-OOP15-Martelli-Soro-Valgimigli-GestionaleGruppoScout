@@ -54,7 +54,7 @@ public class testTest {
 			
 			assertTrue(fenice.getName().equals("Fenice_viola"));
 			
-			fenice.getMember("Lollo", "Verdi").setTutorMail("lorenzo.valgimigli@libero.it");
+			fenice.getMember("Lollo", "Verdi").get(0).setTutorMail("lorenzo.valgimigli@libero.it");
 
 			assertTrue(new SortMemberImpl().sortByAge(ct.getMembers()).get(0).getName().equals("Maria"));
 			Uscita usc = ProjectFactoryImpl.getStdExcursion(LocalDate.now().plus(5, ChronoUnit.DAYS), fenice.getReparto() , "Yuuuppi");
